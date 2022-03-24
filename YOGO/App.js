@@ -16,14 +16,6 @@ function SearchScreen() {
   return <Text>Search</Text>;
 }
 
-function NotificationScreen() {
-  return <Text>Notification</Text>;
-}
-
-function MessageScreen() {
-  return <Text>Message</Text>;
-}
-
 function App() {
   return (
     <NavigationContainer>
