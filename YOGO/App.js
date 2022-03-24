@@ -2,19 +2,35 @@
 
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import HomeScreen from './screens/Home';
-import DetailScreen from './screens/Detail';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {Text} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
-const Stack = createNativeStackNavigator(); // 뒤로가기 앞으로 가기를 위한, 스택
+const Tab = createBottomTabNavigator();
+
+function HomeScreen() {
+  return <Text>Home</Text>;
+}
+
+function SearchScreen() {
+  return <Text>Search</Text>;
+}
+
+function NotificationScreen() {
+  return <Text>Notification</Text>;
+}
+
+function MessageScreen() {
+  return <Text>Message</Text>;
+}
 
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Detail" component={DetailScreen} />
-      </Stack.Navigator>
+      <Tab.Navigator initialRouteName="Home">
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Search" component={SearchScreen} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
