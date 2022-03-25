@@ -1,12 +1,10 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-function DetailScreen() {
+export function Detail() {
   return (
     <View>
       <Text>Detail</Text>
     </View>
   );
 }
-
-export default DetailScreen;

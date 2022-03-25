@@ -10,7 +10,14 @@
     "noEmit": true,
     "strict": true,
     "target": "esnext",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": "./src",
+    "paths": {
+      "~/*": ["./*"],
+      "components/*": ["components/*"],
+      "screens/*": ["screens/*"],
+      "assets/*": ["assets/*"]
+    }
   },
   "exclude": [
     "node_modules",
