@@ -3,7 +3,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-function DetailScreen() {
+function HomeScreen() {
   return (
     <View>
       <Text>Detail</Text>
@@ -11,4 +11,4 @@ function DetailScreen() {
   );
 }
 
-export default DetailScreen;
+export default HomeScreen;
