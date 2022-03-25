@@ -1,10 +1,10 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import * as S from './style';
 
 export function Detail() {
   return (
-    <View>
-      <Text>Detail</Text>
-    </View>
+    <S.Container>
+      <S.Title>Detail</S.Title>
+    </S.Container>
   );
 }
