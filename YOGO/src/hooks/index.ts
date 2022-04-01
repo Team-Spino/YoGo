@@ -1,1 +1,1 @@
-export {};
+export { useTimeZone } from 'hooks/useTimeZone';
