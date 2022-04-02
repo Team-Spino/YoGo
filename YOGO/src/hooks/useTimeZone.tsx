@@ -14,10 +14,10 @@ dayjs.updateLocale('en', {
   relativeTime: {
     future: 'future %s',
     past: 'ago %s',
-    s: 'a few seconds',
-    m: 'a minute',
-    mm: '%d minutes',
-    h: 'an hour',
+    s: '0',
+    m: '0',
+    mm: '0',
+    h: '1',
     hh: '%d hours',
     d: 'a day',
     dd: '%d days',
@@ -47,6 +47,8 @@ export function useTimeZone() {
     targetLocalTime: string;
   }) => {
     const result = dayjs(targetLocalTime).fromNow().split(' ');
+
+    if (result[1] === '0') return `+${result[1]}`;
 
     if (result[0] === 'future') return `+${result[1]}`;
 
@@ -80,7 +82,7 @@ export function useTimeZone() {
     });
 
     useEffect(() => {
-      const timeout = setTimeout(() => {
+      const timeout = setInterval(() => {
         const time = getTargetLocalTime({
           curLocalTime,
           targetLocal: selectedTimeZone,
@@ -102,7 +104,7 @@ export function useTimeZone() {
         }));
       }, 500);
 
-      return () => clearTimeout(timeout);
+      return () => clearInterval(timeout);
     }, [timeState, setTimeState]);
 
     return timeState;
