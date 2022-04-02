@@ -108,22 +108,5 @@ export function useTimeZone() {
     return timeState;
   };
 
-  // console.log(getCurrentTimeZone({ selectedTimeZone: 'America/New_York' }));
-
   return { curDeviceTimeZone, getCurrentTimeZone };
 }
-
-// setInterval(() => {
-//   const currentTime = dayjs().format('YYYY-MM-DD HH:mm');
-//   const result = dayjs(currentTime)
-//     .tz(selectedTimeZone)
-//     .format('YYYY-MM-DD HH:mm');
-//   const timeDifferenceA = Number(currentTime.split(' ')[1].split(':')[0]);
-//   const timeDifferenceB = Number(result.split(' ')[1].split(':')[0]);
-
-//   console.log(dayjs(result).fromNow());
-//   // console.log(dayjs(currentTime.split(' ')[0]));
-//   // console.log(dayjs(result.split(' ')[0]));
-
-//   console.log(timeDifferenceB - timeDifferenceA);
-// }, 1000);
