@@ -108,5 +108,10 @@ export function useTimeZone() {
     return timeState;
   };
 
-  return { curDeviceTimeZone, getCurrentTimeZone };
+  return {
+    curDeviceTimeZone,
+    getCurrentTimeZone,
+    getCurLocalTime,
+    getTargetLocalTime,
+  };
 }
