@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* YOGOTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* YOGOTests.m */; };
-		0E656989344796644CB1EA11 /* libPods-YOGO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 597968D69098D8D3E8B588CF /* libPods-YOGO.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		66819312401FEFC3DC30AA2F /* libPods-YOGO-YOGOTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F48D29C59E292D65F014F77 /* libPods-YOGO-YOGOTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		EF68B38087F4009B03488576 /* libPods-YOGO-YOGOTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 037F44978B87E6FA51FB6FC1 /* libPods-YOGO-YOGOTests.a */; };
+		9EA7957964ACD23E90556576 /* libPods-YOGO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25863D1E7788042DCF83B894 /* libPods-YOGO.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,20 +30,20 @@
 		00E356EE1AD99517003FC87E /* YOGOTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YOGOTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* YOGOTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YOGOTests.m; sourceTree = "<group>"; };
-		037F44978B87E6FA51FB6FC1 /* libPods-YOGO-YOGOTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YOGO-YOGOTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* YOGO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YOGO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = YOGO/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = YOGO/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = YOGO/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = YOGO/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = YOGO/main.m; sourceTree = "<group>"; };
-		319205042A86972FEA96BAEA /* Pods-YOGO-YOGOTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YOGO-YOGOTests.release.xcconfig"; path = "Target Support Files/Pods-YOGO-YOGOTests/Pods-YOGO-YOGOTests.release.xcconfig"; sourceTree = "<group>"; };
-		597968D69098D8D3E8B588CF /* libPods-YOGO.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YOGO.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7D982DE95468015DF10D3D83 /* Pods-YOGO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YOGO.release.xcconfig"; path = "Target Support Files/Pods-YOGO/Pods-YOGO.release.xcconfig"; sourceTree = "<group>"; };
+		25863D1E7788042DCF83B894 /* libPods-YOGO.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YOGO.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F48D29C59E292D65F014F77 /* libPods-YOGO-YOGOTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YOGO-YOGOTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		54D89F65B0CD1999B325AA23 /* Pods-YOGO-YOGOTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YOGO-YOGOTests.release.xcconfig"; path = "Target Support Files/Pods-YOGO-YOGOTests/Pods-YOGO-YOGOTests.release.xcconfig"; sourceTree = "<group>"; };
+		76CB115B9317111CF31C33A3 /* Pods-YOGO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YOGO.debug.xcconfig"; path = "Target Support Files/Pods-YOGO/Pods-YOGO.debug.xcconfig"; sourceTree = "<group>"; };
+		7C65E4FE2E9AE900DA5C0133 /* Pods-YOGO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YOGO.release.xcconfig"; path = "Target Support Files/Pods-YOGO/Pods-YOGO.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = YOGO/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		BDA315824BCED280392757D2 /* Pods-YOGO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YOGO.debug.xcconfig"; path = "Target Support Files/Pods-YOGO/Pods-YOGO.debug.xcconfig"; sourceTree = "<group>"; };
+		CAA406F0E94E45D9756FC7A6 /* Pods-YOGO-YOGOTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YOGO-YOGOTests.debug.xcconfig"; path = "Target Support Files/Pods-YOGO-YOGOTests/Pods-YOGO-YOGOTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		FF88034C3E9FCC69053DFAA9 /* Pods-YOGO-YOGOTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YOGO-YOGOTests.debug.xcconfig"; path = "Target Support Files/Pods-YOGO-YOGOTests/Pods-YOGO-YOGOTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF68B38087F4009B03488576 /* libPods-YOGO-YOGOTests.a in Frameworks */,
+				66819312401FEFC3DC30AA2F /* libPods-YOGO-YOGOTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E656989344796644CB1EA11 /* libPods-YOGO.a in Frameworks */,
+				9EA7957964ACD23E90556576 /* libPods-YOGO.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,8 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				597968D69098D8D3E8B588CF /* libPods-YOGO.a */,
-				037F44978B87E6FA51FB6FC1 /* libPods-YOGO-YOGOTests.a */,
+				25863D1E7788042DCF83B894 /* libPods-YOGO.a */,
+				2F48D29C59E292D65F014F77 /* libPods-YOGO-YOGOTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -109,10 +109,10 @@
 		5B127CE30CD5C58A6451ADF8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				BDA315824BCED280392757D2 /* Pods-YOGO.debug.xcconfig */,
-				7D982DE95468015DF10D3D83 /* Pods-YOGO.release.xcconfig */,
-				FF88034C3E9FCC69053DFAA9 /* Pods-YOGO-YOGOTests.debug.xcconfig */,
-				319205042A86972FEA96BAEA /* Pods-YOGO-YOGOTests.release.xcconfig */,
+				76CB115B9317111CF31C33A3 /* Pods-YOGO.debug.xcconfig */,
+				7C65E4FE2E9AE900DA5C0133 /* Pods-YOGO.release.xcconfig */,
+				CAA406F0E94E45D9756FC7A6 /* Pods-YOGO-YOGOTests.debug.xcconfig */,
+				54D89F65B0CD1999B325AA23 /* Pods-YOGO-YOGOTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -155,11 +155,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "YOGOTests" */;
 			buildPhases = (
-				B126F9C1A35072266DDA706F /* [CP] Check Pods Manifest.lock */,
+				A5BD90C4BC9BE8560530F3A1 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				946113BCA3D5B497C01441E6 /* [CP] Copy Pods Resources */,
+				F4AE211BC29F75CBC8084FA9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -175,13 +175,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "YOGO" */;
 			buildPhases = (
-				87E95CE889043AA1D7DC5BA7 /* [CP] Check Pods Manifest.lock */,
+				C01E09E0D9B7D30DCF385840 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				A5A4D1747F9C01D12EA5BED7 /* [CP] Copy Pods Resources */,
+				7B11E0B0BAE9C0047CE04AF3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -262,7 +262,46 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		87E95CE889043AA1D7DC5BA7 /* [CP] Check Pods Manifest.lock */ = {
+		7B11E0B0BAE9C0047CE04AF3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YOGO/Pods-YOGO-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YOGO/Pods-YOGO-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YOGO/Pods-YOGO-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A5BD90C4BC9BE8560530F3A1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-YOGO-YOGOTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C01E09E0D9B7D30DCF385840 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -284,7 +323,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		946113BCA3D5B497C01441E6 /* [CP] Copy Pods Resources */ = {
+		F4AE211BC29F75CBC8084FA9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -299,45 +338,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YOGO-YOGOTests/Pods-YOGO-YOGOTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A5A4D1747F9C01D12EA5BED7 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-YOGO/Pods-YOGO-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-YOGO/Pods-YOGO-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YOGO/Pods-YOGO-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B126F9C1A35072266DDA706F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-YOGO-YOGOTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -392,7 +392,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF88034C3E9FCC69053DFAA9 /* Pods-YOGO-YOGOTests.debug.xcconfig */;
+			baseConfigurationReference = CAA406F0E94E45D9756FC7A6 /* Pods-YOGO-YOGOTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -419,7 +419,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 319205042A86972FEA96BAEA /* Pods-YOGO-YOGOTests.release.xcconfig */;
+			baseConfigurationReference = 54D89F65B0CD1999B325AA23 /* Pods-YOGO-YOGOTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -443,7 +443,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BDA315824BCED280392757D2 /* Pods-YOGO.debug.xcconfig */;
+			baseConfigurationReference = 76CB115B9317111CF31C33A3 /* Pods-YOGO.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -469,7 +469,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7D982DE95468015DF10D3D83 /* Pods-YOGO.release.xcconfig */;
+			baseConfigurationReference = 7C65E4FE2E9AE900DA5C0133 /* Pods-YOGO.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
