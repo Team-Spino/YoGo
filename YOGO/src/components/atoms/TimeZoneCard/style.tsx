@@ -18,6 +18,8 @@ export const Container = styled.View`
     shadowRadius: 3.84;
     elevation: 5;
     margin-top: 18px;
+
+    border-radius : 5px;
 `
 
 export const leftDiv = styled.View`
@@ -42,5 +44,6 @@ export const rightDivTime = styled.Text`
     font-size: 32px;
 `
 export const rightDivTimeTail = styled.Text`
+    margin-left: 5px;
     font-size: 16px;
 `
