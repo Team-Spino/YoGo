@@ -4,8 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TimeZone, Detail } from 'screens';
 import { ThemeProvider } from 'styled-components/native';
 import { theme } from './styles/theme';
-import IconHome from './assets/icons/IconHome';
-import IconTimeZone from './assets/icons/IconTimeZone';
+import { IconHome , IconTimeZone } from './assets';
+
 
 const Tab = createBottomTabNavigator();
 function App() {
