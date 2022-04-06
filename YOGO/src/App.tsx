@@ -14,7 +14,7 @@ function App() {
     <NavigationContainer>
       <ThemeProvider theme={theme}>
       <Tab.Navigator initialRouteName="Home">
-        <Tab.Screen name="Home" component={Detail} options={{ title: '홈',  tabBarIcon: ({ color, size }) => (
+        <Tab.Screen name="Home" component={Detail} options={{ title: 'Home',  tabBarIcon: ({ color, size }) => (
             <IconHome />
           ),}} />
         <Tab.Screen name="Search" component={TimeZone} options={{ title: 'TimeZone', tabBarIcon: ({ color, size }) => (
