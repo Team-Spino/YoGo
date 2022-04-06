@@ -1,17 +1,21 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Home, Detail } from 'screens';
+import { TimeZone, Detail } from 'screens';
+import { ThemeProvider } from 'styled-components/native';
+import { theme } from './styles/theme';
 
 const Tab = createBottomTabNavigator();
-
 function App() {
   return (
+ 
     <NavigationContainer>
-      <Tab.Navigator initialRouteName="Home">
-        <Tab.Screen name="Home" component={Home} />
+     <ThemeProvider theme={theme}>
+      <Tab.Navigator initialRouteName="TimeZone">
+        <Tab.Screen name="TimeZone" component={TimeZone} />
         <Tab.Screen name="Search" component={Detail} />
       </Tab.Navigator>
+      </ThemeProvider>
     </NavigationContainer>
   );
 }
