@@ -1,4 +1,6 @@
 module.exports = {
+  endOfLine: "auto", 
+
   singleQuote: true,
   // 문자열은 따옴표로 formatting
   semi: true,
