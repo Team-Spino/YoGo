@@ -1,10 +1,10 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { TimeZone, Detail } from 'screens';
+import { TimeZone, Home } from 'screens';
+import { IconHome, IconTimeZone } from './assets';
 import { ThemeProvider } from 'styled-components/native';
 import { theme } from './styles/theme';
-import { IconHome, IconTimeZone } from './assets';
 
 const Tab = createBottomTabNavigator();
 function App() {
@@ -14,7 +14,7 @@ function App() {
         <Tab.Navigator initialRouteName="Home">
           <Tab.Screen
             name="Home"
-            component={Detail}
+            component={Home}
             options={{
               title: 'Home',
               tabBarIcon: ({ color, size }) => <IconHome />,

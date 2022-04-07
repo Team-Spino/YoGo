@@ -1,2 +1,2 @@
-export {TimeZone} from 'screens/TimeZone';
-export {Detail} from 'screens/Deatil';
+export { TimeZone } from 'screens/TimeZone';
+export { Home } from 'screens/Home';

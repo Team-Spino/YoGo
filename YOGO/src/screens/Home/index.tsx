@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import * as S from './style';
 
 export function Home() {
   return (
-    <View>
-      <Text>Home</Text>
-    </View>
+    <S.Container>
+      <S.Title>Home</S.Title>
+    </S.Container>
   );
 }
