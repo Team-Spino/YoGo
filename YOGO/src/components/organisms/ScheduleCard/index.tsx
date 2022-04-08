@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Switch } from 'react-native';
 import { Title, SubTitle, DayOfWeek, Tag } from 'components';
 import * as S from './style';
 
@@ -9,22 +9,18 @@ export function ScheduleCard() {
       <S.Wrapper>
         <S.Inner>
           <View>
-            <Tag color={'red'} />
+            <Tag color={'#91FC88'} />
           </View>
           <View>
-            <Title text={'hello'} />
+            <Title size={30} text={'hello'} />
             <SubTitle text={'hello'} />
             <DayOfWeek selectedDay={['월', '수', '금', '토']} />
           </View>
         </S.Inner>
         <S.Inner>
           <View>
-            <Text>good</Text>
-          </View>
-          <View>
-            <Title text={'hello'} />
-            <SubTitle text={'hello'} />
-            <DayOfWeek selectedDay={['월', '수', '금', '토']} />
+            <Text>Hello</Text>
+            <Switch />
           </View>
         </S.Inner>
       </S.Wrapper>

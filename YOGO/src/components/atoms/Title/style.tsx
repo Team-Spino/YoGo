@@ -1,7 +1,11 @@
 import styled from 'styled-components/native';
 
-export const Text = styled.Text`
-  font-size: 30;
+interface ITitleProps {
+  size: number;
+}
+
+export const Text = styled.Text<ITitleProps>`
+  font-size: ${props => props.size};
   font-weight: bold;
   margin-bottom: 5;
 `;
