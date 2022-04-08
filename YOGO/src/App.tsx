@@ -1,37 +1,52 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { TimeZone, Home } from 'screens';
-import { IconHome, IconTimeZone } from './assets';
-import { ThemeProvider } from 'styled-components/native';
-import { theme } from './styles/theme';
+import React, { useCallback, useMemo, useRef } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import BottomSheet from '@gorhom/bottom-sheet';
 
-const Tab = createBottomTabNavigator();
-function App() {
-  return (
-    <NavigationContainer>
-      <ThemeProvider theme={theme}>
-        <Tab.Navigator initialRouteName="Home">
-          <Tab.Screen
-            name="Home"
-            component={Home}
-            options={{
-              title: 'Home',
-              tabBarIcon: ({ color, size }) => <IconHome />,
-            }}
-          />
-          <Tab.Screen
-            name="Search"
-            component={TimeZone}
-            options={{
-              title: 'TimeZone',
-              tabBarIcon: ({ color, size }) => <IconTimeZone />,
-            }}
-          />
-        </Tab.Navigator>
-      </ThemeProvider>
-    </NavigationContainer>
-  );
+const test = () => {
+  return(
+  <View style={styles.contentContainer}>
+  <Text>Awesome 🎉</Text>
+</View>
+  )
 }
+
+
+const App = () => {
+  // ref
+  const bottomSheetRef = useRef<BottomSheet>(null);
+
+  // variables
+  const snapPoints= [200, 500]
+
+  // callbacks
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log('handleSheetChanges', index);
+  }, []);
+
+  // renders
+  return (
+    <View style={styles.container}>
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={0}
+        snapPoints={['%100']}
+        onChange={handleSheetChanges}
+        children={test}
+       />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 24,
+    backgroundColor: 'grey',
+  },
+  contentContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
+});
 
 export default App;
