@@ -1,7 +1,6 @@
 import React from 'react';
-import uuid from 'react-native-uuid';
 import { View, Text } from 'react-native';
-import { Title, SubTitle, DayOfWeek } from 'components';
+import { Title, SubTitle, DayOfWeek, Tag } from 'components';
 import * as S from './style';
 
 export function ScheduleCard() {
@@ -10,7 +9,7 @@ export function ScheduleCard() {
       <S.Wrapper>
         <S.Inner>
           <View>
-            <Text>good</Text>
+            <Tag color={'red'} />
           </View>
           <View>
             <Title text={'hello'} />

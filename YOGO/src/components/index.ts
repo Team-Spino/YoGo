@@ -5,7 +5,7 @@ export { HeaderRightButton } from 'components/atoms/HeaderRightButton';
 export { Title } from 'components/atoms/Title';
 export { SubTitle } from 'components/atoms/SubTitle';
 export { DayOfWeek } from 'components/atoms/DayOfWeek';
-
+export { Tag } from 'components/atoms/Tag';
 // Molecules
 export { ScheduleCard } from 'components/molecules/ScheduleCard';
 

@@ -31,8 +31,10 @@ export const Inner = styled.View`
   height: 100%;
 
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: row;
+
+  margin-top: 10;
 `;
 
 // export const Temp = styled.View`
