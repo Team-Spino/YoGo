@@ -1,10 +1,12 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Title, ToggleBtn } from 'components';
+import * as S from './style';
 
-export function ScheduleCard() {
+export function ScheduleCardRightInfo() {
   return (
-    <View>
-      <Text>hello</Text>
-    </View>
+    <S.Container>
+      <Title text={'9 : 00 pm'} size={20} />
+      <ToggleBtn />
+    </S.Container>
   );
 }

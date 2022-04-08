@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Switch } from 'react-native';
-import { ScheduleCardLeftInfo } from 'components';
+import { ScheduleCardLeftInfo, ScheduleCardRightInfo } from 'components';
 import * as S from './style';
 
 export function ScheduleCard() {
@@ -8,12 +8,7 @@ export function ScheduleCard() {
     <S.Container>
       <S.Wrapper>
         <ScheduleCardLeftInfo />
-        <S.Inner>
-          <View>
-            <Text>Hello</Text>
-            <Switch />
-          </View>
-        </S.Inner>
+        <ScheduleCardRightInfo />
       </S.Wrapper>
     </S.Container>
   );
