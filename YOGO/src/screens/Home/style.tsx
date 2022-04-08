@@ -1,9 +1,7 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  background: #eee;
-`;
-
-export const Title = styled.Text`
-  color: purple;
+  width: 100%;
+  height: 100%;
+  background: #eeeeee; ;
 `;

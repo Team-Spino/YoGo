@@ -1,0 +1,29 @@
+import styled from 'styled-components/native';
+
+export const Container = styled.TouchableOpacity`
+  height: 100;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #ffffff;
+
+  padding: 2.58px 8.2px;
+`;
+
+export const Wrapper = styled.View`
+  width: 100%;
+  height: 100%;
+
+  border-bottom-color: #c0c0c0;
+  border-bottom-width: 1;
+
+  border-top-color: #c0c0c0;
+  border-top-width: 1;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+`;
