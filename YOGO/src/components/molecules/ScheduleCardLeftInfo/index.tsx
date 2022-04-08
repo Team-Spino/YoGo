@@ -6,9 +6,7 @@ import * as S from './style';
 export function ScheduleCardLeftInfo() {
   return (
     <S.Container>
-      <View>
-        <Tag color={'#91FC88'} />
-      </View>
+      <Tag color={'#91FC88'} />
       <View>
         <Title size={30} text={'hello'} />
         <SubTitle text={'hello'} />
