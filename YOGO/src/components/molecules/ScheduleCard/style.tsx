@@ -24,7 +24,6 @@ export const Wrapper = styled.View`
 
   display: flex;
   justify-content: space-between;
-  align-items: center;
   flex-direction: row;
 `;
 
@@ -32,8 +31,7 @@ export const Inner = styled.View`
   height: 100%;
 
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: row;
 `;
 

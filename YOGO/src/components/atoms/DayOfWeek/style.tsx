@@ -6,12 +6,10 @@ interface ITextProps {
 
 export const Container = styled.View`
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: row;
 `;
 
-export const Text = styled.Text`
+export const Text = styled.Text<ITextProps>`
   color: ${props => props.color};
   margin-right: 5;
 `;
