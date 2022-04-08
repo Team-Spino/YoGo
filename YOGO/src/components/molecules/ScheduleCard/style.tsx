@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.TouchableOpacity`
-  height: 100;
+  height: 120;
 
   display: flex;
   justify-content: center;
@@ -27,3 +27,21 @@ export const Wrapper = styled.View`
   align-items: center;
   flex-direction: row;
 `;
+
+export const Inner = styled.View`
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: row;
+`;
+
+// export const Temp = styled.View`
+//   width: 100%;
+
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   flex-direction: row;
+// `;

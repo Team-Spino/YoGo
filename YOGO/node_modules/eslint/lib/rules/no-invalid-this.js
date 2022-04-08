@@ -1,5 +1,5 @@
 /**
- * @fileoverview A rule to disallow `this` keywords in contexts where the value of `this` is `undefined`.
+ * @fileoverview A rule to disallow `this` keywords outside of classes or class-like objects.
  * @author Toru Nagashima
  */
 
@@ -36,7 +36,7 @@ module.exports = {
         type: "suggestion",
 
         docs: {
-            description: "disallow use of `this` in contexts where the value of `this` is `undefined`",
+            description: "disallow `this` keywords outside of classes or class-like objects",
             recommended: false,
             url: "https://eslint.org/docs/rules/no-invalid-this"
         },
@@ -98,11 +98,11 @@ module.exports = {
                     const scope = context.getScope();
                     const features = context.parserOptions.ecmaFeatures || {};
 
-                    // `this` at the top level of scripts always refers to the global object
                     stack.push({
                         init: true,
                         node,
                         valid: !(
+                            scope.isStrict ||
                             node.sourceType === "module" ||
                             (features.globalReturn && scope.childScopes[0].isStrict)
                         )

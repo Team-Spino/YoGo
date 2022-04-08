@@ -87,7 +87,6 @@ module.exports = {
                 upper: funcInfo,
                 node,
                 strict,
-                isTopLevelOfScript: false,
                 defaultThis: false,
                 initialized: strict
             };
@@ -223,14 +222,12 @@ module.exports = {
                     strict =
                         scope.isStrict ||
                         node.sourceType === "module" ||
-                        (features.globalReturn && scope.childScopes[0].isStrict),
-                    isTopLevelOfScript = node.sourceType !== "module" && !features.globalReturn;
+                        (features.globalReturn && scope.childScopes[0].isStrict);
 
                 funcInfo = {
                     upper: null,
                     node,
                     strict,
-                    isTopLevelOfScript,
                     defaultThis: true,
                     initialized: true
                 };
@@ -272,8 +269,7 @@ module.exports = {
                     );
                 }
 
-                // `this` at the top level of scripts always refers to the global object
-                if (funcInfo.isTopLevelOfScript || (!funcInfo.strict && funcInfo.defaultThis)) {
+                if (!funcInfo.strict && funcInfo.defaultThis) {
 
                     // `this.eval` is possible built-in `eval`.
                     report(node.parent);
