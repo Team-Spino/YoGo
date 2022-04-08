@@ -1,14 +1,15 @@
 import React from 'react';
 import * as S from './style';
-
-export function Title({
-  isEnable,
-  text,
-  size,
-}: {
+interface ITitleProps {
   isEnable: boolean;
   text: string;
   size: number;
-}) {
-  return <S.Text isEnable={isEnable} size={size}>{text}</S.Text>;
+}
+
+export function Title({ isEnable, text, size }: ITitleProps) {
+  return (
+    <S.Text isEnable={isEnable} size={size}>
+      {text}
+    </S.Text>
+  );
 }

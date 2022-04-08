@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import * as S from './style';
-
-export function ToggleBtn({
-  isEnable,
-  onTogglePress,
-}: {
+interface IToggleBtnProps {
   isEnable: boolean;
   onTogglePress: () => void;
-}) {
+}
+
+export function ToggleBtn({ isEnable, onTogglePress }: IToggleBtnProps) {
   return (
     <S.Button
       trackColor={{ false: '#767577', true: '#6564CC' }}
