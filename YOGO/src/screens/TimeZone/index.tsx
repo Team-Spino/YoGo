@@ -9,7 +9,7 @@ import * as S from './style';
 export function TimeZone() {
   const navigation = useNavigation();
   navigation.setOptions({
-    headerRight: () => <HeaderRightButton></HeaderRightButton>,
+    // headerRight: () => <HeaderRightButton></HeaderRightButton>,
   });
   return <TimeZoneList></TimeZoneList>;
 }
