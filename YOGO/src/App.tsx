@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TimeZone, Home } from 'screens';
-import { IconHome, IconTimeZone } from './assets';
+import { IconHome, IconTimeZone } from 'assets';
 import { ThemeProvider } from 'styled-components/native';
 import { theme } from './styles/theme';
 

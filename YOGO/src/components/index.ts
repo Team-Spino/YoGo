@@ -7,9 +7,11 @@ export { SubTitle } from 'components/atoms/SubTitle';
 export { DayOfWeek } from 'components/atoms/DayOfWeek';
 export { Tag } from 'components/atoms/Tag';
 export { ToggleBtn } from 'components/atoms/ToggleBtn';
+export { ModalTimeInfo } from 'components/atoms/ModalTimeInfo';
 
 // Molecules
 export { ModalHeader } from 'components/molecules/ModalHeader';
+export { ModalTime } from 'components/molecules/ModalTime';
 export { ScheduleCardLeftInfo } from 'components/molecules/ScheduleCardLeftInfo';
 export { ScheduleCardRightInfo } from 'components/molecules/ScheduleCardRightInfo';
 
