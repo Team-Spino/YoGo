@@ -9,7 +9,7 @@ export { Tag } from 'components/atoms/Tag';
 export { ToggleBtn } from 'components/atoms/ToggleBtn';
 
 // Molecules
-export { DetailHeader } from 'components/molecules/DetailHeader';
+export { ModalHeader } from 'components/molecules/ModalHeader';
 export { ScheduleCardLeftInfo } from 'components/molecules/ScheduleCardLeftInfo';
 export { ScheduleCardRightInfo } from 'components/molecules/ScheduleCardRightInfo';
 

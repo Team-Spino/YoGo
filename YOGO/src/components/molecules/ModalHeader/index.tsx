@@ -2,7 +2,7 @@ import React from 'react';
 import { Tag, Title } from 'components';
 import * as S from './style';
 
-export function DetailHeader({
+export function ModalHeader({
   tagColor,
   title,
 }: {
