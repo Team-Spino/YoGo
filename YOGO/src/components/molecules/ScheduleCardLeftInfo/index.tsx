@@ -6,7 +6,7 @@ import * as S from './style';
 export function ScheduleCardLeftInfo({ isEnable }: { isEnable: boolean }) {
   return (
     <S.Container>
-      <Tag color={'#91FC88'} />
+      <Tag color={'#91FC88'} margin={5} />
       <View>
         <Title isEnable={isEnable} size={30} text={'hello'} />
         <SubTitle isEnable={isEnable} text={'hello'} />
