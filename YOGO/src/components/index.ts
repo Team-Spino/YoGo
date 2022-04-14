@@ -8,13 +8,14 @@ export { DayOfWeek } from 'components/atoms/DayOfWeek';
 export { Tag } from 'components/atoms/Tag';
 export { ToggleBtn } from 'components/atoms/ToggleBtn';
 export { ModalTimeInfo } from 'components/atoms/ModalTimeInfo';
-export { ModalLeftTime } from 'components/atoms/ModalLeftTime';
+
 // Molecules
 export { ModalHeader } from 'components/molecules/ModalHeader';
 export { ModalTime } from 'components/molecules/ModalTime';
 export { ScheduleCardHeader } from 'components/molecules/ScheduleCardHeader';
 export { ScheduleCardContent } from 'components/molecules/ScheduleCardContent';
 export { ModalMemo } from 'components/molecules/ModalMemo';
+
 // Organisms
 export { DetailModal } from 'components/organisms/DetailModal';
 export { TimeZoneList } from 'components/organisms/TimeZoneList';

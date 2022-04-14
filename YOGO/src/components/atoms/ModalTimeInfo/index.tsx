@@ -18,23 +18,24 @@ interface IModalTimerProps {
 }
 
 function ModalTimer({ city, date, time }: IModalTimerProps) {
-  console.log(city, date, time);
   return (
     <S.Wrapper>
-      <Title isEnable={true} text={city} size={25} />
+      <Title isEnable={true} text={city} size={20} />
       <SubTitle isEnable={true} text={date} />
-      <Title isEnable={true} text={time} size={20} />
+      <Title isEnable={true} text={time} size={17} />
     </S.Wrapper>
   );
 }
 
 export function ModalTimeInfo({ timeData }: IModalTimeProps) {
   const { target, cur } = timeData;
+  console.log(timeData);
+
   return (
     <S.Container>
-      <ModalTimer city={cur.local} date={cur.day} time={cur.time} />
-      <IconRight />
       <ModalTimer city={target.local} date={target.day} time={target.time} />
+      <IconRight />
+      <ModalTimer city={cur.local} date={cur.day} time={cur.time} />
     </S.Container>
   );
 }

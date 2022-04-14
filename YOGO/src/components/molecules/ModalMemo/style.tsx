@@ -6,3 +6,7 @@ export const Container = styled.View`
 
   padding: 20px 10px;
 `;
+
+export const Text = styled.Text`
+  line-height: 25px;
+`;

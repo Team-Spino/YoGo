@@ -11,3 +11,8 @@ export const Container = styled.View`
 
   padding: 20px 10px;
 `;
+
+export const Text = styled.Text`
+  margin-top: 7px;
+  color: #6564cc;
+`;

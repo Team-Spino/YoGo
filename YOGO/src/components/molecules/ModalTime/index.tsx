@@ -1,5 +1,5 @@
 import React from 'react';
-import { ModalTimeInfo, ModalLeftTime } from 'components';
+import { ModalTimeInfo } from 'components';
 import { ICur, ITarget } from 'types';
 import * as S from './style';
 
@@ -14,7 +14,7 @@ export function ModalTime({ timeData }: IModalTimeProps) {
   return (
     <S.Container>
       <ModalTimeInfo timeData={timeData} />
-      <ModalLeftTime />
+      <S.Text>{'알람까지 14분 남았습니다'}</S.Text>
     </S.Container>
   );
 }
