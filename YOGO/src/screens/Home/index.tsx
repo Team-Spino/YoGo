@@ -6,12 +6,6 @@ export function Home() {
   return (
     <S.Container>
       <ScheduleCard />
-      <ScheduleCard />
-      <ScheduleCard />
-      <ScheduleCard />
-      <ScheduleCard />
-      <ScheduleCard />
-      <ScheduleCard />
     </S.Container>
   );
 }

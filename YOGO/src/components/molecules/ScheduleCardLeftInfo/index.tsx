@@ -8,8 +8,8 @@ export function ScheduleCardLeftInfo({ isEnable }: { isEnable: boolean }) {
     <S.Container>
       <Tag color={'#91FC88'} margin={5} />
       <View>
-        <Title isEnable={isEnable} size={30} text={'hello'} />
-        <SubTitle isEnable={isEnable} text={'hello'} />
+        <Title isEnable={isEnable} size={25} text={'팀 스피노 회의'} />
+        <SubTitle isEnable={isEnable} text={'London 9:00pm'} />
         <DayOfWeek isEnable={isEnable} selectedDay={['월', '수', '금', '토']} />
       </View>
     </S.Container>
