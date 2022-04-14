@@ -9,10 +9,9 @@ export function ModalHeader({
   tagColor: string;
   title: string;
 }) {
-  console.log(tagColor);
   return (
     <S.Container>
-      <Tag color={tagColor} margin={-1} />
+      <Tag color={tagColor} />
       <Title isEnable={true} text={title} size={25} />
     </S.Container>
   );

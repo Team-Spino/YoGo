@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import {
-  ScheduleCardLeftInfo,
-  ScheduleCardRightInfo,
+  ScheduleCardHeader,
+  ScheduleCardContent,
   DetailModal,
+  DayOfWeek,
 } from 'components';
-import { ITimeData } from 'types';
+import { ITimeData, ITarget } from 'types';
 import * as S from './style';
 
 export function ScheduleCard({ data }: { data: ITimeData }) {
@@ -17,19 +18,20 @@ export function ScheduleCard({ data }: { data: ITimeData }) {
 
   const { title, tagColor, target, cur, dayOfWeek } = data;
 
-  const leftCardData = { title, tagColor, target, dayOfWeek };
-  const rightCardData = { cur };
+  const headData = { title, tagColor };
+  const contentData = { target, cur };
 
   return (
     <>
       <S.Container onPress={onShowDetailPress}>
         <S.Wrapper>
-          <ScheduleCardLeftInfo isEnable={isEnable} data={leftCardData} />
-          <ScheduleCardRightInfo
+          <ScheduleCardHeader isEnable={isEnable} data={headData} />
+          <ScheduleCardContent
             isEnable={isEnable}
             onTogglePress={onTogglePress}
-            data={rightCardData}
+            data={contentData}
           />
+          <DayOfWeek isEnable={isEnable} selectedDay={dayOfWeek} />
         </S.Wrapper>
       </S.Container>
       <DetailModal

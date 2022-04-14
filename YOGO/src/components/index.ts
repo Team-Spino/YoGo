@@ -12,8 +12,8 @@ export { ModalLeftTime } from 'components/atoms/ModalLeftTime';
 // Molecules
 export { ModalHeader } from 'components/molecules/ModalHeader';
 export { ModalTime } from 'components/molecules/ModalTime';
-export { ScheduleCardLeftInfo } from 'components/molecules/ScheduleCardLeftInfo';
-export { ScheduleCardRightInfo } from 'components/molecules/ScheduleCardRightInfo';
+export { ScheduleCardHeader } from 'components/molecules/ScheduleCardHeader';
+export { ScheduleCardContent } from 'components/molecules/ScheduleCardContent';
 export { ModalMemo } from 'components/molecules/ModalMemo';
 // Organisms
 export { DetailModal } from 'components/organisms/DetailModal';

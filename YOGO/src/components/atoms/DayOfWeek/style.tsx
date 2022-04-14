@@ -7,6 +7,8 @@ interface ITextProps {
 export const Container = styled.View`
   display: flex;
   flex-direction: row;
+
+  margin-left: 21px;
 `;
 
 export const Text = styled.Text<ITextProps>`
