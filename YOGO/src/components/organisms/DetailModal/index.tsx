@@ -19,7 +19,12 @@ export function DetailModal({
   const timeData = { target, cur };
 
   return (
-    <Modal isVisible={isVisible} onBackButtonPress={onCloseDetailPress}>
+    <Modal
+      isVisible={isVisible}
+      onBackdropPress={onCloseDetailPress}
+      onSwipeComplete={onCloseDetailPress}
+      swipeDirection="left"
+    >
       <S.Container>
         <S.Content>
           <ModalHeader tagColor={tagColor} title={title} />
