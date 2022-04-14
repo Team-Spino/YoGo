@@ -9,6 +9,7 @@ export function ModalHeader({
   tagColor: string;
   title: string;
 }) {
+  console.log(tagColor);
   return (
     <S.Container>
       <Tag color={tagColor} margin={-1} />

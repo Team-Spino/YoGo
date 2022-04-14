@@ -2,10 +2,10 @@ import React from 'react';
 import { Text } from 'react-native';
 import * as S from './style';
 
-export function ModalMemo() {
+export function ModalMemo({ description }: { description: string }) {
   return (
     <S.Container>
-      <Text>팀 스피노 프로젝트 2차 스크럼</Text>
+      <Text>{description}</Text>
     </S.Container>
   );
 }
