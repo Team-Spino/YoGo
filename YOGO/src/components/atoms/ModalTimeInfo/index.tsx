@@ -29,7 +29,6 @@ function ModalTimer({ city, date, time }: IModalTimerProps) {
 
 export function ModalTimeInfo({ timeData }: IModalTimeProps) {
   const { target, cur } = timeData;
-  console.log(timeData);
 
   return (
     <S.Container>
