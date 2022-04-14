@@ -8,7 +8,7 @@ interface IDayOfWeekProps {
 }
 
 export function DayOfWeek({ isEnable, selectedDay }: IDayOfWeekProps) {
-  const dayOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+  const dayOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   const handleDateColor = ({ day }: { day: string }): string => {
     if (!isEnable) {
@@ -22,7 +22,7 @@ export function DayOfWeek({ isEnable, selectedDay }: IDayOfWeekProps) {
     <S.Container>
       {dayOfWeek.map(day => (
         <S.Text key={uuid.v4()} color={handleDateColor({ day })}>
-          {day}
+          {day.substring(0, 1)}
         </S.Text>
       ))}
     </S.Container>
