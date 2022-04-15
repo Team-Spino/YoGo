@@ -5,9 +5,9 @@ interface ITextProps {
 }
 
 export const Text = styled.Text<ITextProps>`
-  font-size: 20;
+  font-size: 16px;
 
   color: ${props => props.color};
 
-  margin-bottom: 6;
+  margin-bottom: 6px;
 `;

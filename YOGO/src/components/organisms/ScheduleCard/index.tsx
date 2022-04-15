@@ -1,20 +1,44 @@
 import React, { useState } from 'react';
-import { ScheduleCardLeftInfo, ScheduleCardRightInfo } from 'components';
+import {
+  ScheduleCardHeader,
+  ScheduleCardContent,
+  DetailModal,
+  DayOfWeek,
+} from 'components';
+import { ITimeData, ITarget } from 'types';
 import * as S from './style';
 
-export function ScheduleCard() {
+export function ScheduleCard({ data }: { data: ITimeData }) {
+  const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isEnable, setIsEnable] = useState<boolean>(true);
+
   const onTogglePress = () => setIsEnable(state => !state);
+  const onShowDetailPress = () => setIsVisible(true);
+  const onCloseDetailPress = () => setIsVisible(false);
+
+  const { title, tagColor, target, cur, dayOfWeek } = data;
+
+  const headData = { title, tagColor };
+  const contentData = { target, cur };
 
   return (
-    <S.Container>
-      <S.Wrapper>
-        <ScheduleCardLeftInfo isEnable={isEnable} />
-        <ScheduleCardRightInfo
-          isEnable={isEnable}
-          onTogglePress={onTogglePress}
-        />
-      </S.Wrapper>
-    </S.Container>
+    <>
+      <S.Container onPress={onShowDetailPress}>
+        <S.Wrapper>
+          <ScheduleCardHeader isEnable={isEnable} data={headData} />
+          <ScheduleCardContent
+            isEnable={isEnable}
+            onTogglePress={onTogglePress}
+            data={contentData}
+          />
+          <DayOfWeek isEnable={isEnable} selectedDay={dayOfWeek} />
+        </S.Wrapper>
+      </S.Container>
+      <DetailModal
+        isVisible={isVisible}
+        onCloseDetailPress={onCloseDetailPress}
+        data={data}
+      />
+    </>
   );
 }
