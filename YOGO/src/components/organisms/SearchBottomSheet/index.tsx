@@ -7,10 +7,15 @@ import {
     Dimensions,
     PanResponder
 } from 'react-native';
+import { SelectTargetInput, SelectTargetList } from 'components';
 import * as S from './style';
+interface ISearchBSProps {
+    targetList: string[];
+    modalVisible: boolean;
+    setModalVisible: (modalVisible : boolean) => boolean;
+  }
 
-export const SearchBottomSheet = (props : any) => {
-    const { modalVisible, setModalVisible } = props;
+export const SearchBottomSheet = ({targetList, modalVisible, setModalVisible} : ISearchBSProps) => {
     const screenHeight = Dimensions.get("screen").height;
     const panY = useRef(new Animated.Value(screenHeight)).current;
     const translateY = panY.interpolate({
@@ -47,10 +52,10 @@ export const SearchBottomSheet = (props : any) => {
     })).current;
 
     useEffect(()=>{
-        if(props.modalVisible) {
+        if(modalVisible) {
             resetBottomSheet.start();
         }
-    }, [props.modalVisible]);
+    }, [modalVisible]);
 
     const closeModal = () => {
         closeBottomSheet.start(()=>{
@@ -72,7 +77,13 @@ export const SearchBottomSheet = (props : any) => {
                     <S.Background/>
                 </TouchableWithoutFeedback>
                 <S.Container style={{transform: [{ translateY: translateY }]}} {...panResponders.panHandlers}>
-                <Text>This is BottomSheet</Text>   
+
+                <>
+                                {/* 나중에 molecules로 묶을것! */}
+                <SelectTargetInput ></SelectTargetInput>
+                <SelectTargetList targetList = {targetList} size ={10}></SelectTargetList>
+               
+                </>
                 </S.Container>
             </S.Overlay>
         </Modal>

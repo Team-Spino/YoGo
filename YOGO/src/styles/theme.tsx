@@ -7,6 +7,6 @@ export const theme: DefaultTheme = {
   colors: {
     white: '#FCFCFC',
     lightGray: '#EEEEEE',
-    blue: '#A3BFE3',
+    blue: '#6564CC',
   },
 };

@@ -7,6 +7,24 @@ import { HeaderRightButton } from 'components';
 import * as S from './style';
 import { SearchBottomSheet } from 'components';
 export function TimeZone() {
+
+  const dummyList = [
+    'America/Bogota',
+    'America/Boise',
+    'America/Buenos_Aires',
+    'America/Cambridge_Bay',
+    'America/Campo_Grande',
+    'America/Cancun',
+    'America/Caracas',
+    'America/Catamarca',
+    'America/Cayenne',
+    'America/Cayman',
+    'America/Chicago',
+    'America/Chihuahua',
+  ]
+
+
+
   const [ modalVisible, setModalVisible ] = useState(false);
   const pressButton = () => {
       setModalVisible(true);
@@ -22,6 +40,7 @@ export function TimeZone() {
         onPress={pressButton}
     />
     <SearchBottomSheet
+        targetList= {dummyList}
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
     />

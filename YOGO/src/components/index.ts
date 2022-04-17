@@ -8,6 +8,8 @@ export { DayOfWeek } from 'components/atoms/DayOfWeek';
 export { Tag } from 'components/atoms/Tag';
 export { ToggleBtn } from 'components/atoms/ToggleBtn';
 export { ModalTimeInfo } from 'components/atoms/ModalTimeInfo';
+export { SelectTargetInput } from 'components/atoms/SelectTargetInput';
+export { SelectTargetList } from 'components/atoms/SelectTargetList';
 
 // Molecules
 export { ModalHeader } from 'components/molecules/ModalHeader';
