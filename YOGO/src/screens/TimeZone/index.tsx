@@ -9,18 +9,24 @@ import { SearchBottomSheet } from 'components';
 export function TimeZone() {
 
   const dummyList = [
-    'America/Bogota',
-    'America/Boise',
-    'America/Buenos_Aires',
-    'America/Cambridge_Bay',
-    'America/Campo_Grande',
-    'America/Cancun',
-    'America/Caracas',
-    'America/Catamarca',
-    'America/Cayenne',
-    'America/Cayman',
-    'America/Chicago',
-    'America/Chihuahua',
+    { id: 1, name: 'Tokyo' },
+    { id: 2, name: 'Osaka' },
+    { id: 3, name: 'Kyoto' },
+    { id: 4, name: 'Hokkaido' },
+    { id: 5, name: 'Sapporo' },
+    { id: 6, name: 'Fukuoka' },
+    { id: 7, name: 'Kumamoto' },
+    { id: 8, name: 'Okinawa' },
+    { id: 9, name: 'Kagoshima' },
+    { id: 10, name: 'Saitama' },
+    { id: 11, name: 'Chiba' },
+    { id: 12, name: 'Kanagawa' },
+    { id: 13, name: 'Aichi' },
+    { id: 14, name: 'Miyazaki' },
+    { id: 15, name: 'Nagoya' },
+    { id: 16, name: 'Fukushima' },
+    { id: 17, name: 'Gifu' },
+    { id: 18, name: 'Shizuoka' },
   ]
 
 

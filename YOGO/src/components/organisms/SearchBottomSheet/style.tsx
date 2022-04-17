@@ -12,11 +12,11 @@ export const Container =styled(Animated.View)`
 `;
 
 export const Background = styled.View`
-  flex: 1
+  flex: 1;
 `;
 
 export const Overlay = styled.View`
-  flex: 1
-  justify-content: flex-end
-  background-color: rgba(0, 0, 0, 0.4)
+  flex: 1;
+  justify-content: flex-end;
+  background-color: rgba(0, 0, 0, 0.4);
 `;
