@@ -1,7 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import {
-    View,
-    StyleSheet,
     Text,
     Modal,
     Animated,
@@ -10,8 +8,6 @@ import {
     PanResponder
 } from 'react-native';
 import * as S from './style';
-// modalVisible={modalVisible}
-// setModalVisible={setModalVisible}
 
 export const SearchBottomSheet = (props : any) => {
     const { modalVisible, setModalVisible } = props;
@@ -69,35 +65,16 @@ export const SearchBottomSheet = (props : any) => {
             transparent
             statusBarTranslucent
         >
-            <View style={styles.overlay}>
+            <S.Overlay>
                 <TouchableWithoutFeedback
                     onPress={closeModal}
                 >
-                    <View style={styles.background}/>
+                    <S.Background/>
                 </TouchableWithoutFeedback>
                 <S.Container style={{transform: [{ translateY: translateY }]}} {...panResponders.panHandlers}>
                 <Text>This is BottomSheet</Text>   
-                    </S.Container>
-            </View>
+                </S.Container>
+            </S.Overlay>
         </Modal>
     )
 }
-
-const styles = StyleSheet.create({
-    overlay: {
-        flex: 1,
-        justifyContent: "flex-end",
-        backgroundColor: "rgba(0, 0, 0, 0.4)"
-    },
-    background: {
-        flex: 1,
-    },
-    bottomSheetContainer: {
-        height: 300,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "white",
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
-    }
-})
