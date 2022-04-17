@@ -20,6 +20,7 @@ export { ModalMemo } from 'components/molecules/ModalMemo';
 export { DetailModal } from 'components/organisms/DetailModal';
 export { TimeZoneList } from 'components/organisms/TimeZoneList';
 export { ScheduleCard } from 'components/organisms/ScheduleCard';
+export { SearchBottomSheet } from 'components/organisms/SearchBottomSheet';
 
 // Templates
 export {};
