@@ -9,7 +9,7 @@ import {
     Dimensions,
     PanResponder
 } from 'react-native';
-
+import * as S from './style';
 // modalVisible={modalVisible}
 // setModalVisible={setModalVisible}
 
@@ -75,12 +75,9 @@ export const SearchBottomSheet = (props : any) => {
                 >
                     <View style={styles.background}/>
                 </TouchableWithoutFeedback>
-                <Animated.View
-                    style={{...styles.bottomSheetContainer, transform: [{ translateY: translateY }]}}
-                    {...panResponders.panHandlers}
-                >
-                    <Text>This is BottomSheet</Text>   
-                </Animated.View>
+                <S.Container style={{transform: [{ translateY: translateY }]}} {...panResponders.panHandlers}>
+                <Text>This is BottomSheet</Text>   
+                    </S.Container>
             </View>
         </Modal>
     )
