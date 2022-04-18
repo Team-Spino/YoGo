@@ -2,20 +2,15 @@ import styled from 'styled-components/native';
 
 export const Wrapper = styled.View`
   position: absolute;
-  bottom: 16px;
+  bottom: 15px;
   right: 16px;
   width: 56px;
   height: 56px;
   border-radius: 28px;
-  // iOS 전용 그림자 설정
-  shadowcolor: '#4d4d4d';
-  shadowoffset: {
-    width: 0;
-    height: 4;
-  }
-  shadowopacity: 0.3;
-  shadowradius: 4;
-  // 안드로이드 전용 그림자 설정
+  shadow-color: #000;
+  shadow-offset: 2px 3px;
+  shadow-opacity: 0.5;
+  shadow-radius: 2px;
   elevation: 5;
 `;
 

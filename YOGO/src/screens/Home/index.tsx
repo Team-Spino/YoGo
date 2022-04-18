@@ -1,6 +1,8 @@
 import React from 'react';
 import uuid from 'react-native-uuid';
-import { ScheduleCard } from 'components';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { FloatingButton, ScheduleCard } from 'components';
+import { IconPlus } from 'assets';
 import * as S from './style';
 
 const DUMMY_DATA = [
@@ -112,14 +114,94 @@ const DUMMY_DATA = [
     },
     dayOfWeek: ['Sun', 'Thu', 'Fri', 'Sat'],
   },
+  {
+    id: 6,
+    title: '테슬라 도지코인 시위',
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto officia nam exercitationem iure illum cupiditate minus numquam quibusdam nobis adipisci dolor, repellat quisquam iste sunt dignissimos ab praesentium possimus at.',
+    tagColor: '#CB88F8',
+    target: {
+      time: '10 : 00',
+      local: 'Los Angeles',
+      day: '2022.03.24',
+    },
+    cur: {
+      time: '08 : 00',
+      local: 'London',
+      day: '2022.03.24',
+    },
+    dayOfWeek: ['Sun', 'Thu', 'Fri', 'Sat'],
+  },
+  {
+    id: 6,
+    title: '테슬라 도지코인 시위',
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto officia nam exercitationem iure illum cupiditate minus numquam quibusdam nobis adipisci dolor, repellat quisquam iste sunt dignissimos ab praesentium possimus at.',
+    tagColor: '#CB88F8',
+    target: {
+      time: '10 : 00',
+      local: 'Los Angeles',
+      day: '2022.03.24',
+    },
+    cur: {
+      time: '08 : 00',
+      local: 'London',
+      day: '2022.03.24',
+    },
+    dayOfWeek: ['Sun', 'Thu', 'Fri', 'Sat'],
+  },
+  {
+    id: 6,
+    title: '테슬라 도지코인 시위',
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto officia nam exercitationem iure illum cupiditate minus numquam quibusdam nobis adipisci dolor, repellat quisquam iste sunt dignissimos ab praesentium possimus at.',
+    tagColor: '#CB88F8',
+    target: {
+      time: '10 : 00',
+      local: 'Los Angeles',
+      day: '2022.03.24',
+    },
+    cur: {
+      time: '08 : 00',
+      local: 'London',
+      day: '2022.03.24',
+    },
+    dayOfWeek: ['Sun', 'Thu', 'Fri', 'Sat'],
+  },
+  {
+    id: 6,
+    title: '테슬라 도지코인 시위',
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto officia nam exercitationem iure illum cupiditate minus numquam quibusdam nobis adipisci dolor, repellat quisquam iste sunt dignissimos ab praesentium possimus at.',
+    tagColor: '#CB88F8',
+    target: {
+      time: '10 : 00',
+      local: 'Los Angeles',
+      day: '2022.03.24',
+    },
+    cur: {
+      time: '08 : 00',
+      local: 'London',
+      day: '2022.03.24',
+    },
+    dayOfWeek: ['Sun', 'Thu', 'Fri', 'Sat'],
+  },
 ];
 
 export function Home() {
   return (
     <S.Container>
-      {DUMMY_DATA.map(data => (
-        <ScheduleCard key={uuid.v4()} data={data} />
-      ))}
+      <S.Wrapper>
+        <S.Inner>
+          {DUMMY_DATA.map(data => (
+            <ScheduleCard key={uuid.v4()} data={data} />
+          ))}
+        </S.Inner>
+
+        <FloatingButton>
+          <IconPlus />
+        </FloatingButton>
+      </S.Wrapper>
     </S.Container>
   );
 }
