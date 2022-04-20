@@ -5,8 +5,15 @@ import { IconPlus } from 'assets';
 import { ITimeData } from 'types';
 import * as S from './style';
 
-export function HomeTemplate({ DUMMY_DATA }: { DUMMY_DATA: Array<ITimeData> }) {
-  const onPress = () => console.log('hello');
+export function HomeTemplate({
+  DUMMY_DATA,
+  navigation,
+}: {
+  DUMMY_DATA: Array<ITimeData>;
+  navigation: any;
+}) {
+  console.log(navigation);
+  const onPress = () => navigation.navigate('Search');
 
   return (
     <>

@@ -1,2 +1,2 @@
-export { TimeZone } from 'screens/TimeZone';
-export { Home } from 'screens/Home';
+export { Main } from 'screens/Main';
+export { HandleSchedule } from 'screens/HandleSchedule';

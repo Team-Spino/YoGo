@@ -14,3 +14,8 @@ export const Wrapper = styled.View`
 
   padding-bottom: 50px;
 `;
+
+export const Inner = styled.ScrollView`
+  width: 100%;
+  height: 100%;
+`;

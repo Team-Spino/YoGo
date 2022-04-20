@@ -1,8 +1,4 @@
-import React from 'react';
-import { HomeTemplate } from 'components';
-import * as S from './style';
-
-const DUMMY_DATA = [
+export const DUMMY_DATA = [
   {
     id: 1,
     title: '팀 스피노 프로젝트 2차 스크럼',
@@ -184,15 +180,3 @@ const DUMMY_DATA = [
     dayOfWeek: ['Sun', 'Thu', 'Fri', 'Sat'],
   },
 ];
-
-export function Home({ navigation }: { navigation: any }) {
-  const onPress = () => navigation.navigate('Search');
-
-  return (
-    <S.Container>
-      <S.Wrapper>
-        <HomeTemplate DUMMY_DATA={DUMMY_DATA} />
-      </S.Wrapper>
-    </S.Container>
-  );
-}
