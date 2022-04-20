@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-export const Wrapper = styled.View`
+export const Container = styled.TouchableOpacity`
   position: absolute;
   bottom: 15px;
   right: 16px;
@@ -21,5 +21,4 @@ export const Button = styled.View`
   align-items: center;
   justify-content: center;
   background-color: ${props => props.theme.colors.blue};
-  opacity: ${({ pressed }: { pressed: boolean }) => (pressed ? 0.55 : 1)};
 `;

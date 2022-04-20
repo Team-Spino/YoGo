@@ -1,13 +1,15 @@
 import React from 'react';
-import { Pressable } from 'react-native';
 import * as S from './style';
 
-export const FloatingButton = ({ children }: { children: React.ReactNode }) => {
+interface IFloatingButtonProps {
+  children: React.ReactNode;
+  onPress: () => void;
+}
+
+export const FloatingButton = ({ children, onPress }: IFloatingButtonProps) => {
   return (
-    <S.Wrapper>
-      <Pressable>
-        {({ pressed }) => <S.Button pressed={pressed}>{children}</S.Button>}
-      </Pressable>
-    </S.Wrapper>
+    <S.Container onPress={onPress}>
+      <S.Button>{children}</S.Button>
+    </S.Container>
   );
 };
