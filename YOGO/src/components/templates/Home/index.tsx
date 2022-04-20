@@ -1,11 +1,15 @@
 import React from 'react';
 import uuid from 'react-native-uuid';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ScheduleCard, FloatingButton } from 'components';
 import { DUMMY_DATA } from 'utils';
 import { IconPlus } from 'assets';
+import { RootStackParamList } from 'types';
 import * as S from './style';
 
-export function Home({ navigation }: { navigation: any }) {
+type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
+
+export function Home({ navigation }: { navigation: Prop }) {
   const onPress = () => navigation.navigate('HandleSchedule');
 
   return (
