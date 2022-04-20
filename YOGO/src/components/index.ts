@@ -22,4 +22,5 @@ export { TimeZoneList } from 'components/organisms/TimeZoneList';
 export { ScheduleCard } from 'components/organisms/ScheduleCard';
 
 // Templates
-export { HomeTemplate } from 'components/Template/HomeTemplate';
+export { HandleSchedule } from 'components/templates/HandleSchedule';
+export { HomeTemplate } from 'components/templates/HomeTemplate';
