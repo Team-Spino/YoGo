@@ -4,6 +4,7 @@ import { IconSearch } from 'assets';
 import * as S from './style';
 
 export function TimeZoneList() {
+  const onPress = () => console.log('hello');
   return (
     <>
       <S.Container>
@@ -12,7 +13,7 @@ export function TimeZoneList() {
         <TimeZoneCard />
         <TimeZoneCard />
       </S.Container>
-      <FloatingButton>
+      <FloatingButton onPress={onPress}>
         <IconSearch />
       </FloatingButton>
     </>

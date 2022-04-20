@@ -1,8 +1,5 @@
 import React from 'react';
-import uuid from 'react-native-uuid';
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { FloatingButton, ScheduleCard } from 'components';
-import { IconPlus } from 'assets';
+import { HomeTemplate } from 'components';
 import * as S from './style';
 
 const DUMMY_DATA = [
@@ -188,19 +185,13 @@ const DUMMY_DATA = [
   },
 ];
 
-export function Home() {
+export function Home({ navigation }: { navigation: any }) {
+  const onPress = () => navigation.navigate('Search');
+
   return (
     <S.Container>
       <S.Wrapper>
-        <S.Inner>
-          {DUMMY_DATA.map(data => (
-            <ScheduleCard key={uuid.v4()} data={data} />
-          ))}
-        </S.Inner>
-
-        <FloatingButton>
-          <IconPlus />
-        </FloatingButton>
+        <HomeTemplate DUMMY_DATA={DUMMY_DATA} />
       </S.Wrapper>
     </S.Container>
   );

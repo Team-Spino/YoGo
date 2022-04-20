@@ -5,7 +5,6 @@ import { TimeZone, Home } from 'screens';
 import { IconHome, IconTimeZone, IconPlus } from 'assets';
 import { ThemeProvider } from 'styled-components/native';
 import { theme } from './styles/theme';
-import { TouchableOpacity } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 function App() {
