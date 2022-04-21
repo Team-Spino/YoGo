@@ -1,18 +1,15 @@
 import React from 'react';
-import { Pressable } from 'react-native';
-import { IconSearch } from '../../../assets/icons/IconSearch';
 import * as S from './style';
 
-export const FloatingButton = () => {
+interface IFloatingButtonProps {
+  children: React.ReactNode;
+  onPress: () => void;
+}
+
+export const FloatingButton = ({ children, onPress }: IFloatingButtonProps) => {
   return (
-    <S.Wrapper>
-      <Pressable>
-        {({ pressed }) => (
-          <S.Button pressed={pressed}>
-            <IconSearch />
-          </S.Button>
-        )}
-      </Pressable>
-    </S.Wrapper>
+    <S.Container onPress={onPress}>
+      <S.Button>{children}</S.Button>
+    </S.Container>
   );
 };

@@ -1,9 +1,4 @@
-import React from 'react';
-import uuid from 'react-native-uuid';
-import { ScheduleCard } from 'components';
-import * as S from './style';
-
-const DUMMY_DATA = [
+export const DUMMY_DATA = [
   {
     id: 1,
     title: '팀 스피노 프로젝트 2차 스크럼',
@@ -112,14 +107,76 @@ const DUMMY_DATA = [
     },
     dayOfWeek: ['Sun', 'Thu', 'Fri', 'Sat'],
   },
+  {
+    id: 6,
+    title: '테슬라 도지코인 시위',
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto officia nam exercitationem iure illum cupiditate minus numquam quibusdam nobis adipisci dolor, repellat quisquam iste sunt dignissimos ab praesentium possimus at.',
+    tagColor: '#CB88F8',
+    target: {
+      time: '10 : 00',
+      local: 'Los Angeles',
+      day: '2022.03.24',
+    },
+    cur: {
+      time: '08 : 00',
+      local: 'London',
+      day: '2022.03.24',
+    },
+    dayOfWeek: ['Sun', 'Thu', 'Fri', 'Sat'],
+  },
+  {
+    id: 6,
+    title: '테슬라 도지코인 시위',
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto officia nam exercitationem iure illum cupiditate minus numquam quibusdam nobis adipisci dolor, repellat quisquam iste sunt dignissimos ab praesentium possimus at.',
+    tagColor: '#CB88F8',
+    target: {
+      time: '10 : 00',
+      local: 'Los Angeles',
+      day: '2022.03.24',
+    },
+    cur: {
+      time: '08 : 00',
+      local: 'London',
+      day: '2022.03.24',
+    },
+    dayOfWeek: ['Sun', 'Thu', 'Fri', 'Sat'],
+  },
+  {
+    id: 6,
+    title: '테슬라 도지코인 시위',
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto officia nam exercitationem iure illum cupiditate minus numquam quibusdam nobis adipisci dolor, repellat quisquam iste sunt dignissimos ab praesentium possimus at.',
+    tagColor: '#CB88F8',
+    target: {
+      time: '10 : 00',
+      local: 'Los Angeles',
+      day: '2022.03.24',
+    },
+    cur: {
+      time: '08 : 00',
+      local: 'London',
+      day: '2022.03.24',
+    },
+    dayOfWeek: ['Sun', 'Thu', 'Fri', 'Sat'],
+  },
+  {
+    id: 6,
+    title: '테슬라 도지코인 시위',
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto officia nam exercitationem iure illum cupiditate minus numquam quibusdam nobis adipisci dolor, repellat quisquam iste sunt dignissimos ab praesentium possimus at.',
+    tagColor: '#CB88F8',
+    target: {
+      time: '10 : 00',
+      local: 'Los Angeles',
+      day: '2022.03.24',
+    },
+    cur: {
+      time: '08 : 00',
+      local: 'London',
+      day: '2022.03.24',
+    },
+    dayOfWeek: ['Sun', 'Thu', 'Fri', 'Sat'],
+  },
 ];
-
-export function Home() {
-  return (
-    <S.Container>
-      {DUMMY_DATA.map(data => (
-        <ScheduleCard key={uuid.v4()} data={data} />
-      ))}
-    </S.Container>
-  );
-}

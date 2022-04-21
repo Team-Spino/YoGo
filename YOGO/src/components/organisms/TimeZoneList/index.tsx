@@ -1,9 +1,10 @@
 import React from 'react';
+import { TimeZoneCard, FloatingButton } from 'components';
+import { IconSearch } from 'assets';
 import * as S from './style';
-import { TimeZoneCard } from 'components';
-import { FloatingButton } from 'components';
 
 export function TimeZoneList() {
+  const onPress = () => console.log('hello');
   return (
     <>
       <S.Container>
@@ -12,7 +13,9 @@ export function TimeZoneList() {
         <TimeZoneCard />
         <TimeZoneCard />
       </S.Container>
-      <FloatingButton />
+      <FloatingButton onPress={onPress}>
+        <IconSearch />
+      </FloatingButton>
     </>
   );
 }

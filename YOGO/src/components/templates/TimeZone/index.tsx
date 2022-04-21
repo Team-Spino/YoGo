@@ -11,5 +11,5 @@ export function TimeZone() {
   navigation.setOptions({
     // headerRight: () => <HeaderRightButton></HeaderRightButton>,
   });
-  return <TimeZoneList></TimeZoneList>;
+  return <TimeZoneList />;
 }
