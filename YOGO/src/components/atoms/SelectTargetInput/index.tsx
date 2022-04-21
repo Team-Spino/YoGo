@@ -2,26 +2,22 @@ import React from 'react';
 import * as S from './style';
 import { IconSearch } from 'assets';
 import { TextInput } from 'react-native-paper';
-import { Text } from 'react-native';
-interface BHearderProps {
-  list: string[] ;
-  size: number;
+interface BSelectTargetInputProps {
+  text: string;
+  onChangeText: (text:string) => void;
 }
 
-export function SelectTargetInput(){
-  const [text, onChangeText] = React.useState("");
+export function SelectTargetInput({text, onChangeText} : BSelectTargetInputProps) {
+
   return (
-    // <S.TextInput
-    //   placeholder='Search Target City'
-    //   onChangeText={onChangeText}
-    //   value={text}
-    // ></S.TextInput>
     <S.InputText
     mode="outlined"
     label="Search Target City"
     placeholder="Search Target City"
     outlineColor='#6564CC'
     activeOutlineColor='#6564CC'
+    value={text}
+    onChangeText={(text) => onChangeText(text)}
     right={<TextInput.Icon name={() => <IconSearch color={"#6564CC"}/>} />}
     ></S.InputText>
   );

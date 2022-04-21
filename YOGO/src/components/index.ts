@@ -9,7 +9,7 @@ export { Tag } from 'components/atoms/Tag';
 export { ToggleBtn } from 'components/atoms/ToggleBtn';
 export { ModalTimeInfo } from 'components/atoms/ModalTimeInfo';
 export { SelectTargetInput } from 'components/atoms/SelectTargetInput';
-export { SelectTargetList } from 'components/atoms/SelectTargetList';
+export { TargetCity } from 'components/atoms/TargetCity';
 
 // Molecules
 export { ModalHeader } from 'components/molecules/ModalHeader';
@@ -17,6 +17,7 @@ export { ModalTime } from 'components/molecules/ModalTime';
 export { ScheduleCardHeader } from 'components/molecules/ScheduleCardHeader';
 export { ScheduleCardContent } from 'components/molecules/ScheduleCardContent';
 export { ModalMemo } from 'components/molecules/ModalMemo';
+export { SearchTarget } from 'components/molecules/SearchTarget';
 
 // Organisms
 export { DetailModal } from 'components/organisms/DetailModal';

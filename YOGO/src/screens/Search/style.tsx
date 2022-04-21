@@ -7,3 +7,6 @@ export const Container = styled.View`
 export const Title = styled.Text`
   color: blue;
 `;
+
+export const openBottomSheet = styled.Button`
+` 
