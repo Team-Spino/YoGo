@@ -93,7 +93,7 @@ export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSPr
     }
 
     return (
-        <S.BottomSheetModal
+        <Modal
             visible={modalVisible}
             animationType={"fade"}
             transparent
@@ -108,6 +108,6 @@ export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSPr
                 <SearchTarget targetList={targetList} text={text}  onChangeText= {onChangeText}/>
                 </S.Container>
             </S.Overlay>
-        </S.BottomSheetModal>
+        </Modal>
     )
 }
