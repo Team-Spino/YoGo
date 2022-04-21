@@ -10,7 +10,9 @@ import * as S from './style';
 type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
 
 export function Home({ navigation }: { navigation: Prop }) {
-  const onPress = () => navigation.navigate('HandleSchedule');
+  const onPress = () => {
+    navigation.push('HandleSchedule', { title: 'Add' });
+  };
 
   return (
     <S.Container>

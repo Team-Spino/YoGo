@@ -22,9 +22,9 @@ function App() {
           <Stack.Screen
             name="HandleSchedule"
             component={HandleSchedule}
-            options={{
-              headerShown: false,
-            }}
+            options={({ route }) => ({
+              title: route!.params.title as string,
+            })}
           />
         </Stack.Navigator>
       </ThemeProvider>
