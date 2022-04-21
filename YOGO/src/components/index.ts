@@ -16,7 +16,6 @@ export { ModalTime } from 'components/molecules/ModalTime';
 export { ScheduleCardHeader } from 'components/molecules/ScheduleCardHeader';
 export { ScheduleCardContent } from 'components/molecules/ScheduleCardContent';
 export { ModalMemo } from 'components/molecules/ModalMemo';
-export { ButtonWrapper } from 'components/molecules/ButtonWrapper';
 
 // Organisms
 export { DetailModal } from 'components/organisms/DetailModal';
