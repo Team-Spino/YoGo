@@ -12,7 +12,6 @@ export function HomeTemplate({
   DUMMY_DATA: Array<ITimeData>;
   navigation: any;
 }) {
-  console.log(navigation);
   const onPress = () => navigation.navigate('Search');
 
   return (
