@@ -1,7 +1,6 @@
 import React from 'react';
 import * as S from './style';
 import { TimeZoneCard } from 'components';
-import { FloatingButton } from 'components';
 
 export function TimeZoneList() {
   return (
@@ -12,7 +11,6 @@ export function TimeZoneList() {
         <TimeZoneCard />
         <TimeZoneCard />
       </S.Container>
-      <FloatingButton />
     </>
   );
 }

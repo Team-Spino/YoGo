@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { HeaderRightButton } from 'components';
+import { FloatingButton, HeaderRightButton, TimeZoneList } from 'components';
 import * as S from './style';
 import { SearchBottomSheet } from 'components';
 
@@ -14,9 +14,10 @@ export function Search() {
   const navigation = useNavigation();
 
 
-  const pressButton = () => {
+  const pressBottomSheet = () => {
       setModalVisible(true);
   }
+
  
   useEffect(()=>{
     navigation.setOptions({
@@ -27,14 +28,19 @@ export function Search() {
 
   return(
     <S.Container>
-    <S.openBottomSheet
+      <TimeZoneList />
+      <FloatingButton 
+        // onPress={pressBottomSheet} : merge이후에 하겠습니다
+      />
+      {/* merge이후에 하겠습니다 */}
+    {/* <S.openBottomSheet
         title={"Open BottomSheet!"}
         onPress={pressButton}
     />
     <SearchBottomSheet
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
-    />
+    /> */}
   </S.Container>
 
   );
