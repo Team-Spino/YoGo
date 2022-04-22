@@ -10,18 +10,21 @@ export { ToggleBtn } from 'components/atoms/ToggleBtn';
 export { ModalTimeInfo } from 'components/atoms/ModalTimeInfo';
 export { Button } from 'components/atoms/Button';
 
+
 // Molecules
 export { ModalHeader } from 'components/molecules/ModalHeader';
 export { ModalTime } from 'components/molecules/ModalTime';
 export { ScheduleCardHeader } from 'components/molecules/ScheduleCardHeader';
 export { ScheduleCardContent } from 'components/molecules/ScheduleCardContent';
 export { ModalMemo } from 'components/molecules/ModalMemo';
+export { SearchTarget } from 'components/molecules/SearchTarget';
 
 // Organisms
 export { DetailModal } from 'components/organisms/DetailModal';
 export { TimeZoneList } from 'components/organisms/TimeZoneList';
 export { ScheduleCard } from 'components/organisms/ScheduleCard';
 export { SettingSchedule } from 'components/organisms/SettingSchedule';
+
 
 // Templates
 export { Home } from 'components/templates/Home';
