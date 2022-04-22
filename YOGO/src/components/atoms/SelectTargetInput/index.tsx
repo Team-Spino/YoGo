@@ -1,7 +1,7 @@
 import React from 'react';
-import * as S from './style';
 import { IconSearch } from 'assets';
 import { TextInput } from 'react-native-paper';
+import * as S from './style';
 interface BSelectTargetInputProps {
   text: string;
   onChangeText: (text:string) => void;

@@ -1,10 +1,10 @@
 import styled from 'styled-components/native';
 
-interface BTargetListProps {
+interface IBTargetListProps {
     size: number;
   }
   
-export const List = styled.Text<BTargetListProps>`
+export const List = styled.Text<IBTargetListProps>`
   font-size: ${props => props.size}px;
   font-weight: 200;
   align-items: flex-start;

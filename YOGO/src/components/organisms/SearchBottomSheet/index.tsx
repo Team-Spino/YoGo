@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
     Modal,
     Animated,
@@ -38,7 +38,7 @@ const dummyData = [
   
 
 export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSProps) => {
-    const [text, serText] = React.useState("");
+    const [text, serText] = useState("");
     const targetList = dummyData.filter((item) => item.city.toUpperCase().includes(text.toUpperCase()));
     const screenHeight = Dimensions.get("screen").height;
     const panY = useRef(new Animated.Value(screenHeight)).current;

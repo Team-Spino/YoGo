@@ -12,7 +12,6 @@ export const List = styled.Text<BTargetListProps>`
 `;
 
 export const ListBox = styled.View`
-  // padding: 15px 0px
   justify-content: center;
   border-bottom-width: 0.7px;
   border-bottom-color: ${props => props.theme.colors.blue};

@@ -1,11 +1,11 @@
 import React from 'react';
 import * as S from './style';
-interface BHearderProps {
+interface IBHearderProps {
   text: string;
   size: number;
 }
 
-export function BottomSheetHeader({ text, size }: BHearderProps) {
+export function BottomSheetHeader({ text, size }: IBHearderProps) {
   return (
     <S.Header size={size}>
       {text}
