@@ -1,34 +1,32 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Search, Home } from 'screens';
-import { IconHome, IconTimeZone } from 'assets';
 import { ThemeProvider } from 'styled-components/native';
-import { theme } from './styles/theme';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Main, HandleSchedule } from 'screens';
+import { theme } from 'styles/theme';
 
-const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
 function App() {
   return (
     <NavigationContainer>
       <ThemeProvider theme={theme}>
-        <Tab.Navigator initialRouteName="Home">
-          <Tab.Screen
-            name="Home"
-            component={Home}
+        <Stack.Navigator initialRouteName="Main">
+          <Stack.Screen
+            name="Main"
+            component={Main}
             options={{
-              title: 'Home',
-              tabBarIcon: ({ color, size }) => <IconHome />,
+              headerShown: false,
             }}
           />
-          <Tab.Screen
-            name="Search"
-            component={Search}
-            options={{
-              title: 'Serach',
-              tabBarIcon: ({ color, size }) => <IconTimeZone />,
-            }}
+          <Stack.Screen
+            name="HandleSchedule"
+            component={HandleSchedule}
+            options={({ route }) => ({
+              title: route!.params.title as string,
+            })}
           />
-        </Tab.Navigator>
+        </Stack.Navigator>
       </ThemeProvider>
     </NavigationContainer>
   );

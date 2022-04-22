@@ -1,2 +1,2 @@
-export { Search } from 'screens/Search';
-export { Home } from 'screens/Home';
+export { Main } from 'screens/Main';
+export { HandleSchedule } from 'screens/HandleSchedule';

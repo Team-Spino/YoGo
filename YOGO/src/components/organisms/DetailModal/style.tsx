@@ -36,6 +36,4 @@ export const Content = styled.ScrollView`
 
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-
-  /* padding: 20px 0; */
 `;

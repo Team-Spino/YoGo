@@ -8,8 +8,8 @@ export { DayOfWeek } from 'components/atoms/DayOfWeek';
 export { Tag } from 'components/atoms/Tag';
 export { ToggleBtn } from 'components/atoms/ToggleBtn';
 export { ModalTimeInfo } from 'components/atoms/ModalTimeInfo';
-export { SelectTargetInput } from 'components/atoms/SelectTargetInput';
-export { TargetCity } from 'components/atoms/TargetCity';
+export { Button } from 'components/atoms/Button';
+
 
 // Molecules
 export { ModalHeader } from 'components/molecules/ModalHeader';
@@ -23,7 +23,10 @@ export { SearchTarget } from 'components/molecules/SearchTarget';
 export { DetailModal } from 'components/organisms/DetailModal';
 export { TimeZoneList } from 'components/organisms/TimeZoneList';
 export { ScheduleCard } from 'components/organisms/ScheduleCard';
-export { SearchBottomSheet } from 'components/organisms/SearchBottomSheet';
+export { SettingSchedule } from 'components/organisms/SettingSchedule';
+
 
 // Templates
-export {};
+export { Home } from 'components/templates/Home';
+export { TimeZone } from 'components/templates/TimeZone';
+export { HandleScheduleTemplate } from 'components/templates/HandleScheduleTemplate';
