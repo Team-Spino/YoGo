@@ -6,7 +6,7 @@ import {
     Dimensions,
     PanResponder
 } from 'react-native';
-import { SearchTarget } from 'components';
+import { SearchTarget, SelectTargetCityBtn } from 'components';
 import * as S from './style';
 
 interface ISearchBSProps {
@@ -38,14 +38,19 @@ const dummyData = [
   
 
 export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSProps) => {
-    const [text, serText] = useState("");
+    const [text, setText] = useState("");
+    const [selectedSearchTargetCity , setSelectedSearchTargetCity] = useState<boolean>(false);
     const targetList = dummyData.filter((item) => item.city.toUpperCase().includes(text.toUpperCase()));
     const screenHeight = Dimensions.get("screen").height;
     const panY = useRef(new Animated.Value(screenHeight)).current;
 
     const onChangeText = (text:string) => {
-        serText(text);
+        setText(text);
       }
+    
+    const pressSearchTargetCity = () => {
+        setSelectedSearchTargetCity(!selectedSearchTargetCity);
+    }
       
     const translateY = panY.interpolate({
         inputRange: [-1, 0, 1],
@@ -89,6 +94,7 @@ export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSPr
     const closeModal = () => {
         closeBottomSheet.start(()=>{
             setModalVisible(false);
+            setSelectedSearchTargetCity(false);
         })
     }
 
@@ -105,7 +111,12 @@ export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSPr
                 <S.Background/>
                 </TouchableWithoutFeedback>
                 <S.Container style={{transform: [{ translateY: translateY }]}} {...panResponders.panHandlers}>
-                <SearchTarget targetList={targetList} text={text}  onChangeText= {onChangeText}/>
+                { ! selectedSearchTargetCity && 
+                <>
+                    <SelectTargetCityBtn onPress={()=>console.log('눌렀다고')} text={'뉴욕, 서울'}/>
+                </>
+                }
+                { selectedSearchTargetCity && <SearchTarget targetList={targetList} text={text}  onChangeText= {onChangeText}/>}
                 </S.Container>
             </S.Overlay>
         </Modal>
