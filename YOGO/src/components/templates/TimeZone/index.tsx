@@ -5,10 +5,8 @@ import * as S from './style';
 import { SearchBottomSheet } from 'components';
 import { IconDownArrow, IconSearch } from 'assets';
 
-
-
-
 export function TimeZone() {
+
 
   const [ modalVisible, setModalVisible ] = useState<boolean>(false);
   const navigation = useNavigation();
@@ -28,6 +26,7 @@ export function TimeZone() {
 
   return(
     <>
+
     {/* 캘린더 하기 전까지 */}
     <S.Container>
       <TimeZoneList />

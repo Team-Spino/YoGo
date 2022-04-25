@@ -45,30 +45,13 @@ const dummyData = [
 export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSProps) => {
 
     
-    const [date, setDate] = useState(new Date(1598051730000));
-    const [mode, setMode] = useState('date');
-    const [show, setShow] = useState(false);
-    
+    const [date, setDate] = useState(new Date());
+
     const onChange = (event: any, selectedDate: any)   => {
         const currentDate = selectedDate;
-        setShow(false);
         setDate(currentDate);
       };
     
-      const showMode = (currentMode : any) => {
-        setShow(true);
-        setMode(currentMode);
-      };
-    
-      const showDatepicker = () => {
-        showMode('date');
-      };
-    
-      const showTimepicker = () => {
-        showMode('time');
-      };
-
-
     /////////
 
     const [text, setText] = useState("");
@@ -147,18 +130,18 @@ export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSPr
                 { ! selectedSearchTargetCity && 
                 <>
                     <SelectTargetCityBtn onPress={()=>onPressSearchTargetCity()} text={'뉴욕, 서울'}/>
-                    <View>
-
-                        <Text>selected: {date.toLocaleString()}</Text>
+                        <S.tempContain>
                             <DateTimePicker
-                            testID="dateTimePicker"
+                            testID="dateTimePicker" 
                             value={date}
+                            minimumDate={new Date()}
                             mode={'date'}
-                            is24Hour={true}
                             onChange={onChange}
                             display="inline"
                             />
-                        
+                        </S.tempContain>
+                            
+{/*                         
                         <Text>selected: {date.toLocaleString()}</Text>
                             <DateTimePicker
                             testID="dateTimePicker"
@@ -167,10 +150,8 @@ export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSPr
                             is24Hour={true}
                             onChange={onChange}
                             display = 'spinner'
-                            />
+                            /> */}
                         
-                    </View>
-                   
                 </>
                 }
                 { selectedSearchTargetCity && 
