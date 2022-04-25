@@ -4,10 +4,15 @@ import {
     Animated,
     TouchableWithoutFeedback,
     Dimensions,
-    PanResponder
+    PanResponder,
+    View,
+    Button,
+    Text
 } from 'react-native';
 import { SearchTarget, SelectTargetCityBtn } from 'components';
 import * as S from './style';
+
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 interface ISearchBSProps {
     modalVisible: boolean;
@@ -38,6 +43,34 @@ const dummyData = [
   
 
 export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSProps) => {
+
+    
+    const [date, setDate] = useState(new Date(1598051730000));
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
+    
+    const onChange = (event: any, selectedDate: any)   => {
+        const currentDate = selectedDate;
+        setShow(false);
+        setDate(currentDate);
+      };
+    
+      const showMode = (currentMode : any) => {
+        setShow(true);
+        setMode(currentMode);
+      };
+    
+      const showDatepicker = () => {
+        showMode('date');
+      };
+    
+      const showTimepicker = () => {
+        showMode('time');
+      };
+
+
+    /////////
+
     const [text, setText] = useState("");
     const [selectedSearchTargetCity , setSelectedSearchTargetCity] = useState<boolean>(false);
     const targetList = dummyData.filter((item) => item.city.toUpperCase().includes(text.toUpperCase()));
@@ -48,7 +81,7 @@ export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSPr
         setText(text);
       }
     
-    const pressSearchTargetCity = () => {
+    const onPressSearchTargetCity = () => {
         setSelectedSearchTargetCity(!selectedSearchTargetCity);
     }
       
@@ -113,10 +146,37 @@ export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSPr
                 <S.Container style={{transform: [{ translateY: translateY }]}} {...panResponders.panHandlers}>
                 { ! selectedSearchTargetCity && 
                 <>
-                    <SelectTargetCityBtn onPress={()=>console.log('눌렀다고')} text={'뉴욕, 서울'}/>
+                    <SelectTargetCityBtn onPress={()=>onPressSearchTargetCity()} text={'뉴욕, 서울'}/>
+                    <View>
+
+                        <Text>selected: {date.toLocaleString()}</Text>
+                            <DateTimePicker
+                            testID="dateTimePicker"
+                            value={date}
+                            mode={'date'}
+                            is24Hour={true}
+                            onChange={onChange}
+                            display="inline"
+                            />
+                        
+                        <Text>selected: {date.toLocaleString()}</Text>
+                            <DateTimePicker
+                            testID="dateTimePicker"
+                            value={date}
+                            mode={'time'}
+                            is24Hour={true}
+                            onChange={onChange}
+                            display = 'spinner'
+                            />
+                        
+                    </View>
+                   
                 </>
                 }
-                { selectedSearchTargetCity && <SearchTarget targetList={targetList} text={text}  onChangeText= {onChangeText}/>}
+                { selectedSearchTargetCity && 
+                <>
+                <SearchTarget targetList={targetList} text={text}  onChangeText= {onChangeText}/>
+                </>}
                 </S.Container>
             </S.Overlay>
         </Modal>

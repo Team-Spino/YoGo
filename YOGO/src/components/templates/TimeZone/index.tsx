@@ -3,8 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { FloatingButton, HeaderRightButton, TimeZoneList } from 'components';
 import * as S from './style';
 import { SearchBottomSheet } from 'components';
-import { IconSearch } from 'assets';
-
+import { IconDownArrow, IconSearch } from 'assets';
 
 
 
@@ -29,6 +28,7 @@ export function TimeZone() {
 
   return(
     <>
+    {/* 캘린더 하기 전까지 */}
     <S.Container>
       <TimeZoneList />
       <SearchBottomSheet
