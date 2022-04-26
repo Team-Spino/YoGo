@@ -1,22 +1,14 @@
 import React, { useState } from 'react';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import * as S from './style';
 
 interface IDatePickerProps {
-  text: string;
-  onPress: () => void;
+  date: Date;
+  onChangeDate: (event: DateTimePickerEvent, date: Date | undefined) => void;
 }
 
-export function DatePicker({ text, onPress }: IDatePickerProps) {
-    
-  // (임시) page에서 넘겨줘야함 
-  const [date, setDate] = useState(new Date());
-
-  const onChange = (event: any, selectedDate: any)   => {
-      const currentDate = selectedDate;
-      setDate(currentDate);
-    };
-
+export function DatePicker({ date, onChangeDate }: IDatePickerProps) {
+  
   return (
       <S.Container>
         <DateTimePicker
@@ -24,8 +16,10 @@ export function DatePicker({ text, onPress }: IDatePickerProps) {
         value={date}
         minimumDate={new Date()}
         mode={'date'}
-        onChange={onChange}
+        onChange={onChangeDate}
         display="inline"
+        accentColor='#6564CC'
+        locale="EN"
         />
    </S.Container>
   );

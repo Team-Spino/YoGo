@@ -5,10 +5,11 @@ import {
     TouchableWithoutFeedback,
     Dimensions,
     PanResponder,
+    View,
 } from 'react-native';
-import { SearchTarget, SelectTargetCityBtn } from 'components';
+import { SearchTarget, SelectTargetCityBtn, SelectTargetDate} from 'components';
 import * as S from './style';
-
+import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 interface ISearchBSProps {
     modalVisible: boolean;
     setModalVisible: (visible: boolean) => void;
@@ -39,7 +40,7 @@ const dummyData = [
 
 export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSProps) => {
 
-
+    const [date, setDate] = useState(new Date());
     const [text, setText] = useState("");
     const [selectedSearchTargetCity , setSelectedSearchTargetCity] = useState<boolean>(false);
     const targetList = dummyData.filter((item) => item.city.toUpperCase().includes(text.toUpperCase()));
@@ -87,6 +88,13 @@ export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSPr
         }
     })).current;
 
+    
+    const onChangeDate = (event : DateTimePickerEvent , selectedDate: any)   => {
+    
+        const currentDate = selectedDate;
+        setDate(currentDate);
+      };
+
     useEffect(()=>{
         if(modalVisible) {
             resetBottomSheet.start();
@@ -116,7 +124,7 @@ export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSPr
                 { ! selectedSearchTargetCity && 
                 <>
                     <SelectTargetCityBtn onPress={()=>onPressSearchTargetCity()} text={'뉴욕, 서울'}/>
-                        
+                    <SelectTargetDate onChangeDate={ onChangeDate } text={date} />
                 </>
                 }
                 { selectedSearchTargetCity && 
