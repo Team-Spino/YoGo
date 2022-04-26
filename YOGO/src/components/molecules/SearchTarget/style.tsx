@@ -18,6 +18,12 @@ export const ListBox = styled.View`
 
 `
 
-export const Container = (styled.FlatList`
+export const FlatListContainer = (styled.FlatList`
   width: 85%;
 ` as unknown) as typeof FlatList;
+
+export const Container = styled.View`
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`

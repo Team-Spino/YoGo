@@ -15,7 +15,7 @@ export function DatePicker({ date, onChangeDate }: IDatePickerProps) {
         testID="dateTimePicker" 
         value={date}
         minimumDate={new Date()}
-        mode={'date'}
+        mode={'datetime'}
         onChange={onChangeDate}
         display="inline"
         accentColor='#6564CC'

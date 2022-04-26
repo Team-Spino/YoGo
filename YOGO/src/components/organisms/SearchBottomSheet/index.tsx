@@ -7,9 +7,12 @@ import {
     PanResponder,
     View,
 } from 'react-native';
-import { SearchTarget, SelectTargetCityBtn, SelectTargetDate} from 'components';
-import * as S from './style';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import { SearchTarget, SelectTargetCityBtn, SelectTargetDate, HeaderCenter, BottomSheetBtn} from 'components';
+import * as S from './style';
+import { IconBottomSheetBar } from 'assets';
+import { ScrollView } from 'react-native-gesture-handler';
+
 interface ISearchBSProps {
     modalVisible: boolean;
     setModalVisible: (visible: boolean) => void;
@@ -120,17 +123,28 @@ export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSPr
                     onPress={closeModal}>
                 <S.Background/>
                 </TouchableWithoutFeedback>
+                
                 <S.Container style={{transform: [{ translateY: translateY }]}} {...panResponders.panHandlers}>
+                <IconBottomSheetBar />
+                <S.ScrollView showsVerticalScrollIndicator={false}>
+                    <S.SearchBox>
                 { ! selectedSearchTargetCity && 
-                <>
+                <>  
+                    <HeaderCenter text={`Search Time Zone`} size={18} />
                     <SelectTargetCityBtn onPress={()=>onPressSearchTargetCity()} text={'뉴욕, 서울'}/>
+
                     <SelectTargetDate onChangeDate={ onChangeDate } text={date} />
+             
+                    <BottomSheetBtn text={'FIND'} onPress={function (): void {
+                            throw new Error('Function not implemented.');
+                        } } />            
                 </>
                 }
+                </S.SearchBox>
+                </S.ScrollView>
                 { selectedSearchTargetCity && 
-                <>
                 <SearchTarget targetList={targetList} text={text}  onChangeText= {onChangeText}/>
-                </>}
+                }
                 </S.Container>
             </S.Overlay>
         </Modal>
