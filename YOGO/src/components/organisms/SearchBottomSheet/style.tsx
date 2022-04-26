@@ -1,6 +1,6 @@
 
 import styled from 'styled-components/native';
-import {Animated, View} from 'react-native';
+import {Animated} from 'react-native';
 
 export const Container =styled(Animated.View)`
   height: 700px;
@@ -30,5 +30,4 @@ export const SearchBox = styled.View`
   width: 100%;
   justify-content: flex-start;
   align-items: center;
-  padding-top: 10px;
 `

@@ -2,12 +2,12 @@ import React from 'react';
 import { IconSearch } from 'assets';
 import { TextInput } from 'react-native-paper';
 import * as S from './style';
-interface BSelectTargetInputProps {
+interface IBSelectTargetInputProps {
   text: string;
   onChangeText: (text:string) => void;
 }
 
-export function SelectTargetInput({text, onChangeText} : BSelectTargetInputProps) {
+export function SelectTargetInput({text, onChangeText} : IBSelectTargetInputProps) {
 
   return (
     <S.InputText

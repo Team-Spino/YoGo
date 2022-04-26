@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { FloatingButton, HeaderRightButton, TimeZoneList } from 'components';
+import { FloatingButton, HeaderRightButton, TimeZoneList, SearchBottomSheet } from 'components';
+import { IconSearch } from 'assets';
 import * as S from './style';
-import { SearchBottomSheet } from 'components';
-import { IconDownArrow, IconSearch } from 'assets';
+
 
 export function TimeZone() {
 
-
   const [ modalVisible, setModalVisible ] = useState<boolean>(false);
   const navigation = useNavigation();
-
 
   const pressBottomSheet = () => {
       setModalVisible(true);
   }
 
- 
   useEffect(()=>{
     navigation.setOptions({
       // 임시용 
@@ -26,8 +23,6 @@ export function TimeZone() {
 
   return(
     <>
-
-    {/* 캘린더 하기 전까지 */}
     <S.Container>
       <TimeZoneList />
       <SearchBottomSheet
