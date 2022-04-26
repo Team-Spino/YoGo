@@ -20,8 +20,3 @@ export const Overlay = styled.View`
   justify-content: flex-end;
   background-color: rgba(0, 0, 0, 0.4);
 `;
-
-export const tempContain = styled.View`
-  width: 80%;
-  height: 100px;
-`;

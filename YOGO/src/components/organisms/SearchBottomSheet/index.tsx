@@ -5,14 +5,9 @@ import {
     TouchableWithoutFeedback,
     Dimensions,
     PanResponder,
-    View,
-    Button,
-    Text
 } from 'react-native';
 import { SearchTarget, SelectTargetCityBtn } from 'components';
 import * as S from './style';
-
-import DateTimePicker from '@react-native-community/datetimepicker';
 
 interface ISearchBSProps {
     modalVisible: boolean;
@@ -44,15 +39,6 @@ const dummyData = [
 
 export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSProps) => {
 
-    
-    const [date, setDate] = useState(new Date());
-
-    const onChange = (event: any, selectedDate: any)   => {
-        const currentDate = selectedDate;
-        setDate(currentDate);
-      };
-    
-    /////////
 
     const [text, setText] = useState("");
     const [selectedSearchTargetCity , setSelectedSearchTargetCity] = useState<boolean>(false);
@@ -130,27 +116,6 @@ export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSPr
                 { ! selectedSearchTargetCity && 
                 <>
                     <SelectTargetCityBtn onPress={()=>onPressSearchTargetCity()} text={'뉴욕, 서울'}/>
-                        <S.tempContain>
-                            <DateTimePicker
-                            testID="dateTimePicker" 
-                            value={date}
-                            minimumDate={new Date()}
-                            mode={'date'}
-                            onChange={onChange}
-                            display="inline"
-                            />
-                        </S.tempContain>
-                            
-{/*                         
-                        <Text>selected: {date.toLocaleString()}</Text>
-                            <DateTimePicker
-                            testID="dateTimePicker"
-                            value={date}
-                            mode={'time'}
-                            is24Hour={true}
-                            onChange={onChange}
-                            display = 'spinner'
-                            /> */}
                         
                 </>
                 }
