@@ -4,48 +4,42 @@ import {
     Animated,
     TouchableWithoutFeedback,
     Dimensions,
-    PanResponder
+    PanResponder,
 } from 'react-native';
-import { SearchTarget } from 'components';
+import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import { SearchTarget, SelectTargetCityBtn, SelectTargetDate, HeaderCenter, BottomSheetBtn} from 'components';
+import { IconBottomSheetBar } from 'assets';
+import { DUMMY_DATA_CITY } from 'utils';
 import * as S from './style';
-
 interface ISearchBSProps {
     modalVisible: boolean;
     setModalVisible: (visible: boolean) => void;
   }
 
-  // mearge후에 상권님이 만든 dummydata에 추가하고 지울 예정
-const dummyData = [
-    { id: 1, city: 'Tokyo' },
-    { id: 2, city: 'Osaka' },
-    { id: 3, city: 'Kyoto' },
-    { id: 4, city: 'Hokkaido' },
-    { id: 5, city: 'Sapporo' },
-    { id: 6, city: 'Fukuoka' },
-    { id: 7, city: 'Kumamoto' },
-    { id: 8, city: 'Okinawa' },
-    { id: 9, city: 'Kagoshima' },
-    { id: 10, city: 'Saitama' },
-    { id: 11, city: 'Chiba' },
-    { id: 12, city: 'Kanagawa' },
-    { id: 13, city: 'Aichi' },
-    { id: 14, city: 'Miyazaki' },
-    { id: 15, city: 'Nagoya' },
-    { id: 16, city: 'Fukushima' },
-    { id: 17, city: 'Gifu' },
-    { id: 18, city: 'Shizuoka' },
-  ]
-  
-
 export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSProps) => {
-    const [text, serText] = useState("");
-    const targetList = dummyData.filter((item) => item.city.toUpperCase().includes(text.toUpperCase()));
+
+    const [date, setDate] = useState(new Date());
+    const [text, setText] = useState("");
+
+    const [selectedSearchTargetCity , setSelectedSearchTargetCity] = useState<boolean>(false);
+
+    const targetList = DUMMY_DATA_CITY.filter((item) => item.city.toUpperCase().includes(text.toUpperCase()));
     const screenHeight = Dimensions.get("screen").height;
     const panY = useRef(new Animated.Value(screenHeight)).current;
 
     const onChangeText = (text:string) => {
-        serText(text);
-      }
+        setText(text);
+    }
+    
+    const onPressSearchTargetCity = () => {
+        setSelectedSearchTargetCity(true);
+        setText("")
+    }
+
+    const onSubmitText = (city:string) => {
+        setSelectedSearchTargetCity(false);
+        setText(city)
+    }
       
     const translateY = panY.interpolate({
         inputRange: [-1, 0, 1],
@@ -80,6 +74,13 @@ export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSPr
         }
     })).current;
 
+    
+    const onChangeDate = (event : DateTimePickerEvent , selectedDate: any)   => {
+    
+        const currentDate = selectedDate;
+        setDate(currentDate);
+      };
+
     useEffect(()=>{
         if(modalVisible) {
             resetBottomSheet.start();
@@ -89,6 +90,7 @@ export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSPr
     const closeModal = () => {
         closeBottomSheet.start(()=>{
             setModalVisible(false);
+            setSelectedSearchTargetCity(false);
         })
     }
 
@@ -102,10 +104,31 @@ export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSPr
             <S.Overlay>
                 <TouchableWithoutFeedback
                     onPress={closeModal}>
-                <S.Background/>
+                    <S.Background/>
                 </TouchableWithoutFeedback>
+                
                 <S.Container style={{transform: [{ translateY: translateY }]}} {...panResponders.panHandlers}>
-                <SearchTarget targetList={targetList} text={text}  onChangeText= {onChangeText}/>
+                    <IconBottomSheetBar />
+                    <S.ScrollView showsVerticalScrollIndicator={false}>
+                        <S.SearchBox>
+                        { ! selectedSearchTargetCity && 
+                        <>  
+                            <HeaderCenter text={`Search Time Zone`} size={18} />
+                            <SelectTargetCityBtn onPress={()=>onPressSearchTargetCity()} text={text.trim()  === '' ? '국가, 도시' : text } />
+                            <SelectTargetDate onChangeDate={ onChangeDate } date={date} />
+                            
+                            {/* 다음 페이지가 완성되고 onPress를 추가 할것 */}
+                            <BottomSheetBtn text={'FIND'} onPress={function (): void {
+                                    throw new Error('Function not implemented.');
+                                }}
+                            />            
+                        </>
+                        }
+                        </S.SearchBox>
+                    </S.ScrollView>
+                    { selectedSearchTargetCity && 
+                    <SearchTarget targetList={targetList} text={text}  onChangeText= {onChangeText} onSubmitText={onSubmitText}/>
+                    }
                 </S.Container>
             </S.Overlay>
         </Modal>
