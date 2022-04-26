@@ -115,7 +115,7 @@ export const SearchBottomSheet = ({ modalVisible, setModalVisible} : ISearchBSPr
                         <>  
                             <HeaderCenter text={`Search Time Zone`} size={18} />
                             <SelectTargetCityBtn onPress={()=>onPressSearchTargetCity()} text={text.trim()  === '' ? '국가, 도시' : text } />
-                            <SelectTargetDate onChangeDate={ onChangeDate } text={date} />
+                            <SelectTargetDate onChangeDate={ onChangeDate } date={date} />
                             
                             {/* 다음 페이지가 완성되고 onPress를 추가 할것 */}
                             <BottomSheetBtn text={'FIND'} onPress={function (): void {
