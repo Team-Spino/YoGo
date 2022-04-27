@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
-  View,
   Modal,
   Animated,
   TouchableWithoutFeedback,
@@ -87,7 +86,7 @@ export const SearchBottomSheet = ({
     }),
   ).current;
 
-  const onChangeDate = (event: DateTimePickerEvent, selectedDate: any) => {
+  const onChangeDate = (event: DateTimePickerEvent, selectedDate: Date) => {
     const currentDate = selectedDate;
     setDate(currentDate);
   };
