@@ -6,9 +6,5 @@ interface IHeaderCenterProps {
 }
 
 export function HeaderCenter({ text, size }: IHeaderCenterProps) {
-  return (
-    <S.Text size={size}>
-      {text}
-    </S.Text>
-  );
+  return <S.Text size={size}>{text}</S.Text>;
 }

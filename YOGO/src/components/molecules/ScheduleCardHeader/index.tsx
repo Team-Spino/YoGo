@@ -1,7 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Tag, Title, SubTitle, DayOfWeek } from 'components';
-import { ITarget } from 'types';
+import { Tag, Title } from 'components';
 import * as S from './style';
 
 interface IScheduleCardHeaderProps {

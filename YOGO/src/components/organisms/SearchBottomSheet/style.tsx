@@ -1,8 +1,7 @@
-
 import styled from 'styled-components/native';
-import {Animated} from 'react-native';
+import { Animated } from 'react-native';
 
-export const Container =styled(Animated.View)`
+export const Container = styled(Animated.View)`
   height: 700px;
   justify-content: flex-start;
   align-items: center;
@@ -24,10 +23,10 @@ export const Overlay = styled.View`
 
 export const ScrollView = styled.ScrollView`
   width: 100%;
-`
+`;
 export const SearchBox = styled.View`
   height: 700px;
   width: 100%;
   justify-content: flex-start;
   align-items: center;
-`
+`;

@@ -6,9 +6,5 @@ interface IBHearderProps {
 }
 
 export function BottomSheetHeader({ text, size }: IBHearderProps) {
-  return (
-    <S.Header size={size}>
-      {text}
-    </S.Header>
-  );
+  return <S.Header size={size}>{text}</S.Header>;
 }
