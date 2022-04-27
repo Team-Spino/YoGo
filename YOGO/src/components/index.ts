@@ -16,6 +16,7 @@ export { TextBtn } from 'components/atoms/TextBtn';
 export { DatePicker } from 'components/atoms/DatePicker';
 export { HeaderCenter } from 'components/atoms/HeaderCenter';
 export { BottomSheetBtn } from 'components/atoms/BottomSheetBtn';
+export {TextInput} from 'components/atoms/TextInput';
 
 // Molecules
 export { ModalHeader } from 'components/molecules/ModalHeader';
