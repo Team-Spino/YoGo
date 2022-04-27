@@ -15,6 +15,9 @@ export function SelectTargetCityBtn({ onPress, text }: IBTargetCityBtnProps) {
         <TextBtn>{text}</TextBtn>
         <IconDownArrow />
       </S.PressContainer>
+      <S.Wrapper>
+        <S.Text>사용자의 [서울] 시간으로 pm 6:00 알람이 울립니다.</S.Text>
+      </S.Wrapper>
     </S.Container>
   );
 }

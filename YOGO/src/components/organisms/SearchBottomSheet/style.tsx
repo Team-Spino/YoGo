@@ -24,6 +24,7 @@ export const Overlay = styled.View`
 export const ScrollView = styled.ScrollView`
   width: 100%;
   height: 100%;
+  margin-bottom: 50px;
 `;
 
 export const Inner = styled.View`
@@ -34,7 +35,6 @@ export const Inner = styled.View`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
 `
 
 export const SearchBox = styled.View`
