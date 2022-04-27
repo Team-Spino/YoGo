@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
+  View,
   Modal,
   Animated,
   TouchableWithoutFeedback,
@@ -121,36 +122,35 @@ export const SearchBottomSheet = ({
           {...panResponders.panHandlers}
         >
           <IconBottomSheetBar />
-          <S.ScrollView showsVerticalScrollIndicator={false}>
-            <S.SearchBox>
-              {!selectedSearchTargetCity && (
-                <>
+          <S.SearchBox>
+            {!selectedSearchTargetCity ? (
+              <S.ScrollView showsVerticalScrollIndicator={false}>
+                <S.Inner>
                   <HeaderCenter text={`Search Time Zone`} size={18} />
+
                   <SelectTargetCityBtn
                     onPress={() => onPressSearchTargetCity()}
                     text={text.trim() === '' ? '국가, 도시' : text}
                   />
                   <SelectTargetDate onChangeDate={onChangeDate} date={date} />
 
-                  {/* 다음 페이지가 완성되고 onPress를 추가 할것 */}
                   <BottomSheetBtn
                     text={'FIND'}
                     onPress={function (): void {
                       throw new Error('Function not implemented.');
                     }}
                   />
-                </>
-              )}
-            </S.SearchBox>
-          </S.ScrollView>
-          {selectedSearchTargetCity && (
-            <SearchTarget
-              targetList={targetList}
-              text={text}
-              onChangeText={onChangeText}
-              onSubmitText={onSubmitText}
-            />
-          )}
+                </S.Inner>
+              </S.ScrollView>
+            ) : (
+              <SearchTarget
+                targetList={targetList}
+                text={text}
+                onChangeText={onChangeText}
+                onSubmitText={onSubmitText}
+              />
+            )}
+          </S.SearchBox>
         </S.Container>
       </S.Overlay>
     </Modal>

@@ -4,6 +4,10 @@ interface IHeaderCenterProps {
   size: number;
 }
 
+export const Container = styled.View`
+  width: 100%;
+`;
+
 export const Text = styled.Text<IHeaderCenterProps>`
   color: black;
   font-size: ${props => props.size};
@@ -11,5 +15,4 @@ export const Text = styled.Text<IHeaderCenterProps>`
   margin-top: 30px;
   margin-bottom: 30px;
   align-self: center;
-
 `;
