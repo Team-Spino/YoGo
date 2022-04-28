@@ -6,3 +6,4 @@ export { IconRight } from 'assets/icons/IconRight';
 export { IconDownArrow } from 'assets/icons/IconDownArrow';
 export { IconLeftArrow } from 'assets/icons/IconLeftArrow';
 export { IconBottomSheetBar } from 'assets/icons/IconBottomSheetBar';
+export {IconTick} from 'assets/icons/IconTick';
