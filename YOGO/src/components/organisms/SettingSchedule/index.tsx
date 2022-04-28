@@ -19,7 +19,7 @@ export function SettingSchedule() {
   const [location, setLocation] = useState<string>('');
   const [selectedSearchTargetCity, setSelectedSearchTargetCity] = useState<boolean>(false);
 
-    const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(new Date());
   const handleChange =
     (name: string) => (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
       const { text } = e.nativeEvent;
