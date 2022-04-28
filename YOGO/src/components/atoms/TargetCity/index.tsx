@@ -13,7 +13,7 @@ interface IBTTargetCityProps {
 }
 
 export function TargetCity({ item, onPress, selectedId }: IBTTargetCityProps) {
-  const backgroundColor = item.id === selectedId ? '#6564CC' : '#ffffff';
+  const backgroundColor = item.id === selectedId ? '#6564CC' : 'transparent';
 
   const color = item.id === selectedId ? 'white' : 'black';
 

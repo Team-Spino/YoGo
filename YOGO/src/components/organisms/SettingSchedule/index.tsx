@@ -6,6 +6,7 @@ import {
   SearchTarget,
   SelectTargetCityBtn,
   SelectTargetDate,
+  TagSelectContainer
 } from 'components';
 import { DUMMY_DATA_CITY } from 'utils';
 import * as S from './style';
@@ -62,6 +63,7 @@ export function SettingSchedule() {
               value={inputs.description}
               setValue={handleChange('description')}
             />
+            <TagSelectContainer/>
             <SelectTargetCityBtn
               onPress={() => onPressSearchTargetCity()}
               text={location.trim() === '' ? '국가, 도시' : location}
