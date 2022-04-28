@@ -7,7 +7,8 @@ import {
   SearchTarget,
   SelectTargetCityBtn,
   SelectTargetDate,
-  TagSelectContainer
+  TagSelectContainer,
+  DayOfWeekContainer
 } from 'components';
 import { DUMMY_DATA_CITY } from 'utils';
 import { ITagListProps, IDayOfWeekProps } from 'types';
@@ -46,6 +47,16 @@ export function SettingSchedule() {
         tag.key === key
           ? { ...tag, isSelected: !tag.isSelected }
           : { ...tag, isSelected: false},
+      ),
+    );
+  }
+
+  const onDaySelect = (key: string) => { 
+    setDayOfWeek(
+      dayOfWeek.map(day =>
+        day.key === key
+          ? { ...day, isSelected: !day.isSelected }
+          : day,
       ),
     );
   }
@@ -96,12 +107,13 @@ export function SettingSchedule() {
               value={inputs.description}
               setValue={handleChange('description')}
             />
-            <TagSelectContainer tagList={tagList} onSelectTag={onSelectTag}/>
+            <TagSelectContainer tagList={tagList} onSelectTag={onSelectTag} />
             <SelectTargetCityBtn
               onPress={() => onPressSearchTargetCity()}
               text={location.trim() === '' ? '국가, 도시' : location}
             />
             <SelectTargetDate onChangeDate={onChangeDate} date={date} />
+            <DayOfWeekContainer dayOfWeek={dayOfWeek} onDaySelect={onDaySelect} />
           </>
         ) : (
           <SearchTarget

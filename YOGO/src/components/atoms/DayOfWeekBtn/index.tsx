@@ -13,16 +13,18 @@ export function DayOfWeekBtn({ day, onDaySelect }: IDayOfWeekBtnProps) {
       <>
         {isSelected ? (
           <S.Container
-                backgroundColor="#6564CC"
-                fontColor="#ffffffff"
-                onPress={() => onDaySelect(key)}
-          >{name}</S.Container>
+            backgroundColor="#6564CC"
+            onPress={() => onDaySelect(key)}
+          >
+            <S.Text fontColor="#ffffffff">{name}</S.Text>
+          </S.Container>
         ) : (
           <S.Container
-                backgroundColor="transparent"
-                fontColor="#000000"
-                onPress={() => onDaySelect(key)}
-          >{name}</S.Container>
+            backgroundColor="transparent"
+            onPress={() => onDaySelect(key)}
+          >
+            <S.Text fontColor="#000000">{name}</S.Text>
+          </S.Container>
         )}
       </>
     );

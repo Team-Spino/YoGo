@@ -5,16 +5,18 @@ interface IContainerProps {
     fontColor: string;
 }
 
-export const Container = styled.TouchableOpacity<IContainerProps>`
+export const Container = styled.TouchableOpacity<{ backgroundColor: string }>`
     width: 38px;
     height: 38px;
     border-radius: 38px;
     background: ${props => props.backgroundColor};
 
-    font-size: 10px;
-    color: ${props => props.fontColor};
-
     display: flex;
     justify-content: center;
     align-items: center;
 `
+
+export const Text = styled.Text<{ fontColor: string }>`
+  font-size: 10px;
+  color: ${props => props.fontColor};
+`;
