@@ -10,7 +10,7 @@ import {
   TagSelectContainer
 } from 'components';
 import { DUMMY_DATA_CITY } from 'utils';
-import { ITagListProps } from 'types';
+import { ITagListProps, IDayOfWeekProps } from 'types';
 import * as S from './style';
 
 
@@ -28,6 +28,16 @@ export function SettingSchedule() {
     { key: uuid.v4() as string, color: '#5FA3F8', isSelected: false },
     { key: uuid.v4() as string, color: '#CB88F8', isSelected: false },
     { key: uuid.v4() as string, color: '#B5B5B9', isSelected: false },
+  ]);
+
+  const [dayOfWeek, setDayOfWeek] = useState<Array<IDayOfWeekProps>>([
+    { key: uuid.v4() as string, name: 'Sun', isSelected: false },
+    { key: uuid.v4() as string, name: 'Mon', isSelected: false },
+    { key: uuid.v4() as string, name: 'Tue', isSelected: false },
+    { key: uuid.v4() as string, name: 'Wed', isSelected: false },
+    { key: uuid.v4() as string, name: 'Thu', isSelected: false },
+    { key: uuid.v4() as string, name: 'Fri', isSelected: false },
+    { key: uuid.v4() as string, name: 'Sat', isSelected: false },
   ]);
 
   const onSelectTag = (key: string) => { 
