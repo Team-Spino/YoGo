@@ -1,11 +1,30 @@
 import React from 'react';
 import { IconTick } from 'assets';
+import { ITagListProps } from 'types';
 import * as S from './style';
 
-export function TagSelect({color}: {color: string}) {
+interface ITagSelectProps {
+    tag: ITagListProps;
+    onSelectTag: (key: string) => void;
+}
+
+export function TagSelect({ tag, onSelectTag }: ITagSelectProps) {
+    const { key, color, isSelected } = tag;
+
     return (
-        <S.Container color={color}>
-            <IconTick />
-        </S.Container>
+        <>
+            {
+                !isSelected
+                ? (
+                    <S.Container color={color} onPress={() => onSelectTag(key)}/>
+                  )
+                : (
+                    <S.Container color={color}>
+                        <IconTick/>
+                    </S.Container>
+                )
+            }
+        </>
+
     )
 }

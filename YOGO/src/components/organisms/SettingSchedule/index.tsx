@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import uuid from 'react-native-uuid';
 import {
   TextInput,
   SearchTarget,
@@ -9,14 +10,36 @@ import {
   TagSelectContainer
 } from 'components';
 import { DUMMY_DATA_CITY } from 'utils';
+import { ITagListProps } from 'types';
 import * as S from './style';
+
 
 export function SettingSchedule() {
   const [inputs, setInputs] = useState({
     title: '',
     description: '',
   });
-  
+
+  const [tagList, setTagList] = useState<Array<ITagListProps>>([
+    { key: uuid.v4() as string, color: '#EE7B70', isSelected: false },
+    { key: uuid.v4() as string, color: '#F5BE5B', isSelected: false },
+    { key: uuid.v4() as string, color: '#FBE864', isSelected: false },
+    { key: uuid.v4() as string, color: '#91FC88', isSelected: false },
+    { key: uuid.v4() as string, color: '#5FA3F8', isSelected: false },
+    { key: uuid.v4() as string, color: '#CB88F8', isSelected: false },
+    { key: uuid.v4() as string, color: '#B5B5B9', isSelected: false },
+  ]);
+
+  const onSelectTag = (key: string) => { 
+    setTagList(
+      tagList.map(tag =>
+        tag.key === key
+          ? { ...tag, isSelected: !tag.isSelected }
+          : { ...tag, isSelected: false},
+      ),
+    );
+  }
+
   const [location, setLocation] = useState<string>('');
   const [selectedSearchTargetCity, setSelectedSearchTargetCity] = useState<boolean>(false);
 
@@ -63,7 +86,7 @@ export function SettingSchedule() {
               value={inputs.description}
               setValue={handleChange('description')}
             />
-            <TagSelectContainer/>
+            <TagSelectContainer tagList={tagList} onSelectTag={onSelectTag}/>
             <SelectTargetCityBtn
               onPress={() => onPressSearchTargetCity()}
               text={location.trim() === '' ? '국가, 도시' : location}
