@@ -117,6 +117,7 @@ export const SearchBottomSheet = ({
         </TouchableWithoutFeedback>
 
         <S.Container
+          height={screenHeight}
           style={{ transform: [{ translateY: translateY }] }}
           {...panResponders.panHandlers}
         >
