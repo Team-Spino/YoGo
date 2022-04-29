@@ -1,14 +1,9 @@
 import styled from "styled-components/native";
 
-interface IContainerProps {
-    backgroundColor: string;
-    fontColor: string;
-}
-
 export const Container = styled.TouchableOpacity<{ backgroundColor: string }>`
-    width: 38px;
-    height: 38px;
-    border-radius: 38px;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
     background: ${props => props.backgroundColor};
 
     display: flex;
@@ -17,6 +12,7 @@ export const Container = styled.TouchableOpacity<{ backgroundColor: string }>`
 `
 
 export const Text = styled.Text<{ fontColor: string }>`
-  font-size: 10px;
+  font-size: 12px;
+  font-weight: bold;
   color: ${props => props.fontColor};
 `;
