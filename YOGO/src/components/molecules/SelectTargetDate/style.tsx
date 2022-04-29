@@ -5,4 +5,3 @@ export const Container = styled.View`
   width: 90%; 
   flex: 1;
 `
-
