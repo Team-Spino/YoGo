@@ -20,11 +20,13 @@ import * as S from './style';
 interface ISearchBSProps {
   modalVisible: boolean;
   setModalVisible: (visible: boolean) => void;
+  onPressResult: () => void;
 }
 
 export const SearchBottomSheet = ({
   modalVisible,
   setModalVisible,
+  onPressResult,
 }: ISearchBSProps) => {
   const [date, setDate] = useState(new Date());
   const [text, setText] = useState('');
@@ -104,6 +106,11 @@ export const SearchBottomSheet = ({
     });
   };
 
+  const onPressBottomSheetBtn = () => {
+    closeModal();
+    onPressResult();
+  }
+
   return (
     <Modal
       visible={modalVisible}
@@ -133,13 +140,9 @@ export const SearchBottomSheet = ({
                     text={text.trim() === '' ? '국가, 도시' : text}
                   />
                   <SelectTargetDate onChangeDate={onChangeDate} date={date} />
-
                   <BottomSheetBtn
                     text={'FIND'}
-                    onPress={function (): void {
-                      throw new Error('Function not implemented.');
-                    }}
-                  />
+                    onPress={() => onPressBottomSheetBtn()}/>
                 </S.Inner>
               </S.ScrollView>
             ) : (

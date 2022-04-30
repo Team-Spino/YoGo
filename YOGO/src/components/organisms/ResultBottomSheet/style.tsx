@@ -2,10 +2,10 @@ import styled from 'styled-components/native';
 import { Animated } from 'react-native';
 
 export const Container = styled(Animated.View)<{height: number}>`
-  height: ${({ height }) => height * 0.95}px;
+  height: ${({ height }) => height * 0.8}px;
   justify-content: flex-start;
   align-items: center;
-  background-color: white;
+  background-color: ${props => props.theme.colors.blue};
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   padding-top: 10px;
@@ -21,24 +21,18 @@ export const Overlay = styled.View`
   background-color: rgba(0, 0, 0, 0.4);
 `;
 
-export const ScrollView = styled.ScrollView`
-  width: 100%;
-  height: 100%;
-  margin-bottom: 50px;
-`;
-
 export const Inner = styled.View`
   width: 100%;
-  height: 100%;
-  display: flex;
+  height: 60%;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `
 
-export const SearchBox = styled.View`
+export const ResultBox = styled.View`
   height: 100%;
   width: 100%;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
+  padding: 20px 0
 `;

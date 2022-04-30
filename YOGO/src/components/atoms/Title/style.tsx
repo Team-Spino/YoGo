@@ -10,4 +10,5 @@ export const Text = styled.Text<ITitleProps>`
   font-size: ${props => props.size};
   font-weight: bold;
   margin-bottom: 5;
+  text-align: center;
 `;
