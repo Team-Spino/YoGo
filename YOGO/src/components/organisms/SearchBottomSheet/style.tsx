@@ -1,9 +1,8 @@
-
 import styled from 'styled-components/native';
-import {Animated} from 'react-native';
+import { Animated } from 'react-native';
 
-export const Container =styled(Animated.View)`
-  height: 700px;
+export const Container = styled(Animated.View)<{height: number}>`
+  height: ${({ height }) => height * 0.95}px;
   justify-content: flex-start;
   align-items: center;
   background-color: white;
@@ -24,10 +23,23 @@ export const Overlay = styled.View`
 
 export const ScrollView = styled.ScrollView`
   width: 100%;
+  height: 100%;
+  margin-bottom: 50px;
+`;
+
+export const Inner = styled.View`
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `
+
 export const SearchBox = styled.View`
-  height: 700px;
+  height: 100%;
   width: 100%;
   justify-content: flex-start;
   align-items: center;
-`
+`;

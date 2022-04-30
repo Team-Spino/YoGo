@@ -16,8 +16,12 @@ export { TextBtn } from 'components/atoms/TextBtn';
 export { DatePicker } from 'components/atoms/DatePicker';
 export { HeaderCenter } from 'components/atoms/HeaderCenter';
 export { BottomSheetBtn } from 'components/atoms/BottomSheetBtn';
+export { TextInput } from 'components/atoms/TextInput';
+export { TagSelect } from 'components/atoms/TagSelect';
+export { DayOfWeekBtn } from 'components/atoms/DayOfWeekBtn';
 
 // Molecules
+export { TagSelectContainer } from 'components/molecules/TagSelectContainer';
 export { ModalHeader } from 'components/molecules/ModalHeader';
 export { ModalTime } from 'components/molecules/ModalTime';
 export { ScheduleCardHeader } from 'components/molecules/ScheduleCardHeader';
@@ -26,13 +30,14 @@ export { ModalMemo } from 'components/molecules/ModalMemo';
 export { SearchTarget } from 'components/molecules/SearchTarget';
 export { SelectTargetCityBtn } from 'components/molecules/SelectTargetCityBtn';
 export { SelectTargetDate } from 'components/molecules/SelectTargetDate';
+export { DayOfWeekContainer } from 'components/molecules/DayOfWeekContainer';
+
 // Organisms
 export { DetailModal } from 'components/organisms/DetailModal';
 export { TimeZoneList } from 'components/organisms/TimeZoneList';
 export { ScheduleCard } from 'components/organisms/ScheduleCard';
 export { SettingSchedule } from 'components/organisms/SettingSchedule';
 export {SearchBottomSheet} from 'components/organisms/SearchBottomSheet';
-
 
 
 // Templates

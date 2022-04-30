@@ -1,15 +1,12 @@
 import styled from 'styled-components/native';
   
 export const Container = styled.View`
-  margin-top : 20px;
-  width: 90%; 
-  height: 65%;
-`
-
-export const PressContainer = styled.TouchableOpacity`
-  display: flex;
-  flex-direction: row;
+  margin-top: 20px;
   width: 100%;
-  align-items: center;
-  jsutify-content: space-between;
-` 
+  flex: 1;
+
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+  border-bottom-width: 1px;
+
+  padding: 15px 20px;
+`;

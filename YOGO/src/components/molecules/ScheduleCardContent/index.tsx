@@ -1,8 +1,7 @@
 import React from 'react';
-import { Title, ToggleBtn } from 'components';
+import { Title, ToggleBtn, SubTitle } from 'components';
 import { ITarget, ICur } from 'types';
 import * as S from './style';
-import { SubTitle } from '../../atoms/SubTitle/index';
 
 interface IScheduleCardContentProps {
   isEnable: boolean;
