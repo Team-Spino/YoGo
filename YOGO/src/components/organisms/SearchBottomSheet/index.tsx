@@ -1,11 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  Modal,
-  Animated,
-  TouchableWithoutFeedback,
-  Dimensions,
-  PanResponder,
-} from 'react-native';
+import { Modal, TouchableWithoutFeedback } from 'react-native';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import {
   SearchTarget,
@@ -16,6 +10,7 @@ import {
 } from 'components';
 import { IconBottomSheetBar } from 'assets';
 import { DUMMY_DATA_CITY } from 'utils';
+import { useBottomSheet } from 'hooks';
 import * as S from './style';
 interface ISearchBSProps {
   modalVisible: boolean;
@@ -35,8 +30,6 @@ export const SearchBottomSheet = ({
   const targetList = DUMMY_DATA_CITY.filter(item =>
     item.city.toUpperCase().includes(text.toUpperCase()),
   );
-  const screenHeight = Dimensions.get('screen').height;
-  const panY = useRef(new Animated.Value(screenHeight)).current;
 
   const onChangeText = (text: string) => {
     setText(text);
@@ -52,57 +45,20 @@ export const SearchBottomSheet = ({
     setText(city);
   };
 
-  const translateY = panY.interpolate({
-    inputRange: [-1, 0, 1],
-    outputRange: [0, 0, 1],
-  });
-
-  const resetBottomSheet = Animated.timing(panY, {
-    toValue: 0,
-    duration: 300,
-    useNativeDriver: true,
-  });
-
-  const closeBottomSheet = Animated.timing(panY, {
-    toValue: screenHeight,
-    duration: 300,
-    useNativeDriver: true,
-  });
-
-  const panResponders = useRef(
-    PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onMoveShouldSetPanResponder: () => false,
-      onPanResponderMove: (event, gestureState) => {
-        panY.setValue(gestureState.dy);
-      },
-      onPanResponderRelease: (event, gestureState) => {
-        if (gestureState.dy > 0 && gestureState.vy > 1.5) {
-          closeModal();
-        } else {
-          resetBottomSheet.start();
-        }
-      },
-    }),
-  ).current;
+  const onCloseBottomSheet = () => {
+    setModalVisible(false);
+    setSelectedSearchTargetCity(false);
+  };
 
   const onChangeDate = (event: DateTimePickerEvent, selectedDate: Date) => {
     const currentDate = selectedDate;
     setDate(currentDate);
   };
 
-  useEffect(() => {
-    if (modalVisible) {
-      resetBottomSheet.start();
-    }
-  }, [modalVisible]);
-
-  const closeModal = () => {
-    closeBottomSheet.start(() => {
-      setModalVisible(false);
-      setSelectedSearchTargetCity(false);
-    });
-  };
+  const { translateY, screenHeight, panResponders } = useBottomSheet({
+    modalVisible,
+    onCloseBottomSheet,
+  });
 
   return (
     <Modal
@@ -112,7 +68,7 @@ export const SearchBottomSheet = ({
       statusBarTranslucent
     >
       <S.Overlay>
-        <TouchableWithoutFeedback onPress={closeModal}>
+        <TouchableWithoutFeedback onPress={onCloseBottomSheet}>
           <S.Background />
         </TouchableWithoutFeedback>
 
