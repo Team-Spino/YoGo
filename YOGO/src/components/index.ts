@@ -37,8 +37,8 @@ export { DetailModal } from 'components/organisms/DetailModal';
 export { TimeZoneList } from 'components/organisms/TimeZoneList';
 export { ScheduleCard } from 'components/organisms/ScheduleCard';
 export { SettingSchedule } from 'components/organisms/SettingSchedule';
-export {SearchBottomSheet} from 'components/organisms/SearchBottomSheet';
-
+export { SearchBottomSheet } from 'components/organisms/SearchBottomSheet';
+export { SetCityAndDate } from 'components/organisms/SetCityAndDate';
 
 // Templates
 export { Home } from 'components/templates/Home';

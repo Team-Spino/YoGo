@@ -4,11 +4,10 @@ import * as S from './style';
 
 interface IBTargetListProps {
   targetList: any;
-  text: string;
-  onChangeText: (text: string) => void;
-  onSubmitText: (text: string) => void;
+  city: string;
+  onChangeCity: (city: string) => void;
+  onSubmitCity: (city: string) => void;
 }
-
 interface IBTTargetItemProps {
   id: number;
   city: string;
@@ -16,22 +15,22 @@ interface IBTTargetItemProps {
 
 export function SearchTarget({
   targetList,
-  text,
-  onChangeText,
-  onSubmitText,
+  city,
+  onChangeCity,
+  onSubmitCity,
 }: IBTargetListProps) {
   const [selectedId, setSelectedId] = useState<number>(-1);
 
   const onPress = ({ id, city }: IBTTargetItemProps) => {
-    onSubmitText(city);
+    onSubmitCity(city);
     setSelectedId(id);
   };
 
   return (
     <S.Container>
       <SelectTargetInput
-        text={text}
-        onChangeText={onChangeText}
+        city={city}
+        onChangeCity={onChangeCity}
       ></SelectTargetInput>
       <S.FlatListContainer
         data={targetList}

@@ -1,13 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Modal, TouchableWithoutFeedback } from 'react-native';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
-import {
-  SearchTarget,
-  SelectTargetCityBtn,
-  SelectTargetDate,
-  HeaderCenter,
-  BottomSheetBtn,
-} from 'components';
+import { SearchTarget, SetCityAndDate } from 'components';
 import { IconBottomSheetBar } from 'assets';
 import { DUMMY_DATA_CITY } from 'utils';
 import { useBottomSheet } from 'hooks';
@@ -22,27 +16,27 @@ export const SearchBottomSheet = ({
   setModalVisible,
 }: ISearchBSProps) => {
   const [date, setDate] = useState(new Date());
-  const [text, setText] = useState('');
+  const [city, setCity] = useState('');
 
   const [selectedSearchTargetCity, setSelectedSearchTargetCity] =
     useState<boolean>(false);
 
   const targetList = DUMMY_DATA_CITY.filter(item =>
-    item.city.toUpperCase().includes(text.toUpperCase()),
+    item.city.toUpperCase().includes(city.toUpperCase()),
   );
 
-  const onChangeText = (text: string) => {
-    setText(text);
+  const onChangeCity = (text: string) => {
+    setCity(text);
+  };
+
+  const onSubmitCity = (city: string) => {
+    setSelectedSearchTargetCity(false);
+    setCity(city);
   };
 
   const onPressSearchTargetCity = () => {
     setSelectedSearchTargetCity(true);
-    setText('');
-  };
-
-  const onSubmitText = (city: string) => {
-    setSelectedSearchTargetCity(false);
-    setText(city);
+    setCity('');
   };
 
   const onCloseBottomSheet = () => {
@@ -79,31 +73,21 @@ export const SearchBottomSheet = ({
         >
           <IconBottomSheetBar />
           <S.SearchBox>
-            {!selectedSearchTargetCity ? (
-              <S.ScrollView showsVerticalScrollIndicator={false}>
-                <S.Inner>
-                  <HeaderCenter text={`Search Time Zone`} size={18} />
-
-                  <SelectTargetCityBtn
-                    onPress={() => onPressSearchTargetCity()}
-                    text={text.trim() === '' ? '국가, 도시' : text}
-                  />
-                  <SelectTargetDate onChangeDate={onChangeDate} date={date} />
-
-                  <BottomSheetBtn
-                    text={'FIND'}
-                    onPress={function (): void {
-                      throw new Error('Function not implemented.');
-                    }}
-                  />
-                </S.Inner>
-              </S.ScrollView>
-            ) : (
+            {!selectedSearchTargetCity && (
+              <SetCityAndDate
+                city={city}
+                date={date}
+                isBottomSheet={true}
+                onChangeDate={onChangeDate}
+                onPressSearchTargetCity={onPressSearchTargetCity}
+              />
+            )}
+            {selectedSearchTargetCity && (
               <SearchTarget
                 targetList={targetList}
-                text={text}
-                onChangeText={onChangeText}
-                onSubmitText={onSubmitText}
+                city={city}
+                onChangeCity={onChangeCity}
+                onSubmitCity={onSubmitCity}
               />
             )}
           </S.SearchBox>
