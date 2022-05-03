@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Modal, TouchableWithoutFeedback } from 'react-native';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { SearchTarget, SetCityAndDate } from 'components';

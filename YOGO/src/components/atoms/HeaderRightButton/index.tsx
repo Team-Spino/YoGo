@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Pressable, Platform } from 'react-native';
+import { Pressable } from 'react-native';
 import * as S from './style';
 import { IconPlus } from 'assets';
 

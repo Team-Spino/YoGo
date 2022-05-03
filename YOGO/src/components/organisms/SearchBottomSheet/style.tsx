@@ -1,7 +1,7 @@
-import styled from 'styled-components/native';
 import { Animated } from 'react-native';
+import styled from 'styled-components/native';
 
-export const Container = styled(Animated.View)<{height: number}>`
+export const Container = styled(Animated.View)<{ height: number }>`
   height: ${({ height }) => height * 0.95}px;
   justify-content: flex-start;
   align-items: center;
@@ -26,16 +26,6 @@ export const ScrollView = styled.ScrollView`
   height: 100%;
   margin-bottom: 50px;
 `;
-
-export const Inner = styled.View`
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`
 
 export const SearchBox = styled.View`
   height: 100%;
