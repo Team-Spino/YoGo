@@ -6,6 +6,7 @@ import { IconBottomSheetBar } from 'assets';
 import { DUMMY_DATA_CITY } from 'utils';
 import { useBottomSheet } from 'hooks';
 import * as S from './style';
+
 interface ISearchBSProps {
   modalVisible: boolean;
   setModalVisible: (visible: boolean) => void;
@@ -74,13 +75,15 @@ export const SearchBottomSheet = ({
           <IconBottomSheetBar />
           <S.SearchBox>
             {!selectedSearchTargetCity && (
-              <SetCityAndDate
-                city={city}
-                date={date}
-                isBottomSheet={true}
-                onChangeDate={onChangeDate}
-                onPressSearchTargetCity={onPressSearchTargetCity}
-              />
+              <S.ScrollView>
+                <SetCityAndDate
+                  city={city}
+                  date={date}
+                  isBottomSheet={true}
+                  onChangeDate={onChangeDate}
+                  onPressSearchTargetCity={onPressSearchTargetCity}
+                />
+              </S.ScrollView>
             )}
             {selectedSearchTargetCity && (
               <SearchTarget

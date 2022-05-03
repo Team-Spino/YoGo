@@ -27,23 +27,21 @@ export function SetCityAndDate({
 }: ISetCityAndDateProps) {
   return (
     <S.Container>
-      <S.Wrapper>
-        {isBottomSheet && <HeaderCenter text={`Search Time Zone`} size={18} />}
-        <SelectTargetCityBtn
-          onPress={() => onPressSearchTargetCity()}
-          text={city.trim() === '' ? '국가, 도시' : city}
-        />
-        <SelectTargetDate onChangeDate={onChangeDate} date={date} />
+      {isBottomSheet && <HeaderCenter text={`Search Time Zone`} size={18} />}
+      <SelectTargetCityBtn
+        onPress={() => onPressSearchTargetCity()}
+        text={city.trim() === '' ? '국가, 도시' : city}
+      />
+      <SelectTargetDate onChangeDate={onChangeDate} date={date} />
 
-        {isBottomSheet && (
-          <BottomSheetBtn
-            text={'FIND'}
-            onPress={function (): void {
-              throw new Error('Function not implemented.');
-            }}
-          />
-        )}
-      </S.Wrapper>
+      {isBottomSheet && (
+        <BottomSheetBtn
+          text={'FIND'}
+          onPress={function (): void {
+            throw new Error('Function not implemented.');
+          }}
+        />
+      )}
     </S.Container>
   );
 }

@@ -5,15 +5,13 @@ import uuid from 'react-native-uuid';
 import {
   TextInput,
   SearchTarget,
-  SelectTargetCityBtn,
-  SelectTargetDate,
   TagSelectContainer,
-  DayOfWeekContainer
+  DayOfWeekContainer,
+  SetCityAndDate,
 } from 'components';
 import { DUMMY_DATA_CITY } from 'utils';
 import { ITagListProps, IDayOfWeekProps } from 'types';
 import * as S from './style';
-
 
 export function SettingSchedule() {
   const [inputs, setInputs] = useState({
@@ -41,28 +39,27 @@ export function SettingSchedule() {
     { key: uuid.v4() as string, name: 'Sat', isSelected: false },
   ]);
 
-  const onSelectTag = (key: string) => { 
+  const onSelectTag = (key: string) => {
     setTagList(
       tagList.map(tag =>
         tag.key === key
           ? { ...tag, isSelected: !tag.isSelected }
-          : { ...tag, isSelected: false},
+          : { ...tag, isSelected: false },
       ),
     );
-  }
+  };
 
-  const onDaySelect = (key: string) => { 
+  const onDaySelect = (key: string) => {
     setDayOfWeek(
       dayOfWeek.map(day =>
-        day.key === key
-          ? { ...day, isSelected: !day.isSelected }
-          : day,
+        day.key === key ? { ...day, isSelected: !day.isSelected } : day,
       ),
     );
-  }
+  };
 
-  const [location, setLocation] = useState<string>('');
-  const [selectedSearchTargetCity, setSelectedSearchTargetCity] = useState<boolean>(false);
+  const [city, setCity] = useState<string>('');
+  const [selectedSearchTargetCity, setSelectedSearchTargetCity] =
+    useState<boolean>(false);
 
   const [date, setDate] = useState(new Date());
   const handleChange =
@@ -70,30 +67,32 @@ export function SettingSchedule() {
       const { text } = e.nativeEvent;
       setInputs({ ...inputs, [name]: text });
     };
-  
-  const onChangeLocation = (location: string) => setLocation(location);
-  const onPressSearchTargetCity = () => { 
+
+  const onChangeCity = (city: string) => setCity(city);
+
+  const onPressSearchTargetCity = () => {
     setSelectedSearchTargetCity(true);
-    setLocation('');
-  }
-  const onSubmitText = (location: string) => { 
+    setCity('');
+  };
+
+  const onSubmitCity = (city: string) => {
     setSelectedSearchTargetCity(false);
-    setLocation(location);
-  }
+    setCity(city);
+  };
 
   const targetList = DUMMY_DATA_CITY.filter(item =>
-    item.city.toUpperCase().includes(location.toUpperCase()),
+    item.city.toUpperCase().includes(city.toUpperCase()),
   );
 
   const onChangeDate = (event: DateTimePickerEvent, selectedDate: Date) => {
     const currentDate = selectedDate;
     setDate(currentDate);
-  };  
+  };
 
   return (
     <S.Container>
       <S.Wrapper>
-        {!selectedSearchTargetCity ? (
+        {!selectedSearchTargetCity && (
           <>
             <TextInput
               placeholder="Title"
@@ -108,19 +107,25 @@ export function SettingSchedule() {
               setValue={handleChange('description')}
             />
             <TagSelectContainer tagList={tagList} onSelectTag={onSelectTag} />
-            <SelectTargetCityBtn
-              onPress={() => onPressSearchTargetCity()}
-              text={location.trim() === '' ? '국가, 도시' : location}
+            <SetCityAndDate
+              city={city}
+              date={date}
+              isBottomSheet={false}
+              onChangeDate={onChangeDate}
+              onPressSearchTargetCity={onPressSearchTargetCity}
             />
-            <SelectTargetDate onChangeDate={onChangeDate} date={date} />
-            <DayOfWeekContainer dayOfWeek={dayOfWeek} onDaySelect={onDaySelect} />
+            <DayOfWeekContainer
+              dayOfWeek={dayOfWeek}
+              onDaySelect={onDaySelect}
+            />
           </>
-        ) : (
+        )}
+        {selectedSearchTargetCity && (
           <SearchTarget
             targetList={targetList}
-            text={location}
-            onChangeText={onChangeLocation}
-            onSubmitText={onSubmitText}
+            city={city}
+            onChangeCity={onChangeCity}
+            onSubmitCity={onSubmitCity}
           />
         )}
       </S.Wrapper>
