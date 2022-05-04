@@ -40,10 +40,12 @@ export { DetailModal } from 'components/organisms/DetailModal';
 export { TimeZoneList } from 'components/organisms/TimeZoneList';
 export { ScheduleCard } from 'components/organisms/ScheduleCard';
 export { SettingSchedule } from 'components/organisms/SettingSchedule';
-export { SearchBottomSheet } from 'components/organisms/SearchBottomSheet';
-export { ResultBottomSheet } from 'components/organisms/ResultBottomSheet';
+export { SearchSheet } from 'components/organisms/SearchSheet';
+export { ResultSheet } from 'components/organisms/ResultSheet';
+
 
 // Templates
 export { Home } from 'components/templates/Home';
 export { TimeZone } from 'components/templates/TimeZone';
 export { HandleScheduleTemplate } from 'components/templates/HandleScheduleTemplate';
+export { BottomSheet } from 'components/templates/BottomSheet';
