@@ -14,11 +14,10 @@ interface IAgendaProps {
 }
 
 export function AgendaBox({ data , selectedDay, markedDates ,onDayPress }: IAgendaProps) {
-
   return (
     <Agenda
       items={{
-        [selectedDay] : [{ data }]}}
+        [data.length && selectedDay] : [{ data }]}}
       // 아직 사용하지 않음
       // loadItemsForMonth={ month => {
       //   console.log('trigger items loading');
@@ -26,9 +25,6 @@ export function AgendaBox({ data , selectedDay, markedDates ,onDayPress }: IAgen
       onDayPress={day => {
         onDayPress(day.dateString);
       }}
-      // onDayChange={day => {
-      //   console.log('day changed');
-      // }}
 
       // 임시용
       renderEmptyData={() => {

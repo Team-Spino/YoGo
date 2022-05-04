@@ -23,7 +23,6 @@ export function Home({ navigation }: { navigation: Prop }) {
 
   const onDayPress = (day : string) => {
     setSelectedDay(day);
-   
   };
 
   useEffect(() => {
