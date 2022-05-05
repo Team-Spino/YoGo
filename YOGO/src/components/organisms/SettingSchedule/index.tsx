@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import uuid from 'react-native-uuid';
+
 import {
   TextInput,
   SearchTarget,
