@@ -17,6 +17,7 @@ export function HandleScheduleTemplate({ navigation }: { navigation: Prop }) {
   };
 
   const onSubmit = () => {
+    PushNotificationIOS.requestPermissions();
     PushNotificationIOS.addNotificationRequest({
       id: '시발',
       title: '팀 스피노 프로젝트 2차 스크럼',
