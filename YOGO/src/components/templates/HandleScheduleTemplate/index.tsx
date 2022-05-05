@@ -16,22 +16,20 @@ export function HandleScheduleTemplate({ navigation }: { navigation: Prop }) {
   const getCorrectDate = () => {
     const date = new Date();
     date.setDate(date.getDate());
-    date.setHours(21);
-    date.setMinutes(38);
+    date.setHours(16);
+    date.setMinutes(59);
     return date;
   };
 
   const onSubmit = () => {
     const temp = new Date(new Date().getTime() + 2000);
-    console.log(getCorrectDate());
-
     PushNotificationIOS.addNotificationRequest({
       id: '시발',
       title: '팀 스피노 프로젝트 2차 스크럼',
       subtitle: '배포 관련 회의',
       body: '양상우, 양지웅, 염상권, 김승덕 정혜연',
       badge: 1,
-      fireDate: temp,
+      fireDate: getCorrectDate(),
       repeats: true,
       repeatsComponent: {
         hour: false,

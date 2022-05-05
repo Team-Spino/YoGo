@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import { ThemeProvider } from 'styled-components/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -8,6 +9,12 @@ import { theme } from 'styles/theme';
 const Stack = createNativeStackNavigator();
 
 function App() {
+  const [permitive, setPermitive] = useState(false);
+
+  useEffect(() => {
+    PushNotificationIOS.checkPermissions(e => console.log(e));
+  }, [permitive]);
+
   return (
     <NavigationContainer>
       <ThemeProvider theme={theme}>
