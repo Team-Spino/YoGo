@@ -8,21 +8,15 @@ import * as S from './style';
 type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
 
 export function HandleScheduleTemplate({ navigation }: { navigation: Prop }) {
-  // const onSubmit = () => {
-  //   console.log('submit');
-  //   navigation.goBack();
-  // };
-
   const getCorrectDate = () => {
     const date = new Date();
     date.setDate(date.getDate());
-    date.setHours(16);
-    date.setMinutes(59);
+    date.setHours(17);
+    date.setMinutes(9);
     return date;
   };
 
   const onSubmit = () => {
-    const temp = new Date(new Date().getTime() + 2000);
     PushNotificationIOS.addNotificationRequest({
       id: '시발',
       title: '팀 스피노 프로젝트 2차 스크럼',
