@@ -33,8 +33,10 @@ export { SearchTarget } from 'components/molecules/SearchTarget';
 export { SelectTargetCityBtn } from 'components/molecules/SelectTargetCityBtn';
 export { SelectTargetDate } from 'components/molecules/SelectTargetDate';
 export { DayOfWeekContainer } from 'components/molecules/DayOfWeekContainer';
+export { AgendaBox } from 'components/molecules/AgendaBox';
 export { TimeZoneCard } from 'components/molecules/TimeZoneCard';
 export { ResultCard } from 'components/molecules/ResultCard';
+
 // Organisms
 export { DetailModal } from 'components/organisms/DetailModal';
 export { TimeZoneList } from 'components/organisms/TimeZoneList';
