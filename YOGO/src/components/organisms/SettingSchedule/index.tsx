@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack/lib/typescript/src/types';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
-import uuid from 'react-native-uuid';
-
 import {
   TextInput,
   SearchTarget,
@@ -11,35 +10,38 @@ import {
   SetCityAndDate,
   Button,
 } from 'components';
-import { DUMMY_DATA_CITY } from 'utils';
-import { ITagListProps, IDayOfWeekProps } from 'types';
+import { DAY_OF_WEEK, DUMMY_DATA_CITY, TAG_COLOR } from 'utils';
+import { ITagListProps, IDayOfWeekProps, RootStackParamList } from 'types';
+import { useNotification } from 'hooks';
 import * as S from './style';
 
-export function SettingSchedule() {
+type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
+
+export function SettingSchedule({ navigation }: { navigation: Prop }) {
   const [inputs, setInputs] = useState({
     title: '',
     description: '',
   });
 
-  const [tagList, setTagList] = useState<Array<ITagListProps>>([
-    { key: uuid.v4() as string, color: '#EE7B70', isSelected: false },
-    { key: uuid.v4() as string, color: '#F5BE5B', isSelected: false },
-    { key: uuid.v4() as string, color: '#FBE864', isSelected: false },
-    { key: uuid.v4() as string, color: '#91FC88', isSelected: false },
-    { key: uuid.v4() as string, color: '#5FA3F8', isSelected: false },
-    { key: uuid.v4() as string, color: '#CB88F8', isSelected: false },
-    { key: uuid.v4() as string, color: '#B5B5B9', isSelected: false },
-  ]);
+  const { makeNotification } = useNotification();
 
-  const [dayOfWeek, setDayOfWeek] = useState<Array<IDayOfWeekProps>>([
-    { key: uuid.v4() as string, name: 'Sun', isSelected: false },
-    { key: uuid.v4() as string, name: 'Mon', isSelected: false },
-    { key: uuid.v4() as string, name: 'Tue', isSelected: false },
-    { key: uuid.v4() as string, name: 'Wed', isSelected: false },
-    { key: uuid.v4() as string, name: 'Thu', isSelected: false },
-    { key: uuid.v4() as string, name: 'Fri', isSelected: false },
-    { key: uuid.v4() as string, name: 'Sat', isSelected: false },
-  ]);
+  const [tagList, setTagList] = useState<Array<ITagListProps>>(TAG_COLOR);
+
+  const [selectedSearchTargetCity, setSelectedSearchTargetCity] =
+    useState<boolean>(false);
+
+  const [city, setCity] = useState<string>('');
+
+  const [date, setDate] = useState(new Date());
+
+  const [dayOfWeek, setDayOfWeek] =
+    useState<Array<IDayOfWeekProps>>(DAY_OF_WEEK);
+
+  const handleChange =
+    (name: string) => (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+      const { text } = e.nativeEvent;
+      setInputs({ ...inputs, [name]: text });
+    };
 
   const onSelectTag = (key: string) => {
     setTagList(
@@ -50,25 +52,6 @@ export function SettingSchedule() {
       ),
     );
   };
-
-  const onDaySelect = (key: string) => {
-    setDayOfWeek(
-      dayOfWeek.map(day =>
-        day.key === key ? { ...day, isSelected: !day.isSelected } : day,
-      ),
-    );
-  };
-
-  const [city, setCity] = useState<string>('');
-  const [selectedSearchTargetCity, setSelectedSearchTargetCity] =
-    useState<boolean>(false);
-
-  const [date, setDate] = useState(new Date());
-  const handleChange =
-    (name: string) => (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-      const { text } = e.nativeEvent;
-      setInputs({ ...inputs, [name]: text });
-    };
 
   const onChangeCity = (city: string) => setCity(city);
 
@@ -82,13 +65,30 @@ export function SettingSchedule() {
     setCity(city);
   };
 
+  const onChangeDate = (event: DateTimePickerEvent, selectedDate: Date) => {
+    const currentDate = selectedDate;
+    setDate(currentDate);
+  };
+
+  const onDaySelect = (key: string) => {
+    setDayOfWeek(
+      dayOfWeek.map(day =>
+        day.key === key ? { ...day, isSelected: !day.isSelected } : day,
+      ),
+    );
+  };
+
   const targetList = DUMMY_DATA_CITY.filter(item =>
     item.city.toUpperCase().includes(city.toUpperCase()),
   );
 
-  const onChangeDate = (event: DateTimePickerEvent, selectedDate: Date) => {
-    const currentDate = selectedDate;
-    setDate(currentDate);
+  const onSubmit = () => {
+    makeNotification({
+      title: inputs.title,
+      description: inputs.description,
+      date: date.toString(),
+    });
+    navigation.pop();
   };
 
   return (
@@ -123,7 +123,7 @@ export function SettingSchedule() {
               />
             </>
           )}
-          <Button text="Submit" onPress={() => console.log('ds')} />
+          <Button text="Submit" onPress={onSubmit} />
         </S.Wrapper>
       </S.Container>
       {selectedSearchTargetCity && (
