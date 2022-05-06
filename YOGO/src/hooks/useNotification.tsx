@@ -3,6 +3,7 @@ import uuid from 'react-native-uuid';
 
 interface INotificationProps {
   title: string;
+  city: string;
   description: string;
   date: string;
 }
@@ -10,6 +11,7 @@ interface INotificationProps {
 export function useNotification() {
   const makeNotification = ({
     title,
+    city,
     description,
     date,
   }: INotificationProps) => {
@@ -17,6 +19,7 @@ export function useNotification() {
     PushNotificationIOS.addNotificationRequest({
       id: uuid.v4() as string,
       title: title,
+      subtitle: city,
       body: description,
       badge: 1,
       fireDate: new Date(date),

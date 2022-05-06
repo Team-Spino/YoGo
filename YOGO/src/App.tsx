@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import PushNotificationIOS from '@react-native-community/push-notification-ios';
+import React from 'react';
 import { ThemeProvider } from 'styled-components/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';

@@ -85,6 +85,7 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
   const onSubmit = () => {
     makeNotification({
       title: inputs.title,
+      city: city,
       description: inputs.description,
       date: date.toString(),
     });
