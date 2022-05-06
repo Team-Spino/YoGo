@@ -42,7 +42,6 @@ export function HandleScheduleTemplate({ navigation }: { navigation: Prop }) {
   return (
     <S.Container>
       <SettingSchedule />
-      <Button text="Submit" onPress={onSubmit} />
     </S.Container>
   );
 }

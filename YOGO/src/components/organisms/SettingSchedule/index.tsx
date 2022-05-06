@@ -9,6 +9,7 @@ import {
   TagSelectContainer,
   DayOfWeekContainer,
   SetCityAndDate,
+  Button,
 } from 'components';
 import { DUMMY_DATA_CITY } from 'utils';
 import { ITagListProps, IDayOfWeekProps } from 'types';
@@ -91,45 +92,48 @@ export function SettingSchedule() {
   };
 
   return (
-    <S.Container>
-      <S.Wrapper>
-        {!selectedSearchTargetCity && (
-          <>
-            <TextInput
-              placeholder="Title"
-              size="30"
-              value={inputs.title}
-              setValue={handleChange('title')}
-            />
-            <TextInput
-              placeholder="Description"
-              size="25"
-              value={inputs.description}
-              setValue={handleChange('description')}
-            />
-            <TagSelectContainer tagList={tagList} onSelectTag={onSelectTag} />
-            <SetCityAndDate
-              city={city}
-              date={date}
-              isBottomSheet={false}
-              onChangeDate={onChangeDate}
-              onPressSearchTargetCity={onPressSearchTargetCity}
-            />
-            <DayOfWeekContainer
-              dayOfWeek={dayOfWeek}
-              onDaySelect={onDaySelect}
-            />
-          </>
-        )}
-        {selectedSearchTargetCity && (
-          <SearchTarget
-            targetList={targetList}
-            city={city}
-            onChangeCity={onChangeCity}
-            onSubmitCity={onSubmitCity}
-          />
-        )}
-      </S.Wrapper>
-    </S.Container>
+    <>
+      <S.Container>
+        <S.Wrapper>
+          {!selectedSearchTargetCity && (
+            <>
+              <TextInput
+                placeholder="Title"
+                size="30"
+                value={inputs.title}
+                setValue={handleChange('title')}
+              />
+              <TextInput
+                placeholder="Description"
+                size="25"
+                value={inputs.description}
+                setValue={handleChange('description')}
+              />
+              <TagSelectContainer tagList={tagList} onSelectTag={onSelectTag} />
+              <SetCityAndDate
+                city={city}
+                date={date}
+                isBottomSheet={false}
+                onChangeDate={onChangeDate}
+                onPressSearchTargetCity={onPressSearchTargetCity}
+              />
+              <DayOfWeekContainer
+                dayOfWeek={dayOfWeek}
+                onDaySelect={onDaySelect}
+              />
+            </>
+          )}
+          <Button text="Submit" onPress={() => console.log('ds')} />
+        </S.Wrapper>
+      </S.Container>
+      {selectedSearchTargetCity && (
+        <SearchTarget
+          targetList={targetList}
+          city={city}
+          onChangeCity={onChangeCity}
+          onSubmitCity={onSubmitCity}
+        />
+      )}
+    </>
   );
 }
