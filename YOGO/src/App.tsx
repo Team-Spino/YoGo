@@ -9,12 +9,6 @@ import { theme } from 'styles/theme';
 const Stack = createNativeStackNavigator();
 
 function App() {
-  const [permitive, setPermitive] = useState(false);
-
-  useEffect(() => {
-    PushNotificationIOS.checkPermissions(e => console.log(e));
-  }, [permitive]);
-
   return (
     <NavigationContainer>
       <ThemeProvider theme={theme}>
