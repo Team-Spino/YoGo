@@ -3,13 +3,13 @@ import { IconSearch } from 'assets';
 import { TextInput } from 'react-native-paper';
 import * as S from './style';
 interface IBSelectTargetInputProps {
-  text: string;
-  onChangeText: (text: string) => void;
+  city: string;
+  onChangeCity: (city: string) => void;
 }
 
 export function SelectTargetInput({
-  text,
-  onChangeText,
+  city,
+  onChangeCity,
 }: IBSelectTargetInputProps) {
   return (
     <S.InputText
@@ -18,8 +18,8 @@ export function SelectTargetInput({
       placeholder="Search Target City"
       outlineColor="#6564CC"
       activeOutlineColor="#6564CC"
-      value={text}
-      onChangeText={text => onChangeText(text)}
+      value={city}
+      onChangeText={city => onChangeCity(city)}
       right={<TextInput.Icon name={() => <IconSearch color={'#6564CC'} />} />}
     ></S.InputText>
   );

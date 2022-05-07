@@ -6,12 +6,10 @@ import {
   Dimensions,
   PanResponder,
 } from 'react-native';
-import {
-  ResultSheet,
-  SearchSheet
-} from 'components';
+import { ResultSheet, SearchSheet } from 'components';
 import { IconBottomSheetBar } from 'assets';
 import * as S from './style';
+
 interface ISearchBSProps {
   modalVisible: boolean;
   setModalVisible: (visible: boolean) => void;
@@ -21,9 +19,10 @@ export const BottomSheet = ({
   modalVisible,
   setModalVisible,
 }: ISearchBSProps) => {
+  const [date, setDate] = useState(new Date());
+  const [city, setCity] = useState('');
 
-    const [result, setResult] =
-  useState<boolean>(false);
+  const [result, setResult] = useState<boolean>(false);
 
   const screenHeight = Dimensions.get('screen').height;
   const panY = useRef(new Animated.Value(screenHeight)).current;
@@ -77,10 +76,10 @@ export const BottomSheet = ({
 
   const onPressBottomSheetFindBtn = () => {
     setResult(true);
-  }
+  };
   const onPressBottomSheetMakeBtn = () => {
     setResult(true);
-  }
+  };
 
   return (
     <Modal
@@ -101,8 +100,9 @@ export const BottomSheet = ({
           {...panResponders.panHandlers}
         >
           <IconBottomSheetBar />
-          {!result && (<SearchSheet onPress={onPressBottomSheetFindBtn}/>)}
-          {result && (<ResultSheet onPress={onPressBottomSheetMakeBtn}/>)}
+
+          {!result && <SearchSheet onPress={onPressBottomSheetFindBtn} />}
+          {result && <ResultSheet onPress={onPressBottomSheetMakeBtn} />}
         </S.Container>
       </S.Overlay>
     </Modal>
