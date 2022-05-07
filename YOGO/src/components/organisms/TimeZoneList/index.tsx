@@ -6,9 +6,11 @@ import * as S from './style';
 export function TimeZoneList() {
   return (
     <S.Container>
-      {DUMMY_TIME_ZONE.map(location => (
-        <TimeZoneCard location={location} />
-      ))}
+      <S.Wrapper>
+        {DUMMY_TIME_ZONE.map(location => (
+          <TimeZoneCard location={location} />
+        ))}
+      </S.Wrapper>
     </S.Container>
   );
 }

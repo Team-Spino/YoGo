@@ -9,7 +9,6 @@ export const TimeZoneCard = ({ location }: { location: string }) => {
     location,
   });
 
-  console.log(time);
   return (
     <S.Container>
       <LocationOfTZ timeDifference={`${date} ${timeDifference}`} city={city} />
