@@ -1,5 +1,4 @@
 // Atoms
-export { TimeZoneCard } from 'components/atoms/TimeZoneCard';
 export { FloatingButton } from 'components/atoms/FloatingButton';
 export { HeaderRightButton } from 'components/atoms/HeaderRightButton';
 export { Title } from 'components/atoms/Title';
@@ -19,6 +18,9 @@ export { BottomSheetBtn } from 'components/atoms/BottomSheetBtn';
 export { TextInput } from 'components/atoms/TextInput';
 export { TagSelect } from 'components/atoms/TagSelect';
 export { DayOfWeekBtn } from 'components/atoms/DayOfWeekBtn';
+export { LocationOfTZ } from 'components/atoms/LocationOfTZ';
+export { TimeOfTZ } from 'components/atoms/TimeOfTZ';
+export { IconAbsolute } from 'components/atoms/IconAbsolute';
 
 // Molecules
 export { TagSelectContainer } from 'components/molecules/TagSelectContainer';
@@ -31,16 +33,20 @@ export { SearchTarget } from 'components/molecules/SearchTarget';
 export { SelectTargetCityBtn } from 'components/molecules/SelectTargetCityBtn';
 export { SelectTargetDate } from 'components/molecules/SelectTargetDate';
 export { DayOfWeekContainer } from 'components/molecules/DayOfWeekContainer';
+export { TimeZoneCard } from 'components/molecules/TimeZoneCard';
+export { ResultCard } from 'components/molecules/ResultCard';
 
 // Organisms
 export { DetailModal } from 'components/organisms/DetailModal';
 export { TimeZoneList } from 'components/organisms/TimeZoneList';
 export { ScheduleCard } from 'components/organisms/ScheduleCard';
 export { SettingSchedule } from 'components/organisms/SettingSchedule';
-export { SearchBottomSheet } from 'components/organisms/SearchBottomSheet';
 export { SetCityAndDate } from 'components/organisms/SetCityAndDate';
+export { SearchSheet } from 'components/organisms/SearchSheet';
+export { ResultSheet } from 'components/organisms/ResultSheet';
 
 // Templates
 export { Home } from 'components/templates/Home';
 export { TimeZone } from 'components/templates/TimeZone';
 export { HandleScheduleTemplate } from 'components/templates/HandleScheduleTemplate';
+export { BottomSheet } from 'components/templates/BottomSheet';

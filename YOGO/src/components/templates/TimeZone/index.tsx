@@ -4,7 +4,7 @@ import {
   FloatingButton,
   HeaderRightButton,
   TimeZoneList,
-  SearchBottomSheet,
+  BottomSheet,
 } from 'components';
 import { IconSearch } from 'assets';
 import * as S from './style';
@@ -30,7 +30,7 @@ export function TimeZone() {
     <>
       <S.Container>
         <TimeZoneList />
-        <SearchBottomSheet
+        <BottomSheet
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
         />
