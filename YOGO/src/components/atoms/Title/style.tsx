@@ -9,6 +9,6 @@ export const Text = styled.Text<ITitleProps>`
   color: ${props => (props.isEnable ? '#000000' : '#999999')};
   font-size: ${props => props.size};
   font-weight: bold;
-  margin-bottom: 5;
-  text-align: center;
+
+  margin-bottom: 20px;
 `;
