@@ -1,16 +1,14 @@
 import React from 'react';
 import { TimeZoneCard } from 'components';
+import { DUMMY_TIME_ZONE } from 'utils';
 import * as S from './style';
 
 export function TimeZoneList() {
   return (
-    <>
-      <S.Container>
-        <TimeZoneCard />
-        <TimeZoneCard />
-        <TimeZoneCard />
-        <TimeZoneCard />
-      </S.Container>
-    </>
+    <S.Container>
+      {DUMMY_TIME_ZONE.map(location => (
+        <TimeZoneCard location={location} />
+      ))}
+    </S.Container>
   );
 }

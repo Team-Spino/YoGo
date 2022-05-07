@@ -49,8 +49,8 @@ export function useTimeZone() {
     const [h, m] = time.split(':');
 
     return {
-      time: `${h}:${m} ${meridiem}`,
-      meridiem: meridiem === 'AM' ? 'morning' : 'evening',
+      time: `${h}:${m}`,
+      meridiem: meridiem,
     };
   };
 
