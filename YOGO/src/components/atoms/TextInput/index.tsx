@@ -7,15 +7,22 @@ interface ITextInputProps {
   size: string;
   value: string;
   setValue: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
-};
+}
 
-export function TextInput({placeholder, size, value, setValue}: ITextInputProps) {
-    return (
-        <S.TextInput
-            value={value}
-            onChange={(e) => setValue(e)}
-            size ={size}
-            placeholder={placeholder}
-        />
-    )
+export function TextInput({
+  placeholder,
+  size,
+  value,
+  setValue,
+}: ITextInputProps) {
+  return (
+    <S.TextInput
+      value={value}
+      multiline={true}
+      numberOfLines={10}
+      onChange={e => setValue(e)}
+      size={size}
+      placeholder={placeholder}
+    />
+  );
 }

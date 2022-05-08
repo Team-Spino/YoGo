@@ -36,6 +36,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = YOGO/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = YOGO/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = YOGO/main.m; sourceTree = "<group>"; };
+		1C087C7C2822955A00FFE026 /* YOGO.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = YOGO.entitlements; path = YOGO/YOGO.entitlements; sourceTree = "<group>"; };
 		25863D1E7788042DCF83B894 /* libPods-YOGO.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YOGO.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F48D29C59E292D65F014F77 /* libPods-YOGO-YOGOTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YOGO-YOGOTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		54D89F65B0CD1999B325AA23 /* Pods-YOGO-YOGOTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YOGO-YOGOTests.release.xcconfig"; path = "Target Support Files/Pods-YOGO-YOGOTests/Pods-YOGO-YOGOTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -86,6 +87,7 @@
 		13B07FAE1A68108700A75B9A /* YOGO */ = {
 			isa = PBXGroup;
 			children = (
+				1C087C7C2822955A00FFE026 /* YOGO.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -447,6 +449,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = YOGO/YOGO.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = YOGO/Info.plist;
@@ -473,6 +476,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = YOGO/YOGO.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = YOGO/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

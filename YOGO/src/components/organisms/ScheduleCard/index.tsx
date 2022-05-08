@@ -5,7 +5,7 @@ import {
   DetailModal,
   DayOfWeek,
 } from 'components';
-import { ITimeData, ITarget } from 'types';
+import { ITimeData } from 'types';
 import * as S from './style';
 
 export function ScheduleCard({ data }: { data: ITimeData }) {
