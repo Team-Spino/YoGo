@@ -85,13 +85,15 @@ export function useTimeZone() {
     const currentCity = dayjs.tz.guess();
 
     const diff = Number(getTimeDifference({ currentTime, targetTime }));
-    console.log(diff);
 
     const millisec = dayjs(date).valueOf() + diff * 3600000;
+    const time = dayjs(millisec).format('YYYY-MM-DD HH:mm');
+    const isPastFormNow = dayjs(time).isBefore(dayjs(currentTime));
 
     return {
-      time: dayjs(millisec).format('YYYY-MM-DD HH:mm'),
+      time,
       locateCity: currentCity.split('/').at(-1),
+      isPastFormNow,
     };
   };
 

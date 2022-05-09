@@ -19,7 +19,7 @@ export function SelectTargetCityBtn({
   const { getAlarmTime } = useTimeZone();
   useEffect(() => {
     if (city && date) {
-      const { time, locateCity } = getAlarmTime({
+      const { time, locateCity, isPastFormNow } = getAlarmTime({
         date: date.toString(),
         city: city,
       });
