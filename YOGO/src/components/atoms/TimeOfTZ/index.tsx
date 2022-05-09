@@ -17,7 +17,6 @@ export const TimeOfTZ = ({ time, meridiem, isResult }: ITimeOfTZProps) => {
         time: 32,
         meridiem: 16,
       };
-
   return (
     <S.Container>
       <S.Time size={size.time}>{time}</S.Time>
