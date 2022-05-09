@@ -30,7 +30,8 @@ export function SetCityAndDate({
       {isBottomSheet && <HeaderCenter text={`Search Time Zone`} size={18} />}
       <SelectTargetCityBtn
         onPress={() => onPressSearchTargetCity()}
-        text={city.trim() === '' ? '국가, 도시' : city}
+        city={city}
+        date={date}
       />
       <SelectTargetDate onChangeDate={onChangeDate} date={date} />
 

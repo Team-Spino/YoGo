@@ -3,7 +3,6 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc'; // dependent on utc plugin
 import timezone from 'dayjs/plugin/timezone';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import updateLocale from 'dayjs/plugin/updateLocale';
 import { ILiveTimeState } from 'types';
 
 dayjs.extend(utc);
@@ -23,26 +22,6 @@ interface IFormatProps {
   location: string;
   targetTime: string;
 }
-
-dayjs.extend(updateLocale);
-
-dayjs.updateLocale('en', {
-  relativeTime: {
-    future: '%s left',
-    past: '%s ago',
-    s: 'a few seconds',
-    m: 'a minute',
-    mm: '%d minutes',
-    h: 'an hour',
-    hh: '%d hours',
-    d: 'a day',
-    dd: '%d days',
-    M: 'a month',
-    MM: '%d months',
-    y: 'a year',
-    yy: '%d years',
-  },
-});
 
 export function useTimeZone() {
   const getCurrentTime = () => dayjs().format('YYYY-MM-DD HH:mm');
@@ -97,6 +76,25 @@ export function useTimeZone() {
     };
   };
 
+  const getAlarmTime = ({ date, city }: { date: string; city: string }) => {
+    const currentTime = getCurrentTime();
+    const targetTime = getTargetTime({
+      currentTime,
+      targetTimeZone: city,
+    });
+    const currentCity = dayjs.tz.guess();
+
+    const diff = Number(getTimeDifference({ currentTime, targetTime }));
+    console.log(diff);
+
+    const millisec = dayjs(date).valueOf() + diff * 3600000;
+
+    return {
+      time: dayjs(millisec).format('YYYY-MM-DD HH:mm'),
+      locateCity: currentCity.split('/').at(-1),
+    };
+  };
+
   const getLeftTimeFromNow = ({ date }: { date: string }): string => {
     if (!dayjs().isBefore(date)) return 'This schedule was completed';
     return dayjs(date).fromNow();
@@ -120,5 +118,5 @@ export function useTimeZone() {
     return timeState;
   };
 
-  return { useLiveTimer, getLeftTimeFromNow };
+  return { useLiveTimer, getLeftTimeFromNow, getAlarmTime };
 }
