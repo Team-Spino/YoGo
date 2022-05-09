@@ -11,6 +11,7 @@ import * as S from './style';
 interface ISetCityAndDateProps {
   city: string;
   date: Date;
+  setAlartDate: (date: string) => void;
   isBottomSheet: boolean;
   onChangeDate: (event: DateTimePickerEvent, date?: Date | undefined) => void;
   onPressSearchTargetCity: () => void;
@@ -20,6 +21,7 @@ interface ISetCityAndDateProps {
 export function SetCityAndDate({
   city,
   date,
+  setAlartDate,
   isBottomSheet,
   onChangeDate,
   onPressSearchTargetCity,
@@ -32,6 +34,7 @@ export function SetCityAndDate({
         onPress={() => onPressSearchTargetCity()}
         city={city}
         date={date}
+        setAlartDate={setAlartDate}
       />
       <SelectTargetDate onChangeDate={onChangeDate} date={date} />
 

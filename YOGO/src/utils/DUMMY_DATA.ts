@@ -256,4 +256,5 @@ export const DUMMY_DATA_CITY = [
   { id: 53, city: 'Europe/Zagreb' },
   { id: 54, city: 'Europe/Brussels' },
   { id: 55, city: 'Europe/Copenhagen' },
+  { id: 56, city: 'Asia/Tokyo' },
 ];

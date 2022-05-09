@@ -7,14 +7,16 @@ interface IBTargetCityBtnProps {
   onPress: () => void;
   city: string;
   date: Date;
+  setAlartDate: (date: string) => void;
 }
 
 export function SelectTargetCityBtn({
   onPress,
   city,
   date,
+  setAlartDate,
 }: IBTargetCityBtnProps) {
-  const [alarmTime, setAlarmTime] = useState<string>('');
+  const [notiAlartTime, setNotiAlartTime] = useState<string>('');
 
   const { getAlarmTime } = useTimeZone();
   useEffect(() => {
@@ -24,7 +26,8 @@ export function SelectTargetCityBtn({
         city: city,
       });
 
-      setAlarmTime(`${locateCity} 기준 ${time}에 알람이 울립니다.`);
+      setAlartDate(time);
+      setNotiAlartTime(`${locateCity} 기준 ${time}에 알람이 울립니다.`);
     }
   }, [city, date]);
 
@@ -35,9 +38,9 @@ export function SelectTargetCityBtn({
         <TextBtn>{city.trim() ? city : '국가, 도시'}</TextBtn>
         <IconDownArrow />
       </S.PressContainer>
-      {alarmTime !== '' && (
+      {notiAlartTime !== '' && (
         <S.Wrapper>
-          <S.Text>{alarmTime}</S.Text>
+          <S.Text>{notiAlartTime}</S.Text>
         </S.Wrapper>
       )}
     </S.Container>

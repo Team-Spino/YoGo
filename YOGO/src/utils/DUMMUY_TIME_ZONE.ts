@@ -44,6 +44,7 @@ export const DUMMY_TIME_ZONE = [
   'Asia/Srednekolymsk',
   'Asia/Kamchatka',
   'Asia/Anadyr',
+  'Asia/Tokyo',
   'Europe/Belgrade',
   'Europe/Bratislava',
   'Europe/Budapest',
