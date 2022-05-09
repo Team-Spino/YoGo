@@ -12,7 +12,7 @@ interface INotificationProps {
 }
 
 interface IMakeAlartDateProps {
-  date: string | Date;
+  date: string;
   dayOfWeek: Array<string>;
 }
 
@@ -21,12 +21,12 @@ interface IAlartOptionProps {
   title: string;
   city: string;
   description: string;
-  date: string | Date;
+  date: string;
   isRepeat: boolean;
 }
 
 export function useNotification() {
-  const getNextDay = ({ date }: { date: string | Date }) => {
+  const getNextDay = ({ date }: { date: string }) => {
     const nextDay = new Date(date);
     nextDay.setDate(nextDay.getDate() + 1);
     return dayjs(new Date(nextDay)).format('YYYY-MM-DD HH:mm');
@@ -67,13 +67,13 @@ export function useNotification() {
       body: description,
       badge: 1,
       fireDate: new Date(date),
+      repeats: false,
       sound: 'default',
       category: 'myCategory',
       userInfo: {
         key: 'value',
       },
       isCritical: true,
-      repeats: false,
     };
 
     const repeatOptions = {
@@ -82,6 +82,7 @@ export function useNotification() {
         dayOfWeek: true,
       },
     };
+
     return isRepeat ? { ...defaultOptions, ...repeatOptions } : defaultOptions;
   };
 
@@ -96,6 +97,9 @@ export function useNotification() {
     PushNotificationIOS.requestPermissions();
 
     if (dayOfWeek.length === 0) {
+      console.log(
+        setOptions({ key, title, city, description, date, isRepeat: false }),
+      );
       PushNotificationIOS.addNotificationRequest(
         setOptions({ key, title, city, description, date, isRepeat: false }),
       );
@@ -104,6 +108,16 @@ export function useNotification() {
     }
 
     makeAlartDate({ date, dayOfWeek }).forEach(alartDate => {
+      console.log(
+        setOptions({
+          key,
+          title,
+          city,
+          description,
+          date: alartDate,
+          isRepeat: true,
+        }),
+      );
       PushNotificationIOS.addNotificationRequest(
         setOptions({
           key,
