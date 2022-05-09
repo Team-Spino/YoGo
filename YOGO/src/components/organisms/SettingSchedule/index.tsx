@@ -53,12 +53,12 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
     );
   };
 
-  const onChangeCity = (city: string) => setCity(city);
-
   const onPressSearchTargetCity = () => {
     setSelectedSearchTargetCity(true);
     setCity('');
   };
+
+  const onChangeCity = (city: string) => setCity(city);
 
   const onSubmitCity = (city: string) => {
     setSelectedSearchTargetCity(false);
