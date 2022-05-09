@@ -8,13 +8,14 @@ interface IModalTimeProps {
     target: ITarget;
     cur: ICur;
   };
+  leftTime: string;
 }
 
-export function ModalTime({ timeData }: IModalTimeProps) {
+export function ModalTime({ timeData, leftTime }: IModalTimeProps) {
   return (
     <S.Container>
       <ModalTimeInfo timeData={timeData} />
-      <S.Text>{'알람까지 14분 남았습니다'}</S.Text>
+      <S.Text>{leftTime}</S.Text>
     </S.Container>
   );
 }

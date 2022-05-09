@@ -179,6 +179,24 @@ export const DUMMY_DATA = [
     },
     dayOfWeek: ['Sun', 'Thu', 'Fri', 'Sat'],
   },
+  {
+    id: 7,
+    title: '팀 브라키오 회의',
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto officia nam exercitationem iure illum cupiditate minus numquam quibusdam nobis adipisci dolor, repellat quisquam iste sunt dignissimos ab praesentium possimus at.',
+    tagColor: '#CB88F8',
+    target: {
+      time: '10 : 00',
+      local: 'Los Angeles',
+      day: '2022-05-09',
+    },
+    cur: {
+      time: '18 : 00',
+      local: 'London',
+      day: '2022-05-09',
+    },
+    dayOfWeek: ['Sun', 'Thu', 'Fri', 'Sat'],
+  },
 ];
 
 export const DUMMY_DATA_CITY = [

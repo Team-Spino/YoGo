@@ -2,10 +2,13 @@ import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc'; // dependent on utc plugin
 import timezone from 'dayjs/plugin/timezone';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import updateLocale from 'dayjs/plugin/updateLocale';
 import { ILiveTimeState } from 'types';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
+dayjs.extend(relativeTime);
 
 interface ITargetTimeProps {
   currentTime: string;
@@ -20,6 +23,26 @@ interface IFormatProps {
   location: string;
   targetTime: string;
 }
+
+dayjs.extend(updateLocale);
+
+dayjs.updateLocale('en', {
+  relativeTime: {
+    future: '%s left',
+    past: '%s ago',
+    s: 'a few seconds',
+    m: 'a minute',
+    mm: '%d minutes',
+    h: 'an hour',
+    hh: '%d hours',
+    d: 'a day',
+    dd: '%d days',
+    M: 'a month',
+    MM: '%d months',
+    y: 'a year',
+    yy: '%d years',
+  },
+});
 
 export function useTimeZone() {
   const getCurrentTime = () => dayjs().format('YYYY-MM-DD HH:mm');
@@ -74,6 +97,11 @@ export function useTimeZone() {
     };
   };
 
+  const getLeftTimeFromNow = ({ date }: { date: string }): string => {
+    if (!dayjs().isBefore(date)) return 'This schedule was completed';
+    return dayjs(date).fromNow();
+  };
+
   const useLiveTimer = ({ location }: { location: string }) => {
     const [timeState, setTimeState] = useState<ILiveTimeState>({
       ...setLiveTimeState({ location }),
@@ -92,5 +120,5 @@ export function useTimeZone() {
     return timeState;
   };
 
-  return { useLiveTimer };
+  return { useLiveTimer, getLeftTimeFromNow };
 }
