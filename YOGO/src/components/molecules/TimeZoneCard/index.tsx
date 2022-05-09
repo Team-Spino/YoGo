@@ -12,7 +12,7 @@ export const TimeZoneCard = ({ location }: { location: string }) => {
   return (
     <S.Container>
       <LocationOfTZ timeDifference={`${date} ${timeDifference}`} city={city} />
-      <TimeOfTZ time={time} meridiem={meridiem} />
+      <TimeOfTZ time={time} meridiem={meridiem} isResult={false} />
     </S.Container>
   );
 };
