@@ -14,6 +14,7 @@ export function TimeZoneList() {
         <TimeZoneCard location={'Pacific/Midway'} />
         <TimeZoneCard location={'Europe/Copenhagen'} />
         <TimeZoneCard location={'Asia/Ust-Nera'} />
+        <TimeZoneCard location={'Asia/Yekaterinburg'} />
       </S.Container>
     </>
   );
