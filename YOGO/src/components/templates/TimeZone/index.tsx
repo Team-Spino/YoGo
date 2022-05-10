@@ -11,11 +11,17 @@ import * as S from './style';
 
 export function TimeZone() {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [timeSearchVisible, setTimeSearchVisible] = useState<boolean>(false);
   const navigation = useNavigation();
 
   const pressBottomSheet = () => {
     setModalVisible(true);
   };
+
+  const pressHeaderRightButton = () => {
+    setTimeSearchVisible(true);
+    setModalVisible(true);
+  }
 
   useEffect(() => {
     navigation.setOptions({
@@ -25,6 +31,8 @@ export function TimeZone() {
       ),
     });
   }, [navigation]);
+
+  
 
   return (
     <>
