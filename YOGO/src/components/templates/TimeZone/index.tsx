@@ -5,6 +5,7 @@ import {
   HeaderRightButton,
   TimeZoneList,
   BottomSheet,
+  SearchTimeBottomSheet,
 } from 'components';
 import { IconSearch } from 'assets';
 import * as S from './style';
@@ -20,14 +21,13 @@ export function TimeZone() {
 
   const pressHeaderRightButton = () => {
     setTimeSearchVisible(true);
-    setModalVisible(true);
   }
 
   useEffect(() => {
     navigation.setOptions({
       // 임시용
       headerRight: () => (
-        <HeaderRightButton name={''} onPress={undefined}></HeaderRightButton>
+        <HeaderRightButton name={''} onPress={() => pressHeaderRightButton()}></HeaderRightButton>
       ),
     });
   }, [navigation]);
@@ -41,6 +41,10 @@ export function TimeZone() {
         <BottomSheet
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
+        />
+        <SearchTimeBottomSheet 
+          modalVisible={timeSearchVisible}
+          setModalVisible={setTimeSearchVisible}
         />
       </S.Container>
       <FloatingButton onPress={() => pressBottomSheet()}>

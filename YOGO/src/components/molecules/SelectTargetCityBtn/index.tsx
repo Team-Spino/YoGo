@@ -4,15 +4,15 @@ import { IconDownArrow } from 'assets';
 import * as S from './style';
 interface IBTargetCityBtnProps {
   onPress: () => void;
-  text: string;
+  city: string;
 }
 
-export function SelectTargetCityBtn({ onPress, text }: IBTargetCityBtnProps) {
+export function SelectTargetCityBtn({ onPress, city }: IBTargetCityBtnProps) {
   return (
     <S.Container>
       <Title isEnable={true} text={'상대 도시 선택'} size={15} />
       <S.PressContainer onPress={onPress}>
-        <TextBtn>{text}</TextBtn>
+        <TextBtn>{city}</TextBtn>
         <IconDownArrow />
       </S.PressContainer>
       <S.Wrapper>

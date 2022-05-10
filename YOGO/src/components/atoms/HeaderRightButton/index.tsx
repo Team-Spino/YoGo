@@ -14,7 +14,7 @@ export function HeaderRightButton({
 }) {
   return (
     <S.Wrapper>
-      <Pressable>
+      <Pressable onPress={onPress}>
         {({ pressed }) => (
           <S.Button pressed={pressed}>
             <IconPlus />

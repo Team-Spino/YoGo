@@ -16,25 +16,25 @@ export const SearchSheet = ({
   onPress
 }: ISearchBSProps) => {
   const [date, setDate] = useState(new Date());
-  const [text, setText] = useState('');
+  const [city, setCity] = useState('');
 
   const [selectedSearchTargetCity, setSelectedSearchTargetCity] =
     useState<boolean>(false);
   const targetList = DUMMY_DATA_CITY.filter(item =>
-    item.city.toUpperCase().includes(text.toUpperCase()),
+    item.city.toUpperCase().includes(city.toUpperCase()),
   );
-  const onChangeText = (text: string) => {
-    setText(text);
+  const onChangeCity = (city: string) => {
+    setCity(city);
   };
 
   const onPressSearchTargetCity = () => {
     setSelectedSearchTargetCity(true);
-    setText('');
+    setCity('');
   };
 
-  const onSubmitText = (city: string) => {
+  const onSubmitCity = (city: string) => {
     setSelectedSearchTargetCity(false);
-    setText(city);
+    setCity(city);
   };
 
   const onChangeDate = (event: DateTimePickerEvent, selectedDate: Date) => {
@@ -51,7 +51,7 @@ export const SearchSheet = ({
 
                   <SelectTargetCityBtn
                     onPress={() => onPressSearchTargetCity()}
-                    text={text.trim() === '' ? '국가, 도시' : text}
+                    city={city.trim() === '' ? '국가, 도시' : city}
                   />
                   <SelectTargetDate onChangeDate={onChangeDate} date={date} />
                   <BottomSheetBtn
@@ -64,9 +64,9 @@ export const SearchSheet = ({
             {selectedSearchTargetCity && (
               <SearchTarget
                 targetList={targetList}
-                text={text}
-                onChangeText={onChangeText}
-                onSubmitText={onSubmitText}
+                city={city}
+                onChangeCity={onChangeCity}
+                onSubmitCity={onSubmitCity}
               />
             )}
           </S.SearchBox>

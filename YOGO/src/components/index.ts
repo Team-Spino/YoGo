@@ -45,6 +45,7 @@ export { SettingSchedule } from 'components/organisms/SettingSchedule';
 export { SetCityAndDate } from 'components/organisms/SetCityAndDate';
 export { SearchSheet } from 'components/organisms/SearchSheet';
 export { ResultSheet } from 'components/organisms/ResultSheet';
+export { SearchTimeBottomSheet} from 'components/organisms/SearchTimeBottomSheet';
 
 // Templates
 export { Home } from 'components/templates/Home';
