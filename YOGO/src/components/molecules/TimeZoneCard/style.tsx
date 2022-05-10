@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  width: 400px;
+  width: 100%;
   height: 70px;
   fontfamily: ${props => props.theme.font};
   flex-direction: row;
@@ -9,8 +9,7 @@ export const Container = styled.View`
   align-items: center;
   border-radius: 5px;
   flex-shrink: 1;
-  margin: 0 20px;
   border-bottom-color: #eee;
   border-bottom-width: 1;
-  padding: 10px 25px;
+  padding: 10px 15px;
 `;
