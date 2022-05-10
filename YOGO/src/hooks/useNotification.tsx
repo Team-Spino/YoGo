@@ -1,11 +1,10 @@
+import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import dayjs from 'dayjs';
 import uuid from 'react-native-uuid';
 
 interface INotificationProps {
-  key: string;
   title: string;
-  city: string;
   description: string;
   date: string;
   dayOfWeek: Array<string>;
@@ -17,9 +16,7 @@ interface IMakeAlartDateProps {
 }
 
 interface IAlartOptionProps {
-  key: string;
   title: string;
-  city: string;
   description: string;
   date: string;
   isRepeat: boolean;
@@ -37,12 +34,17 @@ export function useNotification() {
     const alartList = [date];
     const LENGTH_OF_DAY_OF_WEEK = 6;
 
+    console.log(date);
+
+    console.log(dayOfWeek);
     for (let i = 0; i < LENGTH_OF_DAY_OF_WEEK; i++) {
       nextDate = getNextDay({ date: nextDate });
 
       const weekDay = new Date(nextDate).toLocaleDateString('en-US', {
         weekday: 'short',
       });
+
+      console.log(`nextDate: ${nextDate} weekDay: ${weekDay}`);
 
       if (dayOfWeek.includes(weekDay)) {
         alartList.push(nextDate.trim());
@@ -53,43 +55,30 @@ export function useNotification() {
   };
 
   const setOptions = ({
-    key,
     title,
-    city,
     description,
     date,
     isRepeat,
   }: IAlartOptionProps) => {
     const defaultOptions = {
-      id: key,
-      title: title,
-      subtitle: city,
-      body: description,
-      badge: 1,
-      fireDate: new Date(date),
-      repeats: false,
-      sound: 'default',
-      category: 'myCategory',
-      userInfo: {
-        key: 'value',
-      },
-      isCritical: true,
+      id: uuid.v4() as string,
+      title,
+      message: description,
+      soundName: 'default',
+      playSound: true,
+      date: new Date(date),
+      allowWhileIdle: true,
     };
 
     const repeatOptions = {
-      repeats: true,
-      repeatsComponent: {
-        dayOfWeek: true,
-      },
+      repeatType: 'week',
     };
 
     return isRepeat ? { ...defaultOptions, ...repeatOptions } : defaultOptions;
   };
 
   const makeNotification = ({
-    key,
     title,
-    city,
     description,
     date,
     dayOfWeek,
@@ -97,25 +86,34 @@ export function useNotification() {
     PushNotificationIOS.requestPermissions();
 
     if (dayOfWeek.length === 0) {
-      PushNotificationIOS.addNotificationRequest(
-        setOptions({ key, title, city, description, date, isRepeat: false }),
+      PushNotification.localNotificationSchedule(
+        setOptions({
+          title,
+          description,
+          date,
+          isRepeat: false,
+        }),
       );
 
       return;
     }
 
     makeAlartDate({ date, dayOfWeek }).forEach(alartDate => {
-      PushNotificationIOS.addNotificationRequest(
+      PushNotification.localNotificationSchedule(
         setOptions({
-          key,
           title,
-          city,
           description,
           date: alartDate,
           isRepeat: true,
         }),
       );
     });
+
+    console.log(
+      PushNotification.getScheduledLocalNotifications(notifications =>
+        console.log(notifications),
+      ),
+    );
   };
 
   return { makeNotification };

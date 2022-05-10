@@ -19,8 +19,6 @@ import * as S from './style';
 type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
 
 export function SettingSchedule({ navigation }: { navigation: Prop }) {
-  const key = uuid.v4() as string;
-
   const [inputs, setInputs] = useState({
     title: '',
     description: '',
@@ -88,16 +86,12 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
   );
 
   const onSubmit = () => {
-    if (alartDate) {
-      makeNotification({
-        key,
-        title: inputs.title,
-        city: city,
-        description: inputs.description,
-        date: alartDate,
-        dayOfWeek: dayOfWeek.filter(day => day.isSelected).map(day => day.name),
-      });
-    }
+    makeNotification({
+      title: inputs.title,
+      description: inputs.description,
+      date: alartDate,
+      dayOfWeek: dayOfWeek.filter(day => day.isSelected).map(day => day.name),
+    });
     navigation.pop();
   };
 

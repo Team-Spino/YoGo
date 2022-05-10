@@ -50,7 +50,7 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
 
             <SelectTargetCityBtn
               onPress={() => onPressSearchTargetCity()}
-              text={city.trim() === '' ? '국가, 도시' : city}
+              city={city.trim() === '' ? '국가, 도시' : city}
             />
             <SelectTargetDate onChangeDate={onChangeDate} date={date} />
             <BottomSheetBtn text={'FIND'} onPress={onPress} />
