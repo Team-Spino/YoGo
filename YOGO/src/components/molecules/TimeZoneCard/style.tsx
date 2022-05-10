@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  width: 95%;
-  height: 15%;
+  width: 400px;
+  height: 70px;
   fontfamily: ${props => props.theme.font};
   flex-direction: row;
   justify-content: space-between;
@@ -12,5 +12,5 @@ export const Container = styled.View`
   margin: 0 20px;
   border-bottom-color: #eee;
   border-bottom-width: 1;
-  padding: 10px 10px;
+  padding: 10px 25px;
 `;

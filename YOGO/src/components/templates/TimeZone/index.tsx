@@ -10,7 +10,10 @@ import {
 import { IconSearch } from 'assets';
 import * as S from './style';
 
+
+
 export function TimeZone() {
+  const [cardState , setCardState] = useState({});
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [timeSearchVisible, setTimeSearchVisible] = useState<boolean>(false);
   const navigation = useNavigation();
@@ -45,6 +48,7 @@ export function TimeZone() {
         <SearchTimeBottomSheet 
           modalVisible={timeSearchVisible}
           setModalVisible={setTimeSearchVisible}
+          setCardState={setCardState}
         />
       </S.Container>
       <FloatingButton onPress={() => pressBottomSheet()}>

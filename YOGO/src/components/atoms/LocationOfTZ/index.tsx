@@ -3,18 +3,18 @@ import { IconSun } from 'assets';
 import * as S from './style';
 
 interface ILocationOfTZProps {
-  headerSize : number;
-  contentSize : number;
+  timeDifference: string;
+  city: string;
 }
 
-export const LocationOfTZ = ({headerSize , contentSize}: ILocationOfTZProps) => {
+export const LocationOfTZ = ({ timeDifference, city }: ILocationOfTZProps) => {
   return (
-        <S.leftDiv>
+    <S.leftDiv>
           <IconSun />
           <S.leftDivContainer>
-          <S.leftDivHeader size={headerSize}>오늘, +10시간</S.leftDivHeader>
-          <S.leftDivContent size ={contentSize}>Londan</S.leftDivContent>
+          <S.leftDivHeader size={8}>{timeDifference}</S.leftDivHeader>
+          <S.leftDivContent size={20}>{city}</S.leftDivContent>
           </S.leftDivContainer>
-        </S.leftDiv>
+    </S.leftDiv>
   );
 };

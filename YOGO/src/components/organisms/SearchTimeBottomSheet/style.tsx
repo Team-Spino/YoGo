@@ -5,7 +5,7 @@ export const Container = styled(Animated.View)<{height: number}>`
   height: ${({ height }) => height * 0.95}px;
   justify-content: flex-start;
   align-items: center;
-  background-color: ${({ isResult, theme }) => isResult ? theme.colors.blue : theme.colors.white};
+  background-color: #fff;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   padding-top: 10px;
