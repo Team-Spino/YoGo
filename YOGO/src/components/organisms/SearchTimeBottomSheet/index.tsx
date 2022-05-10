@@ -18,14 +18,9 @@ export const SearchTimeBottomSheet = ({
   selectTarget,
 }: ISearchBSProps) => {
 
-  const onCloseBottomSheet = () => {
-    setModalVisible(false);
-    setCity('')
-  };
-
-  const { translateY, screenHeight, panResponders } = useBottomSheet({
-    onCloseBottomSheet,
+  const { translateY, screenHeight, panResponders, onCloseBottomSheet } = useBottomSheet({
     modalVisible,
+    setModalVisible,
   });
 
   const [city, setCity] = useState('');
@@ -33,6 +28,8 @@ export const SearchTimeBottomSheet = ({
   const targetList = DUMMY_DATA_CITY.filter(item =>
     item.city.toUpperCase().includes(city.toUpperCase()),
   );
+
+
   const onChangeCity = (city: string) => {
     setCity(city);
   };
@@ -41,8 +38,6 @@ export const SearchTimeBottomSheet = ({
     selectTarget(city)
     onCloseBottomSheet()
   };
-
-
 
   return (
     <Modal

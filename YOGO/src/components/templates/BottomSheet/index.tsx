@@ -16,11 +16,6 @@ export const BottomSheet = ({
 }: ISearchBSProps) => {
   const [result, setResult] = useState<boolean>(false);
 
-  const onCloseBottomSheet = () => {
-    setModalVisible(false);
-    setResult(false);
-  };
-
   const onPressBottomSheetFindBtn = () => {
     setResult(true);
   };
@@ -29,10 +24,15 @@ export const BottomSheet = ({
     setResult(true);
   };
 
-  const { translateY, screenHeight, panResponders } = useBottomSheet({
-    onCloseBottomSheet,
+  const { translateY, screenHeight, panResponders, onCloseBottomSheet } = useBottomSheet({
     modalVisible,
+    setModalVisible,
   });
+
+  const onCloseModal = () => {
+    onCloseBottomSheet()
+    setResult(false);
+  };
 
   return (
     <Modal
@@ -42,7 +42,7 @@ export const BottomSheet = ({
       statusBarTranslucent
     >
       <S.Overlay>
-        <TouchableWithoutFeedback onPress={onCloseBottomSheet}>
+        <TouchableWithoutFeedback onPress={onCloseModal}>
           <S.Background />
         </TouchableWithoutFeedback>
 

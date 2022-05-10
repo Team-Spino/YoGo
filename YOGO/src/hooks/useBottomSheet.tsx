@@ -3,12 +3,12 @@ import { Dimensions, Animated, PanResponder } from 'react-native';
 
 interface IUseBottomSheetProps {
   modalVisible: boolean;
-  onCloseBottomSheet: () => void;
+  setModalVisible: (visible: boolean) => void;
 }
 
 export function useBottomSheet({
-  onCloseBottomSheet,
   modalVisible,
+  setModalVisible
 }: IUseBottomSheetProps) {
   const screenHeight = Dimensions.get('screen').height;
   const panY = useRef(new Animated.Value(screenHeight)).current;
@@ -16,6 +16,13 @@ export function useBottomSheet({
     inputRange: [-1, 0, 1],
     outputRange: [0, 0, 1],
   });
+
+  const onCloseBottomSheet = () => {
+    moveBottomSheet({ value: screenHeight }).start(() => {
+      setModalVisible(false);
+    }
+    );
+  };
 
   const moveBottomSheet = ({ value }: { value: number }) =>
     Animated.timing(panY, {
@@ -51,5 +58,5 @@ export function useBottomSheet({
     if (modalVisible) moveBottomSheet({ value: 0 }).start();
   }, [modalVisible]);
 
-  return { translateY, screenHeight, panResponders };
+  return { translateY, screenHeight, panResponders, onCloseBottomSheet };
 }

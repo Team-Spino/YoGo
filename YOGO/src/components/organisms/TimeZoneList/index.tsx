@@ -7,7 +7,6 @@ import { ScrollView } from '../SearchSheet/style';
 
 
 export function TimeZoneList({cardList}: any) {
-  console.log(cardList)
   return (
     <>
       <S.Container>

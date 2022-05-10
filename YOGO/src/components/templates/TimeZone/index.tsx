@@ -24,6 +24,7 @@ export function TimeZone() {
 
   const pressHeaderRightButton = () => {
     setTimeSearchVisible(true);
+    console.log("입력할때", timeSearchVisible)
   }
 
   const selectTarget = (city: string) => {
