@@ -13,22 +13,9 @@ export const LocationOfTZ = ({ timeDifference, time, meridiem, city }: ILocation
   const checkSun = () => {
     const checkTime = +time.split(':')[0]
     if(meridiem == 'AM'){
-      
-      if(checkTime >= 6){
-        return true
+      return checkTime >= 6 ? true : false
       }
-      if(checkTime < 6){
-        return false
-      }
-    }
-    if(meridiem == 'PM'){
-      if(checkTime >= 6){
-        return false
-      }
-      if(checkTime < 6){
-        return true
-      }
-    }
+      return checkTime >= 6 ? false : true
   }
 
   return (

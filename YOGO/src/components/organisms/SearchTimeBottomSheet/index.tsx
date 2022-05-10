@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Modal, TouchableWithoutFeedback } from 'react-native';
-import { ResultSheet, SearchSheet, SearchTarget } from 'components';
+import { SearchTarget } from 'components';
 import { IconBottomSheetBar } from 'assets';
 import { useBottomSheet } from 'hooks';
-import * as S from './style';
 import { DUMMY_DATA_CITY } from 'utils';
+import * as S from './style';
 
 interface ISearchBSProps {
   modalVisible: boolean;

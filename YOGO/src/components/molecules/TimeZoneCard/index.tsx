@@ -8,6 +8,7 @@ export const TimeZoneCard = ({ location }: { location: string }) => {
   const { time, meridiem, timeDifference, date, city } = useLiveTimer({
     location,
   });
+  
   return (
     <S.Container>
       <LocationOfTZ timeDifference={`${date} ${timeDifference}`} city={city} time={time} meridiem={meridiem} />

@@ -12,6 +12,7 @@ import * as S from './style';
 interface ISearchBSProps {
   onPress: () => void;
 }
+
 export const SearchSheet = ({
   onPress
 }: ISearchBSProps) => {
@@ -20,9 +21,11 @@ export const SearchSheet = ({
 
   const [selectedSearchTargetCity, setSelectedSearchTargetCity] =
     useState<boolean>(false);
+
   const targetList = DUMMY_DATA_CITY.filter(item =>
     item.city.toUpperCase().includes(city.toUpperCase()),
   );
+  
   const onChangeCity = (city: string) => {
     setCity(city);
   };
