@@ -2,15 +2,25 @@ import React from 'react';
 import * as S from './style';
 
 interface ITimeOfTZProps {
-  timesize : number;
-  postandAfterSize : number;
+  time: string;
+  meridiem: string;
+  isResult: boolean;
 }
 
-export const TimeOfTZ = ({timesize, postandAfterSize }: ITimeOfTZProps) => {
+export const TimeOfTZ = ({ time, meridiem, isResult }: ITimeOfTZProps) => {
+  const size = isResult
+    ? {
+        time: 50,
+        meridiem: 50,
+      }
+    : {
+        time: 32,
+        meridiem: 16,
+      };
   return (
-      <S.rightDiv>
-        <S.rightDivTime size = {timesize} >08 : 00</S.rightDivTime>
-        <S.rightDivTimeTail size ={postandAfterSize} >pm</S.rightDivTimeTail>
-      </S.rightDiv>
+    <S.Container>
+      <S.Time size={size.time}>{time}</S.Time>
+      <S.Meridiem size={size.meridiem}>{meridiem}</S.Meridiem>
+    </S.Container>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
+import uuid from 'react-native-uuid';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack/lib/typescript/src/types';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import {
@@ -34,6 +35,8 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
 
   const [date, setDate] = useState(new Date());
 
+  const [alartDate, setAlartDate] = useState('');
+
   const [dayOfWeek, setDayOfWeek] =
     useState<Array<IDayOfWeekProps>>(DAY_OF_WEEK);
 
@@ -53,12 +56,12 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
     );
   };
 
-  const onChangeCity = (city: string) => setCity(city);
-
   const onPressSearchTargetCity = () => {
     setSelectedSearchTargetCity(true);
     setCity('');
   };
+
+  const onChangeCity = (city: string) => setCity(city);
 
   const onSubmitCity = (city: string) => {
     setSelectedSearchTargetCity(false);
@@ -85,9 +88,9 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
   const onSubmit = () => {
     makeNotification({
       title: inputs.title,
-      city: city,
       description: inputs.description,
-      date: date.toString(),
+      date: alartDate,
+      dayOfWeek: dayOfWeek.filter(day => day.isSelected).map(day => day.name),
     });
     navigation.pop();
   };
@@ -114,6 +117,7 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
               <SetCityAndDate
                 city={city}
                 date={date}
+                setAlartDate={setAlartDate}
                 isBottomSheet={false}
                 onChangeDate={onChangeDate}
                 onPressSearchTargetCity={onPressSearchTargetCity}
