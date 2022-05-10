@@ -2,6 +2,7 @@ import React from 'react';
 import { LocationOfTZ, TimeOfTZ } from 'components';
 import * as S from './style';
 
+
 export const TimeZoneCard = () => {
   return (
     <>

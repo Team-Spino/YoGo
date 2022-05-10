@@ -5,9 +5,9 @@ interface ILocationOfTZProps {
 } 
 
 export const leftDiv = styled.View`
-  align-content: space-between;
-  justify-content: flex-start;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const leftDivHeader = styled.Text<ILocationOfTZProps>`
@@ -16,4 +16,12 @@ export const leftDivHeader = styled.Text<ILocationOfTZProps>`
 `;
 export const leftDivContent = styled.Text<ILocationOfTZProps>`
   font-size: ${props => props.size}px;
+`;
+
+
+export const leftDivContainer = styled.View`
+  align-content: space-between;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding-left: 10px;
 `;
