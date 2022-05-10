@@ -9,13 +9,13 @@ import { DUMMY_DATA_CITY } from 'utils';
 interface ISearchBSProps {
   modalVisible: boolean;
   setModalVisible: (visible: boolean) => void;
-  setCardState: (state: any) => void;
+  selectTarget : (cardlist: string) => void;
 }
 
 export const SearchTimeBottomSheet = ({
   modalVisible,
   setModalVisible,
-  setCardState,
+  selectTarget,
 }: ISearchBSProps) => {
 
   const onCloseBottomSheet = () => {
@@ -38,8 +38,8 @@ export const SearchTimeBottomSheet = ({
   };
 
   const onSubmitCity = (city: string) => {
-    setCity(city);
-    setCardState(city)
+    selectTarget(city)
+    onCloseBottomSheet()
   };
 
 

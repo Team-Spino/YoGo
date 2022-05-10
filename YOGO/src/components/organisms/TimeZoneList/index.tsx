@@ -3,18 +3,18 @@ import uuid from 'react-native-uuid';
 import { TimeZoneCard } from 'components';
 import * as S from './style';
 import { Text } from 'react-native';
+import { ScrollView } from '../SearchSheet/style';
 
 
-export function TimeZoneList() {
-  
+export function TimeZoneList({cardList}: any) {
+  console.log(cardList)
   return (
     <>
       <S.Container>
-        <TimeZoneCard location={'Asia/Seoul'} />
-        <TimeZoneCard location={'Pacific/Midway'} />
-        <TimeZoneCard location={'Europe/Copenhagen'} />
-        <TimeZoneCard location={'Asia/Ust-Nera'} />
-        <TimeZoneCard location={'Asia/Yekaterinburg'} />
+        {cardList.map((location: string) => (
+          <TimeZoneCard key={uuid.v4()} location={location} />  
+        )
+        )}
       </S.Container>
     </>
   );

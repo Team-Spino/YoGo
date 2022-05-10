@@ -24,6 +24,7 @@ export const BottomSheet = ({
   const onPressBottomSheetFindBtn = () => {
     setResult(true);
   };
+
   const onPressBottomSheetMakeBtn = () => {
     setResult(true);
   };

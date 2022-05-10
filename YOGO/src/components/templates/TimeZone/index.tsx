@@ -13,7 +13,7 @@ import * as S from './style';
 
 
 export function TimeZone() {
-  const [cardState , setCardState] = useState({});
+  const [cardState , setCardState] = useState<string[]>([]);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [timeSearchVisible, setTimeSearchVisible] = useState<boolean>(false);
   const navigation = useNavigation();
@@ -26,21 +26,22 @@ export function TimeZone() {
     setTimeSearchVisible(true);
   }
 
+  const selectTarget = (city: string) => {
+    setCardState([...cardState, city]);
+  }
+
   useEffect(() => {
     navigation.setOptions({
-      // 임시용
       headerRight: () => (
         <HeaderRightButton name={''} onPress={() => pressHeaderRightButton()}></HeaderRightButton>
       ),
     });
   }, [navigation]);
 
-  
-
   return (
     <>
       <S.Container>
-        <TimeZoneList />
+        <TimeZoneList cardList={cardState} />
         <BottomSheet
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
@@ -48,7 +49,7 @@ export function TimeZone() {
         <SearchTimeBottomSheet 
           modalVisible={timeSearchVisible}
           setModalVisible={setTimeSearchVisible}
-          setCardState={setCardState}
+          selectTarget ={selectTarget}
         />
       </S.Container>
       <FloatingButton onPress={() => pressBottomSheet()}>
