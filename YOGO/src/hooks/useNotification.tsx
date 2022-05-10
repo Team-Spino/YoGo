@@ -45,7 +45,7 @@ export function useNotification() {
       });
 
       if (dayOfWeek.includes(weekDay)) {
-        alartList.push(nextDate);
+        alartList.push(nextDate.trim());
       }
     }
 
@@ -97,9 +97,6 @@ export function useNotification() {
     PushNotificationIOS.requestPermissions();
 
     if (dayOfWeek.length === 0) {
-      console.log(
-        setOptions({ key, title, city, description, date, isRepeat: false }),
-      );
       PushNotificationIOS.addNotificationRequest(
         setOptions({ key, title, city, description, date, isRepeat: false }),
       );
@@ -108,16 +105,6 @@ export function useNotification() {
     }
 
     makeAlartDate({ date, dayOfWeek }).forEach(alartDate => {
-      console.log(
-        setOptions({
-          key,
-          title,
-          city,
-          description,
-          date: alartDate,
-          isRepeat: true,
-        }),
-      );
       PushNotificationIOS.addNotificationRequest(
         setOptions({
           key,
