@@ -37,6 +37,7 @@ export const SearchTimeBottomSheet = ({
   const onSubmitCity = (city: string) => {
     selectTarget(city)
     onCloseBottomSheet()
+    setCity('');
   };
 
   return (
