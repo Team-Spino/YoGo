@@ -3,6 +3,7 @@ import {
   openDatabase,
   SQLiteDatabase,
 } from 'react-native-sqlite-storage';
+import { ICityProps } from 'types';
 import { DB, TIME_ZONE } from 'utils';
 
 enablePromise(true);
@@ -21,9 +22,11 @@ export const createTimezoneTable = async (db: SQLiteDatabase) => {
   await db.executeSql(query);
 };
 
-export const getTimezoneItems = async (db: SQLiteDatabase) => {
+export const getTimezoneItems = async (
+  db: SQLiteDatabase,
+): Promise<Array<ICityProps>> => {
   try {
-    const timezoneItems: Array<string> = [];
+    const timezoneItems: Array<ICityProps> = [];
     const results = await db.executeSql(`SELECT * FROM ${TIME_ZONE}`);
 
     results.forEach(result => {
@@ -32,7 +35,7 @@ export const getTimezoneItems = async (db: SQLiteDatabase) => {
       }
     });
 
-    return timezoneItems;
+    return timezoneItems as Array<ICityProps>;
   } catch (e: unknown) {
     console.error(e);
     throw Error('Error in getTimezoneItems');
@@ -42,7 +45,10 @@ export const getTimezoneItems = async (db: SQLiteDatabase) => {
 export const insertTimezoneItem = async (db: SQLiteDatabase, city: string) => {
   const insertQuery = `INSERT INTO ${TIME_ZONE} (CITY) VALUES ('${city}')`;
 
-  await db.executeSql(insertQuery);
+  const result = await db.executeSql(insertQuery);
+
+  const { insertId } = result[0];
+  return insertId;
 };
 
 export const deleteTimezoneItem = async (db: SQLiteDatabase, id: number) => {

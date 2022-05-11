@@ -20,7 +20,7 @@ import {
 import * as S from './style';
 
 export function TimeZone() {
-  const [cardState, setCardState] = useState<Array<ITimeZoneProps>>([]);
+  const [cardState, setCardState] = useState<Array<ICityProps>>([]);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [timeSearchVisible, setTimeSearchVisible] = useState<boolean>(false);
   const navigation = useNavigation();
@@ -35,8 +35,9 @@ export function TimeZone() {
 
   const selectTarget = async (city: string) => {
     const db = await connectTimezoneDB();
-    await insertTimezoneItem(db, city);
-    setCardState([...cardState, city]);
+    const id = await insertTimezoneItem(db, city);
+
+    setCardState([...cardState, { ID: id, CITY: city }]);
   };
 
   const initDB = useCallback(async () => {
@@ -45,7 +46,6 @@ export function TimeZone() {
       await createTimezoneTable(db);
 
       const items = await getTimezoneItems(db);
-
       console.log(items);
 
       setCardState(items);
@@ -69,7 +69,7 @@ export function TimeZone() {
   return (
     <>
       <S.Container>
-        <TimeZoneList cardList={cardState} />
+        <TimeZoneList cardState={cardState} />
         <BottomSheet
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}

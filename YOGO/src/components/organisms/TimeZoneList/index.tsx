@@ -1,15 +1,14 @@
 import React from 'react';
-import uuid from 'react-native-uuid';
 import { TimeZoneCard } from 'components';
-import { DUMMY_TIME_ZONE } from 'utils';
+import { ICityProps } from 'types';
 import * as S from './style';
 
-export function TimeZoneList({ cardList }: { cardList: Array<string> }) {
+export function TimeZoneList({ cardState }: { cardState: Array<ICityProps> }) {
   return (
     <S.Container>
       <S.ScrollView>
-        {cardList.map((location: string) => (
-          <TimeZoneCard key={uuid.v4()} location={location} />
+        {cardState.map(({ ID, CITY }: ICityProps) => (
+          <TimeZoneCard key={ID} location={CITY} />
         ))}
       </S.ScrollView>
     </S.Container>
