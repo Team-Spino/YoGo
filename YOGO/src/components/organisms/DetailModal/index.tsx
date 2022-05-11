@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from 'react-native-modal';
+import { useTimeZone } from 'hooks';
 import { ModalHeader, ModalTime, ModalMemo } from 'components';
 import { ITimeData } from 'types';
 import * as S from './style';
@@ -16,7 +17,12 @@ export function DetailModal({
   data,
 }: IDetailModalProps) {
   const { title, tagColor, target, cur, description } = data;
+  const { day, time } = cur;
   const timeData = { target, cur };
+
+  const { getLeftTimeFromNow } = useTimeZone();
+  const date = `${day} ${time.replace(/(\s*)/g, '')}`;
+  const leftTime = getLeftTimeFromNow({ date });
 
   return (
     <Modal
@@ -28,7 +34,7 @@ export function DetailModal({
       <S.Container>
         <S.Content>
           <ModalHeader tagColor={tagColor} title={title} />
-          <ModalTime timeData={timeData} />
+          <ModalTime timeData={timeData} leftTime={leftTime} />
           <ModalMemo description={description} />
         </S.Content>
         <S.Wrapper onPress={onCloseDetailPress}>

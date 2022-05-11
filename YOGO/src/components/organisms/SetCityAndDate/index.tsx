@@ -11,6 +11,7 @@ import * as S from './style';
 interface ISetCityAndDateProps {
   city: string;
   date: Date;
+  setAlartDate: (date: string) => void;
   isBottomSheet: boolean;
   onChangeDate: (event: DateTimePickerEvent, date?: Date | undefined) => void;
   onPressSearchTargetCity: () => void;
@@ -20,6 +21,7 @@ interface ISetCityAndDateProps {
 export function SetCityAndDate({
   city,
   date,
+  setAlartDate,
   isBottomSheet,
   onChangeDate,
   onPressSearchTargetCity,
@@ -30,7 +32,9 @@ export function SetCityAndDate({
       {isBottomSheet && <HeaderCenter text={`Search Time Zone`} size={18} />}
       <SelectTargetCityBtn
         onPress={() => onPressSearchTargetCity()}
-        text={city.trim() === '' ? '국가, 도시' : city}
+        city={city}
+        date={date}
+        setAlartDate={setAlartDate}
       />
       <SelectTargetDate onChangeDate={onChangeDate} date={date} />
 

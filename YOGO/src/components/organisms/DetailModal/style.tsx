@@ -30,7 +30,7 @@ export const Text = styled.Text`
   color: #e5565e;
 `;
 
-export const Content = styled.ScrollView`
+export const Content = styled.View`
   flex: 1;
   width: 100%;
 

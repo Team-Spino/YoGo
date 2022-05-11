@@ -12,10 +12,8 @@ import * as S from './style';
 interface ISearchBSProps {
   onPress: () => void;
 }
+export const SearchSheet = ({ onPress }: ISearchBSProps) => {
 
-export const SearchSheet = ({
-  onPress
-}: ISearchBSProps) => {
   const [date, setDate] = useState(new Date());
   const [city, setCity] = useState('');
 
@@ -25,14 +23,14 @@ export const SearchSheet = ({
   const targetList = DUMMY_DATA_CITY.filter(item =>
     item.city.toUpperCase().includes(city.toUpperCase()),
   );
-  
-  const onChangeCity = (city: string) => {
-    setCity(city);
-  };
 
   const onPressSearchTargetCity = () => {
     setSelectedSearchTargetCity(true);
     setCity('');
+  };
+
+  const onChangeCity = (text: string) => {
+    setCity(text);
   };
 
   const onSubmitCity = (city: string) => {
@@ -46,32 +44,30 @@ export const SearchSheet = ({
   };
 
   return (
-         <S.SearchBox>
-            {!selectedSearchTargetCity && (
-              <S.ScrollView showsVerticalScrollIndicator={false}>
-                <S.Inner>
-                  <HeaderCenter text={`Search Time Zone`} size={18} />
+    <S.SearchBox>
+      {!selectedSearchTargetCity && (
+        <S.ScrollView showsVerticalScrollIndicator={false}>
+          <S.Inner>
+            <HeaderCenter text={`Search Time Zone`} size={18} />
 
-                  <SelectTargetCityBtn
-                    onPress={() => onPressSearchTargetCity()}
-                    city={city.trim() === '' ? '국가, 도시' : city}
-                  />
-                  <SelectTargetDate onChangeDate={onChangeDate} date={date} />
-                  <BottomSheetBtn
-                    text={'FIND'}
-                    onPress={onPress}/>
-                </S.Inner>
-              </S.ScrollView>
-            )}
-            
-            {selectedSearchTargetCity && (
-              <SearchTarget
-                targetList={targetList}
-                city={city}
-                onChangeCity={onChangeCity}
-                onSubmitCity={onSubmitCity}
-              />
-            )}
-          </S.SearchBox>
+            <SelectTargetCityBtn
+              onPress={() => onPressSearchTargetCity()}
+              city={city.trim() === '' ? '국가, 도시' : city}
+            />
+            <SelectTargetDate onChangeDate={onChangeDate} date={date} />
+            <BottomSheetBtn text={'FIND'} onPress={onPress} />
+          </S.Inner>
+        </S.ScrollView>
+      )}
+      
+      {selectedSearchTargetCity && (
+        <SearchTarget
+          targetList={targetList}
+          city={city}
+          onChangeCity={onChangeCity}
+          onSubmitCity={onSubmitCity}
+        />
+      )}
+    </S.SearchBox>
   );
 };

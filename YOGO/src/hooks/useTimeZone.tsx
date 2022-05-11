@@ -18,11 +18,6 @@ interface ITimeProps {
   targetTime: string;
 }
 
-interface IFormatProps {
-  location: string;
-  targetTime: string;
-}
-
 export function useTimeZone() {
   const getCurrentTime = () => dayjs().format('YYYY-MM-DD HH:mm');
 
@@ -44,9 +39,9 @@ export function useTimeZone() {
     return 'Today';
   };
 
-  const formatTime = ({ location, targetTime }: IFormatProps) => {
+  const formatTime = ({ targetTime }: { targetTime: string }) => {
     const [, time, meridiem] = new Date(targetTime)
-      .toLocaleString('en-US', { timeZone: location })
+      .toLocaleString('en-US')
       .split(' ');
     const [h, m] = time.split(':');
 
@@ -69,7 +64,7 @@ export function useTimeZone() {
     const date = getDate({ currentTime, targetTime });
 
     return {
-      ...formatTime({ location, targetTime }),
+      ...formatTime({ targetTime }),
       timeDifference,
       date,
       city: location.split('/')[1],
