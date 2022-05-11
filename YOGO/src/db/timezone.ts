@@ -6,6 +6,20 @@ import {
 
 enablePromise(true);
 
-export const connectDBTimezone = async () => {
-  return openDatabase({ name: 'timezone.db', location: 'default' });
+export const connectTimezoneDB = async () => {
+  return openDatabase({ name: 'main.db', location: 'default' });
+};
+
+export const createTimezoneTable = async (db: SQLiteDatabase) => {
+  const query = `CREATE TABLE IF NOT EXISTS timezone 
+    (
+      ID INTEGER PRIMARY KEY AUTOINCREMENT,
+      TIME TEXT NOT NULL,
+      DATE TEXT NOT NULL,
+      CITY TEXT NOT NULL,
+      MERIDIEM TEXT NOT NULL,
+      TIMEDIFFERENCE TEXT NOT NULL
+    );`;
+
+  await db.executeSql(query);
 };
