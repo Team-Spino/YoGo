@@ -30,7 +30,6 @@ export function SelectTargetCityBtn({
       setNotiAlartTime(`${locateCity} 기준 ${time}에 알람이 울립니다.`);
     }
   }, [city, date]);
-
   return (
     <S.Container>
       <Title isEnable={true} text={'상대 도시 선택'} size={15} />

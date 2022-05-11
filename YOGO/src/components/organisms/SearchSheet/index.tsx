@@ -13,11 +13,13 @@ interface ISearchBSProps {
   onPress: () => void;
 }
 export const SearchSheet = ({ onPress }: ISearchBSProps) => {
+
   const [date, setDate] = useState(new Date());
   const [city, setCity] = useState('');
 
   const [selectedSearchTargetCity, setSelectedSearchTargetCity] =
     useState<boolean>(false);
+
   const targetList = DUMMY_DATA_CITY.filter(item =>
     item.city.toUpperCase().includes(city.toUpperCase()),
   );
@@ -57,7 +59,7 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
           </S.Inner>
         </S.ScrollView>
       )}
-
+      
       {selectedSearchTargetCity && (
         <SearchTarget
           targetList={targetList}

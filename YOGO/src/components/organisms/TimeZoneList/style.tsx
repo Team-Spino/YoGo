@@ -1,20 +1,14 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.ScrollView`
-  background: #eee;
-`;
-
-export const Wrapper = styled.View`
-  width: 100%;
-  flex: 1;
-
-  display: flex;
-  justify-content: center;
+export const Container = styled.View`
+  background-color: #fff;
   align-items: center;
 
   padding-bottom: 20px;
 `;
 
-export const Title = styled.Text`
-  color: blue;
-`;
+export const ScrollView = styled.ScrollView`
+  width: 100%;
+  height: 100%;
+  padding: 0px 20px;
+`

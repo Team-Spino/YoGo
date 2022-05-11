@@ -8,3 +8,5 @@ export { IconLeftArrow } from 'assets/icons/IconLeftArrow';
 export { IconBottomSheetBar } from 'assets/icons/IconBottomSheetBar';
 export { IconTick } from 'assets/icons/IconTick';
 export { IconWorld } from 'assets/icons/IconWorld';
+export { IconSun } from 'assets/icons/IconSun';
+export { IconMoon } from 'assets/icons/IconMoon';

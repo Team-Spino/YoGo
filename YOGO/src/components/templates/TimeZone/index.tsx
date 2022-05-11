@@ -5,23 +5,35 @@ import {
   HeaderRightButton,
   TimeZoneList,
   BottomSheet,
+  SearchTimeBottomSheet,
 } from 'components';
 import { IconSearch } from 'assets';
 import * as S from './style';
 
+
+
 export function TimeZone() {
+  const [cardState , setCardState] = useState<string[]>([]);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [timeSearchVisible, setTimeSearchVisible] = useState<boolean>(false);
   const navigation = useNavigation();
 
   const pressBottomSheet = () => {
     setModalVisible(true);
   };
 
+  const pressHeaderRightButton = () => {
+    setTimeSearchVisible(true);
+  }
+
+  const selectTarget = (city: string) => {
+    setCardState([...cardState, city]);
+  }
+
   useEffect(() => {
     navigation.setOptions({
-      // 임시용
       headerRight: () => (
-        <HeaderRightButton name={''} onPress={undefined}></HeaderRightButton>
+        <HeaderRightButton name={''} onPress={() => pressHeaderRightButton()}></HeaderRightButton>
       ),
     });
   }, [navigation]);
@@ -29,10 +41,15 @@ export function TimeZone() {
   return (
     <>
       <S.Container>
-        <TimeZoneList />
+        <TimeZoneList cardList={cardState} />
         <BottomSheet
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
+        />
+        <SearchTimeBottomSheet 
+          modalVisible={timeSearchVisible}
+          setModalVisible={setTimeSearchVisible}
+          selectTarget ={selectTarget}
         />
       </S.Container>
       <FloatingButton onPress={() => pressBottomSheet()}>
