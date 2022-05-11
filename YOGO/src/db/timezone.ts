@@ -12,7 +12,7 @@ export const connectTimezoneDB = async () => {
 };
 
 export const createTimezoneTable = async (db: SQLiteDatabase) => {
-  const query = `CREATE TABLE IF NOT EXISTS timezone 
+  const query = `CREATE TABLE IF NOT EXISTS ${TIME_ZONE}
     (
       ID INTEGER PRIMARY KEY AUTOINCREMENT,
       CITY TEXT NOT NULL,
@@ -24,7 +24,7 @@ export const createTimezoneTable = async (db: SQLiteDatabase) => {
 export const getTimezoneItems = async (db: SQLiteDatabase) => {
   try {
     const timezoneItems: Array<string> = [];
-    const results = await db.executeSql('SELECT * FROM timezone');
+    const results = await db.executeSql(`SELECT * FROM ${TIME_ZONE}`);
 
     results.forEach(result => {
       for (let index = 0; index < result.rows.length; index++) {
@@ -37,4 +37,9 @@ export const getTimezoneItems = async (db: SQLiteDatabase) => {
     console.error(e);
     throw Error('Error in getTimezoneItems');
   }
+};
+
+export const deleteTodoItem = async (db: SQLiteDatabase, id: number) => {
+  const deleteQuery = `DELETE from ${TIME_ZONE} where rowid = ${id}`;
+  await db.executeSql(deleteQuery);
 };
