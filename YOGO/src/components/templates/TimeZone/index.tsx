@@ -15,7 +15,6 @@ import {
   getTimezoneItems,
   insertTimezoneItem,
   deleteTimezoneItem,
-  dropTimezoneTable,
 } from 'db';
 import * as S from './style';
 
