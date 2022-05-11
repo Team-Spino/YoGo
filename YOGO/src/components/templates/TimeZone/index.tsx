@@ -40,6 +40,12 @@ export function TimeZone() {
     setCardState([...cardState, { ID: id, CITY: city }]);
   };
 
+  const onDeleteTarget = async (id: number) => {
+    const db = await connectTimezoneDB();
+    await deleteTimezoneItem(db, id);
+    setCardState(cardState.filter(item => item.ID !== id));
+  };
+
   const initDB = useCallback(async () => {
     try {
       const db = await connectTimezoneDB();
