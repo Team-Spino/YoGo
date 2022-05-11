@@ -1585,6 +1585,11 @@
   "resolved" "https://registry.npmjs.org/@types/react-native-push-notification/-/react-native-push-notification-8.1.0.tgz"
   "version" "8.1.0"
 
+"@types/react-native-sqlite-storage@^5.0.2":
+  "integrity" "sha512-L3dbsBnvk5OmsaMFSJZHQaAJzCJ6oav3Muvs6e7FBTaj3zPIO0ju+ftfZEh3Kh7YtIl+nfiZKF+BIo9VufjL9A=="
+  "resolved" "https://registry.npmjs.org/@types/react-native-sqlite-storage/-/react-native-sqlite-storage-5.0.2.tgz"
+  "version" "5.0.2"
+
 "@types/react-native@^0.65":
   "integrity" "sha512-6TmhHLEBH7xMOBG+MIExOILOEI+nq/VHmlAJZ7SynJ+/ezG318EFrrxDPge46WPqWT25ZbnhSR6uxzBn7TDRbQ=="
   "resolved" "https://registry.npmjs.org/@types/react-native/-/react-native-0.65.21.tgz"
