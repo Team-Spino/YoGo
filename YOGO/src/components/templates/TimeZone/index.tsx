@@ -10,10 +10,8 @@ import {
 import { IconSearch } from 'assets';
 import * as S from './style';
 
-
-
 export function TimeZone() {
-  const [cardState , setCardState] = useState<string[]>([]);
+  const [cardState, setCardState] = useState<Array<string>>([]);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [timeSearchVisible, setTimeSearchVisible] = useState<boolean>(false);
   const navigation = useNavigation();
@@ -24,16 +22,19 @@ export function TimeZone() {
 
   const pressHeaderRightButton = () => {
     setTimeSearchVisible(true);
-  }
+  };
 
   const selectTarget = (city: string) => {
     setCardState([...cardState, city]);
-  }
+  };
 
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <HeaderRightButton name={''} onPress={() => pressHeaderRightButton()}></HeaderRightButton>
+        <HeaderRightButton
+          name={''}
+          onPress={() => pressHeaderRightButton()}
+        ></HeaderRightButton>
       ),
     });
   }, [navigation]);
@@ -46,10 +47,10 @@ export function TimeZone() {
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
         />
-        <SearchTimeBottomSheet 
+        <SearchTimeBottomSheet
           modalVisible={timeSearchVisible}
           setModalVisible={setTimeSearchVisible}
-          selectTarget ={selectTarget}
+          selectTarget={selectTarget}
         />
       </S.Container>
       <FloatingButton onPress={() => pressBottomSheet()}>
