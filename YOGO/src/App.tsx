@@ -2,7 +2,6 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SQLite from 'react-native-sqlite-storage';
 import { Main, HandleSchedule } from 'screens';
 import { theme } from 'styles/theme';
 const Stack = createNativeStackNavigator();
