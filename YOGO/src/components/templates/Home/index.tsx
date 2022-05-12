@@ -45,7 +45,7 @@ export function Home({ navigation }: { navigation: Prop }) {
         markedDates={markedDates}
       />
       <FloatingButton onPress={onPress}>
-        <IconPlus />
+        <IconPlus color="#fff" />
       </FloatingButton>
     </S.Container>
   );

@@ -23,7 +23,7 @@ export function HomeTemplate({
       </S.Container>
 
       <FloatingButton onPress={onPress}>
-        <IconPlus />
+        <IconPlus color="#231F20" />
       </FloatingButton>
     </>
   );
