@@ -5,15 +5,11 @@ import { DUMMY_TIME_ZONE } from 'utils';
 import * as S from './style';
 
 export function TimeZoneList({cardList}: any) {
+  const {key , location} = cardList;
   return (
     <>
       <S.Container>
-      <S.ScrollView>
-        {cardList.map((location: string) => (
-          <TimeZoneCard key={uuid.v4()} location={location} />  
-        )
-        )}
-        </S.ScrollView>
+          <TimeZoneCard key={key} location={location} />
       </S.Container>
     </>
   );

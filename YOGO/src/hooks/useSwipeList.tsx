@@ -1,9 +1,8 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import {
     Animated,
     Dimensions,
 } from 'react-native';
-
 
 interface IrowTranslateAnimatedValuesType {
     [key: string ]: Animated.Value;
@@ -13,16 +12,16 @@ interface IkeyType{
 }
 
 interface IlistDataType{
-    // length: number;
-    key: any;
-    text: any;
+    key: string | number[];
+    text: string;
 }
 
 interface IuseSwipeListProps {
-    listData: any
-    setListData: (listData: IlistDataType[]) => void;
-    rowBackValue: number;
+    listData: any;
+    setListData: React.Dispatch<React.SetStateAction<string[]>>
+    rowBackValue: string;
 }
+
 /**
  * useSwipeList
  * 
@@ -37,7 +36,7 @@ export function useSwipeList({ listData, setListData, rowBackValue} : any) {
      * list만큼 배열을 만들고 해당하는 key 값에 맞는 animated.vlaue를 만듭니다.
      */
      const rowTranslateAnimatedValues : IrowTranslateAnimatedValuesType  = {};
-     listData.forEach(({key}) => {
+     listData?.forEach(({key}) => {
          rowTranslateAnimatedValues[`${key}`] = new Animated.Value(1);
      });
 
@@ -60,7 +59,7 @@ export function useSwipeList({ listData, setListData, rowBackValue} : any) {
          return (
          Animated.timing(rowTranslateAnimatedValues[key], {
              toValue: 0,
-             duration: 100,
+             duration: 300,
              useNativeDriver: false,
          })
          )
