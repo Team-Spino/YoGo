@@ -72,18 +72,12 @@ import {
 } from 'react-native';
 
 import { SwipeListView } from 'react-native-swipe-list-view';
+import { useSwipeList } from 'hooks';
 
-
-const rowTranslateAnimatedValues = {};
-Array(20)
-.fill('').forEach((_,i) => {
-    rowTranslateAnimatedValues[`${i}`] = new Animated.Value(1);
-});
 
 
 export function TimeZone() {
 
-    const [isOpen, setIsOpen] = useState(-70);
 
     const [listData, setListData] = useState(
         Array(20)
@@ -91,60 +85,16 @@ export function TimeZone() {
             .map((_, i) => ({ key: `${i}`, text: `item #${i}` }))
     );
 
-    const animationIsRunning = useRef(false);
 
-    const moveHeight = (key) => {
-        return (
-        Animated.timing(rowTranslateAnimatedValues[key], {
-            toValue: 0,
-            duration: 300,
-            useNativeDriver: false,
-        })
-        )
-    }
+    const {rowTranslateAnimatedValues, isOpen, onSwipeValueChange, deleteRow} = useSwipeList({listData, setListData , rowBackValue: '10%'});
 
-    const setNewData = (key) => {
-        const newData = [...listData];
-        const prevIndex = listData.findIndex(item => item.key === key);
-        newData.splice(prevIndex, 1);
-        setListData(newData);
-        setIsOpen(-70);
-    }
-
-        const onSwipeValueChange = swipeData => {
-        const { key, value } = swipeData;
-            setIsOpen(-70)
-            if(value-150 < -Dimensions.get('window').width) {
-                setIsOpen(-Dimensions.get('window').width);
-            }
-
-            if (
-                value < -Dimensions.get('window').width &&
-                !animationIsRunning.current
-            ) {
-                animationIsRunning.current = true;
-                moveHeight(key).start(() => {
-                    setNewData(key)
-                    animationIsRunning.current = false;
-                });
-            }
-        };
-
-        const deleteRow = (rowMap, rowKey) => {
-        animationIsRunning.current = true;
-        moveHeight(rowKey).start(() => {
-            setNewData(rowKey)
-            animationIsRunning.current = false;
-        });
-        };
 
         const renderItem = data => (
             
             <Animated.View
                 style={[
-                    styles.rowFrontContainer,
                     {
-                        height: rowTranslateAnimatedValues[
+                        height : rowTranslateAnimatedValues[
                             data.item.key
                         ].interpolate({
                             inputRange: [0, 1],
@@ -154,12 +104,7 @@ export function TimeZone() {
                 ]}
             >
             <TouchableHighlight
-                onPress={() => console.log('You touched me',rowTranslateAnimatedValues[
-                    data.item.key
-                ].interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0, 50],
-                }) )}
+                onPress={() => console.log('You touched me')}
                 style={styles.rowFront}
                 underlayColor={'#AAA'}
             >
@@ -170,19 +115,12 @@ export function TimeZone() {
         </Animated.View>
     );
 
-    // const renderHiddenItem = () => (
-    //     <View style={styles.rowBack}>
-    //         <View style={[styles.backRightBtn, styles.backRightBtnRight]}>
-    //             <Text style={styles.backTextWhite}>Delete</Text>
-    //         </View>
-    //     </View>
-    // );
 
-        const renderHiddenItem = (data, rowMap) => (
+        const renderHiddenItem = (data) => (
         <View style={styles.rowBack}>
             <TouchableOpacity
                 style={[styles.backRightBtn, styles.backRightBtnRight]}
-                onPress={() => deleteRow(rowMap, data.item.key)}
+                onPress={() => deleteRow(data.item.key)}
             >
                 <Text style={styles.backTextWhite}>Delete</Text>
             </TouchableOpacity>

@@ -1,105 +1,206 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import {
     Animated,
     Dimensions,
-    StyleSheet,
-    View,
 } from 'react-native';
-import { SwipeListView } from 'react-native-swipe-list-view';
 
+
+interface IrowTranslateAnimatedValuesType {
+    [key: string ]: Animated.Value;
+}
+interface IkeyType{
+    key: string | number
+}
+
+interface IlistDataType{
+    // length: number;
+    key: any;
+    text: any;
+}
+
+interface IuseSwipeListProps {
+    listData: any
+    setListData: (listData: IlistDataType[]) => void;
+    rowBackValue: number;
+}
 /**
+ * useSwipeList
  * 
- * @param listData 리스트의 데이터로 {key: string, text: string, ... 이후에는 상권없음 key가 필요} 형태로 넣어줘야한다. => onSwipeValueChange에서wipeData로 들어갈것
+ * @param listData 리스트의 데이터로 {key: string | number[], text: string, ... 이후에는 상관없음 key가 필요} 형태로 넣어줘야한다. => onSwipeValueChange에서wipeData로 들어갈것
  * @param setListData 리스트 데이터를 업데이트 해줄 함수
  * @returns 
  */
 
-export function useSwipeList( listData, setListData) {
-  
+export function useSwipeList({ listData, setListData, rowBackValue} : any) {
+    
     /**
-     * 해당하는 key 값에 맞는 animated.vlaue를 만듭니다.
+     * list만큼 배열을 만들고 해당하는 key 값에 맞는 animated.vlaue를 만듭니다.
      */
-    const rowTranslateAnimatedValues = {};
-    listData
-        .forEach( ({key, text}) => {
-            rowTranslateAnimatedValues[`${key}`] = new Animated.Value(1);
-        });
+     const rowTranslateAnimatedValues : IrowTranslateAnimatedValuesType  = {};
+     listData.forEach(({key}) => {
+         rowTranslateAnimatedValues[`${key}`] = new Animated.Value(1);
+     });
 
-    const animationIsRunning = useRef(false);
+     /**
+      * rightOpenValue를 설정합니다. 기본값으로 뒷에 있는 (delete) 크기만큼 열수 있게 합니다, 이후 swipe을 끝부분까지하면, 완전히 열리게 합니다
+      */
+     const [isOpen, setIsOpen] = useState(-rowBackValue);
+ 
+     const animationIsRunning = useRef(false);
+ 
+     /**
+      * moveHeight
+      * 
+      * 주어진 key에 맞는 애니메이션 객체의 value를 변경합니다
+      * 
+      * @param key 리스트의 key값
+      * @returns Animated.timing함수를 반환
+      */
+     const moveHeight = (key: string) => {
+         return (
+         Animated.timing(rowTranslateAnimatedValues[key], {
+             toValue: 0,
+             duration: 100,
+             useNativeDriver: false,
+         })
+         )
+     }
+
+     /**
+      * setNewData
+      * 키값의 인덱스를 구해 해당 인덱스를 제거합니다
+      * 제거된 리스트를 새로운 리스트로 업데이트 합니다
+      * 
+      * @param key 리스트의 키값
+      */
+ 
+     const setNewData = (key: string ) => {
+         const newData = [...listData];
+         const prevIndex = listData.findIndex((item: { key : any }) => item.key === key);
+         newData.splice(prevIndex, 1);
+         setListData(newData);
+         setIsOpen(-rowBackValue);
+     }
+
+     /**
+      * onSwipeValueChange
+      * 
+      * swipe를 할때 발생하는 이벤트 입니다
+      * swipe를 왼쩍기준 오른쪽으로 150 이상이 되면, 완전히 열리게 만듭니다
+      * 그전이라면 기본 값으로 변경됩니다
+      * 
+      * @param swipeData 
+      */
+ 
+     const onSwipeValueChange = (swipeData) => {
+         const { key, value } = swipeData;
+ 
+             if(value-150 > -Dimensions.get('window').width && isOpen != -rowBackValue) {
+                 setIsOpen(-rowBackValue)
+             }
     
-        const onSwipeValueChange = (swipeData: { key: any; value: any; }) => {
-            const { key, value } = swipeData;
-            if (
-                value < -Dimensions.get('window').width &&
-                !animationIsRunning.current
-            ) {
-                animationIsRunning.current = true;
-                Animated.timing(rowTranslateAnimatedValues[key], {
-                    toValue: 0,
-                    duration: 200,
-                    useNativeDriver: false,
-                }).start(() => {
-                    const newData = [...listData];
-                    const prevIndex = listData.findIndex(item => item.key === key); // 같은키를 찾아서
-                    newData.splice(prevIndex, 1); // 해당 키만 잘라냄
-                    setListData(newData); // 잘라냄 키를 다시 setList로
-                    animationIsRunning.current = false;
-                });
-            }
-        };
+             if(value-150 < -Dimensions.get('window').width) {
+                 setIsOpen(-Dimensions.get('window').width);
+             }
+ 
+             if (
+                 value < -Dimensions.get('window').width &&
+                 !animationIsRunning.current
+             ) {
+                 animationIsRunning.current = true;
+                 moveHeight(key).start(() => {
+                     setNewData(key)
+                     animationIsRunning.current = false;
+                 });
+             }
+     };
+
+     /**
+      * deleteRow
+      * 
+      * siwpe가 아닌 delete를 눌러 삭제했을때 발생하는 이벤트 입니다
+      * front의 상자를 제거하고, 데이터를 업데이트 합니다
+      * 
+      * @param rowKey 
+      */
+ 
+     const deleteRow = (rowKey: string) => {
+        animationIsRunning.current = true;
+        moveHeight(rowKey).start(() => {
+            setNewData(rowKey)
+            animationIsRunning.current = false;
+        });
+     };
+
+    /**
+     * renderItem 분리 외부에서 사용해야합니다 예시는 남겨둡니다.
+     * 
+     * @param data 
+     * @returns 
+
     
-        // 어차피 데이터가 들어갈꺼니깐 ㄱㅊ을듯
-        // 그러고 랜더를 해주면된다
-        // 반환되어서 사용되는 값음, onSwipeValueChange 을 반환하면된다
-        return (
-            <View style={styles.container}>
-                <SwipeListView
-                    disableRightSwipe
-                    data={listData}
-                    renderItem={renderItem}
-                    renderHiddenItem={renderHiddenItem}
-                    rightOpenValue={-Dimensions.get('window').width}
-                    onSwipeValueChange={onSwipeValueChange}
-                    useNativeDriver={false}
-                />
+     const renderItem = (data) => (
+        <Animated.View
+            style={[
+                {
+                    height : rowTranslateAnimatedValues[
+                        data.item.key
+                    ].interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [0, 50],
+                    }),
+                },
+            ]}
+        >
+        <TouchableHighlight
+            onPress={() => console.log('You touched me')}
+            style={styles.rowFront}
+            underlayColor={'#AAA'}
+        >
+            <View>
+                <Text>I am {data.item.text} in a SwipeListView</Text>
             </View>
+        </TouchableHighlight>
+        </Animated.View>
         );
-    }
-    
-    const styles = StyleSheet.create({
-        container: {
-            backgroundColor: 'white',
-            flex: 1,
-        },
-        backTextWhite: {
-            color: '#FFF',
-        },
-        rowFront: {
-            alignItems: 'center',
-            backgroundColor: '#CCC',
-            borderBottomColor: 'black',
-            borderBottomWidth: 1,
-            justifyContent: 'center',
-            height: 50,
-        },
-        rowBack: {
-            alignItems: 'center',
-            backgroundColor: 'red',
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            paddingLeft: 15,
-        },
-        backRightBtn: {
-            alignItems: 'center',
-            bottom: 0,
-            justifyContent: 'center',
-            position: 'absolute',
-            top: 0,
-            width: 75,
-        },
-        backRightBtnRight: {
-            backgroundColor: 'red',
-            right: 0,
-        },
-    });
+     */      
+ 
+    /**
+     *  renderHiddenItem 분리 외부에서 사용해야합니다 예시는 남겨둡니다.
+     * 
+     * @param data 
+     * @param rowMap 
+     * @returns 
+     
+     const renderHiddenItem = (data: { item: { key: string} }, rowMap: any) => (
+     <View style={styles.rowBack}>
+        <TouchableOpacity
+            style={[styles.backRightBtn, styles.backRightBtnRight]}
+            onPress={() => deleteRow(data.item.key)}
+        >
+            <Text style={styles.backTextWhite}>Delete</Text>
+        </TouchableOpacity>
+     </View>
+     );
+    */
+ 
+     /**
+      * return 분리, 외부에서 사용해야합니다 예시는 남겨둡니다
+     return (
+         <View style={styles.container}>
+             <SwipeListView
+                 disableRightSwipe
+                 data={listData}
+                 renderItem={renderItem}
+                 renderHiddenItem={renderHiddenItem}
+                 rightOpenValue={isOpen}
+                 onSwipeValueChange={onSwipeValueChange}
+                 useNativeDriver={false}
+             />
+         </View>
+     );
+     */
+
+    return { rowTranslateAnimatedValues, isOpen, onSwipeValueChange, deleteRow };
+ }
+ 
