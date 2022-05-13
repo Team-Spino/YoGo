@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -17,6 +17,7 @@ import { DAY_OF_WEEK, DUMMY_DATA_CITY, TAG_COLOR } from 'utils';
 import { ITagListProps, IDayOfWeekProps, RootStackParamList } from 'types';
 import { useNotification } from 'hooks';
 import { connectDB, insertScheduleItem } from 'db';
+import { PopContext } from 'context';
 import * as S from './style';
 
 dayjs.extend(utc);
@@ -44,6 +45,8 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
 
   const [dayOfWeek, setDayOfWeek] =
     useState<Array<IDayOfWeekProps>>(DAY_OF_WEEK);
+
+  const { setPop } = useContext(PopContext);
 
   const handleChange =
     (name: string) => (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
@@ -115,14 +118,16 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
 
   const onSubmit = () => {
     insertSchedule();
-    // makeNotification({
-    //   title: inputs.title,
-    //   description: inputs.description,
-    //   date: alartDate,
-    //   dayOfWeek: dayOfWeek.filter(day => day.isSelected).map(day => day.name),
-    // });
+    makeNotification({
+      title: inputs.title,
+      description: inputs.description,
+      date: alartDate,
+      dayOfWeek: dayOfWeek.filter(day => day.isSelected).map(day => day.name),
+    });
 
-    // navigation.pop();
+    setPop(true);
+
+    navigation.pop();
   };
 
   return (

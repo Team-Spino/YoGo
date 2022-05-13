@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import dayjs from 'dayjs';
 import { FloatingButton, AgendaBox } from 'components';
@@ -11,7 +11,9 @@ import {
   getScheduleItems,
   insertScheduleItem,
   deleteScheduleItem,
+  dropScheduleTable,
 } from 'db';
+import { PopContext } from 'context';
 import * as S from './style';
 
 type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
@@ -22,6 +24,8 @@ export function Home({ navigation }: { navigation: Prop }) {
   const [schedules, setSchedules] = useState<Array<IScheduleProps>>([]);
 
   const [markedDates, setMarkedDate] = useState({});
+
+  const { isPoped, setPop } = useContext(PopContext);
 
   const onPress = () => {
     navigation.push('HandleSchedule', { title: 'Add' });
@@ -59,7 +63,8 @@ export function Home({ navigation }: { navigation: Prop }) {
     });
 
     setMarkedDate(markedDates);
-  }, [selectedDay, setSelectedDay]);
+    setPop(false);
+  }, [selectedDay, setSelectedDay, isPoped, setPop]);
 
   return (
     <S.Container>
