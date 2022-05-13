@@ -4,17 +4,15 @@ import * as S from './style';
 
 interface IScheduleCardHeaderProps {
   isEnable: boolean;
-  data: {
-    title: string;
-    tagColor: string;
-  };
+  title: string;
+  tagColor: string;
 }
 
 export function ScheduleCardHeader({
   isEnable,
-  data,
+  title,
+  tagColor,
 }: IScheduleCardHeaderProps) {
-  const { title, tagColor } = data;
   return (
     <S.Container>
       <Tag color={tagColor} />

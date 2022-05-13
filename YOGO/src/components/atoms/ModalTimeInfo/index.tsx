@@ -1,13 +1,13 @@
 import React from 'react';
 import { Title, SubTitle } from 'components';
 import { IconRight } from 'assets';
-import { ICur, ITarget } from 'types';
+import { ITargetProps, ICurProps } from 'types';
 import * as S from './style';
 
 interface IModalTimeProps {
   timeData: {
-    target: ITarget;
-    cur: ICur;
+    target: ITargetProps;
+    cur: ICurProps;
   };
 }
 
@@ -30,11 +30,14 @@ function ModalTimer({ city, date, time }: IModalTimerProps) {
 export function ModalTimeInfo({ timeData }: IModalTimeProps) {
   const { target, cur } = timeData;
 
+  const { TARGET_TIME, TARGET_CITY, TARGET_DAY } = target;
+  const { CUR_TIME, CUR_CITY, CUR_DAY } = cur;
+
   return (
     <S.Container>
-      <ModalTimer city={target.local} date={target.day} time={target.time} />
+      <ModalTimer city={TARGET_CITY} date={TARGET_DAY} time={TARGET_TIME} />
       <IconRight />
-      <ModalTimer city={cur.local} date={cur.day} time={cur.time} />
+      <ModalTimer city={CUR_CITY} date={CUR_DAY} time={CUR_TIME} />
     </S.Container>
   );
 }
