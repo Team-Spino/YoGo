@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { FloatingButton, AgendaBox } from 'components';
 import { DUMMY_DATA } from 'utils';
 import { IconPlus } from 'assets';
-import { RootStackParamList } from 'types';
+import { RootStackParamList, IScheduleProps } from 'types';
 import {
   connectDB,
   createScheduleTable,
@@ -19,7 +19,7 @@ type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
 export function Home({ navigation }: { navigation: Prop }) {
   const [selectedDay, setSelectedDay] = useState(dayjs().format('YYYY-MM-DD'));
 
-  const [data, setData] = useState([]);
+  const [schedules, setSchedules] = useState<Array<IScheduleProps>>([]);
 
   const [markedDates, setMarkedDate] = useState({});
 
@@ -31,22 +31,22 @@ export function Home({ navigation }: { navigation: Prop }) {
     setSelectedDay(day);
   };
 
-  const initDB = useCallback(async () => {
+  const initDB = async () => {
     try {
       const db = await connectDB();
       await createScheduleTable(db);
 
-      // const items = await getScheduleItems(db);
+      const dayOfWeek = new Date(selectedDay).toLocaleDateString('en', {
+        weekday: 'short',
+      });
 
-      // setData(items);
-      // setMarkedDates(items.reduce((acc, cur) => {
-      //   acc[cur.date] = { selected: true };
-      //   return acc;
-      // }, {}));
+      const items = await getScheduleItems(db, dayOfWeek, selectedDay);
+
+      setSchedules(items);
     } catch (e) {
       console.error(e);
     }
-  }, []);
+  };
 
   useEffect(() => {
     initDB();
@@ -59,12 +59,12 @@ export function Home({ navigation }: { navigation: Prop }) {
     });
 
     setMarkedDate(markedDates);
-  }, [selectedDay]);
+  }, [selectedDay, setSelectedDay]);
 
   return (
     <S.Container>
       <AgendaBox
-        data={data}
+        schedules={schedules}
         selectedDay={selectedDay}
         onDayPress={onDayPress}
         markedDates={markedDates}

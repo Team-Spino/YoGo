@@ -93,16 +93,20 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
   const insertSchedule = async () => {
     try {
       const db = await connectDB();
+
       await insertScheduleItem(db, {
         title: inputs.title,
         description: inputs.description,
         tagColor: tagList.filter(tag => tag.isSelected)[0].color,
         targetTime: dayjs(date).format('HH:mm'),
-        targetDate: dayjs(date).format('YYYY-MM-DD'),
+        targetDay: dayjs(date).format('YYYY-MM-DD'),
         targetCity: city.split('/').at(-1),
         curTime: dayjs(alartDate).format('HH:mm'),
-        curDate: dayjs(alartDate).format('YYYY-MM-DD'),
+        curDay: dayjs(alartDate).format('YYYY-MM-DD'),
         curCity: dayjs.tz.guess().split('/').at(-1),
+        dayOfWeek: JSON.stringify(
+          dayOfWeek.filter(day => day.isSelected).map(day => day.name),
+        ),
       });
     } catch (e) {
       console.log(e);

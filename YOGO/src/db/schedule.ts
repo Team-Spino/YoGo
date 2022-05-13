@@ -1,5 +1,6 @@
 import { enablePromise, SQLiteDatabase } from 'react-native-sqlite-storage';
 import { SCHEDULE } from 'utils';
+import { IScheduleProps } from 'types';
 
 enablePromise(true);
 
@@ -30,11 +31,11 @@ export const getScheduleItems = async (
   curDay: string,
 ) => {
   try {
-    const scheduleItems: any[] = [];
+    const scheduleItems: Array<IScheduleProps> = [];
     const query = `
       SELECT * FROM ${SCHEDULE}
-      WHERE DAY_OF_WEEK = LIKE '%${dayOfWeek}%'
-      OR CUR_DAY = LIKE '%${curDay}%'
+      WHERE ( DAY_OF_WEEK LIKE "%${dayOfWeek}%" 
+      OR CUR_DAY LIKE "%${curDay}%" )
       ORDER BY CUR_TIME ASC
     `;
 

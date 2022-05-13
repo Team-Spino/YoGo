@@ -1,12 +1,12 @@
 import React from 'react';
 import { ModalTimeInfo } from 'components';
-import { ICur, ITarget } from 'types';
+import { ICurProps, ITargetProps } from 'types';
 import * as S from './style';
 
 interface IModalTimeProps {
   timeData: {
-    target: ITarget;
-    cur: ICur;
+    target: ITargetProps;
+    cur: ICurProps;
   };
   leftTime: string;
 }
