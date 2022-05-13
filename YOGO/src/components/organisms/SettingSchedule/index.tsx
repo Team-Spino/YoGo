@@ -14,22 +14,22 @@ import {
 import { DAY_OF_WEEK, DUMMY_DATA_CITY, TAG_COLOR } from 'utils';
 import { ITagListProps, IDayOfWeekProps, RootStackParamList } from 'types';
 import { useNotification } from 'hooks';
+import { connectDB, insertScheduleItem } from 'db';
 import * as S from './style';
 
 type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
 
 export function SettingSchedule({ navigation }: { navigation: Prop }) {
+  const { makeNotification } = useNotification();
+
   const [inputs, setInputs] = useState({
     title: '',
     description: '',
   });
 
-  const { makeNotification } = useNotification();
-
   const [tagList, setTagList] = useState<Array<ITagListProps>>(TAG_COLOR);
 
-  const [selectedSearchTargetCity, setSelectedSearchTargetCity] =
-    useState<boolean>(false);
+  const [isCitySelected, setIsCitySelected] = useState<boolean>(false);
 
   const [city, setCity] = useState<string>('');
 
@@ -57,14 +57,14 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
   };
 
   const onPressSearchTargetCity = () => {
-    setSelectedSearchTargetCity(true);
+    setIsCitySelected(true);
     setCity('');
   };
 
   const onChangeCity = (city: string) => setCity(city);
 
   const onSubmitCity = (city: string) => {
-    setSelectedSearchTargetCity(false);
+    setIsCitySelected(false);
     setCity(city);
   };
 
@@ -86,12 +86,13 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
   );
 
   const onSubmit = () => {
-    makeNotification({
-      title: inputs.title,
-      description: inputs.description,
-      date: alartDate,
-      dayOfWeek: dayOfWeek.filter(day => day.isSelected).map(day => day.name),
-    });
+    // makeNotification({
+    //   title: inputs.title,
+    //   description: inputs.description,
+    //   date: alartDate,
+    //   dayOfWeek: dayOfWeek.filter(day => day.isSelected).map(day => day.name),
+    // });
+
     navigation.pop();
   };
 
@@ -99,7 +100,7 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
     <>
       <S.Container>
         <S.Wrapper>
-          {!selectedSearchTargetCity && (
+          {!isCitySelected && (
             <>
               <TextInput
                 placeholder="Title"
@@ -131,7 +132,7 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
           <Button text="Submit" onPress={onSubmit} />
         </S.Wrapper>
       </S.Container>
-      {selectedSearchTargetCity && (
+      {isCitySelected && (
         <SearchTarget
           targetList={targetList}
           city={city}
