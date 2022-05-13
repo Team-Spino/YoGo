@@ -1,10 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import dayjs from 'dayjs';
 import { FloatingButton, AgendaBox } from 'components';
 import { DUMMY_DATA } from 'utils';
 import { IconPlus } from 'assets';
 import { RootStackParamList } from 'types';
+import {
+  connectDB,
+  createScheduleTable,
+  getScheduleItems,
+  insertScheduleItem,
+  deleteScheduleItem,
+} from 'db';
 import * as S from './style';
 
 type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
@@ -12,7 +19,7 @@ type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
 export function Home({ navigation }: { navigation: Prop }) {
   const [selectedDay, setSelectedDay] = useState(dayjs().format('YYYY-MM-DD'));
 
-  const [data, setDate] = useState(DUMMY_DATA);
+  const [data, setData] = useState([]);
 
   const [markedDates, setMarkedDate] = useState({});
 
@@ -24,8 +31,25 @@ export function Home({ navigation }: { navigation: Prop }) {
     setSelectedDay(day);
   };
 
+  const initDB = useCallback(async () => {
+    try {
+      const db = await connectDB();
+      await createScheduleTable(db);
+
+      // const items = await getScheduleItems(db);
+
+      // setData(items);
+      // setMarkedDates(items.reduce((acc, cur) => {
+      //   acc[cur.date] = { selected: true };
+      //   return acc;
+      // }, {}));
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
+
   useEffect(() => {
-    setDate(DUMMY_DATA.filter(({ cur }) => cur.day === selectedDay));
+    initDB();
     let markedDates = {};
     DUMMY_DATA.forEach(({ cur }) => {
       markedDates = {
@@ -33,6 +57,7 @@ export function Home({ navigation }: { navigation: Prop }) {
         ...{ [cur.day]: { marked: true } },
       };
     });
+
     setMarkedDate(markedDates);
   }, [selectedDay]);
 

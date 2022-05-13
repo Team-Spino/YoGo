@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
-import uuid from 'react-native-uuid';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack/lib/typescript/src/types';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import {
@@ -16,6 +18,9 @@ import { ITagListProps, IDayOfWeekProps, RootStackParamList } from 'types';
 import { useNotification } from 'hooks';
 import { connectDB, insertScheduleItem } from 'db';
 import * as S from './style';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
 
@@ -85,7 +90,27 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
     item.city.toUpperCase().includes(city.toUpperCase()),
   );
 
+  const insertSchedule = async () => {
+    try {
+      const db = await connectDB();
+      await insertScheduleItem(db, {
+        title: inputs.title,
+        description: inputs.description,
+        tagColor: tagList.filter(tag => tag.isSelected)[0].color,
+        targetTime: dayjs(date).format('HH:mm'),
+        targetDate: dayjs(date).format('YYYY-MM-DD'),
+        targetCity: city.split('/').at(-1),
+        curTime: dayjs(alartDate).format('HH:mm'),
+        curDate: dayjs(alartDate).format('YYYY-MM-DD'),
+        curCity: dayjs.tz.guess().split('/').at(-1),
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const onSubmit = () => {
+    insertSchedule();
     // makeNotification({
     //   title: inputs.title,
     //   description: inputs.description,
@@ -93,7 +118,7 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
     //   dayOfWeek: dayOfWeek.filter(day => day.isSelected).map(day => day.name),
     // });
 
-    navigation.pop();
+    // navigation.pop();
   };
 
   return (

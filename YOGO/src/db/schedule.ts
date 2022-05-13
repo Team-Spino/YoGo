@@ -13,9 +13,11 @@ export const createScheduleTable = async (db: SQLiteDatabase) => {
     TAG_COLOR TEXT,
     TARGET_TIME TEXT NOT NULL,
     TARGET_CITY TEXT NOT NULL,
+    TARGET_DAY TEXT NOT NULL,
     CUR_TIME TEXT NOT NULL,
     CUR_CITY TEXT NOT NULL,
-    DAY_OF_WEEK TEXT NOT NULL,
+    CUR_DAY TEXT NOT NULL,
+    DAY_OF_WEEK TEXT NOT NULL
   )
   `;
 
@@ -25,12 +27,15 @@ export const createScheduleTable = async (db: SQLiteDatabase) => {
 export const getScheduleItems = async (
   db: SQLiteDatabase,
   dayOfWeek: string,
+  curDay: string,
 ) => {
   try {
     const scheduleItems: any[] = [];
     const query = `
       SELECT * FROM ${SCHEDULE}
       WHERE DAY_OF_WEEK = LIKE '%${dayOfWeek}%'
+      OR CUR_DAY = LIKE '%${curDay}%'
+      ORDER BY CUR_TIME ASC
     `;
 
     const results = await db.executeSql(query);
@@ -54,22 +59,26 @@ export const insertScheduleItem = async (db: SQLiteDatabase, schedule: any) => {
     description,
     tagColor,
     targetTime,
+    targetDay,
     targetCity,
     curTime,
+    curDay,
     curCity,
     dayOfWeek,
   } = schedule;
 
   const insertQuery = `
-    INSERT INTO ${SCHEDULE} (TITLE, DESCRIPTION, TAG_COLOR, TARGET_TIME, TARGET_CITY, CUR_TIME, CUR_CITY, DAY_OF_WEEK)
+    INSERT INTO ${SCHEDULE} (TITLE, DESCRIPTION, TAG_COLOR, TARGET_TIME, TARGET_CITY, TARGET_DAY, CUR_TIME, CUR_CITY, CUR_DAY, DAY_OF_WEEK)
     VALUES (
       '${title}', 
       '${description}', 
       '${tagColor}', 
       '${targetTime}', 
-      '${targetCity}', 
+      '${targetCity}',
+      '${targetDay}',
       '${curTime}', 
-      '${curCity}', 
+      '${curCity}',
+      '${curDay}',
       '${dayOfWeek}'
       )
   `;
