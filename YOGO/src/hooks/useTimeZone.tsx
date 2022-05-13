@@ -67,7 +67,7 @@ export function useTimeZone() {
       ...formatTime({ targetTime }),
       timeDifference,
       date,
-      city: location.split('/')[1],
+      city: location?.split('/')[1],
     };
   };
 

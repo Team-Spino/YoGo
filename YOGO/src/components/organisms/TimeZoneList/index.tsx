@@ -3,14 +3,17 @@ import { Animated} from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { TimeZoneCard } from 'components';
 import { useSwipeList } from 'hooks';
+import { ICityProps } from 'types';
 import * as S from './style';
 
+
 interface ITimeZoneListProps {
-    cardState: [ { key :string, location: string } ] | never[];
-    setCardState: Dispatch<SetStateAction<string[]>> | Dispatch<SetStateAction<never[]>> ;
+    cardState: Array<ICityProps>
+    setCardState: Dispatch<SetStateAction<Array<ICityProps>>> ;
 }
 
 export function TimeZoneList({cardState, setCardState}: ITimeZoneListProps) {
+
 
   const {rowTranslateAnimatedValues, isOpen, onSwipeValueChange, deleteRow} = useSwipeList({listData : cardState, setListData: setCardState , rowBackValue: '75'});
 
@@ -27,7 +30,7 @@ export function TimeZoneList({cardState, setCardState}: ITimeZoneListProps) {
             },
         ]}
     >
-      <TimeZoneCard key={item.key} location={item.location} />
+      <TimeZoneCard key={item?.ID} location={item?.CITY} />
   </Animated.View>
 );
 

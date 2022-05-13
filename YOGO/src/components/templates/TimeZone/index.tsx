@@ -51,7 +51,6 @@ export function TimeZone() {
     try {
       const db = await connectDB();
       await createTimezoneTable(db);
-
       const items = await getTimezoneItems(db);
       setCardState(items);
     } catch (e) {
