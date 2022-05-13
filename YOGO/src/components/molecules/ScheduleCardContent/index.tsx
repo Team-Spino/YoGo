@@ -17,12 +17,12 @@ export function ScheduleCardContent({
   cur,
 }: IScheduleCardContentProps) {
   const { TARGET_TIME, TARGET_CITY, TARGET_DAY } = target;
-  const { CUR_CITY } = cur;
+  const { CUR_TIME } = cur;
   return (
     <S.Container>
       <SubTitle isEnable={isEnable} text={`${TARGET_CITY} ${TARGET_TIME}`} />
       <S.Wrapper>
-        <Title isEnable={isEnable} text={CUR_CITY} size={20} />
+        <Title isEnable={isEnable} text={CUR_TIME} size={20} />
         <ToggleBtn isEnable={isEnable} onTogglePress={onTogglePress} />
       </S.Wrapper>
     </S.Container>
