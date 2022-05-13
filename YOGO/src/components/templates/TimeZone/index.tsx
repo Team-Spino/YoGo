@@ -10,7 +10,7 @@ import {
 import { IconSearch } from 'assets';
 import { ICityProps } from 'types';
 import {
-  connectTimezoneDB,
+  connectDB,
   createTimezoneTable,
   getTimezoneItems,
   insertTimezoneItem,
@@ -33,21 +33,21 @@ export function TimeZone() {
   };
 
   const selectTarget = async (city: string) => {
-    const db = await connectTimezoneDB();
+    const db = await connectDB();
     const id = await insertTimezoneItem(db, city);
 
     setCardState([...cardState, { ID: id, CITY: city }]);
   };
 
   const onDeleteTarget = async (id: number) => {
-    const db = await connectTimezoneDB();
+    const db = await connectDB();
     await deleteTimezoneItem(db, id);
     setCardState(cardState.filter(item => item.ID !== id));
   };
 
   const initDB = useCallback(async () => {
     try {
-      const db = await connectTimezoneDB();
+      const db = await connectDB();
       await createTimezoneTable(db);
 
       const items = await getTimezoneItems(db);

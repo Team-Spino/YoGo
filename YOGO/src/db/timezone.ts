@@ -1,16 +1,8 @@
-import {
-  enablePromise,
-  openDatabase,
-  SQLiteDatabase,
-} from 'react-native-sqlite-storage';
+import { enablePromise, SQLiteDatabase } from 'react-native-sqlite-storage';
 import { ICityProps } from 'types';
-import { DB, TIME_ZONE } from 'utils';
+import { TIME_ZONE } from 'utils';
 
 enablePromise(true);
-
-export const connectTimezoneDB = async () => {
-  return openDatabase({ name: DB, location: 'default' });
-};
 
 export const createTimezoneTable = async (db: SQLiteDatabase) => {
   const query = `
