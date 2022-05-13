@@ -1,4 +1,4 @@
 export interface ICityProps {
-  ID: number;
+  key: number;
   CITY: string;
 }

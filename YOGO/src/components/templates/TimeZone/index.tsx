@@ -16,6 +16,7 @@ import {
   getTimezoneItems,
   insertTimezoneItem,
   deleteTimezoneItem,
+  dropTimezoneTable,
 } from 'db';
 import * as S from './style';
 
@@ -38,13 +39,15 @@ export function TimeZone() {
     const db = await connectDB();
     const id = await insertTimezoneItem(db, city);
 
-    setCardState([...cardState, { ID: id, CITY: city }]);
+    setCardState([...cardState, { key: id, CITY: city }]);
   };
 
   const onDeleteTarget = async (id: number) => {
+    
+    setCardState(cardState.filter(item => item.key !== id));
+
     const db = await connectDB();
     await deleteTimezoneItem(db, id);
-    setCardState(cardState.filter(item => item.ID !== id));
   };
 
   const initDB = useCallback(async () => {
@@ -73,7 +76,7 @@ export function TimeZone() {
   return (
     <>
       <S.Container>
-        <TimeZoneList cardState={cardState} setCardState = {setCardState} />
+        <TimeZoneList cardState={cardState} setCardState = {setCardState} onDeleteTarget={onDeleteTarget} />
         <BottomSheet
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
