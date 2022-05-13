@@ -6,8 +6,8 @@ import * as S from './style';
 interface IBTargetCityBtnProps {
   onPress: () => void;
   city: string;
-  date: Date;
-  setAlartDate: (date: string) => void;
+  date?: Date;
+  setAlartDate?: (date: string) => void;
 }
 
 export function SelectTargetCityBtn({
