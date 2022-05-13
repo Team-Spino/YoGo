@@ -4,6 +4,7 @@ import { useTimeZone } from 'hooks';
 import * as S from './style';
 
 export const TimeZoneCard = ({ location }: { location: string }) => {
+
   const { useLiveTimer } = useTimeZone();
   const { time, meridiem, timeDifference, date, city } = useLiveTimer({
     location,

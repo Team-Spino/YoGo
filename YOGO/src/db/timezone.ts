@@ -8,7 +8,7 @@ export const createTimezoneTable = async (db: SQLiteDatabase) => {
   const query = `
     CREATE TABLE IF NOT EXISTS ${TIME_ZONE}
     (
-      ID INTEGER PRIMARY KEY AUTOINCREMENT,
+      key INTEGER PRIMARY KEY AUTOINCREMENT,
       CITY TEXT NOT NULL
     );`;
 

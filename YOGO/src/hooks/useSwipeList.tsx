@@ -30,7 +30,7 @@ interface IuseSwipeListProps {
  * @returns 
  */
 
-export function useSwipeList({ listData, setListData, rowBackValue} : any) {
+export function useSwipeList({ listData, rowBackValue, onDeleteTarget} : any) {
     
     /**
      * list만큼 배열을 만들고 해당하는 key 값에 맞는 animated.vlaue를 만듭니다.
@@ -73,12 +73,9 @@ export function useSwipeList({ listData, setListData, rowBackValue} : any) {
       * @param key 리스트의 키값
       */
  
-     const setNewData = (key: string ) => {
-         const newData = [...listData];
-         const prevIndex = listData.findIndex((item: { key : any }) => item.key === key);
-         newData.splice(prevIndex, 1);
-         setListData(newData);
-         setIsOpen(-rowBackValue);
+     const setNewData = async (key: string ) => {
+        onDeleteTarget(key)
+        setIsOpen(-rowBackValue);
      }
 
      /**

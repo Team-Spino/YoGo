@@ -6565,8 +6565,7 @@
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
-"react-native@*", "react-native@>= 0.30.0", "react-native@>=0.14.0", "react-native@>=0.33", "react-native@>=0.42.0", "react-native@>=0.50.0", "react-native@>=0.58.4", "react-native@>=0.59.0", "react-native@>=0.65.0", "react-native@0.67.4":
-
+"react-native@*", "react-native@>= 0.30.0", "react-native@>=0.14.0", "react-native@>=0.23.1", "react-native@>=0.33", "react-native@>=0.42.0", "react-native@>=0.50.0", "react-native@>=0.58.4", "react-native@>=0.59.0", "react-native@>=0.65.0", "react-native@0.67.4":
   "integrity" "sha512-NA9d9lNJu9TViEJu2uZxWXUP+QNUilGGA5tdMbVFedNroOH1lnQ3n/FAVoGK1gqGarCgNTtheBxUpEa979Cu8w=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.67.4.tgz"
   "version" "0.67.4"
