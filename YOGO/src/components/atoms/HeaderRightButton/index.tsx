@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable } from 'react-native';
-import * as S from './style';
 import { IconPlus } from 'assets';
+import * as S from './style';
 
 export function HeaderRightButton({
   name,
@@ -17,7 +17,7 @@ export function HeaderRightButton({
       <Pressable onPress={onPress}>
         {({ pressed }) => (
           <S.Button pressed={pressed}>
-            <IconPlus />
+            <IconPlus color="#231F20" />
           </S.Button>
         )}
       </Pressable>

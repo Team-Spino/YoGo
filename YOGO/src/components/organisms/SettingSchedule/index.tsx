@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
-import uuid from 'react-native-uuid';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack/lib/typescript/src/types';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import {
@@ -14,22 +16,26 @@ import {
 import { DAY_OF_WEEK, DUMMY_DATA_CITY, TAG_COLOR } from 'utils';
 import { ITagListProps, IDayOfWeekProps, RootStackParamList } from 'types';
 import { useNotification } from 'hooks';
+import { connectDB, insertScheduleItem } from 'db';
+import { PopContext } from 'context';
 import * as S from './style';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
 
 export function SettingSchedule({ navigation }: { navigation: Prop }) {
+  const { makeNotification } = useNotification();
+
   const [inputs, setInputs] = useState({
     title: '',
     description: '',
   });
 
-  const { makeNotification } = useNotification();
-
   const [tagList, setTagList] = useState<Array<ITagListProps>>(TAG_COLOR);
 
-  const [selectedSearchTargetCity, setSelectedSearchTargetCity] =
-    useState<boolean>(false);
+  const [isCitySelected, setIsCitySelected] = useState<boolean>(false);
 
   const [city, setCity] = useState<string>('');
 
@@ -39,6 +45,8 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
 
   const [dayOfWeek, setDayOfWeek] =
     useState<Array<IDayOfWeekProps>>(DAY_OF_WEEK);
+
+  const { setPop } = useContext(PopContext);
 
   const handleChange =
     (name: string) => (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
@@ -57,14 +65,14 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
   };
 
   const onPressSearchTargetCity = () => {
-    setSelectedSearchTargetCity(true);
+    setIsCitySelected(true);
     setCity('');
   };
 
   const onChangeCity = (city: string) => setCity(city);
 
   const onSubmitCity = (city: string) => {
-    setSelectedSearchTargetCity(false);
+    setIsCitySelected(false);
     setCity(city);
   };
 
@@ -85,13 +93,40 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
     item.city.toUpperCase().includes(city.toUpperCase()),
   );
 
+  const insertSchedule = async () => {
+    try {
+      const db = await connectDB();
+
+      await insertScheduleItem(db, {
+        title: inputs.title,
+        description: inputs.description,
+        tagColor: tagList.filter(tag => tag.isSelected)[0].color,
+        targetTime: dayjs(date).format('HH:mm'),
+        targetDay: dayjs(date).format('YYYY-MM-DD'),
+        targetCity: city.split('/').at(-1),
+        curTime: dayjs(alartDate).format('HH:mm'),
+        curDay: dayjs(alartDate).format('YYYY-MM-DD'),
+        curCity: dayjs.tz.guess().split('/').at(-1),
+        dayOfWeek: JSON.stringify(
+          dayOfWeek.filter(day => day.isSelected).map(day => day.name),
+        ),
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const onSubmit = () => {
+    insertSchedule();
     makeNotification({
       title: inputs.title,
       description: inputs.description,
       date: alartDate,
       dayOfWeek: dayOfWeek.filter(day => day.isSelected).map(day => day.name),
     });
+
+    setPop(true);
+
     navigation.pop();
   };
 
@@ -99,7 +134,7 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
     <>
       <S.Container>
         <S.Wrapper>
-          {!selectedSearchTargetCity && (
+          {!isCitySelected && (
             <>
               <TextInput
                 placeholder="Title"
@@ -131,7 +166,7 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
           <Button text="Submit" onPress={onSubmit} />
         </S.Wrapper>
       </S.Container>
-      {selectedSearchTargetCity && (
+      {isCitySelected && (
         <SearchTarget
           targetList={targetList}
           city={city}

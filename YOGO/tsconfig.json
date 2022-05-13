@@ -17,7 +17,8 @@
       "components/*": ["components/*"],
       "screens/*": ["screens/*"],
       "assets/*": ["assets/*"]
-    }
+    },
+    "useUnknownInCatchVariables": false
   },
   "exclude": [
     "node_modules",

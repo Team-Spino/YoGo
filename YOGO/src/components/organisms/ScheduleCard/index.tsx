@@ -5,10 +5,10 @@ import {
   DetailModal,
   DayOfWeek,
 } from 'components';
-import { ITimeData } from 'types';
+import { IScheduleProps } from 'types';
 import * as S from './style';
 
-export function ScheduleCard({ data }: { data: ITimeData }) {
+export function ScheduleCard({ schedule }: { schedule: IScheduleProps }) {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isEnable, setIsEnable] = useState<boolean>(true);
 
@@ -16,28 +16,47 @@ export function ScheduleCard({ data }: { data: ITimeData }) {
   const onShowDetailPress = () => setIsVisible(true);
   const onCloseDetailPress = () => setIsVisible(false);
 
-  const { title, tagColor, target, cur, dayOfWeek } = data;
+  const {
+    ID,
+    TITLE,
+    TAG_COLOR,
+    TARGET_TIME,
+    TARGET_CITY,
+    TARGET_DAY,
+    CUR_TIME,
+    CUR_CITY,
+    CUR_DAY,
+    DAY_OF_WEEK,
+  } = schedule;
 
-  const headData = { title, tagColor };
-  const contentData = { target, cur };
+  const target = { TARGET_TIME, TARGET_CITY, TARGET_DAY };
+  const cur = { CUR_TIME, CUR_CITY, CUR_DAY };
 
   return (
     <>
       <S.Container onPress={onShowDetailPress}>
         <S.Wrapper>
-          <ScheduleCardHeader isEnable={isEnable} data={headData} />
+          <ScheduleCardHeader
+            isEnable={isEnable}
+            title={TITLE}
+            tagColor={TAG_COLOR}
+          />
           <ScheduleCardContent
             isEnable={isEnable}
             onTogglePress={onTogglePress}
-            data={contentData}
+            target={target}
+            cur={cur}
           />
-          <DayOfWeek isEnable={isEnable} selectedDay={dayOfWeek} />
+          <DayOfWeek
+            isEnable={isEnable}
+            selectedDay={JSON.parse(DAY_OF_WEEK)}
+          />
         </S.Wrapper>
       </S.Container>
       <DetailModal
         isVisible={isVisible}
         onCloseDetailPress={onCloseDetailPress}
-        data={data}
+        schedule={schedule}
       />
     </>
   );
