@@ -14,7 +14,6 @@ interface IAgendaProps {
 }
 
 export function AgendaBox({ data , selectedDay, markedDates ,onDayPress }: IAgendaProps) {
-  console.log(markedDates)
   return (
     <Agenda
       items={{

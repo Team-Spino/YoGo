@@ -124,11 +124,7 @@ export function useSwipeList({ listData, setListData, rowBackValue} : any) {
       */
  
      const deleteRow = (rowKey: string) => {
-        animationIsRunning.current = true;
-        moveHeight(rowKey).start(() => {
-            setNewData(rowKey)
-            animationIsRunning.current = false;
-        });
+         setNewData(rowKey)
      };
 
     /**
