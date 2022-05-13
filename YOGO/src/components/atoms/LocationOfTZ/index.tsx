@@ -13,9 +13,9 @@ export const LocationOfTZ = ({ timeDifference, time, meridiem, city }: ILocation
   const checkSun = () => {
     const checkTime = +time.split(':')[0]
     if(meridiem == 'AM'){
-      return checkTime >= 6 ? true : false
+      return (checkTime >= 6 && checkTime < 12) ? true : false
       }
-      return checkTime >= 6 ? false : true
+      return (checkTime >= 6 && checkTime < 12) ? false : true
   }
 
   return (

@@ -1,5 +1,6 @@
-import React, { SetStateAction, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import uuid from 'react-native-uuid';
 import {
   FloatingButton,
   HeaderRightButton,
@@ -9,7 +10,6 @@ import {
 } from 'components';
 import { IconSearch } from 'assets';
 import * as S from './style';
-import uuid from 'react-native-uuid';
 
 
 
