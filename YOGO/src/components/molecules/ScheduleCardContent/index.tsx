@@ -10,6 +10,17 @@ interface IScheduleCardContentProps {
   cur: ICurProps;
 }
 
+const toFormat12hour = ({ day, time }: { day: string; time: string }) => {
+  const [, hm, meridiem] = new Date(`${day} ${time}`)
+    .toLocaleDateString('en-US', {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    })
+    .split(' ');
+  return `${hm} ${meridiem}`;
+};
+
 export function ScheduleCardContent({
   isEnable,
   onTogglePress,
@@ -19,18 +30,24 @@ export function ScheduleCardContent({
   const { TARGET_TIME, TARGET_CITY, TARGET_DAY } = target;
   const { CUR_DAY, CUR_TIME } = cur;
 
-  const [, time, meridiem] = new Date(`${CUR_DAY} ${CUR_TIME}`)
-    .toLocaleDateString('en-US', {
-      hour: 'numeric',
-      minute: 'numeric',
-      hour12: true,
-    })
-    .split(' ');
   return (
     <S.Container>
-      <SubTitle isEnable={isEnable} text={`${TARGET_CITY} ${TARGET_TIME}`} />
+      <SubTitle
+        isEnable={isEnable}
+        text={`${TARGET_CITY} ${toFormat12hour({
+          day: TARGET_DAY,
+          time: TARGET_TIME,
+        })}`}
+      />
       <S.Wrapper>
-        <Title isEnable={isEnable} text={`${time} ${meridiem}`} size={20} />
+        <Title
+          isEnable={isEnable}
+          text={toFormat12hour({
+            day: CUR_DAY,
+            time: CUR_TIME,
+          })}
+          size={20}
+        />
         <ToggleBtn isEnable={isEnable} onTogglePress={onTogglePress} />
       </S.Wrapper>
     </S.Container>
