@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import uuid from 'react-native-uuid';
 import {
   FloatingButton,
   HeaderRightButton,
@@ -22,6 +23,7 @@ export function TimeZone() {
   const [cardState, setCardState] = useState<Array<ICityProps>>([]);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [timeSearchVisible, setTimeSearchVisible] = useState<boolean>(false);
+
   const navigation = useNavigation();
 
   const pressBottomSheet = () => {
@@ -51,7 +53,6 @@ export function TimeZone() {
       await createTimezoneTable(db);
 
       const items = await getTimezoneItems(db);
-
       setCardState(items);
     } catch (e) {
       console.error(e);
@@ -73,7 +74,7 @@ export function TimeZone() {
   return (
     <>
       <S.Container>
-        <TimeZoneList cardState={cardState} />
+        <TimeZoneList cardState={cardState} setCardState = {setCardState} />
         <BottomSheet
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
@@ -90,3 +91,4 @@ export function TimeZone() {
     </>
   );
 }
+

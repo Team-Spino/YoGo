@@ -25,9 +25,9 @@ export function AgendaBox({
         [schedules.length && selectedDay]: [{ schedules }],
       }}
       // 아직 사용하지 않음
-      // loadItemsForMonth={ month => {
-      //   console.log('trigger items loading');
-      // }}
+      loadItemsForMonth={ month => {
+        console.log('trigger items loading');
+      }}
       onDayPress={day => {
         onDayPress(day.dateString);
       }}
