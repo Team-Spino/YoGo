@@ -140,24 +140,11 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
     return true;
   };
 
-  const insertSchedule = async () => {
+  const insertSchedule = async ({ formState }: { formState: any }) => {
     try {
       console.log('hello');
       const db = await connectDB();
-      // await insertScheduleItem(db, {
-      //   title: inputs.title,
-      //   description: inputs.description,
-      //   tagColor: tagList.filter(tag => tag.isSelected)[0]?.color ?? '#B5B5B9',
-      //   targetTime: dayjs(date).format('HH:mm'),
-      //   targetDay: dayjs(date).format('YYYY-MM-DD'),
-      //   targetCity: city.split('/').at(-1),
-      //   curTime: dayjs(alartDate ?? date).format('HH:mm'),
-      //   curDay: dayjs(alartDate ?? date).format('YYYY-MM-DD'),
-      //   curCity: dayjs.tz.guess().split('/').at(-1),
-      //   dayOfWeek: JSON.stringify(
-      //     dayOfWeek.filter(day => day.isSelected).map(day => day.name),
-      //   ),
-      // });
+      await insertScheduleItem(db, formState);
     } catch (e) {
       console.log(e);
     }
@@ -210,17 +197,17 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
           formState = { ...formState, dayOfWeek: JSON.stringify([name]) };
         }
       }
-    }
 
-    insertSchedule();
-    makeNotification({
-      title: inputs.title,
-      description: inputs.description,
-      date: alartDate as string,
-      dayOfWeek: dayOfWeek.filter(day => day.isSelected).map(day => day.name),
-    });
-    setPop(true);
-    navigation.pop();
+      insertSchedule({ formState });
+      makeNotification({
+        title: inputs.title,
+        description: inputs.description,
+        date: alartDate as string,
+        dayOfWeek: dayOfWeek.filter(day => day.isSelected).map(day => day.name),
+      });
+      setPop(true);
+      navigation.pop();
+    }
   };
 
   return (
