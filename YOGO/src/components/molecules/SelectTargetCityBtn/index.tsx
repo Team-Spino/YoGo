@@ -7,7 +7,7 @@ interface IBTargetCityBtnProps {
   onPress: () => void;
   city: string;
   date: Date;
-  setAlartDate: (date: string) => void;
+  setAlartDate?: (date: string) => void | null;
   isCityInputValid?: boolean;
 }
 
@@ -21,19 +21,22 @@ export function SelectTargetCityBtn({
   const [notiAlartTime, setNotiAlartTime] = useState<string>('');
 
   const { getAlarmTime } = useTimeZone();
-  useEffect(() => {
-    if (city && date) {
-      const { time, locateCity, isPastFormNow } = getAlarmTime({
-        date: date.toString(),
-        city: city,
-      });
 
-      setAlartDate(time);
-      setNotiAlartTime(
-        `${locateCity} 기준 ${time.split(' ').at(-1)}에 알람이 울립니다.`,
-      );
-    }
-  }, [city, date]);
+  if (setAlartDate) {
+    useEffect(() => {
+      if (city && date) {
+        const { time, locateCity, isPastFormNow } = getAlarmTime({
+          date: date.toString(),
+          city: city,
+        });
+
+        setAlartDate(time);
+        setNotiAlartTime(
+          `${locateCity} 기준 ${time.split(' ').at(-1)}에 알람이 울립니다.`,
+        );
+      }
+    }, [city, date]);
+  }
 
   const placeholder = () => {
     if (!isCityInputValid) {
