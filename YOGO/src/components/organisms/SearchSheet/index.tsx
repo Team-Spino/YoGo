@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Alert } from 'react-native';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import {
   SearchTarget,
@@ -44,6 +45,16 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
     setDate(currentDate);
   };
 
+  const onSubmit = () => {
+    if (city) {
+      onPress();
+      return;
+    }
+    setIsCityInputValid(false);
+
+    Alert.alert('Yogo', 'Please select city');
+  };
+
   return (
     <S.SearchBox>
       {!selectedSearchTargetCity && (
@@ -57,7 +68,7 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
               isCityInputValid={isCityInputValid}
             />
             <SelectTargetDate onChangeDate={onChangeDate} date={date} />
-            <BottomSheetBtn text={'FIND'} onPress={onPress} />
+            <BottomSheetBtn text={'FIND'} onPress={onSubmit} />
           </S.Inner>
         </S.ScrollView>
       )}
