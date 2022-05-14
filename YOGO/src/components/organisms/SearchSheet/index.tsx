@@ -59,7 +59,6 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
         <S.ScrollView showsVerticalScrollIndicator={false}>
           <S.Inner>
             <HeaderCenter text={`Search Time Zone`} size={18} />
-
             <SelectTargetCityBtn
               onPress={() => onPressSearchTargetCity()}
               city={city.trim() === '' ? '국가, 도시' : city}
@@ -71,12 +70,14 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
       )}
       
       {selectedSearchTargetCity && (
+        <S.Inner>
         <SearchTarget
           targetList={targetList}
           city={city}
           onChangeCity={onChangeCity}
           onSubmitCity={onSubmitCity}
         />
+        </S.Inner>
       )}
     </S.SearchBox>
   );

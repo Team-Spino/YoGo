@@ -1,4 +1,6 @@
+import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
+const screenHeight = Dimensions.get('screen').height;
 
 export const Inner = styled.View`
   width: 100%;
@@ -10,9 +12,9 @@ export const Inner = styled.View`
 
 
 export const ResultBox = styled.View`
-  height: 100%;
+  height: ${screenHeight * 0.90}px;
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0
+  padding-top: 20px;
 `;
