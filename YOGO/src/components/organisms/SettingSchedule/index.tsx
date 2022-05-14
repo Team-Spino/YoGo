@@ -123,7 +123,7 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
       ]);
     });
 
-  const checkValidate = async () => {
+  const checkValidate = () => {
     if (!city || !inputs.title) {
       let message = '';
       if (!city && !inputs.title) message = 'Please Input Title and City';
@@ -151,12 +151,7 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
   };
 
   const onSubmit = async () => {
-    if (await checkValidate()) {
-      const { time } = getAlarmTime({
-        date: date.toString(),
-        city: city,
-      });
-
+    if (checkValidate()) {
       let formState = {
         title: inputs.title,
         description: inputs.description,
@@ -164,8 +159,8 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
         targetTime: dayjs(date).format('HH:mm'),
         targetDay: dayjs(date).format('YYYY-MM-DD'),
         targetCity: city.split('/').at(-1),
-        curTime: dayjs(alartDate ?? time).format('HH:mm'),
-        curDay: dayjs(alartDate ?? time).format('YYYY-MM-DD'),
+        curTime: dayjs(alartDate ?? date).format('HH:mm'),
+        curDay: dayjs(alartDate ?? date).format('YYYY-MM-DD'),
         curCity: dayjs.tz.guess().split('/').at(-1),
         dayOfWeek: JSON.stringify(
           dayOfWeek.filter(day => day.isSelected).map(day => day.name),
