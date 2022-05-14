@@ -43,7 +43,7 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
 
   const [date, setDate] = useState(new Date());
 
-  const [alartDate, setAlartDate] = useState('');
+  const [alartDate, setAlartDate] = useState<string | null>(null);
   const [dayOfWeek, setDayOfWeek] =
     useState<Array<IDayOfWeekProps>>(DAY_OF_WEEK);
 
@@ -104,7 +104,26 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
     item.city.toUpperCase().includes(city.toUpperCase()),
   );
 
-  const checkValidate = () => {
+  const asyncAlert = async () =>
+    new Promise(resolve => {
+      Alert.alert('Yogo', '이 일정을 반복하겠습니까?', [
+        {
+          text: 'Cancel',
+          onPress: () => {
+            resolve(false);
+          },
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () => {
+            resolve(true);
+          },
+        },
+      ]);
+    });
+
+  const checkValidate = async () => {
     if (!city || !inputs.title) {
       let message = '';
       if (!city && !inputs.title) message = 'Please Input Title and City';
@@ -114,7 +133,7 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
       if (!city) setIsCityInputValid(false);
       if (!inputs.title) setIsTitleInputValid(false);
 
-      Alert.alert(message);
+      Alert.alert('Yogo', message);
 
       return false;
     }
@@ -123,38 +142,85 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
 
   const insertSchedule = async () => {
     try {
+      console.log('hello');
       const db = await connectDB();
-
-      await insertScheduleItem(db, {
-        title: inputs.title,
-        description: inputs.description,
-        tagColor: tagList.filter(tag => tag.isSelected)[0]?.color ?? '',
-        targetTime: dayjs(date).format('HH:mm'),
-        targetDay: dayjs(date).format('YYYY-MM-DD'),
-        targetCity: city.split('/').at(-1),
-        curTime: dayjs(alartDate).format('HH:mm'),
-        curDay: dayjs(alartDate).format('YYYY-MM-DD'),
-        curCity: dayjs.tz.guess().split('/').at(-1),
-        dayOfWeek: JSON.stringify(
-          dayOfWeek.filter(day => day.isSelected).map(day => day.name),
-        ),
-      });
+      // await insertScheduleItem(db, {
+      //   title: inputs.title,
+      //   description: inputs.description,
+      //   tagColor: tagList.filter(tag => tag.isSelected)[0]?.color ?? '#B5B5B9',
+      //   targetTime: dayjs(date).format('HH:mm'),
+      //   targetDay: dayjs(date).format('YYYY-MM-DD'),
+      //   targetCity: city.split('/').at(-1),
+      //   curTime: dayjs(alartDate ?? date).format('HH:mm'),
+      //   curDay: dayjs(alartDate ?? date).format('YYYY-MM-DD'),
+      //   curCity: dayjs.tz.guess().split('/').at(-1),
+      //   dayOfWeek: JSON.stringify(
+      //     dayOfWeek.filter(day => day.isSelected).map(day => day.name),
+      //   ),
+      // });
     } catch (e) {
       console.log(e);
     }
   };
 
-  const onSubmit = () => {
-    checkValidate();
-    // insertSchedule();
-    // makeNotification({
-    //   title: inputs.title,
-    //   description: inputs.description,
-    //   date: alartDate,
-    //   dayOfWeek: dayOfWeek.filter(day => day.isSelected).map(day => day.name),
-    // });
-    // setPop(true);
-    // navigation.pop();
+  const onSubmit = async () => {
+    if (await checkValidate()) {
+      let formState = {
+        title: inputs.title,
+        description: inputs.description,
+        tagColor: tagList.filter(tag => tag.isSelected)[0]?.color ?? '#B5B5B9',
+        targetTime: dayjs(date).format('HH:mm'),
+        targetDay: dayjs(date).format('YYYY-MM-DD'),
+        targetCity: city.split('/').at(-1),
+        curTime: dayjs(alartDate ?? date).format('HH:mm'),
+        curDay: dayjs(alartDate ?? date).format('YYYY-MM-DD'),
+        curCity: dayjs.tz.guess().split('/').at(-1),
+        dayOfWeek: JSON.stringify(
+          dayOfWeek.filter(day => day.isSelected).map(day => day.name),
+        ),
+      };
+
+      if (formState.dayOfWeek === '[]') {
+        const result = await asyncAlert();
+        const now = dayjs().format('YYYY-MM-DD HH:mm');
+        const alartTime = `${formState.curDay} ${formState.curTime}`;
+        const isBefore = dayjs(alartTime).isBefore(now);
+
+        if (!result && isBefore) {
+          Alert.alert(
+            'Yogo',
+            '이미 지난 일정입니다. 시간을 다시 입력해주세요.',
+          );
+
+          return;
+        }
+
+        if (result) {
+          const curDateOfWeek = new Date(alartTime).toLocaleDateString(
+            'en-US',
+            {
+              weekday: 'short',
+            },
+          );
+
+          const { name } = dayOfWeek.filter(
+            day => day.name === curDateOfWeek,
+          )[0];
+
+          formState = { ...formState, dayOfWeek: JSON.stringify([name]) };
+        }
+      }
+    }
+
+    insertSchedule();
+    makeNotification({
+      title: inputs.title,
+      description: inputs.description,
+      date: alartDate as string,
+      dayOfWeek: dayOfWeek.filter(day => day.isSelected).map(day => day.name),
+    });
+    setPop(true);
+    navigation.pop();
   };
 
   return (
