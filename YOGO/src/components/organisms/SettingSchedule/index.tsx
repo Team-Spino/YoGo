@@ -1,5 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
+import {
+  NativeSyntheticEvent,
+  TextInputChangeEventData,
+  Alert,
+} from 'react-native';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
@@ -45,7 +49,7 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
 
   const [isTitleInputValid, setIsTitleInputValid] = useState(true);
 
-  const [isCityInputValid, setIsCityInputValid] = useState(false);
+  const [isCityInputValid, setIsCityInputValid] = useState(true);
 
   const { setPop } = useContext(PopContext);
 
@@ -56,8 +60,8 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
       const { text } = e.nativeEvent;
       setInputs({ ...inputs, [name]: text });
 
-      if (name === 'title' && inputs.title) setIsTitleInputValid(true);
-      else if (name === 'title' && !inputs.title) setIsTitleInputValid(false);
+      if (name === 'title' && text) setIsTitleInputValid(true);
+      else if (name === 'title' && !text) setIsTitleInputValid(false);
     };
 
   const onSelectTag = (key: string) => {
@@ -100,6 +104,23 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
     item.city.toUpperCase().includes(city.toUpperCase()),
   );
 
+  const checkValidate = () => {
+    if (!city || !inputs.title) {
+      let message = '';
+      if (!city && !inputs.title) message = 'Please Input Title and City';
+      else if (!city) message = 'Please Input City';
+      else if (!inputs.title) message = 'Please Input Title';
+
+      if (!city) setIsCityInputValid(false);
+      if (!inputs.title) setIsTitleInputValid(false);
+
+      Alert.alert(message);
+
+      return false;
+    }
+    return true;
+  };
+
   const insertSchedule = async () => {
     try {
       const db = await connectDB();
@@ -107,7 +128,7 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
       await insertScheduleItem(db, {
         title: inputs.title,
         description: inputs.description,
-        tagColor: tagList.filter(tag => tag.isSelected)[0].color,
+        tagColor: tagList.filter(tag => tag.isSelected)[0]?.color ?? '',
         targetTime: dayjs(date).format('HH:mm'),
         targetDay: dayjs(date).format('YYYY-MM-DD'),
         targetCity: city.split('/').at(-1),
@@ -124,6 +145,7 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
   };
 
   const onSubmit = () => {
+    checkValidate();
     // insertSchedule();
     // makeNotification({
     //   title: inputs.title,
