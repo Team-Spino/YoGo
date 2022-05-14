@@ -42,7 +42,6 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
   const [date, setDate] = useState(new Date());
 
   const [alartDate, setAlartDate] = useState('');
-
   const [dayOfWeek, setDayOfWeek] =
     useState<Array<IDayOfWeekProps>>(DAY_OF_WEEK);
 

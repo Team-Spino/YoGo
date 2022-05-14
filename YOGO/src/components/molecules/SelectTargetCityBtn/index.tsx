@@ -27,7 +27,9 @@ export function SelectTargetCityBtn({
       });
 
       setAlartDate(time);
-      setNotiAlartTime(`${locateCity} 기준 ${time}에 알람이 울립니다.`);
+      setNotiAlartTime(
+        `${locateCity} 기준 ${time.split(' ').at(-1)}에 알람이 울립니다.`,
+      );
     }
   }, [city, date]);
   return (
