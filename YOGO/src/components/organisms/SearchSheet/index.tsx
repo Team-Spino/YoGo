@@ -13,9 +13,9 @@ interface ISearchBSProps {
   onPress: () => void;
 }
 export const SearchSheet = ({ onPress }: ISearchBSProps) => {
-
   const [date, setDate] = useState(new Date());
   const [city, setCity] = useState('');
+  const [isCityInputValid, setIsCityInputValid] = useState(true);
 
   const [selectedSearchTargetCity, setSelectedSearchTargetCity] =
     useState<boolean>(false);
@@ -35,6 +35,7 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
 
   const onSubmitCity = (city: string) => {
     setSelectedSearchTargetCity(false);
+    setIsCityInputValid(true);
     setCity(city);
   };
 
@@ -52,14 +53,15 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
 
             <SelectTargetCityBtn
               onPress={() => onPressSearchTargetCity()}
-              city={city.trim() === '' ? '국가, 도시' : city}
+              city={city}
+              isCityInputValid={isCityInputValid}
             />
             <SelectTargetDate onChangeDate={onChangeDate} date={date} />
             <BottomSheetBtn text={'FIND'} onPress={onPress} />
           </S.Inner>
         </S.ScrollView>
       )}
-      
+
       {selectedSearchTargetCity && (
         <SearchTarget
           targetList={targetList}
