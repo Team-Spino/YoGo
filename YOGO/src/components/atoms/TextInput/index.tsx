@@ -7,6 +7,7 @@ interface ITextInputProps {
   size: string;
   value: string;
   setValue: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
+  isTitleInputValid?: boolean;
 }
 
 export function TextInput({
@@ -14,6 +15,7 @@ export function TextInput({
   size,
   value,
   setValue,
+  isTitleInputValid,
 }: ITextInputProps) {
   return (
     <S.TextInput
@@ -22,7 +24,8 @@ export function TextInput({
       numberOfLines={10}
       onChange={e => setValue(e)}
       size={size}
-      placeholder={placeholder}
+      isTitleInputValid={isTitleInputValid}
+      placeholder={isTitleInputValid ? placeholder : 'Please Input Title'}
     />
   );
 }

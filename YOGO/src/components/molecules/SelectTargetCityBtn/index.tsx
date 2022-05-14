@@ -8,6 +8,7 @@ interface IBTargetCityBtnProps {
   city: string;
   date: Date;
   setAlartDate: (date: string) => void;
+  isCityInputValid?: boolean;
 }
 
 export function SelectTargetCityBtn({
@@ -15,6 +16,7 @@ export function SelectTargetCityBtn({
   city,
   date,
   setAlartDate,
+  isCityInputValid,
 }: IBTargetCityBtnProps) {
   const [notiAlartTime, setNotiAlartTime] = useState<string>('');
 
@@ -32,11 +34,20 @@ export function SelectTargetCityBtn({
       );
     }
   }, [city, date]);
+
+  const placeholder = () => {
+    if (!isCityInputValid) {
+      return 'Please select city';
+    }
+
+    return city.trim() ? city : '국가, 도시';
+  };
+
   return (
-    <S.Container>
+    <S.Container isCityInputValid={isCityInputValid}>
       <Title isEnable={true} text={'상대 도시 선택'} size={15} />
       <S.PressContainer onPress={onPress}>
-        <TextBtn>{city.trim() ? city : '국가, 도시'}</TextBtn>
+        <TextBtn>{placeholder()}</TextBtn>
         <IconDownArrow />
       </S.PressContainer>
       {notiAlartTime !== '' && (

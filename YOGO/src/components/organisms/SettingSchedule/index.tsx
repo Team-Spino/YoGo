@@ -26,8 +26,6 @@ dayjs.extend(timezone);
 type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
 
 export function SettingSchedule({ navigation }: { navigation: Prop }) {
-  const { makeNotification } = useNotification();
-
   const [inputs, setInputs] = useState({
     title: '',
     description: '',
@@ -45,12 +43,21 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
   const [dayOfWeek, setDayOfWeek] =
     useState<Array<IDayOfWeekProps>>(DAY_OF_WEEK);
 
+  const [isTitleInputValid, setIsTitleInputValid] = useState(true);
+
+  const [isCityInputValid, setIsCityInputValid] = useState(false);
+
   const { setPop } = useContext(PopContext);
+
+  const { makeNotification } = useNotification();
 
   const handleChange =
     (name: string) => (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
       const { text } = e.nativeEvent;
       setInputs({ ...inputs, [name]: text });
+
+      if (name === 'title' && inputs.title) setIsTitleInputValid(true);
+      else if (name === 'title' && !inputs.title) setIsTitleInputValid(false);
     };
 
   const onSelectTag = (key: string) => {
@@ -72,6 +79,7 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
 
   const onSubmitCity = (city: string) => {
     setIsCitySelected(false);
+    setIsCityInputValid(true);
     setCity(city);
   };
 
@@ -116,17 +124,15 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
   };
 
   const onSubmit = () => {
-    insertSchedule();
-    makeNotification({
-      title: inputs.title,
-      description: inputs.description,
-      date: alartDate,
-      dayOfWeek: dayOfWeek.filter(day => day.isSelected).map(day => day.name),
-    });
-
-    setPop(true);
-
-    navigation.pop();
+    // insertSchedule();
+    // makeNotification({
+    //   title: inputs.title,
+    //   description: inputs.description,
+    //   date: alartDate,
+    //   dayOfWeek: dayOfWeek.filter(day => day.isSelected).map(day => day.name),
+    // });
+    // setPop(true);
+    // navigation.pop();
   };
 
   return (
@@ -139,12 +145,14 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
                 placeholder="Title"
                 size="30"
                 value={inputs.title}
+                isTitleInputValid={isTitleInputValid}
                 setValue={handleChange('title')}
               />
               <TextInput
                 placeholder="Description"
                 size="25"
                 value={inputs.description}
+                isTitleInputValid={true}
                 setValue={handleChange('description')}
               />
               <TagSelectContainer tagList={tagList} onSelectTag={onSelectTag} />
@@ -154,6 +162,7 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
                 setAlartDate={setAlartDate}
                 isBottomSheet={false}
                 onChangeDate={onChangeDate}
+                isCityInputValid={isCityInputValid}
                 onPressSearchTargetCity={onPressSearchTargetCity}
               />
               <DayOfWeekContainer
