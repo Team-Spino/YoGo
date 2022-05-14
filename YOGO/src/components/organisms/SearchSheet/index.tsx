@@ -8,9 +8,11 @@ import {
   BottomSheetBtn,
 } from 'components';
 import { DUMMY_DATA_CITY } from 'utils';
+import { IMakeProps } from 'types';
 import * as S from './style';
+
 interface ISearchBSProps {
-  onPress: () => void;
+  onPress: (submitOnject : IMakeProps) => void;
 }
 export const SearchSheet = ({ onPress }: ISearchBSProps) => {
 
@@ -43,6 +45,14 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
     setDate(currentDate);
   };
 
+  const onPressBottomSheetFindBtn = () => {
+    const submitOnject = {
+      city,
+      date
+    };
+    onPress(submitOnject);
+  };
+
   return (
     <S.SearchBox>
       {!selectedSearchTargetCity && (
@@ -55,7 +65,7 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
               city={city.trim() === '' ? '국가, 도시' : city}
             />
             <SelectTargetDate onChangeDate={onChangeDate} date={date} />
-            <BottomSheetBtn text={'FIND'} onPress={onPress} />
+            <BottomSheetBtn text={'FIND'} onPress={onPressBottomSheetFindBtn} />
           </S.Inner>
         </S.ScrollView>
       )}
