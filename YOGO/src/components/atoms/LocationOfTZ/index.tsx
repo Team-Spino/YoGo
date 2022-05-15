@@ -7,9 +7,10 @@ interface ILocationOfTZProps {
   city: string;
   time: string;
   meridiem: string;
+  isResult?: boolean;
 }
 
-export const LocationOfTZ = ({ timeDifference, time, meridiem, city }: ILocationOfTZProps) => {
+export const LocationOfTZ = ({ timeDifference, time, meridiem, city, isResult = false }: ILocationOfTZProps) => {
   const checkSun = () => {
     const checkTime = +time.split(':')[0]
     if(meridiem == 'AM'){
@@ -18,12 +19,14 @@ export const LocationOfTZ = ({ timeDifference, time, meridiem, city }: ILocation
       return (checkTime >= 6 && checkTime < 12) ? false : true
   }
 
+  const headerSize = isResult ? 18 : 9
+
   return (
     <S.leftDiv>
           {checkSun() && <IconSun />}
           {!checkSun() && <IconMoon />}
           <S.leftDivContainer>
-          <S.leftDivHeader size={9}>{timeDifference}</S.leftDivHeader>
+          <S.leftDivHeader size={headerSize}>{timeDifference}</S.leftDivHeader>
           <S.leftDivContent size={22}>{city}</S.leftDivContent>
           </S.leftDivContainer>
     </S.leftDiv>

@@ -43,7 +43,7 @@ export const ResultSheet = ({ onPress, submitObject }: IResultBSProps) => {
           <IconWorld />
         </IconAbsolute>
         <ResultCard city={locateCity} date={curDate} time={curTime} meridiem={curMeridiem} />
-        <ResultCard city={tarCity} date={tarDateFormat} time={tarTime} meridiem={tarMeridiem}/>
+        <ResultCard city={tarCity.split('/').at(-1)} date={tarDateFormat} time={tarTime} meridiem={tarMeridiem}/>
       </S.Inner>
       <BottomSheetBtn text={'Make'} onPress={onPress} isRevers={true} />
     </S.ResultBox>

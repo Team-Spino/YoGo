@@ -11,6 +11,7 @@ export const leftDiv = styled.View`
 `;
 
 export const leftDivHeader = styled.Text<ILocationOfTZProps>`
+  flexShrink: 1;
   font-size: ${props => props.size}px;
   color: ${props => props.theme.colors.blue};
 `;

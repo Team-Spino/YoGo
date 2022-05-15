@@ -41,7 +41,7 @@ export const BottomSheet = ({
     const city = '서울';
     const date = '2020-08-01';
     closeBottomSheet()
-    navigation.push('HandleSchedule', { title: 'MAKE', city, date  });
+    navigation.push('HandleSchedule', { title: 'Add', city, date  });
   };
 
   return (

@@ -12,7 +12,7 @@ interface IResultCardProps {
 export const ResultCard = ({ city, date , time, meridiem }: IResultCardProps) => {
   return (
     <S.Container>
-      <LocationOfTZ timeDifference={city} city={date} time={time} meridiem={meridiem} />
+      <LocationOfTZ timeDifference={city} city={date} time={time} meridiem={meridiem} isResult={true} />
       <TimeOfTZ time={time} meridiem={meridiem} isResult={false} />
     </S.Container>
   );
