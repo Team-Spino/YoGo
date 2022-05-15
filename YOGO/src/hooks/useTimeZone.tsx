@@ -39,7 +39,7 @@ export function useTimeZone() {
     return 'Today';
   };
 
-  const formatTime = ({ targetTime }: { targetTime: string }) => {
+  const formatTime = ({ targetTime }: { targetTime: string | Date }) => {
     const [, time, meridiem] = new Date(targetTime)
       .toLocaleString('en-US')
       .split(' ');
@@ -115,5 +115,5 @@ export function useTimeZone() {
     return timeState;
   };
 
-  return { useLiveTimer, getLeftTimeFromNow, getAlarmTime };
+  return { useLiveTimer, getLeftTimeFromNow, getAlarmTime, formatTime };
 }

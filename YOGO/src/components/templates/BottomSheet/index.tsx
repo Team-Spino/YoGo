@@ -1,37 +1,47 @@
 import React, { useState } from 'react';
 import { Modal, TouchableWithoutFeedback } from 'react-native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ResultSheet, SearchSheet } from 'components';
 import { IconBottomSheetBar } from 'assets';
 import { useBottomSheet } from 'hooks';
+import { IMakeProps, RootStackParamList } from 'types';
 import * as S from './style';
 
 interface ISearchBSProps {
   modalVisible: boolean;
   setModalVisible: (visible: boolean) => void;
+  navigation :  NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>
 }
 
 export const BottomSheet = ({
   modalVisible,
   setModalVisible,
+  navigation,
 }: ISearchBSProps) => {
   const [result, setResult] = useState<boolean>(false);
-
-  const onPressBottomSheetFindBtn = () => {
-    setResult(true);
-  };
-
-  const onPressBottomSheetMakeBtn = () => {
-    setResult(true);
-  };
-
-  const { translateY, screenHeight, panResponders, onCloseBottomSheet } = useBottomSheet({
-    modalVisible,
-    setModalVisible,
+  const [submitObject , setSubmitObject] = useState<IMakeProps>({
+    city: '',
+    date: '',
   });
 
-  const onCloseModal = () => {
-    onCloseBottomSheet()
-    setResult(false);
+  const { translateY, screenHeight, panResponders, closeBottomSheet } = useBottomSheet({
+    modalVisible,
+    setModalVisible,
+    setResult,
+  });
+
+  const onPressBottomSheetFindBtn = ({city, date}:IMakeProps) => {
+    setSubmitObject({city, date});
+    setResult(true);
+  };
+
+
+
+  const onPressBottomSheetMakeBtn = () => {
+    const city = '서울';
+    const date = '2020-08-01';
+    closeBottomSheet()
+    navigation.push('HandleSchedule', { title: 'Add', city, date  });
   };
 
   return (
@@ -42,7 +52,7 @@ export const BottomSheet = ({
       statusBarTranslucent
     >
       <S.Overlay>
-        <TouchableWithoutFeedback onPress={onCloseModal}>
+        <TouchableWithoutFeedback onPress={closeBottomSheet}>
           <S.Background />
         </TouchableWithoutFeedback>
 
@@ -53,9 +63,8 @@ export const BottomSheet = ({
           {...panResponders.panHandlers}
         >
           <IconBottomSheetBar />
-
           {!result && <SearchSheet onPress={onPressBottomSheetFindBtn} />}
-          {result && <ResultSheet onPress={onPressBottomSheetMakeBtn} />}
+          {result && <ResultSheet onPress={onPressBottomSheetMakeBtn} submitObject ={submitObject}/>}
         </S.Container>
       </S.Overlay>
     </Modal>

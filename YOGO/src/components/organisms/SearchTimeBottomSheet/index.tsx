@@ -18,7 +18,7 @@ export const SearchTimeBottomSheet = ({
   selectTarget,
 }: ISearchBSProps) => {
 
-  const { translateY, screenHeight, panResponders, onCloseBottomSheet } = useBottomSheet({
+  const { translateY, screenHeight, panResponders, closeBottomSheet } = useBottomSheet({
     modalVisible,
     setModalVisible,
   });
@@ -36,7 +36,7 @@ export const SearchTimeBottomSheet = ({
 
   const onSubmitCity = (city: string) => {
     selectTarget(city)
-    onCloseBottomSheet()
+    closeBottomSheet()
     setCity('');
   };
 
@@ -48,7 +48,7 @@ export const SearchTimeBottomSheet = ({
       statusBarTranslucent
     >
       <S.Overlay>
-        <TouchableWithoutFeedback onPress={onCloseBottomSheet}>
+        <TouchableWithoutFeedback onPress={closeBottomSheet}>
           <S.Background />
         </TouchableWithoutFeedback>
 

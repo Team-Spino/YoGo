@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import uuid from 'react-native-uuid';
 import {
   FloatingButton,
@@ -9,23 +10,22 @@ import {
   SearchTimeBottomSheet,
 } from 'components';
 import { IconSearch } from 'assets';
-import { ICityProps } from 'types';
+import { ICityProps, RootStackParamList } from 'types';
 import {
   connectDB,
   createTimezoneTable,
   getTimezoneItems,
   insertTimezoneItem,
   deleteTimezoneItem,
-  dropTimezoneTable,
 } from 'db';
 import * as S from './style';
 
-export function TimeZone() {
+type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
+
+export function TimeZone({ navigation }: { navigation: Prop}) {
   const [cardState, setCardState] = useState<Array<ICityProps>>([]);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [timeSearchVisible, setTimeSearchVisible] = useState<boolean>(false);
-
-  const navigation = useNavigation();
 
   const pressBottomSheet = () => {
     setModalVisible(true);
@@ -80,6 +80,7 @@ export function TimeZone() {
         <BottomSheet
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
+          navigation={navigation}
         />
         <SearchTimeBottomSheet
           modalVisible={timeSearchVisible}

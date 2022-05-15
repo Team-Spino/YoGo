@@ -9,9 +9,11 @@ import {
   BottomSheetBtn,
 } from 'components';
 import { DUMMY_DATA_CITY } from 'utils';
+import { IMakeProps } from 'types';
 import * as S from './style';
+
 interface ISearchBSProps {
-  onPress: () => void;
+  onPress: (submitOnject : IMakeProps) => void;
 }
 export const SearchSheet = ({ onPress }: ISearchBSProps) => {
   const [date, setDate] = useState(new Date());
@@ -45,6 +47,7 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
     setDate(currentDate);
   };
 
+
   const onSubmit = () => {
     if (city) {
       onPress();
@@ -61,7 +64,6 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
         <S.ScrollView showsVerticalScrollIndicator={false}>
           <S.Inner>
             <HeaderCenter text={`Search Time Zone`} size={18} />
-
             <SelectTargetCityBtn
               onPress={() => onPressSearchTargetCity()}
               city={city}
@@ -74,12 +76,14 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
       )}
 
       {selectedSearchTargetCity && (
+        <S.Inner>
         <SearchTarget
           targetList={targetList}
           city={city}
           onChangeCity={onChangeCity}
           onSubmitCity={onSubmitCity}
         />
+        </S.Inner>
       )}
     </S.SearchBox>
   );

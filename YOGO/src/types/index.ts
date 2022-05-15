@@ -5,3 +5,4 @@ export type { IDayOfWeekProps } from 'types/dayOfWeek';
 export type { ICardState } from 'types/cardState';
 export type { ILiveTimeState } from 'types/liveTimeState';
 export type { ICityProps } from 'types/city';
+export type { IMakeProps } from 'types/makeProps';

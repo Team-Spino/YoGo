@@ -7,10 +7,11 @@ interface IBottomSheetBtnProps {
 export const Container = styled.TouchableOpacity<IBottomSheetBtnProps>`
   height: 45px;
   width: 90%;
+  position: relative;
+  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-
   border-radius: 5px;
   background-color: ${props => props.isRevers ? props.theme.colors.white : props.theme.colors.blue};
 `;

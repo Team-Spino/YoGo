@@ -6,7 +6,8 @@ import * as S from './style';
 
 type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
 
-export function HandleScheduleTemplate({ navigation }: { navigation: Prop }) {
+export function HandleScheduleTemplate({ navigation }: { navigation: Prop}) {
+ 
   return (
     <S.Container>
       <SettingSchedule navigation={navigation} />

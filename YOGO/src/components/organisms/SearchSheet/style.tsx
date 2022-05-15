@@ -1,17 +1,17 @@
+import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
+const screenHeight = Dimensions.get('screen').height;
 
 export const ScrollView = styled.ScrollView`
   width: 100%;
   height: 100%;
-  margin-bottom: 50px;
 `;
 
 export const Inner = styled.View`
   width: 100%;
-  height: 100%;
-  display: flex;
+  height: ${screenHeight * 0.90}px;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
 `
 
