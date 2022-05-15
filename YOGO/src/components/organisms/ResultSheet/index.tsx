@@ -1,4 +1,5 @@
 import React from 'react';
+import dayjs from 'dayjs';
 import {
   ResultCard,
   BottomSheetBtn,
@@ -9,8 +10,6 @@ import { IconWorld } from 'assets';
 import { IMakeProps } from 'types';
 import { useTimeZone } from 'hooks';
 import * as S from './style';
-import dayjs from 'dayjs';
-
 
 interface IResultBSProps {
   onPress: () => void;
@@ -20,22 +19,17 @@ interface IResultBSProps {
 export const ResultSheet = ({ onPress, submitObject }: IResultBSProps) => {
   const { city :tarCity , date : tarDate } = submitObject;
 
-  // console.log(tarCity, curDate)
-  const { useLiveTimer, getAlarmTime } = useTimeZone();
+  const { getAlarmTime, formatTime } = useTimeZone();
 
-
-  const { time, locateCity, isPastFormNow } = getAlarmTime({
+  const { locateCity, time } = getAlarmTime({
     date: tarDate.toString(),
     city: tarCity,
   });
 
-
   const tarDateFormat = dayjs(tarDate).format('YYYY-MM-DD');
-  const tarTimeFormat = dayjs(tarDate).format('HH:mm');
-  const [curDate, curTime] = time.split(' ');
-
-  const fromTilte = `${locateCity} \n ${curDate}`;
-  const toTilte = `${tarCity} \n ${tarDateFormat}`;
+  const [curDate, _ ] = time.split(' ');
+  const { time : curTime , meridiem : curMeridiem} =  formatTime({ targetTime: time });
+  const { time : tarTime , meridiem : tarMeridiem} =  formatTime({ targetTime: tarDate });
 
   return (
     <S.ResultBox>
@@ -48,8 +42,8 @@ export const ResultSheet = ({ onPress, submitObject }: IResultBSProps) => {
         <IconAbsolute>
           <IconWorld />
         </IconAbsolute>
-        <ResultCard title={fromTilte} time={curTime} meridiem="pm" />
-        <ResultCard title={toTilte} time={tarTimeFormat} meridiem={`am`}/>
+        <ResultCard city={locateCity} date={curDate} time={curTime} meridiem={curMeridiem} />
+        <ResultCard city={tarCity} date={tarDateFormat} time={tarTime} meridiem={tarMeridiem}/>
       </S.Inner>
       <BottomSheetBtn text={'Make'} onPress={onPress} isRevers={true} />
     </S.ResultBox>

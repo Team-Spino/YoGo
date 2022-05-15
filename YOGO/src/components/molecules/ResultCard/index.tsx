@@ -1,18 +1,20 @@
 import React from 'react';
-import { TimeOfTZ, Title } from 'components';
+import { TimeOfTZ, Title, LocationOfTZ } from 'components';
+import { IconMoon, IconSun } from 'assets';
 import * as S from './style';
 
 interface IResultCardProps {
-  title: string;
+  city: any;
+  date: string;
   time: string;
   meridiem: string;
 }
 
-export const ResultCard = ({ title, time, meridiem }: IResultCardProps) => {
+export const ResultCard = ({ city, date , time, meridiem }: IResultCardProps) => {
   return (
     <S.Container>
-      <Title isEnable={true} text={title} size={12} />
-      <TimeOfTZ time={time} meridiem={meridiem} isResult={true} />
+      <LocationOfTZ timeDifference={city} city={date} time={time} meridiem={meridiem} />
+      <TimeOfTZ time={time} meridiem={meridiem} isResult={false} />
     </S.Container>
   );
 };

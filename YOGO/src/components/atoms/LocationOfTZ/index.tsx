@@ -23,8 +23,8 @@ export const LocationOfTZ = ({ timeDifference, time, meridiem, city }: ILocation
           {checkSun() && <IconSun />}
           {!checkSun() && <IconMoon />}
           <S.leftDivContainer>
-          <S.leftDivHeader size={8}>{timeDifference}</S.leftDivHeader>
-          <S.leftDivContent size={20}>{city}</S.leftDivContent>
+          <S.leftDivHeader size={9}>{timeDifference}</S.leftDivHeader>
+          <S.leftDivContent size={22}>{city}</S.leftDivContent>
           </S.leftDivContainer>
     </S.leftDiv>
   );
