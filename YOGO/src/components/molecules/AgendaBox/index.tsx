@@ -1,10 +1,11 @@
 import React from 'react';
 import uuid from 'react-native-uuid';
 import { Agenda } from 'react-native-calendars';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { ScheduleCard } from 'components';
 import { IScheduleProps } from 'types';
 import * as S from './style';
+import { SwipeRow } from 'react-native-swipe-list-view';
 
 interface IAgendaProps {
   schedules: Array<IScheduleProps>;
@@ -19,6 +20,29 @@ export function AgendaBox({
   markedDates,
   onDayPress,
 }: IAgendaProps) {
+  // const data = [{ key: '0' }, { key: '1' }, { key: '2' }, { key: '3' }];
+
+  const renderItem = ({ schedules }, firstItemInDay) => {
+    return (
+      
+    <S.Inner>
+    {schedules.map((schedule: IScheduleProps, idx : number) => (
+        // 
+          <SwipeRow
+                // disableRightSwipe
+                key={uuid.v4()}
+                rightOpenValue={-75}
+              >
+                <View style={styles.standaloneRowBack}>
+                  <Text style={styles.backTextWhite}>Right</Text>
+                </View>
+                 <ScheduleCard key={uuid.v4()} schedule={schedule} />
+              </SwipeRow>
+    ))}
+    </S.Inner>
+    )
+  }
+  
   return (
     <Agenda
       items={{
@@ -45,13 +69,7 @@ export function AgendaBox({
       renderDay={(day, item) => {
         return <View style={{ display: 'none' }} />;
       }}
-      renderItem={({ schedules }, firstItemInDay) => (
-        <S.Inner>
-          {schedules.map((schedule: IScheduleProps) => (
-            <ScheduleCard key={uuid.v4()} schedule={schedule} />
-          ))}
-        </S.Inner>
-      )}
+      renderItem={renderItem}
       selected={selectedDay}
       markedDates={{ ...markedDates }}
       // 임시용
@@ -66,3 +84,34 @@ export function AgendaBox({
     />
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white',
+    flex: 1,
+  },
+  standalone: {
+    marginTop: 30,
+    marginBottom: 30,
+  },
+  standaloneRowFront: {
+    alignItems: 'center',
+    backgroundColor: '#CCC',
+    justifyContent: 'center',
+    height: 50,
+  },
+  standaloneRowBack: {
+    alignItems: 'center',
+    backgroundColor: '#8BC645',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 15,
+  },
+  backTextWhite: {
+    color: '#FFF',
+  },
+  spacer: {
+    height: 50,
+  },
+});
