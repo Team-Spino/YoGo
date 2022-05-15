@@ -1,6 +1,11 @@
 import styled from 'styled-components/native';
 
-export const TextInput = styled.TextInput<{ size: string }>`
+interface IInputProps {
+  size: string;
+  isTitleInputValid?: boolean;
+}
+
+export const TextInput = styled.TextInput<IInputProps>`
   width: 100%;
 
   font-size: ${props => `${props.size}px`};
@@ -9,4 +14,11 @@ export const TextInput = styled.TextInput<{ size: string }>`
 
   border-bottom-color: rgba(0, 0, 0, 0.1);
   border-bottom-width: 1px;
+
+  ${props =>
+    !props.isTitleInputValid &&
+    `
+    border-bottom-color: #FF4949;
+    border: 1px solid #FF4949;
+  `}
 `;

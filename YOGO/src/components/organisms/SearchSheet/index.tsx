@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Alert } from 'react-native';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import {
   SearchTarget,
@@ -13,9 +14,9 @@ interface ISearchBSProps {
   onPress: () => void;
 }
 export const SearchSheet = ({ onPress }: ISearchBSProps) => {
-
   const [date, setDate] = useState(new Date());
   const [city, setCity] = useState('');
+  const [isCityInputValid, setIsCityInputValid] = useState(true);
 
   const [selectedSearchTargetCity, setSelectedSearchTargetCity] =
     useState<boolean>(false);
@@ -35,12 +36,23 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
 
   const onSubmitCity = (city: string) => {
     setSelectedSearchTargetCity(false);
+    setIsCityInputValid(true);
     setCity(city);
   };
 
   const onChangeDate = (event: DateTimePickerEvent, selectedDate: Date) => {
     const currentDate = selectedDate;
     setDate(currentDate);
+  };
+
+  const onSubmit = () => {
+    if (city) {
+      onPress();
+      return;
+    }
+    setIsCityInputValid(false);
+
+    Alert.alert('Yogo', 'Please select city');
   };
 
   return (
@@ -52,14 +64,15 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
 
             <SelectTargetCityBtn
               onPress={() => onPressSearchTargetCity()}
-              city={city.trim() === '' ? '국가, 도시' : city}
+              city={city}
+              isCityInputValid={isCityInputValid}
             />
             <SelectTargetDate onChangeDate={onChangeDate} date={date} />
-            <BottomSheetBtn text={'FIND'} onPress={onPress} />
+            <BottomSheetBtn text={'FIND'} onPress={onSubmit} />
           </S.Inner>
         </S.ScrollView>
       )}
-      
+
       {selectedSearchTargetCity && (
         <SearchTarget
           targetList={targetList}
