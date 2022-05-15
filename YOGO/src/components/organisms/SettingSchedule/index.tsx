@@ -260,10 +260,3 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
     </>
   );
 }
-function getAlarmTime(arg0: { date: string; city: string }): {
-  time: any;
-  locateCity: any;
-  isPastFormNow: any;
-} {
-  throw new Error('Function not implemented.');
-}
