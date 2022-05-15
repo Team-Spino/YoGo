@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Alert } from 'react-native';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import {
   SearchTarget,
@@ -15,9 +16,9 @@ interface ISearchBSProps {
   onPress: (submitOnject : IMakeProps) => void;
 }
 export const SearchSheet = ({ onPress }: ISearchBSProps) => {
-
   const [date, setDate] = useState(new Date());
   const [city, setCity] = useState('');
+  const [isCityInputValid, setIsCityInputValid] = useState(true);
 
   const [selectedSearchTargetCity, setSelectedSearchTargetCity] =
     useState<boolean>(false);
@@ -37,6 +38,7 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
 
   const onSubmitCity = (city: string) => {
     setSelectedSearchTargetCity(false);
+    setIsCityInputValid(true);
     setCity(city);
   };
 
@@ -45,12 +47,15 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
     setDate(currentDate);
   };
 
-  const onPressBottomSheetFindBtn = () => {
-    const submitOnject = {
-      city,
-      date
-    };
-    onPress(submitOnject);
+
+  const onSubmit = () => {
+    if (city) {
+      onPress();
+      return;
+    }
+    setIsCityInputValid(false);
+
+    Alert.alert('Yogo', 'Please select city');
   };
 
   return (
@@ -61,14 +66,15 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
             <HeaderCenter text={`Search Time Zone`} size={18} />
             <SelectTargetCityBtn
               onPress={() => onPressSearchTargetCity()}
-              city={city.trim() === '' ? '국가, 도시' : city}
+              city={city}
+              isCityInputValid={isCityInputValid}
             />
             <SelectTargetDate onChangeDate={onChangeDate} date={date} />
-            <BottomSheetBtn text={'FIND'} onPress={onPressBottomSheetFindBtn} />
+            <BottomSheetBtn text={'FIND'} onPress={onSubmit} />
           </S.Inner>
         </S.ScrollView>
       )}
-      
+
       {selectedSearchTargetCity && (
         <S.Inner>
         <SearchTarget

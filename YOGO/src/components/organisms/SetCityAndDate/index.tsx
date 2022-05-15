@@ -13,6 +13,7 @@ interface ISetCityAndDateProps {
   date: Date;
   setAlartDate: (date: string) => void;
   isBottomSheet: boolean;
+  isCityInputValid?: boolean;
   onChangeDate: (event: DateTimePickerEvent, date?: Date | undefined) => void;
   onPressSearchTargetCity: () => void;
   onPressFind?: () => void;
@@ -23,6 +24,7 @@ export function SetCityAndDate({
   date,
   setAlartDate,
   isBottomSheet,
+  isCityInputValid,
   onChangeDate,
   onPressSearchTargetCity,
   onPressFind,
@@ -35,6 +37,7 @@ export function SetCityAndDate({
         city={city}
         date={date}
         setAlartDate={setAlartDate}
+        isCityInputValid={isCityInputValid}
       />
       <SelectTargetDate onChangeDate={onChangeDate} date={date} />
 
