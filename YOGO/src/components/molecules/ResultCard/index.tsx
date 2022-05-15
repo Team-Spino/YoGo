@@ -1,6 +1,5 @@
 import React from 'react';
-import { TimeOfTZ, Title, LocationOfTZ } from 'components';
-import { IconMoon, IconSun } from 'assets';
+import { TimeOfTZ, LocationOfTZ } from 'components';
 import * as S from './style';
 
 interface IResultCardProps {

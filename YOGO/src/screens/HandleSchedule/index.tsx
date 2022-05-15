@@ -1,9 +1,10 @@
 import React from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RouteProp } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native';
 import { HandleScheduleTemplate } from 'components';
 import { RootStackParamList } from 'types';
-import { RouteProp } from '@react-navigation/native';
+
 
 type Props = {
   navigation:  NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
