@@ -1,14 +1,20 @@
 import React from 'react';
 import { RenderDelete, RenderEdit } from 'components';
+import { IScheduleProps } from 'types';
 import * as S from './style';
 
+interface IProps {
+    item: IScheduleProps;
+    onPressDelete: (key: number) => void;
+    onPressEdit: (key: number) => void;
+}
 
-export const HiddenEditAndDelete = ({item,  onPress} : any) => {
+export const HiddenEditAndDelete = ({item,  onPressDelete, onPressEdit} : IProps) => {
 
   return (
     <S.Container>
-    <RenderDelete item={item} onPress={onPress}/>
-    <RenderEdit />
+    <RenderDelete item={item} onPress={onPressDelete}/>
+    <RenderEdit item={item} onPress={onPressEdit}/>
     </S.Container>
   );
 };

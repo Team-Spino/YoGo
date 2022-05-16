@@ -37,11 +37,9 @@ export const BottomSheet = ({
 
 
 
-  const onPressBottomSheetMakeBtn = () => {
-    const city = '서울';
-    const date = '2020-08-01';
+  const onPressBottomSheetMakeBtn = ({city, date} : IMakeProps) => {
     closeBottomSheet()
-    navigation.push('HandleSchedule', { title: 'Add', city, date  });
+    navigation.push('HandleSchedule', { title: 'Add', item: {city, date} });
   };
 
   return (

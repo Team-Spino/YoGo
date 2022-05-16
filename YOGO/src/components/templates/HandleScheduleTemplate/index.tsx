@@ -1,16 +1,12 @@
 import React from 'react';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack/lib/typescript/src/types';
 import { SettingSchedule } from 'components';
-import { RootStackParamList } from 'types';
+import { IHandelScheduleProps} from 'types';
 import * as S from './style';
 
-type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
-
-export function HandleScheduleTemplate({ navigation }: { navigation: Prop}) {
- 
+export function HandleScheduleTemplate({ navigation, route }: IHandelScheduleProps) {
   return (
     <S.Container>
-      <SettingSchedule navigation={navigation} />
+      <SettingSchedule navigation={navigation} route={route} />
     </S.Container>
   );
 }

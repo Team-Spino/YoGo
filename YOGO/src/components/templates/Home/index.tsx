@@ -78,6 +78,7 @@ export function Home({ navigation }: { navigation: Prop }) {
         onDayPress={onDayPress}
         markedDates={markedDates}
         onDeleteTarget={onDeleteTarget}
+        onEditTarget={onEditTarget}
       />
       <FloatingButton onPress={onPress}>
         <IconPlus color="#fff" />

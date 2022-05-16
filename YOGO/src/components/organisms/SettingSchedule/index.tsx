@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   NativeSyntheticEvent,
   TextInputChangeEventData,
@@ -7,7 +7,6 @@ import {
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack/lib/typescript/src/types';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import {
   TextInput,
@@ -18,7 +17,7 @@ import {
   Button,
 } from 'components';
 import { DAY_OF_WEEK, DUMMY_DATA_CITY, TAG_COLOR } from 'utils';
-import { ITagListProps, IDayOfWeekProps, RootStackParamList } from 'types';
+import { ITagListProps, IDayOfWeekProps, IHandelScheduleProps } from 'types';
 import { useNotification } from 'hooks';
 import { connectDB, insertScheduleItem } from 'db';
 import { PopContext } from 'context';
@@ -27,9 +26,9 @@ import * as S from './style';
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
+export function SettingSchedule({ navigation , route}: IHandelScheduleProps) {
+  const [isDefalut, setIsDefalut] = useState(true);
 
-export function SettingSchedule({ navigation }: { navigation: Prop }) {
   const [inputs, setInputs] = useState({
     title: '',
     description: '',
@@ -209,6 +208,44 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
       navigation.pop();
     }
   };
+
+  useEffect(() => {
+    if(route.params.item){
+      setIsDefalut(false)
+    }
+    if(!isDefalut){
+      const { CUR_CITY,
+      CUR_DAY,
+      CUR_TIME,
+      DAY_OF_WEEK,
+      DESCRIPTION,
+      TAG_COLOR,
+      TARGET_CITY,
+      TARGET_DAY,
+      TARGET_TIME,
+      TITLE,
+      key} = route.params.item;
+      setInputs({ title : TITLE, description: DESCRIPTION});
+      // console.log(route.params.item)
+      setTagList(
+        tagList.map(tag =>
+          tag.color === TAG_COLOR
+            ? { ...tag, isSelected: true }
+            : { ...tag, isSelected: false },
+        ),
+      );
+      setDate(new Date(TARGET_DAY + ' ' + TARGET_TIME));
+      setCity(TARGET_CITY);
+      // setAlartDate(new Date(CUR_DAY + ' ' + CUR_TIME));
+      // setDayOfWeek(
+      //   DAY_OF_WEEK.map(day =>
+      //     day.name === DAY_OF_WEEK
+      //       ? { ...day, isSelected: true }
+      //       : { ...day, isSelected: false },
+      //   ),
+      // );
+    }
+  }, [route, isDefalut])
 
   return (
     <>

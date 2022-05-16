@@ -6,8 +6,14 @@ import { useSwipeList } from 'hooks';
 import { IScheduleProps } from 'types';
 import * as S from './style';
 
-export const SwipeContent = ({data,  onDeleteTarget}) => {
-  const {rowTranslateAnimatedValues, isOpen, onSwipeValueChange, deleteRow} = useSwipeList({listData : data , rowBackValue: '75', onDeleteTarget});
+interface ISwipeContentProps {
+  data: IScheduleProps[];
+  onDeleteTarget: (id: number) => Promise<void>;
+  onEditTarget: (id: number) => void;
+}
+
+export const SwipeContent = ({data,  onDeleteTarget, onEditTarget } : ISwipeContentProps) => {
+  const {deleteRow} = useSwipeList({listData : data , rowBackValue: '75', onDeleteTarget});
 
   return (
   <S.Inner>
@@ -19,7 +25,9 @@ export const SwipeContent = ({data,  onDeleteTarget}) => {
                 >
                   <HiddenEditAndDelete
                   item={schedule}
-                  onPress={deleteRow} />
+                  onPressDelete={deleteRow}
+                  onPressEdit={onEditTarget}
+                  />
                   <ScheduleCard key={uuid.v4()} schedule={schedule} />
                 </SwipeRow> 
                 </S.Container>
