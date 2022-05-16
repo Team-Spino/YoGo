@@ -8,7 +8,12 @@ import {
 import { IScheduleProps } from 'types';
 import * as S from './style';
 
-export function ScheduleCard({ schedule }: { schedule: IScheduleProps }) {
+interface IScheduleCardProps {
+  schedule: IScheduleProps;
+  selectedDay: string;
+}
+
+export function ScheduleCard({ schedule, selectedDay }: IScheduleCardProps) {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isEnable, setIsEnable] = useState<boolean>(true);
 

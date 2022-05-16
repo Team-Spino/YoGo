@@ -25,10 +25,11 @@ export function AgendaBox({
         [schedules.length && selectedDay]: [{ schedules }],
       }}
       // 아직 사용하지 않음
-      loadItemsForMonth={ month => {
+      loadItemsForMonth={month => {
         console.log('trigger items loading');
       }}
       onDayPress={day => {
+        console.log(day);
         onDayPress(day.dateString);
       }}
       // 임시용
@@ -48,7 +49,11 @@ export function AgendaBox({
       renderItem={({ schedules }, firstItemInDay) => (
         <S.Inner>
           {schedules.map((schedule: IScheduleProps) => (
-            <ScheduleCard key={uuid.v4()} schedule={schedule} />
+            <ScheduleCard
+              key={uuid.v4()}
+              schedule={schedule}
+              selectedDay={selectedDay}
+            />
           ))}
         </S.Inner>
       )}
