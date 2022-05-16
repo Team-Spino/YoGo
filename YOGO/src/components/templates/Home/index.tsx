@@ -5,7 +5,7 @@ import { FloatingButton, AgendaBox } from 'components';
 import { DUMMY_DATA } from 'utils';
 import { IconPlus } from 'assets';
 import { RootStackParamList, IScheduleProps } from 'types';
-import { connectDB, createScheduleTable, getScheduleItems } from 'db';
+import { connectDB, createScheduleTable, deleteScheduleItem, dropScheduleTable, getScheduleItems } from 'db';
 import { PopContext } from 'context';
 import * as S from './style';
 
@@ -28,11 +28,23 @@ export function Home({ navigation }: { navigation: Prop }) {
     setSelectedDay(day);
   };
 
+  const onEditTarget = async (item: IScheduleProps) => {
+    navigation.push('HandleSchedule', { title: 'Edit', item });
+  };
+
+  const onDeleteTarget = async (id: number) => {
+
+    setSchedules(schedules.filter(item => item.key !== id));
+
+    const db = await connectDB();
+    await deleteScheduleItem(db, id);
+  }
+
+
   const initDB = async () => {
     try {
       const db = await connectDB();
       await createScheduleTable(db);
-
       const dayOfWeek = new Date(selectedDay).toLocaleDateString('en', {
         weekday: 'short',
       });
@@ -65,6 +77,7 @@ export function Home({ navigation }: { navigation: Prop }) {
         selectedDay={selectedDay}
         onDayPress={onDayPress}
         markedDates={markedDates}
+        onDeleteTarget={onDeleteTarget}
       />
       <FloatingButton onPress={onPress}>
         <IconPlus color="#fff" />

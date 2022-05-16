@@ -9,6 +9,7 @@ interface IAgendaProps {
   selectedDay: string;
   markedDates: object;
   onDayPress: (day: string) => void;
+  onDeleteTarget: (id: number) => void;
 }
 
 export function AgendaBox({
@@ -16,6 +17,7 @@ export function AgendaBox({
   selectedDay,
   markedDates,
   onDayPress,
+  onDeleteTarget,
 }: IAgendaProps) {
 
   return (
@@ -45,7 +47,7 @@ export function AgendaBox({
         return <View style={{ display: 'none' }} />;
       }}
       renderItem={({schedules})=>{
-        return <SwipeContent data = {schedules} />
+        return <SwipeContent data = {schedules}  onDeleteTarget={ onDeleteTarget}/>
       }}
       selected={selectedDay}
       markedDates={{ ...markedDates }}

@@ -1,5 +1,5 @@
 export interface IScheduleProps {
-  ID: number;
+  key: number;
   TITLE: string;
   DESCRIPTION: string;
   TAG_COLOR: string;

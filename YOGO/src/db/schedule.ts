@@ -8,7 +8,7 @@ export const createScheduleTable = async (db: SQLiteDatabase) => {
   const query = `
   CREATE TABLE IF NOT EXISTS ${SCHEDULE}
   (
-    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    key INTEGER PRIMARY KEY AUTOINCREMENT,
     TITLE TEXT NOT NULL,
     DESCRIPTION TEXT,
     TAG_COLOR TEXT,

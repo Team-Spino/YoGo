@@ -3,10 +3,11 @@ import { RenderDelete, RenderEdit } from 'components';
 import * as S from './style';
 
 
-export const HiddenEditAndDelete = ({item, onPress} : any) => {
+export const HiddenEditAndDelete = ({item,  onPress} : any) => {
+
   return (
     <S.Container>
-    <RenderDelete />
+    <RenderDelete item={item} onPress={onPress}/>
     <RenderEdit />
     </S.Container>
   );
