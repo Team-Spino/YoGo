@@ -20,7 +20,7 @@ import {
 import { DAY_OF_WEEK, DUMMY_DATA_CITY, TAG_COLOR } from 'utils';
 import { ITagListProps, IDayOfWeekProps, RootStackParamList } from 'types';
 import { useNotification } from 'hooks';
-import { connectDB, insertScheduleItem, getLastScheduleItem } from 'db';
+import { connectDB, insertScheduleItem } from 'db';
 import { PopContext } from 'context';
 import * as S from './style';
 

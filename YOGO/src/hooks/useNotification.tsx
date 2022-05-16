@@ -115,12 +115,6 @@ export function useNotification() {
         }),
       );
     });
-
-    console.log(
-      PushNotification.getScheduledLocalNotifications(notifications =>
-        console.log(notifications),
-      ),
-    );
   };
 
   return { makeNotification };
