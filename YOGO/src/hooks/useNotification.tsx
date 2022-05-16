@@ -37,9 +37,6 @@ export function useNotification() {
     const alartList = [date];
     const LENGTH_OF_DAY_OF_WEEK = 6;
 
-    console.log(date);
-
-    console.log(dayOfWeek);
     for (let i = 0; i < LENGTH_OF_DAY_OF_WEEK; i++) {
       nextDate = getNextDay({ date: nextDate });
 

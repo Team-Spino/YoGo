@@ -90,7 +90,6 @@ export const insertScheduleItem = async (db: SQLiteDatabase, schedule: any) => {
 
   const { insertId } = result[0];
 
-  console.log(result);
   return insertId;
 };
 
