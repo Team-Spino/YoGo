@@ -210,7 +210,8 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
             .map(day => day.name),
         });
         setPop(true);
-      } else navigation.pop();
+      }
+      navigation.pop();
     }
   };
 

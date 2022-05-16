@@ -36,12 +36,17 @@ export function useNotification() {
     const alartList = [date];
     const LENGTH_OF_DAY_OF_WEEK = 6;
 
+    console.log(date);
+
+    console.log(dayOfWeek);
     for (let i = 0; i < LENGTH_OF_DAY_OF_WEEK; i++) {
       nextDate = getNextDay({ date: nextDate });
 
       const weekDay = new Date(nextDate).toLocaleDateString('en-US', {
         weekday: 'short',
       });
+
+      console.log(`nextDate: ${nextDate} weekDay: ${weekDay}`);
 
       if (dayOfWeek.includes(weekDay)) {
         alartList.push(nextDate.trim());
@@ -59,13 +64,14 @@ export function useNotification() {
     isRepeat,
   }: IAlartOptionProps) => {
     const defaultOptions = {
-      id: key,
+      id: uuid.v4() as string,
       title,
       message: description,
       soundName: 'default',
       playSound: true,
       date: new Date(date),
       allowWhileIdle: true,
+      number: key,
     };
 
     const repeatOptions = {
@@ -75,14 +81,14 @@ export function useNotification() {
     return isRepeat ? { ...defaultOptions, ...repeatOptions } : defaultOptions;
   };
 
-  const makeNotification = ({
+  const makeNotification = async ({
     key,
     title,
     description,
     date,
     dayOfWeek,
   }: INotificationProps) => {
-    PushNotificationIOS.requestPermissions();
+    await PushNotificationIOS.requestPermissions();
 
     if (dayOfWeek.length === 0) {
       PushNotification.localNotificationSchedule(

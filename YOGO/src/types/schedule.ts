@@ -10,6 +10,7 @@ export interface IScheduleProps {
   CUR_CITY: string;
   CUR_DAY: string;
   DAY_OF_WEEK: string;
+  IS_ACTIVE: number;
 }
 
 export interface ITargetProps {

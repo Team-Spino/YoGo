@@ -81,7 +81,7 @@ export const insertScheduleItem = async (db: SQLiteDatabase, schedule: any) => {
       '${curTime}', 
       '${curCity}',
       '${curDay}',
-      '${dayOfWeek}'
+      '${dayOfWeek}',
       '${1}'
       )
   `;
@@ -89,6 +89,8 @@ export const insertScheduleItem = async (db: SQLiteDatabase, schedule: any) => {
   const result = await db.executeSql(insertQuery);
 
   const { insertId } = result[0];
+
+  console.log(result);
   return insertId;
 };
 
@@ -101,4 +103,13 @@ export const dropScheduleTable = async (db: SQLiteDatabase) => {
   const query = `DROP TABLE IF EXISTS ${SCHEDULE}`;
 
   await db.executeSql(query);
+};
+
+export const updateScheduleItemActive = async (
+  db: SQLiteDatabase,
+  id: number,
+  isActive: number,
+) => {
+  const updateQuery = `UPDATE ${SCHEDULE} SET IS_ACTIVE = ${isActive} WHERE ID = ${id}`;
+  await db.executeSql(updateQuery);
 };

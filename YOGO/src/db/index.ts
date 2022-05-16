@@ -12,7 +12,7 @@ export {
   insertScheduleItem,
   deleteScheduleItem,
   dropScheduleTable,
-  getLastScheduleItem,
+  updateScheduleItemActive,
 } from 'db/schedule';
 
 export { connectDB } from 'db/connectDB';

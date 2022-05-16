@@ -5,6 +5,7 @@ import {
   DetailModal,
   DayOfWeek,
 } from 'components';
+import { connectDB, updateScheduleItemActive } from 'db';
 import { IScheduleProps } from 'types';
 import * as S from './style';
 
@@ -14,13 +15,6 @@ interface IScheduleCardProps {
 }
 
 export function ScheduleCard({ schedule, selectedDay }: IScheduleCardProps) {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [isEnable, setIsEnable] = useState<boolean>(true);
-
-  const onTogglePress = () => setIsEnable(state => !state);
-  const onShowDetailPress = () => setIsVisible(true);
-  const onCloseDetailPress = () => setIsVisible(false);
-
   const {
     ID,
     TITLE,
@@ -32,7 +26,20 @@ export function ScheduleCard({ schedule, selectedDay }: IScheduleCardProps) {
     CUR_CITY,
     CUR_DAY,
     DAY_OF_WEEK,
+    IS_ACTIVE,
   } = schedule;
+
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isEnable, setIsEnable] = useState<boolean>(IS_ACTIVE ? true : false);
+
+  const onTogglePress = async () => {
+    const db = await connectDB();
+    await updateScheduleItemActive(db, ID, isEnable ? 1 : 0);
+    setIsEnable(!isEnable);
+  };
+
+  const onShowDetailPress = () => setIsVisible(true);
+  const onCloseDetailPress = () => setIsVisible(false);
 
   const target = { TARGET_TIME, TARGET_CITY, TARGET_DAY };
   const cur = { CUR_TIME, CUR_CITY, CUR_DAY };
