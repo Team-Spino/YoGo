@@ -29,7 +29,6 @@ export function AgendaBox({
         console.log('trigger items loading');
       }}
       onDayPress={day => {
-        console.log(day);
         onDayPress(day.dateString);
       }}
       // 임시용

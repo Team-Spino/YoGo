@@ -1,1 +1,2 @@
-export const parseCity = ({ city }: { city: string }) => city.split('/').pop();
+export const parseCity = ({ city }: { city: string }): string =>
+  city.split('/').pop() as string;

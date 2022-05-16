@@ -61,6 +61,7 @@ export function ScheduleCard({ schedule, selectedDay }: IScheduleCardProps) {
       <DetailModal
         isVisible={isVisible}
         onCloseDetailPress={onCloseDetailPress}
+        selectedDay={selectedDay}
         schedule={schedule}
       />
     </>

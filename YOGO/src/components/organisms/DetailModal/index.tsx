@@ -8,12 +8,14 @@ import * as S from './style';
 interface IDetailModalProps {
   isVisible: boolean;
   onCloseDetailPress: () => void;
+  selectedDay: string;
   schedule: IScheduleProps;
 }
 
 export function DetailModal({
   isVisible,
   onCloseDetailPress,
+  selectedDay,
   schedule,
 }: IDetailModalProps) {
   const {
@@ -32,7 +34,7 @@ export function DetailModal({
 
   const { getLeftTimeFromNow } = useTimeZone();
 
-  const date = `${CUR_DAY} ${CUR_TIME.replace(/(\s*)/g, '')}`;
+  const date = `${selectedDay} ${CUR_TIME.replace(/(\s*)/g, '')}`;
 
   const leftTime = getLeftTimeFromNow({ date });
 
@@ -63,7 +65,11 @@ export function DetailModal({
       <S.Container>
         <S.Content>
           <ModalHeader tagColor={TAG_COLOR} title={TITLE} />
-          <ModalTime timeData={timeData} leftTime={leftTime} />
+          <ModalTime
+            timeData={timeData}
+            leftTime={leftTime}
+            selectedDay={selectedDay}
+          />
           <ModalMemo description={DESCRIPTION} />
         </S.Content>
         <S.Wrapper onPress={onCloseDetailPress}>

@@ -51,6 +51,14 @@ export function useTimeZone() {
     };
   };
 
+  const formatTo12Hour = ({ date, time }: { date: string; time: string }) => {
+    const temp = new Date(`${date} ${time}`).toLocaleString('en-US');
+
+    const [d, t, m] = dayjs(temp).format('YYYY-MM-DD HH:mm A').split(' ');
+
+    return [d, `${t} ${m}`];
+  };
+
   const setLiveTimeState = ({ location }: { location: string }) => {
     const currentTime = getCurrentTime();
     const targetTime = getTargetTime({
@@ -115,5 +123,12 @@ export function useTimeZone() {
     return timeState;
   };
 
-  return { useLiveTimer, getLeftTimeFromNow, getAlarmTime, formatTime };
+  return {
+    useLiveTimer,
+    getTargetTime,
+    getLeftTimeFromNow,
+    getAlarmTime,
+    formatTime,
+    formatTo12Hour,
+  };
 }
