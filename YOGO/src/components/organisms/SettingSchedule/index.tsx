@@ -20,7 +20,7 @@ import {
 import { DAY_OF_WEEK, DUMMY_DATA_CITY, TAG_COLOR } from 'utils';
 import { ITagListProps, IDayOfWeekProps, RootStackParamList } from 'types';
 import { useNotification } from 'hooks';
-import { connectDB, insertScheduleItem } from 'db';
+import { connectDB, insertScheduleItem, getLastScheduleItem } from 'db';
 import { PopContext } from 'context';
 import * as S from './style';
 
@@ -142,9 +142,8 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
 
   const insertSchedule = async ({ formState }: { formState: any }) => {
     try {
-      console.log('hello');
       const db = await connectDB();
-      await insertScheduleItem(db, formState);
+      return (await insertScheduleItem(db, formState)) as number;
     } catch (e) {
       console.log(e);
     }
@@ -198,15 +197,20 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
         }
       }
 
-      insertSchedule({ formState });
-      makeNotification({
-        title: inputs.title,
-        description: inputs.description,
-        date: alartDate as string,
-        dayOfWeek: dayOfWeek.filter(day => day.isSelected).map(day => day.name),
-      });
-      setPop(true);
-      navigation.pop();
+      const key = await insertSchedule({ formState });
+
+      if (key) {
+        makeNotification({
+          key,
+          title: inputs.title,
+          description: inputs.description,
+          date: alartDate as string,
+          dayOfWeek: dayOfWeek
+            .filter(day => day.isSelected)
+            .map(day => day.name),
+        });
+        setPop(true);
+      } else navigation.pop();
     }
   };
 

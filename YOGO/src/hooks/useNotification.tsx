@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import uuid from 'react-native-uuid';
 
 interface INotificationProps {
+  key: number;
   title: string;
   description: string;
   date: string;
@@ -16,6 +17,7 @@ interface IMakeAlartDateProps {
 }
 
 interface IAlartOptionProps {
+  key: number;
   title: string;
   description: string;
   date: string;
@@ -34,17 +36,12 @@ export function useNotification() {
     const alartList = [date];
     const LENGTH_OF_DAY_OF_WEEK = 6;
 
-    console.log(date);
-
-    console.log(dayOfWeek);
     for (let i = 0; i < LENGTH_OF_DAY_OF_WEEK; i++) {
       nextDate = getNextDay({ date: nextDate });
 
       const weekDay = new Date(nextDate).toLocaleDateString('en-US', {
         weekday: 'short',
       });
-
-      console.log(`nextDate: ${nextDate} weekDay: ${weekDay}`);
 
       if (dayOfWeek.includes(weekDay)) {
         alartList.push(nextDate.trim());
@@ -55,13 +52,14 @@ export function useNotification() {
   };
 
   const setOptions = ({
+    key,
     title,
     description,
     date,
     isRepeat,
   }: IAlartOptionProps) => {
     const defaultOptions = {
-      id: uuid.v4() as string,
+      id: key,
       title,
       message: description,
       soundName: 'default',
@@ -78,6 +76,7 @@ export function useNotification() {
   };
 
   const makeNotification = ({
+    key,
     title,
     description,
     date,
@@ -88,6 +87,7 @@ export function useNotification() {
     if (dayOfWeek.length === 0) {
       PushNotification.localNotificationSchedule(
         setOptions({
+          key,
           title,
           description,
           date,
@@ -101,6 +101,7 @@ export function useNotification() {
     makeAlartDate({ date, dayOfWeek }).forEach(alartDate => {
       PushNotification.localNotificationSchedule(
         setOptions({
+          key,
           title,
           description,
           date: alartDate,
