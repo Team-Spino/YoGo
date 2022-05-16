@@ -2,6 +2,7 @@ import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import dayjs from 'dayjs';
 import uuid from 'react-native-uuid';
+import { IScheduleProps } from 'types';
 
 interface INotificationProps {
   key: number;
@@ -117,5 +118,52 @@ export function useNotification() {
     });
   };
 
-  return { makeNotification };
+  const getTagetNumberNotifications = async ({
+    number,
+  }: {
+    number: number;
+  }) => {
+    return new Promise(resolve => {
+      PushNotification.getScheduledLocalNotifications(notifications => {
+        resolve(
+          notifications
+            .filter(notification => {
+              return notification.number === number;
+            })
+            .map(notification => notification.id),
+        );
+      });
+    });
+  };
+
+  const handleScheduleToggle = async ({
+    number,
+    isActive,
+    schedule,
+  }: {
+    number: number;
+    isActive: boolean;
+    schedule: IScheduleProps;
+  }) => {
+    if (!isActive) {
+      const notifications = (await getTagetNumberNotifications({
+        number,
+      })) as Array<string>;
+      PushNotificationIOS.removePendingNotificationRequests(notifications);
+
+      return;
+    }
+
+    const { TITLE, DESCRIPTION, CUR_DAY, CUR_TIME, DAY_OF_WEEK } = schedule;
+
+    makeNotification({
+      key: number,
+      title: TITLE,
+      description: DESCRIPTION,
+      date: `${CUR_DAY} ${CUR_TIME}`,
+      dayOfWeek: JSON.parse(DAY_OF_WEEK),
+    });
+  };
+
+  return { makeNotification, handleScheduleToggle };
 }

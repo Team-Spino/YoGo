@@ -6,6 +6,7 @@ import {
   DayOfWeek,
 } from 'components';
 import { connectDB, updateScheduleItemActive, getAllSchedule } from 'db';
+import { useNotification } from 'hooks';
 import { IScheduleProps } from 'types';
 import * as S from './style';
 
@@ -31,11 +32,16 @@ export function ScheduleCard({ schedule, selectedDay }: IScheduleCardProps) {
 
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isEnable, setIsEnable] = useState<boolean>(IS_ACTIVE ? true : false);
+  const { handleScheduleToggle } = useNotification();
 
   const onTogglePress = async () => {
     const db = await connectDB();
     await updateScheduleItemActive(db, ID, isEnable ? 0 : 1);
-    console.log(await getAllSchedule(db));
+    handleScheduleToggle({
+      number: Number(ID),
+      isActive: isEnable ? false : true,
+      schedule,
+    });
     setIsEnable(!isEnable);
   };
 
