@@ -4,7 +4,7 @@ export const Container = styled.TouchableOpacity`
   flex-shrink: 1
 
   background-color: #ffffff;
-
+  
   border-bottom-color: #eee;
   border-bottom-width: 1;
 

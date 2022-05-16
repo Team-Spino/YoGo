@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { Animated} from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import { TimeZoneCard } from 'components';
+import { TimeZoneCard, HiddenDelete } from 'components';
 import { useSwipeList } from 'hooks';
 import { ICityProps } from 'types';
 import * as S from './style';
@@ -35,24 +35,13 @@ export function TimeZoneList({cardState, setCardState, onDeleteTarget}: ITimeZon
   </Animated.View>
 );
 
-const renderHiddenItem = ({item}: any) => (
-  <S.RenderHiddenContainer>
-      <S.RenderRightButton
-          onPress={() => deleteRow(item.key)}
-      >
-          <S.RenderRightButtonText>Delete</S.RenderRightButtonText>
-          </S.RenderRightButton>
-      </S.RenderHiddenContainer>
-);
-
-
   return (
      <S.Container>
         <SwipeListView
             disableRightSwipe
             data={cardState}
             renderItem={renderItem}
-            renderHiddenItem={renderHiddenItem}
+            renderHiddenItem={({item})=> <HiddenDelete item={item} onPress={deleteRow}/>}
             rightOpenValue={isOpen}
             onSwipeValueChange={onSwipeValueChange}
             useNativeDriver={false}
