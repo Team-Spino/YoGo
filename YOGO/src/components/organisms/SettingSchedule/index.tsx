@@ -158,10 +158,10 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
         tagColor: tagList.filter(tag => tag.isSelected)[0]?.color ?? '#B5B5B9',
         targetTime: dayjs(date).format('HH:mm'),
         targetDay: dayjs(date).format('YYYY-MM-DD'),
-        targetCity: city.split('/').at(-1),
+        targetCity: city,
         curTime: dayjs(alartDate ?? date).format('HH:mm'),
         curDay: dayjs(alartDate ?? date).format('YYYY-MM-DD'),
-        curCity: dayjs.tz.guess().split('/').at(-1),
+        curCity: dayjs.tz.guess(),
         dayOfWeek: JSON.stringify(
           dayOfWeek.filter(day => day.isSelected).map(day => day.name),
         ),
