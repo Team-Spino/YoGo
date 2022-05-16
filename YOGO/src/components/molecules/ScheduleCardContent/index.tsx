@@ -1,6 +1,7 @@
 import React from 'react';
 import { Title, ToggleBtn, SubTitle } from 'components';
 import { ITargetProps, ICurProps } from 'types';
+import { parseCity } from 'utils';
 import * as S from './style';
 
 interface IScheduleCardContentProps {
@@ -34,7 +35,7 @@ export function ScheduleCardContent({
     <S.Container>
       <SubTitle
         isEnable={isEnable}
-        text={`${TARGET_CITY} ${toFormat12hour({
+        text={`${parseCity({ city: TARGET_CITY })} ${toFormat12hour({
           day: TARGET_DAY,
           time: TARGET_TIME,
         })}`}
