@@ -18,7 +18,8 @@ export const createScheduleTable = async (db: SQLiteDatabase) => {
     CUR_TIME TEXT NOT NULL,
     CUR_CITY TEXT NOT NULL,
     CUR_DAY TEXT NOT NULL,
-    DAY_OF_WEEK TEXT NOT NULL
+    DAY_OF_WEEK TEXT NOT NULL,
+    IS_ACTIVE INTEGER NOT NULL
   )
   `;
 
@@ -69,7 +70,7 @@ export const insertScheduleItem = async (db: SQLiteDatabase, schedule: any) => {
   } = schedule;
 
   const insertQuery = `
-    INSERT INTO ${SCHEDULE} (TITLE, DESCRIPTION, TAG_COLOR, TARGET_TIME, TARGET_CITY, TARGET_DAY, CUR_TIME, CUR_CITY, CUR_DAY, DAY_OF_WEEK)
+    INSERT INTO ${SCHEDULE} (TITLE, DESCRIPTION, TAG_COLOR, TARGET_TIME, TARGET_CITY, TARGET_DAY, CUR_TIME, CUR_CITY, CUR_DAY, DAY_OF_WEEK, IS_ACTIVE)
     VALUES (
       '${title}', 
       '${description}', 
@@ -81,6 +82,7 @@ export const insertScheduleItem = async (db: SQLiteDatabase, schedule: any) => {
       '${curCity}',
       '${curDay}',
       '${dayOfWeek}'
+      '${1}'
       )
   `;
 
