@@ -113,3 +113,25 @@ export const updateScheduleItemActive = async (
   const updateQuery = `UPDATE ${SCHEDULE} SET IS_ACTIVE = ${isActive} WHERE ID = ${id}`;
   await db.executeSql(updateQuery);
 };
+
+export const getAllSchedule = async (db: SQLiteDatabase) => {
+  try {
+    const scheduleItems: Array<IScheduleProps> = [];
+    const query = `
+      SELECT * FROM ${SCHEDULE}
+    `;
+
+    const results = await db.executeSql(query);
+
+    results.forEach(result => {
+      for (let index = 0; index < result.rows.length; index++) {
+        scheduleItems.push(result.rows.item(index));
+      }
+    });
+
+    return scheduleItems;
+  } catch (e: unknown) {
+    console.error(e);
+    throw Error('Error in getScheduleItems');
+  }
+};

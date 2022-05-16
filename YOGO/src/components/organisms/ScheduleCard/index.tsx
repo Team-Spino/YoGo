@@ -5,7 +5,7 @@ import {
   DetailModal,
   DayOfWeek,
 } from 'components';
-import { connectDB, updateScheduleItemActive } from 'db';
+import { connectDB, updateScheduleItemActive, getAllSchedule } from 'db';
 import { IScheduleProps } from 'types';
 import * as S from './style';
 
@@ -34,7 +34,8 @@ export function ScheduleCard({ schedule, selectedDay }: IScheduleCardProps) {
 
   const onTogglePress = async () => {
     const db = await connectDB();
-    await updateScheduleItemActive(db, ID, isEnable ? 1 : 0);
+    await updateScheduleItemActive(db, ID, isEnable ? 0 : 1);
+    console.log(await getAllSchedule(db));
     setIsEnable(!isEnable);
   };
 

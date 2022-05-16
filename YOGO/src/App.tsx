@@ -5,16 +5,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Main, HandleSchedule } from 'screens';
 import { theme } from 'styles/theme';
 import { PopProvider } from 'context';
-import PushNotification from 'react-native-push-notification';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
-  console.log(
-    PushNotification.getScheduledLocalNotifications(notifications =>
-      console.log(notifications),
-    ),
-  );
   return (
     <NavigationContainer>
       <PopProvider>
