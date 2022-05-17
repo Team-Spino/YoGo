@@ -11,4 +11,6 @@ export const Container = styled.View`
   flex-direction: row;
 
   border-radius: 8px;
+
+  padding: 5px;
 `;
