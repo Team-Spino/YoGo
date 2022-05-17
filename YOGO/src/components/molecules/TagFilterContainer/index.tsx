@@ -1,14 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { TagFilter } from 'components';
-import { ITagFilterProps } from 'types';
+import { ITagFilter, ITagFilterProps } from 'types';
 import * as S from './style';
 
-export function TagFilterContainer({ tags }: { tags: Array<ITagFilterProps> }) {
+export function TagFilterContainer({ tags, onTagPress }: ITagFilterProps) {
   return (
     <S.Container style={styles.containerStyle}>
-      {tags.map((tag: ITagFilterProps) => {
-        return <TagFilter key={tag.key} tags={tag} />;
+      {tags!.map((tag: ITagFilter) => {
+        return <TagFilter key={tag.key} tag={tag} onTagPress={onTagPress} />;
       })}
     </S.Container>
   );

@@ -1,8 +1,15 @@
 import React from 'react';
-import { ITagFilterProps } from 'types';
+import { ITagFilterProps, ITagFilter } from 'types';
 import * as S from './style';
 
-export function TagFilter({ tags }: { tags: ITagFilterProps }) {
-  const { color, isSelected } = tags;
-  return <S.Container color={color} isSelected={isSelected} />;
+export function TagFilter({ tag, onTagPress }: ITagFilterProps) {
+  const { key, color, isSelected } = tag as ITagFilter;
+
+  return (
+    <S.Container
+      color={color}
+      isSelected={isSelected}
+      onPress={() => onTagPress(key)}
+    />
+  );
 }
