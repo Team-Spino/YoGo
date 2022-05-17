@@ -10,11 +10,11 @@ import PushNotification from 'react-native-push-notification';
 const Stack = createNativeStackNavigator();
 
 function App() {
-  console.log(
-    PushNotification.getScheduledLocalNotifications(notifications =>
-      console.log(notifications),
-    ),
-  );
+  // console.log(
+  //   PushNotification.getScheduledLocalNotifications(notifications =>
+  //     console.log(notifications),
+  //   ),
+  // );
   return (
     <NavigationContainer>
       <PopProvider>

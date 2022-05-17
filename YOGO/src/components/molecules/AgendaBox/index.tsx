@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import uuid from 'react-native-uuid';
 import { Agenda } from 'react-native-calendars';
 import { Text, View } from 'react-native';
 import { ScheduleCard, TagFilterContainer } from 'components';
 import { IScheduleProps, ITagFilter } from 'types';
 import { TAG_FILTER_COLOR } from 'utils';
+
 import * as S from './style';
 
 interface IAgendaProps {
@@ -23,14 +24,31 @@ export function AgendaBox({
   const [selectedTag, setSelectedTag] =
     useState<Array<ITagFilter>>(TAG_FILTER_COLOR);
 
+  const [filteredSchedule, setFilteredSchedule] = useState<
+    Array<IScheduleProps>
+  >([...schedules]);
+
   const onTagPress = (key: string) => {
-    console.log(selectedTag);
     setSelectedTag(
       selectedTag.map(tag =>
-        tag.key === key ? { ...tag, isSelected: !tag.isSelected } : tag,
+        tag.key === key
+          ? { ...tag, isSelected: !tag.isSelected }
+          : { ...tag, isSelected: false },
       ),
     );
   };
+
+  useEffect(() => {
+    if (schedules.length === 0) return;
+
+    const selTag = selectedTag.filter(tag => tag.isSelected).pop();
+
+    setFilteredSchedule(
+      selTag
+        ? schedules.filter(schedule => schedule.TAG_COLOR === selTag.color)
+        : schedules,
+    );
+  }, [selectedTag, schedules]);
 
   return (
     <Agenda
@@ -61,7 +79,7 @@ export function AgendaBox({
       renderItem={({ schedules }, firstItemInDay) => (
         <S.Container>
           <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
-          {schedules.map((schedule: IScheduleProps) => (
+          {filteredSchedule.map((schedule: IScheduleProps) => (
             <ScheduleCard
               key={uuid.v4()}
               schedule={schedule}

@@ -1,4 +1,5 @@
 export interface IScheduleProps {
+  isSelected: unknown;
   ID: number;
   TITLE: string;
   DESCRIPTION: string;
