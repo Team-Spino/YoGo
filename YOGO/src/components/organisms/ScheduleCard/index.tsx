@@ -13,6 +13,8 @@ import * as S from './style';
 interface IScheduleCardProps {
   schedule: IScheduleProps;
   selectedDay: string;
+  onDeleteTarget: (id: number) => Promise<void>;
+  onEditTarget: (item: IScheduleProps) => void;
 }
 
 export function ScheduleCard({ schedule, selectedDay }: IScheduleCardProps) {
@@ -36,9 +38,9 @@ export function ScheduleCard({ schedule, selectedDay }: IScheduleCardProps) {
 
   const onTogglePress = async () => {
     const db = await connectDB();
-    await updateScheduleItemActive(db, ID, isEnable ? 0 : 1);
+    await updateScheduleItemActive(db, key, isEnable ? 0 : 1);
     handleScheduleToggle({
-      number: Number(ID),
+      number: Number(key),
       isActive: isEnable ? false : true,
       schedule,
     });

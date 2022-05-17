@@ -1,10 +1,6 @@
 export interface IScheduleProps {
-<<<<<<< HEAD
   isSelected: unknown;
-  ID: number;
-=======
   key: number;
->>>>>>> develop
   TITLE: string;
   DESCRIPTION: string;
   TAG_COLOR: string;

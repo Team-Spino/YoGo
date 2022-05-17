@@ -14,8 +14,10 @@ interface ISwipeContentProps {
 }
 
 export const SwipeContent = ({data,  onDeleteTarget, onEditTarget } : ISwipeContentProps) => {
-  const {deleteRow} = useSwipeList({listData : data , rowBackValue: WINDOW_WIDTH*0.3, onDeleteTarget});
 
+  const {deleteRow} = useSwipeList({listData : data , rowBackValue: WINDOW_WIDTH*0.3, onDeleteTarget});
+  
+ 
   return (
   <S.Inner>
       {data.map((schedule: IScheduleProps, idx : number) => (

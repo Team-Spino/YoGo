@@ -109,7 +109,7 @@ export const updateScheduleItemActive = async (
   id: number,
   isActive: number,
 ) => {
-  const updateQuery = `UPDATE ${SCHEDULE} SET IS_ACTIVE = ${isActive} WHERE ID = ${id}`;
+  const updateQuery = `UPDATE ${SCHEDULE} SET IS_ACTIVE = ${isActive} WHERE key = ${id}`;
   await db.executeSql(updateQuery);
 };
 
