@@ -5,16 +5,14 @@ import { FloatingButton, AgendaBox } from 'components';
 import { DUMMY_DATA } from 'utils';
 import { IconPlus } from 'assets';
 import { RootStackParamList, IScheduleProps } from 'types';
-<<<<<<< HEAD
 import {
   connectDB,
   createScheduleTable,
-  getScheduleItems,
+  deleteScheduleItem,
   dropScheduleTable,
+  getScheduleItems,
 } from 'db';
-=======
-import { connectDB, createScheduleTable, deleteScheduleItem, dropScheduleTable, getScheduleItems } from 'db';
->>>>>>> develop
+
 import { PopContext } from 'context';
 import * as S from './style';
 
@@ -45,8 +43,7 @@ export function Home({ navigation }: { navigation: Prop }) {
     setSchedules(schedules.filter(item => item.key !== id));
     const db = await connectDB();
     await deleteScheduleItem(db, id);
-  }
-
+  };
 
   const initDB = async () => {
     try {
