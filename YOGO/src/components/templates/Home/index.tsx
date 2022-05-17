@@ -33,9 +33,7 @@ export function Home({ navigation }: { navigation: Prop }) {
   };
 
   const onDeleteTarget = async (id: number) => {
-
     setSchedules(schedules.filter(item => item.key !== id));
-
     const db = await connectDB();
     await deleteScheduleItem(db, id);
   }
