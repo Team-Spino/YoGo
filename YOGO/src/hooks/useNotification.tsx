@@ -2,8 +2,10 @@ import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import dayjs from 'dayjs';
 import uuid from 'react-native-uuid';
+import { IScheduleProps } from 'types';
 
 interface INotificationProps {
+  key: number;
   title: string;
   description: string;
   date: string;
@@ -16,6 +18,7 @@ interface IMakeAlartDateProps {
 }
 
 interface IAlartOptionProps {
+  key: number;
   title: string;
   description: string;
   date: string;
@@ -34,17 +37,12 @@ export function useNotification() {
     const alartList = [date];
     const LENGTH_OF_DAY_OF_WEEK = 6;
 
-    console.log(date);
-
-    console.log(dayOfWeek);
     for (let i = 0; i < LENGTH_OF_DAY_OF_WEEK; i++) {
       nextDate = getNextDay({ date: nextDate });
 
       const weekDay = new Date(nextDate).toLocaleDateString('en-US', {
         weekday: 'short',
       });
-
-      console.log(`nextDate: ${nextDate} weekDay: ${weekDay}`);
 
       if (dayOfWeek.includes(weekDay)) {
         alartList.push(nextDate.trim());
@@ -55,6 +53,7 @@ export function useNotification() {
   };
 
   const setOptions = ({
+    key,
     title,
     description,
     date,
@@ -68,6 +67,7 @@ export function useNotification() {
       playSound: true,
       date: new Date(date),
       allowWhileIdle: true,
+      number: key,
     };
 
     const repeatOptions = {
@@ -77,17 +77,19 @@ export function useNotification() {
     return isRepeat ? { ...defaultOptions, ...repeatOptions } : defaultOptions;
   };
 
-  const makeNotification = ({
+  const makeNotification = async ({
+    key,
     title,
     description,
     date,
     dayOfWeek,
   }: INotificationProps) => {
-    PushNotificationIOS.requestPermissions();
+    await PushNotificationIOS.requestPermissions();
 
     if (dayOfWeek.length === 0) {
       PushNotification.localNotificationSchedule(
         setOptions({
+          key,
           title,
           description,
           date,
@@ -101,6 +103,7 @@ export function useNotification() {
     makeAlartDate({ date, dayOfWeek }).forEach(alartDate => {
       PushNotification.localNotificationSchedule(
         setOptions({
+          key,
           title,
           description,
           date: alartDate,
@@ -108,13 +111,54 @@ export function useNotification() {
         }),
       );
     });
-
-    console.log(
-      PushNotification.getScheduledLocalNotifications(notifications =>
-        console.log(notifications),
-      ),
-    );
   };
 
-  return { makeNotification };
+  const getTagetNumberNotifications = async ({
+    number,
+  }: {
+    number: number;
+  }) => {
+    return new Promise(resolve => {
+      PushNotification.getScheduledLocalNotifications(notifications => {
+        resolve(
+          notifications
+            .filter(notification => {
+              return notification.number === number;
+            })
+            .map(notification => notification.id),
+        );
+      });
+    });
+  };
+
+  const handleScheduleToggle = async ({
+    number,
+    isActive,
+    schedule,
+  }: {
+    number: number;
+    isActive: boolean;
+    schedule: IScheduleProps;
+  }) => {
+    if (!isActive) {
+      const notifications = (await getTagetNumberNotifications({
+        number,
+      })) as Array<string>;
+      PushNotificationIOS.removePendingNotificationRequests(notifications);
+
+      return;
+    }
+
+    const { TITLE, DESCRIPTION, CUR_DAY, CUR_TIME, DAY_OF_WEEK } = schedule;
+
+    makeNotification({
+      key: number,
+      title: TITLE,
+      description: DESCRIPTION,
+      date: `${CUR_DAY} ${CUR_TIME}`,
+      dayOfWeek: JSON.parse(DAY_OF_WEEK),
+    });
+  };
+
+  return { makeNotification, handleScheduleToggle };
 }

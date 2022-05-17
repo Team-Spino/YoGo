@@ -12,6 +12,8 @@ export {
   insertScheduleItem,
   deleteScheduleItem,
   dropScheduleTable,
+  updateScheduleItemActive,
+  getAllSchedule,
 } from 'db/schedule';
 
 export { connectDB } from 'db/connectDB';

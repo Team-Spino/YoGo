@@ -1,8 +1,20 @@
+<<<<<<< HEAD:YOGO/src/components/molecules/AgendaBox/index.tsx
+import React, { useState, useEffect } from 'react';
+import uuid from 'react-native-uuid';
+import { Agenda } from 'react-native-calendars';
+import { Text, View } from 'react-native';
+import { ScheduleCard, TagFilterContainer } from 'components';
+import { IScheduleProps, ITagFilter } from 'types';
+import { TAG_FILTER_COLOR } from 'utils';
+
+import * as S from './style';
+=======
 import React from 'react';
 import { Agenda } from 'react-native-calendars';
 import { Text, View } from 'react-native';
 import { SwipeContent } from 'components';
 import { IScheduleProps } from 'types';
+>>>>>>> develop:YOGO/src/components/organisms/AgendaBox/index.tsx
 
 interface IAgendaProps {
   schedules: Array<IScheduleProps>;
@@ -21,6 +33,37 @@ export function AgendaBox({
   onDeleteTarget,
   onEditTarget
 }: IAgendaProps) {
+<<<<<<< HEAD:YOGO/src/components/molecules/AgendaBox/index.tsx
+  const [selectedTag, setSelectedTag] =
+    useState<Array<ITagFilter>>(TAG_FILTER_COLOR);
+
+  const [filteredSchedule, setFilteredSchedule] = useState<
+    Array<IScheduleProps>
+  >([...schedules]);
+
+  const onTagPress = (key: string) => {
+    setSelectedTag(
+      selectedTag.map(tag =>
+        tag.key === key
+          ? { ...tag, isSelected: !tag.isSelected }
+          : { ...tag, isSelected: false },
+      ),
+    );
+  };
+
+  useEffect(() => {
+    if (schedules.length === 0) return;
+
+    const selTag = selectedTag.filter(tag => tag.isSelected).pop();
+
+    setFilteredSchedule(
+      selTag
+        ? schedules.filter(schedule => schedule.TAG_COLOR === selTag.color)
+        : schedules,
+    );
+  }, [selectedTag, schedules]);
+=======
+>>>>>>> develop:YOGO/src/components/organisms/AgendaBox/index.tsx
 
   return (
     <Agenda
@@ -28,7 +71,7 @@ export function AgendaBox({
         [schedules.length && selectedDay]: [{ schedules }],
       }}
       // 아직 사용하지 않음
-      loadItemsForMonth={ month => {
+      loadItemsForMonth={month => {
         console.log('trigger items loading');
       }}
       onDayPress={day => {
@@ -48,10 +91,25 @@ export function AgendaBox({
       renderDay={(day, item) => {
         return <View style={{ display: 'none' }} />;
       }}
+<<<<<<< HEAD:YOGO/src/components/molecules/AgendaBox/index.tsx
+      renderItem={({ schedules }, firstItemInDay) => (
+        <S.Container>
+          <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
+          {filteredSchedule.map((schedule: IScheduleProps) => (
+            <ScheduleCard
+              key={uuid.v4()}
+              schedule={schedule}
+              selectedDay={selectedDay}
+            />
+          ))}
+        </S.Container>
+      )}
+=======
       renderItem={({schedules})=>{
         return <SwipeContent data= {schedules}  onDeleteTarget={onDeleteTarget} onEditTarget={onEditTarget}
         />
       }}
+>>>>>>> develop:YOGO/src/components/organisms/AgendaBox/index.tsx
       selected={selectedDay}
       markedDates={{ ...markedDates }}
       // 임시용

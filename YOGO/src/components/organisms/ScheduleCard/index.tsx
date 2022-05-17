@@ -5,17 +5,17 @@ import {
   DetailModal,
   DayOfWeek,
 } from 'components';
+import { connectDB, updateScheduleItemActive, getAllSchedule } from 'db';
+import { useNotification } from 'hooks';
 import { IScheduleProps } from 'types';
 import * as S from './style';
 
-export function ScheduleCard({ schedule }: { schedule: IScheduleProps }) {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [isEnable, setIsEnable] = useState<boolean>(true);
+interface IScheduleCardProps {
+  schedule: IScheduleProps;
+  selectedDay: string;
+}
 
-  const onTogglePress = () => setIsEnable(state => !state);
-  const onShowDetailPress = () => setIsVisible(true);
-  const onCloseDetailPress = () => setIsVisible(false);
-
+export function ScheduleCard({ schedule, selectedDay }: IScheduleCardProps) {
   const {
     key,
     TITLE,
@@ -27,7 +27,26 @@ export function ScheduleCard({ schedule }: { schedule: IScheduleProps }) {
     CUR_CITY,
     CUR_DAY,
     DAY_OF_WEEK,
+    IS_ACTIVE,
   } = schedule;
+
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isEnable, setIsEnable] = useState<boolean>(IS_ACTIVE ? true : false);
+  const { handleScheduleToggle } = useNotification();
+
+  const onTogglePress = async () => {
+    const db = await connectDB();
+    await updateScheduleItemActive(db, ID, isEnable ? 0 : 1);
+    handleScheduleToggle({
+      number: Number(ID),
+      isActive: isEnable ? false : true,
+      schedule,
+    });
+    setIsEnable(!isEnable);
+  };
+
+  const onShowDetailPress = () => setIsVisible(true);
+  const onCloseDetailPress = () => setIsVisible(false);
 
   const target = { TARGET_TIME, TARGET_CITY, TARGET_DAY };
   const cur = { CUR_TIME, CUR_CITY, CUR_DAY };
@@ -56,6 +75,7 @@ export function ScheduleCard({ schedule }: { schedule: IScheduleProps }) {
       <DetailModal
         isVisible={isVisible}
         onCloseDetailPress={onCloseDetailPress}
+        selectedDay={selectedDay}
         schedule={schedule}
       />
     </>

@@ -1,5 +1,10 @@
 export interface IScheduleProps {
+<<<<<<< HEAD
+  isSelected: unknown;
+  ID: number;
+=======
   key: number;
+>>>>>>> develop
   TITLE: string;
   DESCRIPTION: string;
   TAG_COLOR: string;
@@ -10,6 +15,7 @@ export interface IScheduleProps {
   CUR_CITY: string;
   CUR_DAY: string;
   DAY_OF_WEEK: string;
+  IS_ACTIVE: number;
 }
 
 export interface ITargetProps {

@@ -1,8 +1,12 @@
-import styled from "styled-components/native";
+import styled from 'styled-components/native';
 
-export const Container = styled.TouchableOpacity<{color: string}>`
-    width: 24px;
-    height: 24px;
-    border-radius: 24px;
-    background: ${props => props.color};
-`
+interface ITagSelectProps {
+  color: string;
+}
+
+export const Container = styled.TouchableOpacity<ITagSelectProps>`
+  width: 23px;
+  height: 23px;
+  border-radius: 23px;
+  background: ${props => props.color};
+`;

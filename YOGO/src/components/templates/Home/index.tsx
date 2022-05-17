@@ -5,7 +5,16 @@ import { FloatingButton, AgendaBox } from 'components';
 import { DUMMY_DATA } from 'utils';
 import { IconPlus } from 'assets';
 import { RootStackParamList, IScheduleProps } from 'types';
+<<<<<<< HEAD
+import {
+  connectDB,
+  createScheduleTable,
+  getScheduleItems,
+  dropScheduleTable,
+} from 'db';
+=======
 import { connectDB, createScheduleTable, deleteScheduleItem, dropScheduleTable, getScheduleItems } from 'db';
+>>>>>>> develop
 import { PopContext } from 'context';
 import * as S from './style';
 

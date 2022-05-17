@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Main, HandleSchedule } from 'screens';
 import { theme } from 'styles/theme';
 import { PopProvider } from 'context';
+
 const Stack = createNativeStackNavigator();
 
 function App() {

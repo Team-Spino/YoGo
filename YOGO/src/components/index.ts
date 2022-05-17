@@ -21,8 +21,12 @@ export { DayOfWeekBtn } from 'components/atoms/DayOfWeekBtn';
 export { LocationOfTZ } from 'components/atoms/LocationOfTZ';
 export { TimeOfTZ } from 'components/atoms/TimeOfTZ';
 export { IconAbsolute } from 'components/atoms/IconAbsolute';
+<<<<<<< HEAD
+export { TagFilter } from 'components/atoms/TagFilter';
+=======
 export { RenderDelete } from 'components/atoms/RenderDelete';
 export { RenderEdit } from 'components/atoms/RenderEdit';
+>>>>>>> develop
 
 // Molecules
 export { TagSelectContainer } from 'components/molecules/TagSelectContainer';
@@ -37,9 +41,13 @@ export { SelectTargetDate } from 'components/molecules/SelectTargetDate';
 export { DayOfWeekContainer } from 'components/molecules/DayOfWeekContainer';
 export { TimeZoneCard } from 'components/molecules/TimeZoneCard';
 export { ResultCard } from 'components/molecules/ResultCard';
+<<<<<<< HEAD
+export { TagFilterContainer } from 'components/molecules/TagFilterContainer';
+=======
 export { HiddenEditAndDelete } from 'components/molecules/HiddenEditAndDelete';
 export { HiddenDelete } from 'components/molecules/HiddenDelete';
 export { SwipeContent } from 'components/molecules/SwipeContent';
+>>>>>>> develop
 
 // Organisms
 export { DetailModal } from 'components/organisms/DetailModal';
@@ -49,8 +57,13 @@ export { SettingSchedule } from 'components/organisms/SettingSchedule';
 export { SetCityAndDate } from 'components/organisms/SetCityAndDate';
 export { SearchSheet } from 'components/organisms/SearchSheet';
 export { ResultSheet } from 'components/organisms/ResultSheet';
+<<<<<<< HEAD
+export { SearchTimeBottomSheet } from 'components/organisms/SearchTimeBottomSheet';
+
+=======
 export { SearchTimeBottomSheet} from 'components/organisms/SearchTimeBottomSheet';
 export { AgendaBox } from 'components/organisms/AgendaBox';
+>>>>>>> develop
 // Templates
 export { Home } from 'components/templates/Home';
 export { TimeZone } from 'components/templates/TimeZone';

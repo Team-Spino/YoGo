@@ -1,7 +1,10 @@
 import React from 'react';
+import dayjs from 'dayjs';
 import { Title, SubTitle } from 'components';
 import { IconRight } from 'assets';
+import { parseCity } from 'utils';
 import { ITargetProps, ICurProps } from 'types';
+import { useTimeZone } from 'hooks';
 import * as S from './style';
 
 interface IModalTimeProps {
@@ -9,6 +12,7 @@ interface IModalTimeProps {
     target: ITargetProps;
     cur: ICurProps;
   };
+  selectedDay: string;
 }
 
 interface IModalTimerProps {
@@ -27,17 +31,42 @@ function ModalTimer({ city, date, time }: IModalTimerProps) {
   );
 }
 
-export function ModalTimeInfo({ timeData }: IModalTimeProps) {
+export function ModalTimeInfo({ timeData, selectedDay }: IModalTimeProps) {
   const { target, cur } = timeData;
 
-  const { TARGET_TIME, TARGET_CITY, TARGET_DAY } = target;
-  const { CUR_TIME, CUR_CITY, CUR_DAY } = cur;
+  const { getTargetTime, formatTo12Hour } = useTimeZone();
+
+  const { TARGET_CITY } = target;
+  const { CUR_TIME, CUR_CITY } = cur;
+
+  const [date, time] = getTargetTime({
+    currentTime: `${selectedDay} ${CUR_TIME}`,
+    targetTimeZone: TARGET_CITY,
+  }).split(' ');
+
+  const [targetDay, targetTime] = formatTo12Hour({
+    date,
+    time,
+  });
+
+  const [curDay, curTime] = formatTo12Hour({
+    date: selectedDay,
+    time: CUR_TIME,
+  });
 
   return (
     <S.Container>
-      <ModalTimer city={TARGET_CITY} date={TARGET_DAY} time={TARGET_TIME} />
+      <ModalTimer
+        city={parseCity({ city: TARGET_CITY })}
+        date={targetDay}
+        time={targetTime}
+      />
       <IconRight />
-      <ModalTimer city={CUR_CITY} date={CUR_DAY} time={CUR_TIME} />
+      <ModalTimer
+        city={parseCity({ city: CUR_CITY })}
+        date={curDay}
+        time={curTime}
+      />
     </S.Container>
   );
 }
