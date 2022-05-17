@@ -4,6 +4,7 @@ import { Agenda } from 'react-native-calendars';
 import { Text, View } from 'react-native';
 import { ScheduleCard, TagFilterContainer } from 'components';
 import { IScheduleProps } from 'types';
+import { TAG_FILTER_COLOR } from 'utils';
 import * as S from './style';
 
 interface IAgendaProps {
@@ -47,7 +48,7 @@ export function AgendaBox({
       }}
       renderItem={({ schedules }, firstItemInDay) => (
         <S.Container>
-          <TagFilterContainer />
+          <TagFilterContainer tags={TAG_FILTER_COLOR} />
           {schedules.map((schedule: IScheduleProps) => (
             <ScheduleCard
               key={uuid.v4()}

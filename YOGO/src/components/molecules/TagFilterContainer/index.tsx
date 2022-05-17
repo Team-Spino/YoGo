@@ -1,19 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { TagFilter } from 'components';
+import { ITagFilterProps } from 'types';
 import * as S from './style';
 
-export function TagFilterContainer() {
+export function TagFilterContainer({ tags }: { tags: Array<ITagFilterProps> }) {
   return (
     <S.Container style={styles.containerStyle}>
-      <View>
-        <Text>전체</Text>
-      </View>
-      <View>
-        <Text>전체</Text>
-      </View>
-      <View>
-        <Text>전체</Text>
-      </View>
+      {tags.map((tag: ITagFilterProps) => {
+        return <TagFilter key={tag.key} tags={tag} />;
+      })}
     </S.Container>
   );
 }

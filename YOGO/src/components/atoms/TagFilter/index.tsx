@@ -1,11 +1,6 @@
 import React from 'react';
+import { ITagFilterProps } from 'types';
 import * as S from './style';
-
-interface ITagFilterProps {
-  key: string;
-  color: string;
-  isSelected: boolean;
-}
 
 export function TagFilter({ tags }: { tags: ITagFilterProps }) {
   const { color, isSelected } = tags;
