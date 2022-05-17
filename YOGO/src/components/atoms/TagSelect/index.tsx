@@ -13,9 +13,10 @@ export function TagSelect({ tag, onSelectTag }: ITagSelectProps) {
 
   return (
     <>
-      {!isSelected ? (
+      {!isSelected && (
         <S.Container color={color} onPress={() => onSelectTag(key)} />
-      ) : (
+      )}
+      {isSelected && (
         <S.Container color={color}>
           <IconTick />
         </S.Container>
