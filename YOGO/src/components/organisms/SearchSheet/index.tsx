@@ -50,7 +50,7 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
 
   const onSubmit = () => {
     if (city) {
-      onPress();
+      onPress({ city, date });
       return;
     }
     setIsCityInputValid(false);

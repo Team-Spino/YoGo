@@ -12,7 +12,7 @@ import { useTimeZone } from 'hooks';
 import * as S from './style';
 
 interface IResultBSProps {
-  onPress: () => void;
+  onPress: (submitObject : IMakeProps) => void;
   submitObject : IMakeProps;
 }
 
@@ -45,7 +45,7 @@ export const ResultSheet = ({ onPress, submitObject }: IResultBSProps) => {
         <ResultCard city={locateCity} date={curDate} time={curTime} meridiem={curMeridiem} />
         <ResultCard city={tarCity.split('/').at(-1)} date={tarDateFormat} time={tarTime} meridiem={tarMeridiem}/>
       </S.Inner>
-      <BottomSheetBtn text={'Make'} onPress={onPress} isRevers={true} />
+      <BottomSheetBtn text={'Make'} onPress={()=>onPress(submitObject)} isRevers={true} />
     </S.ResultBox>
   );
 };

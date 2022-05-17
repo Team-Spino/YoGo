@@ -8,7 +8,7 @@ export const createScheduleTable = async (db: SQLiteDatabase) => {
   const query = `
   CREATE TABLE IF NOT EXISTS ${SCHEDULE}
   (
-    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    key INTEGER PRIMARY KEY AUTOINCREMENT,
     TITLE TEXT NOT NULL,
     DESCRIPTION TEXT,
     TAG_COLOR TEXT,
@@ -94,7 +94,7 @@ export const insertScheduleItem = async (db: SQLiteDatabase, schedule: any) => {
 };
 
 export const deleteScheduleItem = async (db: SQLiteDatabase, id: number) => {
-  const deleteQuery = `DELETE from ${SCHEDULE} where rowid = ${id}`;
+  const deleteQuery = `DELETE from ${SCHEDULE} WHERE key = ${id}`;
   await db.executeSql(deleteQuery);
 };
 

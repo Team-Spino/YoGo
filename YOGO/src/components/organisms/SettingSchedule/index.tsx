@@ -7,7 +7,6 @@ import {
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack/lib/typescript/src/types';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import {
   TextInput,
@@ -18,7 +17,7 @@ import {
   Button,
 } from 'components';
 import { DAY_OF_WEEK, DUMMY_DATA_CITY, TAG_COLOR } from 'utils';
-import { ITagListProps, IDayOfWeekProps, RootStackParamList } from 'types';
+import { ITagListProps, IDayOfWeekProps, IHandelScheduleProps } from 'types';
 import { useNotification } from 'hooks';
 import { connectDB, insertScheduleItem } from 'db';
 import { PopContext } from 'context';
@@ -27,9 +26,8 @@ import * as S from './style';
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
+export function SettingSchedule({ navigation , route}: IHandelScheduleProps) {
 
-export function SettingSchedule({ navigation }: { navigation: Prop }) {
   const [inputs, setInputs] = useState({
     title: '',
     description: '',

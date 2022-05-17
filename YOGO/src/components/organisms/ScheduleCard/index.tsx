@@ -17,7 +17,7 @@ interface IScheduleCardProps {
 
 export function ScheduleCard({ schedule, selectedDay }: IScheduleCardProps) {
   const {
-    ID,
+    key,
     TITLE,
     TAG_COLOR,
     TARGET_TIME,
