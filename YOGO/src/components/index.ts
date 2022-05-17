@@ -36,6 +36,7 @@ export { DayOfWeekContainer } from 'components/molecules/DayOfWeekContainer';
 export { AgendaBox } from 'components/molecules/AgendaBox';
 export { TimeZoneCard } from 'components/molecules/TimeZoneCard';
 export { ResultCard } from 'components/molecules/ResultCard';
+export { TagFilter } from 'components/molecules/TagFilter';
 
 // Organisms
 export { DetailModal } from 'components/organisms/DetailModal';
@@ -45,7 +46,7 @@ export { SettingSchedule } from 'components/organisms/SettingSchedule';
 export { SetCityAndDate } from 'components/organisms/SetCityAndDate';
 export { SearchSheet } from 'components/organisms/SearchSheet';
 export { ResultSheet } from 'components/organisms/ResultSheet';
-export { SearchTimeBottomSheet} from 'components/organisms/SearchTimeBottomSheet';
+export { SearchTimeBottomSheet } from 'components/organisms/SearchTimeBottomSheet';
 
 // Templates
 export { Home } from 'components/templates/Home';

@@ -2,7 +2,7 @@ import React from 'react';
 import uuid from 'react-native-uuid';
 import { Agenda } from 'react-native-calendars';
 import { Text, View } from 'react-native';
-import { ScheduleCard } from 'components';
+import { ScheduleCard, TagFilter } from 'components';
 import { IScheduleProps } from 'types';
 import * as S from './style';
 
@@ -46,7 +46,8 @@ export function AgendaBox({
         return <View style={{ display: 'none' }} />;
       }}
       renderItem={({ schedules }, firstItemInDay) => (
-        <S.Inner>
+        <S.Container>
+          <TagFilter />
           {schedules.map((schedule: IScheduleProps) => (
             <ScheduleCard
               key={uuid.v4()}
@@ -54,7 +55,7 @@ export function AgendaBox({
               selectedDay={selectedDay}
             />
           ))}
-        </S.Inner>
+        </S.Container>
       )}
       selected={selectedDay}
       markedDates={{ ...markedDates }}
