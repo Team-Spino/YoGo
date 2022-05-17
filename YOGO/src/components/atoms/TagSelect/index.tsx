@@ -4,27 +4,29 @@ import { ITagListProps } from 'types';
 import * as S from './style';
 
 interface ITagSelectProps {
-    tag: ITagListProps;
-    onSelectTag: (key: string) => void;
+  tag: ITagListProps;
+  onSelectTag: (key: string) => void;
+  isFilter: boolean;
 }
 
-export function TagSelect({ tag, onSelectTag }: ITagSelectProps) {
-    const { key, color, isSelected } = tag;
+export function TagSelect({ tag, onSelectTag, isFilter }: ITagSelectProps) {
+  const { key, color, isSelected } = tag;
 
-    return (
-        <>
-            {
-                !isSelected
-                ? (
-                    <S.Container color={color} onPress={() => onSelectTag(key)}/>
-                  )
-                : (
-                    <S.Container color={color}>
-                        <IconTick/>
-                    </S.Container>
-                )
-            }
-        </>
+  const size = isFilter ? '20px' : '25px';
 
-    )
+  return (
+    <>
+      {!isSelected ? (
+        <S.Container
+          color={color}
+          onPress={() => onSelectTag(key)}
+          size={size}
+        />
+      ) : (
+        <S.Container color={color} size={size}>
+          <IconTick />
+        </S.Container>
+      )}
+    </>
+  );
 }

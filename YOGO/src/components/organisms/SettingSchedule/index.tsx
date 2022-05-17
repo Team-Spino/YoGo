@@ -235,7 +235,11 @@ export function SettingSchedule({ navigation }: { navigation: Prop }) {
                 isTitleInputValid={true}
                 setValue={handleChange('description')}
               />
-              <TagSelectContainer tagList={tagList} onSelectTag={onSelectTag} />
+              <TagSelectContainer
+                tagList={tagList}
+                onSelectTag={onSelectTag}
+                isFilter={false}
+              />
               <SetCityAndDate
                 city={city}
                 date={date}
