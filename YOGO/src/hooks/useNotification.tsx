@@ -44,8 +44,6 @@ export function useNotification() {
         weekday: 'short',
       });
 
-      console.log(`nextDate: ${nextDate} weekDay: ${weekDay}`);
-
       if (dayOfWeek.includes(weekDay)) {
         alartList.push(nextDate.trim());
       }
