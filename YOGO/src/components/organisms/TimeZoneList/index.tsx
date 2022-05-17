@@ -3,9 +3,9 @@ import { Animated} from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { TimeZoneCard, HiddenDelete } from 'components';
 import { useSwipeList } from 'hooks';
+import { WINDOW_WIDTH } from 'styles';
 import { ICityProps } from 'types';
 import * as S from './style';
-
 
 interface ITimeZoneListProps {
     cardState: Array<ICityProps>
@@ -13,10 +13,9 @@ interface ITimeZoneListProps {
     onDeleteTarget: (id: number) => Promise<void>
 }
 
-export function TimeZoneList({cardState, setCardState, onDeleteTarget}: ITimeZoneListProps) {
+export function TimeZoneList({cardState, onDeleteTarget}: ITimeZoneListProps) {
 
-
-  const {rowTranslateAnimatedValues, isOpen, onSwipeValueChange, deleteRow} = useSwipeList({listData : cardState , rowBackValue: '75', onDeleteTarget});
+  const {rowTranslateAnimatedValues, isOpen, onSwipeValueChange, deleteRow} = useSwipeList({listData : cardState , rowBackValue: WINDOW_WIDTH * 0.15, onDeleteTarget});
 
   const renderItem = ({item} : any) => (
     <Animated.View

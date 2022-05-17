@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   NativeSyntheticEvent,
   TextInputChangeEventData,
@@ -27,7 +27,6 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 export function SettingSchedule({ navigation , route}: IHandelScheduleProps) {
-  const [isDefalut, setIsDefalut] = useState(true);
 
   const [inputs, setInputs] = useState({
     title: '',
@@ -208,44 +207,6 @@ export function SettingSchedule({ navigation , route}: IHandelScheduleProps) {
       navigation.pop();
     }
   };
-
-  useEffect(() => {
-    if(route.params.item){
-      setIsDefalut(false)
-    }
-    if(!isDefalut){
-      const { CUR_CITY,
-      CUR_DAY,
-      CUR_TIME,
-      DAY_OF_WEEK,
-      DESCRIPTION,
-      TAG_COLOR,
-      TARGET_CITY,
-      TARGET_DAY,
-      TARGET_TIME,
-      TITLE,
-      key} = route.params.item;
-      setInputs({ title : TITLE, description: DESCRIPTION});
-      // console.log(route.params.item)
-      setTagList(
-        tagList.map(tag =>
-          tag.color === TAG_COLOR
-            ? { ...tag, isSelected: true }
-            : { ...tag, isSelected: false },
-        ),
-      );
-      setDate(new Date(TARGET_DAY + ' ' + TARGET_TIME));
-      setCity(TARGET_CITY);
-      // setAlartDate(new Date(CUR_DAY + ' ' + CUR_TIME));
-      // setDayOfWeek(
-      //   DAY_OF_WEEK.map(day =>
-      //     day.name === DAY_OF_WEEK
-      //       ? { ...day, isSelected: true }
-      //       : { ...day, isSelected: false },
-      //   ),
-      // );
-    }
-  }, [route, isDefalut])
 
   return (
     <>

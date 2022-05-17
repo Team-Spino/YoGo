@@ -1,8 +1,9 @@
 import styled from 'styled-components/native';
+import { WINDOW_WIDTH } from 'styles';
 
 
 export const RenderRightButton = styled.TouchableOpacity`
-  width: 70px;  
+  width: ${WINDOW_WIDTH * 0.15}px;}  
   align-items: center;
   background-color: #EB5545;
   justify-content: center;

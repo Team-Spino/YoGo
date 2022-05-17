@@ -1,10 +1,10 @@
 import React from 'react';
-import { IScheduleProps } from '~/types';
+import { ICityProps, IScheduleProps} from 'types';
 import * as S from './style';
 
 interface IRenderDeleteProps {
-  item: IScheduleProps
-  onPress: (key: number) => void;
+  item: ICityProps | IScheduleProps
+  onPress: (rowKey: string | number) => void;
 }
 
 export const RenderDelete = ({item, onPress} : IRenderDeleteProps) => {

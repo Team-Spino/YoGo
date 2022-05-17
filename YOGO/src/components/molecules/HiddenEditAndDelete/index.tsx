@@ -5,8 +5,8 @@ import * as S from './style';
 
 interface IProps {
     item: IScheduleProps;
-    onPressDelete: (key: number) => void;
-    onPressEdit: (key: number) => void;
+    onPressDelete: (rowKey: string) => void;
+    onPressEdit: (item : IScheduleProps) => void;
 }
 
 export const HiddenEditAndDelete = ({item,  onPressDelete, onPressEdit} : IProps) => {

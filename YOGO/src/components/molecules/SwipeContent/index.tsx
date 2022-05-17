@@ -4,16 +4,17 @@ import uuid from 'react-native-uuid';
 import { HiddenEditAndDelete, ScheduleCard } from 'components';
 import { useSwipeList } from 'hooks';
 import { IScheduleProps } from 'types';
+import { WINDOW_WIDTH } from 'styles';
 import * as S from './style';
 
 interface ISwipeContentProps {
   data: IScheduleProps[];
   onDeleteTarget: (id: number) => Promise<void>;
-  onEditTarget: (id: number) => void;
+  onEditTarget: (item: IScheduleProps) => void;
 }
 
 export const SwipeContent = ({data,  onDeleteTarget, onEditTarget } : ISwipeContentProps) => {
-  const {deleteRow} = useSwipeList({listData : data , rowBackValue: '75', onDeleteTarget});
+  const {deleteRow} = useSwipeList({listData : data , rowBackValue: WINDOW_WIDTH*0.3, onDeleteTarget});
 
   return (
   <S.Inner>
@@ -21,7 +22,7 @@ export const SwipeContent = ({data,  onDeleteTarget, onEditTarget } : ISwipeCont
           <S.Container key={idx}>
             <SwipeRow
                   disableRightSwipe
-                  rightOpenValue={-140}
+                  rightOpenValue={-WINDOW_WIDTH * 0.3}
                 >
                   <HiddenEditAndDelete
                   item={schedule}

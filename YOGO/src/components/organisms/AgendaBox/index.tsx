@@ -49,10 +49,7 @@ export function AgendaBox({
         return <View style={{ display: 'none' }} />;
       }}
       renderItem={({schedules})=>{
-        return <SwipeContent data = {schedules}  onDeleteTarget={ onDeleteTarget}
-        onEditTarget={
-          onEditTarget
-        }
+        return <SwipeContent data= {schedules}  onDeleteTarget={onDeleteTarget} onEditTarget={onEditTarget}
         />
       }}
       selected={selectedDay}
