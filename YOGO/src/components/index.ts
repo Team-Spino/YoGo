@@ -21,6 +21,7 @@ export { DayOfWeekBtn } from 'components/atoms/DayOfWeekBtn';
 export { LocationOfTZ } from 'components/atoms/LocationOfTZ';
 export { TimeOfTZ } from 'components/atoms/TimeOfTZ';
 export { IconAbsolute } from 'components/atoms/IconAbsolute';
+export { TagFilter } from 'components/atoms/TagFilter';
 
 // Molecules
 export { TagSelectContainer } from 'components/molecules/TagSelectContainer';
@@ -36,7 +37,7 @@ export { DayOfWeekContainer } from 'components/molecules/DayOfWeekContainer';
 export { AgendaBox } from 'components/molecules/AgendaBox';
 export { TimeZoneCard } from 'components/molecules/TimeZoneCard';
 export { ResultCard } from 'components/molecules/ResultCard';
-export { TagFilter } from 'components/molecules/TagFilter';
+export { TagFilterContainer } from 'components/molecules/TagFilterContainer';
 
 // Organisms
 export { DetailModal } from 'components/organisms/DetailModal';

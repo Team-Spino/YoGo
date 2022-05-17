@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import * as S from './style';
 
-export function TagFilter() {
+export function TagFilterContainer() {
   return (
     <S.Container style={styles.containerStyle}>
       <View>
