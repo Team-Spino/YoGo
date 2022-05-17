@@ -1,0 +1,1 @@
+export {WINDOW_WIDTH} from './global_style';

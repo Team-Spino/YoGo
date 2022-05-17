@@ -1,16 +1,16 @@
 import React from 'react';
-import uuid from 'react-native-uuid';
 import { Agenda } from 'react-native-calendars';
 import { Text, View } from 'react-native';
-import { ScheduleCard } from 'components';
+import { SwipeContent } from 'components';
 import { IScheduleProps } from 'types';
-import * as S from './style';
 
 interface IAgendaProps {
   schedules: Array<IScheduleProps>;
   selectedDay: string;
   markedDates: object;
   onDayPress: (day: string) => void;
+  onDeleteTarget: (id: number) => Promise<void>;
+  onEditTarget: (item: IScheduleProps) => void;
 }
 
 export function AgendaBox({
@@ -18,7 +18,10 @@ export function AgendaBox({
   selectedDay,
   markedDates,
   onDayPress,
+  onDeleteTarget,
+  onEditTarget
 }: IAgendaProps) {
+
   return (
     <Agenda
       items={{
@@ -45,13 +48,10 @@ export function AgendaBox({
       renderDay={(day, item) => {
         return <View style={{ display: 'none' }} />;
       }}
-      renderItem={({ schedules }, firstItemInDay) => (
-        <S.Inner>
-          {schedules.map((schedule: IScheduleProps) => (
-            <ScheduleCard key={uuid.v4()} schedule={schedule} />
-          ))}
-        </S.Inner>
-      )}
+      renderItem={({schedules})=>{
+        return <SwipeContent data= {schedules}  onDeleteTarget={onDeleteTarget} onEditTarget={onEditTarget}
+        />
+      }}
       selected={selectedDay}
       markedDates={{ ...markedDates }}
       // 임시용

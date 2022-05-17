@@ -17,7 +17,7 @@ export function ScheduleCard({ schedule }: { schedule: IScheduleProps }) {
   const onCloseDetailPress = () => setIsVisible(false);
 
   const {
-    ID,
+    key,
     TITLE,
     TAG_COLOR,
     TARGET_TIME,

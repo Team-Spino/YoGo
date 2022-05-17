@@ -3,6 +3,7 @@ import {
     Animated,
     Dimensions,
 } from 'react-native';
+import { ISwipeDataProps } from '~/types';
 
 interface IrowTranslateAnimatedValuesType {
     [key: string ]: Animated.Value;
@@ -18,8 +19,8 @@ interface IlistDataType{
 
 interface IuseSwipeListProps {
     listData: any;
-    setListData: React.Dispatch<React.SetStateAction<string[]>>
-    rowBackValue: string;
+    rowBackValue: string | number;
+    onDeleteTarget: (id: number) => Promise<void>;
 }
 
 /**
@@ -30,7 +31,7 @@ interface IuseSwipeListProps {
  * @returns 
  */
 
-export function useSwipeList({ listData, rowBackValue, onDeleteTarget} : any) {
+export function useSwipeList({ listData, rowBackValue, onDeleteTarget} : IuseSwipeListProps) {
     
     /**
      * list만큼 배열을 만들고 해당하는 key 값에 맞는 animated.vlaue를 만듭니다.
@@ -88,7 +89,7 @@ export function useSwipeList({ listData, rowBackValue, onDeleteTarget} : any) {
       * @param swipeData 
       */
  
-     const onSwipeValueChange = (swipeData) => {
+     const onSwipeValueChange = (swipeData : ISwipeDataProps) => {
          const { key, value } = swipeData;
  
              if(value-150 > -Dimensions.get('window').width && isOpen != -rowBackValue) {

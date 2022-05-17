@@ -6,3 +6,5 @@ export type { ICardState } from 'types/cardState';
 export type { ILiveTimeState } from 'types/liveTimeState';
 export type { ICityProps } from 'types/city';
 export type { IMakeProps } from 'types/makeProps';
+export type { IHandelScheduleProps } from 'types/handelSchedule';
+export type { ISwipeDataProps } from 'types/swipeData';
