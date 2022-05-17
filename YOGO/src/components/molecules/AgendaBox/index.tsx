@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import uuid from 'react-native-uuid';
 import { Agenda } from 'react-native-calendars';
 import { Text, View } from 'react-native';
