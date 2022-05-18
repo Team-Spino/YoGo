@@ -84,7 +84,6 @@ export function useNotification() {
     date,
     dayOfWeek,
   }: INotificationProps) => {
-    await PushNotificationIOS.requestPermissions();
 
     if (dayOfWeek.length === 0) {
       PushNotification.localNotificationSchedule(

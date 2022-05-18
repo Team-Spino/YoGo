@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { ThemeProvider } from 'styled-components/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import { Main, HandleSchedule } from 'screens';
 import { theme } from 'styles/theme';
 import { PopProvider } from 'context';
@@ -9,6 +10,11 @@ import { PopProvider } from 'context';
 const Stack = createNativeStackNavigator();
 
 function App() {
+
+  useEffect(() => {
+    PushNotificationIOS.requestPermissions();
+  }, []);
+
   return (
     <NavigationContainer>
       <PopProvider>
