@@ -13,28 +13,31 @@ interface ISwipeContentProps {
   onEditTarget: (item: IScheduleProps) => void;
 }
 
-export const SwipeContent = ({data,  onDeleteTarget, onEditTarget } : ISwipeContentProps) => {
+export const SwipeContent = ({
+  data,
+  onDeleteTarget,
+  onEditTarget,
+}: ISwipeContentProps) => {
+  const { deleteRow } = useSwipeList({
+    listData: data,
+    rowBackValue: WINDOW_WIDTH * 0.3,
+    onDeleteTarget,
+  });
 
-  const {deleteRow} = useSwipeList({listData : data , rowBackValue: WINDOW_WIDTH*0.3, onDeleteTarget});
-  
- 
   return (
-  <S.Inner>
-      {data.map((schedule: IScheduleProps, idx : number) => (
-          <S.Container key={idx}>
-            <SwipeRow
-                  disableRightSwipe
-                  rightOpenValue={-WINDOW_WIDTH * 0.3}
-                >
-                  <HiddenEditAndDelete
-                  item={schedule}
-                  onPressDelete={deleteRow}
-                  onPressEdit={onEditTarget}
-                  />
-                  <ScheduleCard key={uuid.v4()} schedule={schedule} />
-                </SwipeRow> 
-                </S.Container>
+    <S.Inner>
+      {data.map((schedule: IScheduleProps, idx: number) => (
+        <S.Container key={idx}>
+          <SwipeRow disableRightSwipe rightOpenValue={-WINDOW_WIDTH * 0.3}>
+            <HiddenEditAndDelete
+              item={schedule}
+              onPressDelete={deleteRow}
+              onPressEdit={onEditTarget}
+            />
+            <ScheduleCard key={uuid.v4()} schedule={schedule} />
+          </SwipeRow>
+        </S.Container>
       ))}
-      </S.Inner>
+    </S.Inner>
   );
 };
