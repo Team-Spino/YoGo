@@ -36,7 +36,7 @@ export function useSwipeList({ listData, rowBackValue, onDeleteTarget} : IuseSwi
      * list만큼 배열을 만들고 해당하는 key 값에 맞는 animated.vlaue를 만듭니다.
      */
      const rowTranslateAnimatedValues : IrowTranslateAnimatedValuesType  = {};
-     listData?.forEach(({key}) => {
+     listData?.forEach(({key}: {key: string}) => {
          rowTranslateAnimatedValues[`${key}`] = new Animated.Value(1);
      });
 
@@ -74,7 +74,7 @@ export function useSwipeList({ listData, rowBackValue, onDeleteTarget} : IuseSwi
       */
  
      const setNewData = async (key: string ) => {
-        onDeleteTarget(key)
+        onDeleteTarget(Number(key))
         setIsOpen(-rowBackValue);
      }
 
@@ -104,8 +104,8 @@ export function useSwipeList({ listData, rowBackValue, onDeleteTarget} : IuseSwi
                  !animationIsRunning.current
              ) {
                  animationIsRunning.current = true;
-                 moveHeight(key).start(() => {
-                     setNewData(key)
+                 moveHeight(String(key)).start(() => {
+                     setNewData(String(key))
                      animationIsRunning.current = false;
                  });
              }

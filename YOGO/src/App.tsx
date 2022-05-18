@@ -31,7 +31,7 @@ function App() {
               name="HandleSchedule"
               component={HandleSchedule}
               options={({ route }) => ({
-                title: route!.params.title as string,
+                title: route!.params!.title as string,
               })}
             />
           </Stack.Navigator>
