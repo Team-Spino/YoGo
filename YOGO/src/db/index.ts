@@ -14,6 +14,7 @@ export {
   dropScheduleTable,
   updateScheduleItemActive,
   getAllSchedule,
+  getDateAndDayOfWeek,
 } from 'db/schedule';
 
 export { connectDB } from 'db/connectDB';

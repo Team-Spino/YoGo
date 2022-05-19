@@ -10,6 +10,7 @@ import {
   createScheduleTable,
   deleteScheduleItem,
   dropScheduleTable,
+  getDateAndDayOfWeek,
   getScheduleItems,
 } from 'db';
 
@@ -55,6 +56,8 @@ export function Home({ navigation }: { navigation: Prop }) {
 
       const items = await getScheduleItems(db, dayOfWeek, selectedDay);
       setSchedules(items);
+      const temp = await getDateAndDayOfWeek(db)
+      console.log("date확인쓰", temp)
     } catch (e) {
       console.error(e);
     }
