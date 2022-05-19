@@ -84,7 +84,6 @@ export function useNotification() {
     date,
     dayOfWeek,
   }: INotificationProps) => {
-
     if (dayOfWeek.length === 0) {
       PushNotification.localNotificationSchedule(
         setOptions({
@@ -130,6 +129,13 @@ export function useNotification() {
     });
   };
 
+  const deleteAllNotification = async ({ number }: { number: number }) => {
+    const notifications = (await getTagetNumberNotifications({
+      number,
+    })) as Array<string>;
+    PushNotificationIOS.removePendingNotificationRequests(notifications);
+  };
+
   const handleScheduleToggle = async ({
     number,
     isActive,
@@ -140,11 +146,7 @@ export function useNotification() {
     schedule: IScheduleProps;
   }) => {
     if (!isActive) {
-      const notifications = (await getTagetNumberNotifications({
-        number,
-      })) as Array<string>;
-      PushNotificationIOS.removePendingNotificationRequests(notifications);
-
+      deleteAllNotification({ number });
       return;
     }
 

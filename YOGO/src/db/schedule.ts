@@ -113,6 +113,26 @@ export const updateScheduleItemActive = async (
   await db.executeSql(updateQuery);
 };
 
+export const updateAllSchedule = async (db: SQLiteDatabase, schedule: any) => {
+  const {
+    key,
+    TITLE,
+    DESCRIPTION,
+    TAG_COLOR,
+    TARGET_TIME,
+    TARGET_CITY,
+    TARGET_DAY,
+    CUR_TIME,
+    CUR_CITY,
+    CUR_DAY,
+    DAY_OF_WEEK,
+    IS_ACTIVE,
+  } = schedule;
+
+  const updateQuery = `UPDATE ${SCHEDULE} SET TITLE = ${TITLE} DESCRIPTION = ${DESCRIPTION} TAG_COLOR = ${TAG_COLOR} TARGET_TIME = ${TARGET_TIME} TARGET_CITY = ${TARGET_CITY} TARGET_DAY = ${TARGET_DAY} CUR_TIME = ${CUR_TIME} CUR_CITY = ${CUR_CITY} CUR_DAY = ${CUR_DAY} DAY_OF_WEEK = ${DAY_OF_WEEK} IS_ACTIVE = ${IS_ACTIVE} WHERE key = ${key}`;
+  await db.executeSql(updateQuery);
+};
+
 export const getAllSchedule = async (db: SQLiteDatabase) => {
   try {
     const scheduleItems: Array<IScheduleProps> = [];
