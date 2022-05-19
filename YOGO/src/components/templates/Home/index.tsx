@@ -55,6 +55,8 @@ export function Home({ navigation }: { navigation: Prop }) {
 
       const items = await getScheduleItems(db, dayOfWeek, selectedDay);
       setSchedules(items);
+
+      console.log(items);
     } catch (e) {
       console.error(e);
     }

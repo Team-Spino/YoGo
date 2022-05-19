@@ -83,6 +83,7 @@ export function AgendaBox({
             <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
             <SwipeContent
               data={filteredSchedule}
+              selectedDay={selectedDay}
               onDeleteTarget={onDeleteTarget}
               onEditTarget={onEditTarget}
             />

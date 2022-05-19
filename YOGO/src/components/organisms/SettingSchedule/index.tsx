@@ -276,21 +276,27 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
         }
       }
 
-      const key = await insertSchedule({ formState });
+      if (title === 'Add') {
+        const key = await insertSchedule({ formState });
 
-      if (key) {
-        makeNotification({
-          key,
-          title: inputs.title,
-          description: inputs.description,
-          date: alartDate as string,
-          dayOfWeek: dayOfWeek
-            .filter(day => day.isSelected)
-            .map(day => day.name),
-        });
-        setPop(true);
+        if (key) {
+          makeNotification({
+            key,
+            title: inputs.title,
+            description: inputs.description,
+            date: alartDate as string,
+            dayOfWeek: dayOfWeek
+              .filter(day => day.isSelected)
+              .map(day => day.name),
+          });
+          setPop(true);
+        }
+        navigation.pop();
       }
-      navigation.pop();
+
+      if (title === 'Edit') {
+        console.log('쉬바');
+      }
     }
   };
 

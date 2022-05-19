@@ -19,7 +19,6 @@ export function DetailModal({
   schedule,
 }: IDetailModalProps) {
   const {
-    ID,
     TITLE,
     DESCRIPTION,
     TAG_COLOR,
@@ -29,7 +28,6 @@ export function DetailModal({
     CUR_TIME,
     CUR_CITY,
     CUR_DAY,
-    DAY_OF_WEEK,
   } = schedule;
 
   const { getLeftTimeFromNow } = useTimeZone();
@@ -54,6 +52,8 @@ export function DetailModal({
     target,
     cur,
   };
+
+  console.log(`upperSelected: ${selectedDay}`);
 
   return (
     <Modal
