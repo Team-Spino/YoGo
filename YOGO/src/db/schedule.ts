@@ -116,20 +116,21 @@ export const updateScheduleItemActive = async (
 export const updateAllSchedule = async (db: SQLiteDatabase, schedule: any) => {
   const {
     key,
-    TITLE,
-    DESCRIPTION,
-    TAG_COLOR,
-    TARGET_TIME,
-    TARGET_CITY,
-    TARGET_DAY,
-    CUR_TIME,
-    CUR_CITY,
-    CUR_DAY,
-    DAY_OF_WEEK,
-    IS_ACTIVE,
+    title,
+    description,
+    tagColor,
+    targetTime,
+    targetCity,
+    targetDay,
+    curTime,
+    curCity,
+    curDay,
+    dayOfWeek,
+    isActive,
   } = schedule;
 
-  const updateQuery = `UPDATE ${SCHEDULE} SET TITLE = ${TITLE} DESCRIPTION = ${DESCRIPTION} TAG_COLOR = ${TAG_COLOR} TARGET_TIME = ${TARGET_TIME} TARGET_CITY = ${TARGET_CITY} TARGET_DAY = ${TARGET_DAY} CUR_TIME = ${CUR_TIME} CUR_CITY = ${CUR_CITY} CUR_DAY = ${CUR_DAY} DAY_OF_WEEK = ${DAY_OF_WEEK} IS_ACTIVE = ${IS_ACTIVE} WHERE key = ${key}`;
+  const updateQuery = `UPDATE ${SCHEDULE} SET TITLE = '${title}', DESCRIPTION = '${description}', TAG_COLOR = '${tagColor}', TARGET_TIME = '${targetTime}', TARGET_CITY = '${targetCity}', TARGET_DAY = '${targetDay}', CUR_TIME = '${curTime}', CUR_CITY = '${curCity}', CUR_DAY = '${curDay}', DAY_OF_WEEK = '${dayOfWeek}', IS_ACTIVE = ${isActive}  WHERE key = ${key}`;
+
   await db.executeSql(updateQuery);
 };
 

@@ -161,5 +161,5 @@ export function useNotification() {
     });
   };
 
-  return { makeNotification, handleScheduleToggle };
+  return { makeNotification, deleteAllNotification, handleScheduleToggle };
 }

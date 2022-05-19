@@ -25,10 +25,9 @@ import {
   keyType,
 } from 'types';
 import { useNotification } from 'hooks';
-import { connectDB, insertScheduleItem } from 'db';
+import { connectDB, insertScheduleItem, updateAllSchedule } from 'db';
 import { PopContext } from 'context';
 import * as S from './style';
-import { totalmem } from 'os';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -70,6 +69,7 @@ const getInitialProps = ({ title, key, item }: IGetInitialProps) => {
   } else if (title === 'Add' && key === 'TARGET_TIME') return new Date();
   else if (title === 'Add' && key === 'TARGET_DAY')
     return new Date(item[key] as Date);
+
   // Day of week
   if (title === 'Edit' && key === 'DAY_OF_WEEK') {
     const selDayOfWeek = JSON.parse(item[key] as string);
@@ -82,8 +82,6 @@ const getInitialProps = ({ title, key, item }: IGetInitialProps) => {
 
 export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
   const { title, item } = route.params;
-
-  console.log(item);
 
   const initialState = {
     title: getInitialProps({ title, key: 'TITLE', item }) as string,
@@ -103,8 +101,6 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
       item,
     }) as Array<IDayOfWeekProps>,
   };
-
-  console.log(initialState);
 
   const [inputs, setInputs] = useState({
     title: initialState.title,
@@ -132,7 +128,7 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
 
   const { setPop } = useContext(PopContext);
 
-  const { makeNotification } = useNotification();
+  const { makeNotification, deleteAllNotification } = useNotification();
 
   const handleChange =
     (name: string) => (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
@@ -224,7 +220,16 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
       const db = await connectDB();
       return (await insertScheduleItem(db, formState)) as number;
     } catch (e) {
-      console.log(e);
+      console.error(e);
+    }
+  };
+
+  const editSchedule = async ({ formState }: { formState: any }) => {
+    try {
+      const db = await connectDB();
+      await updateAllSchedule(db, { ...formState, key: item.key, isActive: 1 });
+    } catch (e) {
+      console.error(e);
     }
   };
 
@@ -289,15 +294,27 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
               .filter(day => day.isSelected)
               .map(day => day.name),
           });
-          setPop(true);
         }
-        navigation.pop();
       }
 
       if (title === 'Edit') {
-        console.log('쉬바');
+        editSchedule({ formState });
+
+        await deleteAllNotification({ number: item.key as number });
+        await makeNotification({
+          key: item.key as number,
+          title: inputs.title,
+          description: inputs.description,
+          date: alartDate as string,
+          dayOfWeek: dayOfWeek
+            .filter(day => day.isSelected)
+            .map(day => day.name),
+        });
       }
     }
+
+    setPop(true);
+    navigation.pop();
   };
 
   return (
