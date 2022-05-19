@@ -11,10 +11,10 @@ import {
   getDateAndDayOfWeek,
   getScheduleItems,
 } from 'db';
-
+import { ONE_DAY } from 'utils';
 import { PopContext } from 'context';
 import * as S from './style';
-import { ONE_DAY } from 'utils';
+
 
 type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
 
@@ -97,17 +97,6 @@ export function Home({ navigation }: { navigation: Prop }) {
     }, {});
   }
 
-  const makeMarkedDates = useCallback((dateList : string[]) => {
-    let markedDates = {};
-    dateList.forEach((day: string) => {
-      markedDates = {
-        ...markedDates,
-        ...{ [day]: { marked: true } },
-      };
-    });
-    setMarkedDate(markedDates);
-  }, [])
-
   const makeWeekList = (rowWeek : object) => {
     const weekLiteral = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const today = dayjs(selectedDay).format('ddd');
@@ -122,6 +111,18 @@ export function Home({ navigation }: { navigation: Prop }) {
     }
     return weekList
   }
+
+  const makeMarkedDates = useCallback((dateList : string[]) => {
+    let markedDates = {};
+    dateList.forEach((day: string) => {
+      markedDates = {
+        ...markedDates,
+        ...{ [day]: { marked: true } },
+      };
+    });
+    setMarkedDate(markedDates);
+  }, [])
+
 
   useEffect(() => {
     initDB();
