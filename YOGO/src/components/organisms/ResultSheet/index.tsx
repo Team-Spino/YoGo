@@ -19,7 +19,6 @@ interface IResultBSProps {
 export function ResultSheet({ onPress, submitObject }: IResultBSProps) {
   const { TARGET_CITY: tarCity, TARGET_DAY: tarDate } = submitObject;
 
-  console.log(submitObject);
   const { getAlarmTime, formatTime } = useTimeZone();
 
   const { locateCity, time } = getAlarmTime({

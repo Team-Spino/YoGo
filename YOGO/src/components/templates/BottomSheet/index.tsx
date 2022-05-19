@@ -46,7 +46,7 @@ export const BottomSheet = ({
     closeBottomSheet();
     navigation.push('HandleSchedule', {
       title: 'Add',
-      item: { TARGET_CITY, TARGET_DAY },
+      item: { TARGET_CITY, TARGET_DAY, isFromBottomSheet: true } as IMakeProps,
     });
   };
 
