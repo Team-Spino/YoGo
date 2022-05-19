@@ -12,13 +12,14 @@ import { useTimeZone } from 'hooks';
 import * as S from './style';
 
 interface IResultBSProps {
-  onPress: (submitObject : IMakeProps) => void;
-  submitObject : IMakeProps;
+  onPress: (submitObject: IMakeProps) => void;
+  submitObject: IMakeProps;
 }
 
-export const ResultSheet = ({ onPress, submitObject }: IResultBSProps) => {
-  const { city :tarCity , date : tarDate } = submitObject;
+export function ResultSheet({ onPress, submitObject }: IResultBSProps) {
+  const { TARGET_CITY: tarCity, TARGET_DAY: tarDate } = submitObject;
 
+  console.log(submitObject);
   const { getAlarmTime, formatTime } = useTimeZone();
 
   const { locateCity, time } = getAlarmTime({
@@ -27,9 +28,13 @@ export const ResultSheet = ({ onPress, submitObject }: IResultBSProps) => {
   });
 
   const tarDateFormat = dayjs(tarDate).format('YYYY-MM-DD');
-  const [curDate, _ ] = time.split(' ');
-  const { time : curTime , meridiem : curMeridiem} =  formatTime({ targetTime: time });
-  const { time : tarTime , meridiem : tarMeridiem} =  formatTime({ targetTime: tarDate });
+  const [curDate, _] = time.split(' ');
+  const { time: curTime, meridiem: curMeridiem } = formatTime({
+    targetTime: time,
+  });
+  const { time: tarTime, meridiem: tarMeridiem } = formatTime({
+    targetTime: tarDate,
+  });
 
   return (
     <S.ResultBox>
@@ -42,10 +47,24 @@ export const ResultSheet = ({ onPress, submitObject }: IResultBSProps) => {
         <IconAbsolute>
           <IconWorld />
         </IconAbsolute>
-        <ResultCard city={locateCity} date={curDate} time={curTime} meridiem={curMeridiem} />
-        <ResultCard city={tarCity.split('/').at(-1)} date={tarDateFormat} time={tarTime} meridiem={tarMeridiem}/>
+        <ResultCard
+          city={locateCity}
+          date={curDate}
+          time={curTime}
+          meridiem={curMeridiem}
+        />
+        <ResultCard
+          city={tarCity.split('/').at(-1)}
+          date={tarDateFormat}
+          time={tarTime}
+          meridiem={tarMeridiem}
+        />
       </S.Inner>
-      <BottomSheetBtn text={'Make'} onPress={()=>onPress(submitObject)} isRevers={true} />
+      <BottomSheetBtn
+        text={'Make'}
+        onPress={() => onPress(submitObject)}
+        isRevers={true}
+      />
     </S.ResultBox>
   );
-};
+}

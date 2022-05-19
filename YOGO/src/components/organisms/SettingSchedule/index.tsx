@@ -26,8 +26,8 @@ import * as S from './style';
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-export function SettingSchedule({ navigation , route}: IHandelScheduleProps) {
-
+export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
+  console.log(route.params);
   const [inputs, setInputs] = useState({
     title: '',
     description: '',
