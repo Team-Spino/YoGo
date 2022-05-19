@@ -53,8 +53,6 @@ export function DetailModal({
     cur,
   };
 
-  console.log(`upperSelected: ${selectedDay}`);
-
   return (
     <Modal
       isVisible={isVisible}
