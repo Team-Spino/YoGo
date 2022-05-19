@@ -58,8 +58,8 @@ export function Home({ navigation }: { navigation: Prop }) {
 
       const dateAndDayOfWeek = await getDateAndDayOfWeek(db)
       const {dateList, week} = dividDateAndDayOfWeek(dateAndDayOfWeek)
-      console.log('성공!', dateList, week)
-      makeMarkedDates(dateList);
+      const weekList = makeWeekList(week)
+      makeMarkedDates([...dateList, ...weekList]);
       setSchedules(items);
     } catch (e) {
       console.error(e);
@@ -99,12 +99,26 @@ export function Home({ navigation }: { navigation: Prop }) {
       };
     });
     setMarkedDate(markedDates);
-    console.log(markedDates)
+  }
+
+  const makeWeekList = (week : object) => {
+    const weekLiteral = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const today = dayjs(selectedDay).format('ddd');
+    const oneDay = 86400
+    let weekList = []
+    for (const [key, value] of Object.entries(week)) {
+      let diff = weekLiteral.indexOf(key) - weekLiteral.indexOf(today)
+      let diffTimeStamp = diff * oneDay
+      let date = dayjs(selectedDay).add(diffTimeStamp, 'second').format('YYYY-MM-DD')
+    for(let i = 0; i < 360; i+=7){
+      weekList.push(dayjs(date).add(oneDay * i, 'second').format('YYYY-MM-DD'))
+      }
+    }
+    return weekList
   }
 
   useEffect(() => {
     initDB();
-
     setPop(false);
   }, [selectedDay, setSelectedDay, isPoped, setPop]);
 
