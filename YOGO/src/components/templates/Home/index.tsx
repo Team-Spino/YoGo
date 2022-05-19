@@ -2,20 +2,19 @@ import React, { useEffect, useState, useContext, useCallback } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import dayjs from 'dayjs';
 import { FloatingButton, AgendaBox } from 'components';
-import { DUMMY_DATA } from 'utils';
 import { IconPlus } from 'assets';
 import { RootStackParamList, IScheduleProps } from 'types';
 import {
   connectDB,
   createScheduleTable,
   deleteScheduleItem,
-  dropScheduleTable,
   getDateAndDayOfWeek,
   getScheduleItems,
 } from 'db';
 
 import { PopContext } from 'context';
 import * as S from './style';
+import { ONE_DAY } from 'utils';
 
 type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
 
@@ -112,14 +111,13 @@ export function Home({ navigation }: { navigation: Prop }) {
   const makeWeekList = (rowWeek : object) => {
     const weekLiteral = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const today = dayjs(selectedDay).format('ddd');
-    const oneDay = 86400
     let weekList = []
     for (const [key, value] of Object.entries(rowWeek)) {
       let diff = weekLiteral.indexOf(key) - weekLiteral.indexOf(today)
-      let diffTimeStamp = diff * oneDay
+      let diffTimeStamp = diff * ONE_DAY
       let date = dayjs(selectedDay).add(diffTimeStamp, 'second').format('YYYY-MM-DD')
     for(let i = 0; i < 360; i+=7){
-      weekList.push(dayjs(date).add(oneDay * i, 'second').format('YYYY-MM-DD'))
+      weekList.push(dayjs(date).add(ONE_DAY * i, 'second').format('YYYY-MM-DD'))
       }
     }
     return weekList

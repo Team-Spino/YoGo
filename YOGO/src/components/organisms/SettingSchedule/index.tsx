@@ -16,7 +16,7 @@ import {
   SetCityAndDate,
   Button,
 } from 'components';
-import { DAY_OF_WEEK, DUMMY_DATA_CITY, TAG_COLOR } from 'utils';
+import { DAY_OF_WEEK, TZ_DATA_BASES , TAG_COLOR } from 'utils';
 import { ITagListProps, IDayOfWeekProps, IHandelScheduleProps } from 'types';
 import { useNotification } from 'hooks';
 import { connectDB, insertScheduleItem } from 'db';
@@ -98,7 +98,7 @@ export function SettingSchedule({ navigation , route}: IHandelScheduleProps) {
     );
   };
 
-  const targetList = DUMMY_DATA_CITY.filter(item =>
+  const targetList = TZ_DATA_BASES .filter(item =>
     item.city.toUpperCase().includes(city.toUpperCase()),
   );
 
