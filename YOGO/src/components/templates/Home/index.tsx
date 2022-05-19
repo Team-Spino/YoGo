@@ -55,25 +55,56 @@ export function Home({ navigation }: { navigation: Prop }) {
       });
 
       const items = await getScheduleItems(db, dayOfWeek, selectedDay);
+
+      const dateAndDayOfWeek = await getDateAndDayOfWeek(db)
+      const {dateList, week} = dividDateAndDayOfWeek(dateAndDayOfWeek)
+      console.log('성공!', dateList, week)
+      makeMarkedDates(dateList);
       setSchedules(items);
-      const temp = await getDateAndDayOfWeek(db)
-      console.log("date확인쓰", temp)
     } catch (e) {
       console.error(e);
     }
   };
 
-  useEffect(() => {
-    initDB();
+  const dividDateAndDayOfWeek = (dateAndDayOfWeek : any) => {
+    const checkYYMMDD = /\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])/;
+    const removeSpecial= /[\{\}\[\]\/?.;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi
+    const dateList: string[] = []
+    const dayOfWeekList: string[] = []
+
+    dateAndDayOfWeek.forEach((item: any) => {
+      const isDate = checkYYMMDD.exec(item.result);
+      if(isDate){
+        return dateList.push(item.result)
+      }
+      return item.result.replace(removeSpecial,'').split(',').map((el: any) => dayOfWeekList.push(el))
+    })
+    const week = countDayOfWeek(dayOfWeekList)
+    return { dateList, week }
+  }
+
+  const countDayOfWeek = (dayOfWeekList : any) => {
+    return dayOfWeekList.reduce((accu, curr) => { 
+      accu[curr] = (accu[curr] || 0)+1; 
+      return accu;
+    }, {});
+  }
+
+  const makeMarkedDates = (dateList : any) => {
     let markedDates = {};
-    DUMMY_DATA.forEach(({ cur }) => {
+    dateList.forEach((day) => {
       markedDates = {
         ...markedDates,
-        ...{ [cur.day]: { marked: true } },
+        ...{ [day]: { marked: true } },
       };
     });
-
     setMarkedDate(markedDates);
+    console.log(markedDates)
+  }
+
+  useEffect(() => {
+    initDB();
+
     setPop(false);
   }, [selectedDay, setSelectedDay, isPoped, setPop]);
 
