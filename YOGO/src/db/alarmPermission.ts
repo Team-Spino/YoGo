@@ -35,11 +35,21 @@ export const getAlarmPermission = async (db: SQLiteDatabase) => {
 
     const results = await db.executeSql(query);
 
-    return results;
+    console.log(results[0]);
+
+    return results[0].rows.length ? results[0].rows.item(0) : false;
   } catch (e) {
     console.error(e);
     throw Error('Error in getAlarmPermission');
   }
+};
+
+export const deleteAlarmPermission = async (db: SQLiteDatabase) => {
+  const query = `
+        DELETE FROM ${ALARM_PERMISSION} WHERE key = 1
+        `;
+
+  await db.executeSql(query);
 };
 
 export const updateAlarmPermission = async (

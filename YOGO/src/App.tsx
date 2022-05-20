@@ -11,6 +11,7 @@ import {
   inesertAlarmPermission,
   getAlarmPermission,
   updateAlarmPermission,
+  deleteAlarmPermission,
 } from 'db';
 import { theme } from 'styles/theme';
 import { PopProvider } from 'context';
@@ -18,16 +19,37 @@ import { PopProvider } from 'context';
 const Stack = createNativeStackNavigator();
 
 function App() {
-  useEffect(() => {
-    PushNotificationIOS.requestPermissions();
+  const notificationLogic = async () => {
+    await PushNotificationIOS.requestPermissions();
 
     PushNotificationIOS.checkPermissions(async info => {
-      if (!info.notificationCenter) {
-        Alert.alert('React native', 'Please use Notification', [
+      const db = await connectDB();
+
+      await createAlarmPermissionTable(db);
+
+      const permission = await getAlarmPermission(db);
+
+      // 알람이 허가되었고, db에 반영되지 않았을 때
+      if (info.notificationCenter && !permission) {
+        await inesertAlarmPermission(db, 1);
+        return;
+      }
+
+      // 알람이 허가 되었고, db에 isAgree가 0일때 -> db에 업데이트
+      if (info.notificationCenter && !permission.IS_AGREE) {
+        await updateAlarmPermission(db, 1);
+      }
+
+      // 알람이 허가되었고, db에 active 되었을 때
+      if (info.notificationCenter && permission.IS_AGREE) return;
+
+      // 알람이 허가되지 않았고, db에 반영되지 않았을 때
+      if (!info.notificationCenter && !permission) {
+        Alert.alert('YOGO', 'Please use Notification', [
           {
             text: 'Cancel',
-            onPress: () => {
-              console.log('Cancel Pressed');
+            onPress: async () => {
+              await inesertAlarmPermission(db, 0);
             },
             style: 'cancel',
           },
@@ -38,8 +60,13 @@ function App() {
             },
           },
         ]);
+
+        return;
       }
     });
+  };
+  useEffect(() => {
+    notificationLogic();
   }, []);
 
   return (
