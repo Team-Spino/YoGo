@@ -62,32 +62,34 @@ export function AgendaBox({
       // 임시용
       renderEmptyData={() => {
         return (
+          <>
+          <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
           <View
             style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
           >
             <Text>This is empty date!</Text>
           </View>
+          </>
         );
       }}
       // 날짜 가리기
       renderDay={(day, item) => {
         return <View style={{ display: 'none' }} />;
       }}
-      renderItem={({schedules})=>{
+      renderItem={()=>{
         return (
         <>
-        <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
-        <SwipeContent data= {filteredSchedule} onDeleteTarget={onDeleteTarget} onEditTarget ={onEditTarget} />
+          <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
+          <SwipeContent data= {filteredSchedule} onDeleteTarget={onDeleteTarget} onEditTarget ={onEditTarget} selectedDay={selectedDay}/>
         </>
         )
       }}
-      minDate={dayjs(selectedDay).add(-ONE_DAY, 'second').format('YYYY-MM-DD')}
+      minDate={dayjs().add(-ONE_DAY, 'second').format('YYYY-MM-DD')}
       selected={selectedDay}
       pastScrollRange={1}
       futureScrollRange={12}
       markedDates={{ ...markedDates }}
-      // 임시용
-      onRefresh={() => console.log('refreshing...')}
+      refreshing={false}
       showClosingKnob={true}
       theme={{
         dotColor: '#6564CC',
@@ -95,6 +97,7 @@ export function AgendaBox({
         selectedDayBackgroundColor: '#6564CC',
         todayTextColor: '#6564CC',
       }}
+      style={{}}
     />
   );
 }

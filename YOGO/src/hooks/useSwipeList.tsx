@@ -32,6 +32,7 @@ interface IuseSwipeListProps {
  */
 
 export function useSwipeList({ listData, rowBackValue, onDeleteTarget} : IuseSwipeListProps) {
+  
     /**
      * list만큼 배열을 만들고 해당하는 key 값에 맞는 animated.vlaue를 만듭니다.
      */

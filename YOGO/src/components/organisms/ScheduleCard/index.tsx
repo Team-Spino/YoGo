@@ -13,8 +13,6 @@ import * as S from './style';
 interface IScheduleCardProps {
   schedule: IScheduleProps;
   selectedDay: string;
-  onDeleteTarget: (id: number) => Promise<void>;
-  onEditTarget: (item: IScheduleProps) => void;
 }
 
 export function ScheduleCard({ schedule, selectedDay }: IScheduleCardProps) {
