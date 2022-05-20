@@ -14,3 +14,4 @@ export { IconMoon } from 'assets/icons/IconMoon';
 
 // Images
 export { ImgOnBoarding1 } from 'assets/images/ImgOnBoarding1';
+export { ImgOnBoarding1Text } from 'assets/images/ImgOnBoarding1Text';
