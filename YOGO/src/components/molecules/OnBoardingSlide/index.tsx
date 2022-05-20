@@ -1,28 +1,27 @@
 import React from 'react';
 import * as S from './style';
-import { BottomSheetBtn } from 'components';
+import { BottomSheetBtn, OnBoardingtBtn } from 'components';
 
 interface ImgOnBoardingSlideProps {
   mainImg: React.ReactNode;
   typography: React.ReactNode;
   text: string;
-  btnText: string;
-  isEnd?: boolean;
+  onSKipePress: () => void;
+  onNextPress: () => void;
 }
 
-export const OnBoardingSlide = ({ mainImg, typography ,text, btnText, isEnd } : ImgOnBoardingSlideProps) => {
+export const OnBoardingSlide = ({ mainImg, typography ,text, onSKipePress, onNextPress } : ImgOnBoardingSlideProps) =>{
   return (
     <S.Container>
       <S.MainImg>
       { mainImg }
       </S.MainImg>
-      <S.Content isEnd={isEnd}>
+      <S.Content>
         { typography }
        <S.Text>{ text }</S.Text>
       </S.Content>
-      <BottomSheetBtn text={btnText} isRevers={true} onPress={function (): void {
-        throw new Error('Function not implemented.');
-      } } />
+      <OnBoardingtBtn text={'Skip'} isSkip={true} onPress={()=>onSKipePress()} />
+      <OnBoardingtBtn text={'Next'} isSkip={false} onPress={()=>onNextPress()} />
     </S.Container>
   );
 }

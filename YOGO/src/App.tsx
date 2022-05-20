@@ -47,7 +47,7 @@ useEffect(() => {
       <PopProvider>
         <IsFirstProvider>
         <ThemeProvider theme={theme}>
-          <Stack.Navigator initialRouteName={`${isFrist ? 'OnBoarding' : 'Main'}`}>
+          <Stack.Navigator initialRouteName={`${!isFrist ? 'OnBoarding' : 'Main'}`}>
             <Stack.Screen
               name="Main"
               component={Main}

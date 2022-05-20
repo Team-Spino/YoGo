@@ -8,7 +8,7 @@ import { IsFirstContext } from 'context'
 
 const styles = StyleSheet.create({
     dot:{
-        bottom: 45,
+        bottom: '7%',
     },
     arrow:{
       color: '#fff',
@@ -19,16 +19,20 @@ const styles = StyleSheet.create({
 
 export function OnBoardingSwiper(){
   const { setFirst } = useContext(IsFirstContext);
+  const swiperRef = useRef();
 
-  
     return (
         <Swiper style={styles.wrapper} showsButtons={false} dotStyle={styles.dot} activeDotStyle={styles.dot} activeDotColor={'#ffffff'} loop={false}
-        >
+        ref={swiperRef} index={0}>
           <OnBoardingSlide 
             mainImg={<ImgOnBoarding1 />} 
             typography={<ImgOnBoarding1Text />} 
             text={'Make to easy set up different timezones meetings'} 
-            btnText={'Continue'} />
+            btnText={'Next'}
+            onPress={() => {
+              swiperRef.current.scrollTo(1,true)
+            }}
+            />
          <OnBoardingSlide 
             mainImg={<Image style={{
               width: '100%',
@@ -38,7 +42,11 @@ export function OnBoardingSwiper(){
               source={ImgOnBoarding2}/>} 
             typography={<ImgOnBoarding2Text />} 
             text={'Make to easy set up different timezones meetings'} 
-            btnText={'SKIP'} />
+            btnText={'SKIP'}
+            onPress={() => {
+              swiperRef.current.scrollTo(5,true)
+            }}
+            />
           <OnBoardingSlide 
             mainImg={<Image style={{
               width: '100%',
@@ -48,7 +56,11 @@ export function OnBoardingSwiper(){
               source={ImgOnBoarding3}/>} 
             typography={<ImgOnBoarding2Text />} 
             text={'Make to easy set up different timezones meetings'} 
-            btnText={'SKIP'} />
+            btnText={'SKIP'}
+            onPress={() => {
+              swiperRef.current.scrollTo(5,true)
+            }}
+            />
           <OnBoardingSlide 
             mainImg={<Image style={{
               width: '95%',
@@ -58,18 +70,31 @@ export function OnBoardingSwiper(){
               source={ImgOnBoarding4}/>} 
             typography={<ImgOnBoarding4Text />} 
             text={'Make to easy set up different timezones meetings'} 
-            btnText={'SKIP'} />
+            btnText={'SKIP'}
+            onPress={() => {
+              swiperRef.current.scrollTo(5,true)
+            }}
+            />
           <OnBoardingSlide 
+            isEnd={true}
+            mainImg={<ImgOnBoarding5 />} 
+            typography={<ImgOnBoarding5Text />} 
+            text={'Make to easy set up different timezones meetings'} 
+            btnText={'SKIP'} 
+            onPress={() => {
+              swiperRef.current.scrollTo(5,true)
+            }}
+            />
+               <OnBoardingSlide 
             isEnd={true}
             mainImg={<ImgOnBoarding5 />} 
             typography={<ImgOnBoarding5Text />} 
             text={'Make to easy set up different timezones meetings'} 
             btnText={'Get Started'} 
             onPress={() => {
-              setFirst(false);
+              setFirst(true);
             }}
             />
-         
       </Swiper>
     )
   }
