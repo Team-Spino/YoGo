@@ -15,6 +15,7 @@ export {
   updateScheduleItemActive,
   updateAllSchedule,
   getAllSchedule,
+  getDateAndDayOfWeek,
 } from 'db/schedule';
 
 export { connectDB } from 'db/connectDB';

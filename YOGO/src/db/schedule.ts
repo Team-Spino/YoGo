@@ -155,3 +155,25 @@ export const getAllSchedule = async (db: SQLiteDatabase) => {
     throw Error('Error in getScheduleItems');
   }
 };
+
+export const getDateAndDayOfWeek = async (db: SQLiteDatabase) => {
+  try {
+    const dateAndDayOfWeek: any[] = [];
+    const query = `
+      SELECT case when(DAY_OF_WEEK = '[]') then ${SCHEDULE}.CUR_DAY else ${SCHEDULE}.DAY_OF_WEEK end AS result FROM ${SCHEDULE}
+    `;
+
+    const results = await db.executeSql(query);
+
+    results.forEach(result => {
+      for (let index = 0; index < result.rows.length; index++) {
+        dateAndDayOfWeek.push(result.rows.item(index));
+      }
+    });
+
+    return dateAndDayOfWeek;
+  } catch (e: unknown) {
+    console.error(e);
+    throw Error('Error in getScheduleItems');
+  }
+};

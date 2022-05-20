@@ -1,11 +1,12 @@
 import React from 'react';
-import { SwipeRow } from 'react-native-swipe-list-view';
+import { SwipeListView } from 'react-native-swipe-list-view';
 import uuid from 'react-native-uuid';
 import { HiddenEditAndDelete, ScheduleCard } from 'components';
 import { useSwipeList } from 'hooks';
 import { IScheduleProps } from 'types';
 import { WINDOW_WIDTH } from 'styles';
 import * as S from './style';
+import { Animated } from 'react-native';
 
 interface ISwipeContentProps {
   data: IScheduleProps[];
@@ -14,36 +15,32 @@ interface ISwipeContentProps {
   onEditTarget: (item: IScheduleProps) => void;
 }
 
-export const SwipeContent = ({
-  data,
-  selectedDay,
-  onDeleteTarget,
-  onEditTarget,
-}: ISwipeContentProps) => {
-  const { deleteRow } = useSwipeList({
-    listData: data,
-    rowBackValue: WINDOW_WIDTH * 0.3,
-    onDeleteTarget,
-  });
+export const SwipeContent = ({data,  onDeleteTarget, onEditTarget, selectedDay } : ISwipeContentProps) => {
+
+  const {deleteRow} = useSwipeList({listData : data , rowBackValue: WINDOW_WIDTH*0.3, onDeleteTarget});
+
+  const renderItem = ({item} : any) => (
+      <S.Container>
+        <ScheduleCard key={item.key} schedule={item} selectedDay={selectedDay} />
+      </S.Container>
+    );
+
 
   return (
     <S.Inner>
-      {data.map((schedule: IScheduleProps, idx: number) => (
-        <S.Container key={idx}>
-          <SwipeRow disableRightSwipe rightOpenValue={-WINDOW_WIDTH * 0.3}>
-            <HiddenEditAndDelete
-              item={schedule}
-              onPressDelete={deleteRow}
-              onPressEdit={onEditTarget}
-            />
-            <ScheduleCard
-              key={uuid.v4()}
-              schedule={schedule}
-              selectedDay={selectedDay}
-            />
-          </SwipeRow>
-        </S.Container>
-      ))}
-    </S.Inner>
+      <SwipeListView
+          disableRightSwipe
+          data={data}
+          rightOpenValue={-WINDOW_WIDTH * 0.3}
+          renderItem={renderItem}
+          renderHiddenItem={({item})=> (
+                <HiddenEditAndDelete
+                  item={item}
+                  onPressDelete={deleteRow}
+                  onPressEdit={onEditTarget}
+                  />
+                )}
+        />
+      </S.Inner>
   );
 };

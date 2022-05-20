@@ -27,7 +27,6 @@ interface IuseSwipeListProps {
  * @param setListData 리스트 데이터를 업데이트 해줄 함수
  * @returns
  */
-
 export function useSwipeList({
   listData,
   rowBackValue,
