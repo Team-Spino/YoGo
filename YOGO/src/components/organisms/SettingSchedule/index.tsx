@@ -311,10 +311,9 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
             .map(day => day.name),
         });
       }
+      setPop(true);
+      navigation.pop();
     }
-
-    setPop(true);
-    navigation.pop();
   };
 
   return (

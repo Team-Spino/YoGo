@@ -92,7 +92,6 @@ export function useTimeZone() {
     const millisec = dayjs(date).valueOf() + diff * 3600000;
     const time = dayjs(millisec).format('YYYY-MM-DD HH:mm');
     const isPastFormNow = dayjs(time).isBefore(dayjs(currentTime));
-
     return {
       time,
       locateCity: currentCity.split('/').at(-1),
