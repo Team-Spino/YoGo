@@ -20,7 +20,7 @@ export function AgendaBox({
   markedDates,
   onDayPress,
   onDeleteTarget,
-  onEditTarget
+  onEditTarget,
 }: IAgendaProps) {
   const [selectedTag, setSelectedTag] =
     useState<Array<ITagFilter>>(TAG_FILTER_COLOR);
@@ -73,7 +73,7 @@ export function AgendaBox({
         );
       }}
       // 날짜 가리기
-      renderDay={(day, item) => {
+      renderDay={() => {
         return <View style={{ display: 'none' }} />;
       }}
       renderItem={()=>{

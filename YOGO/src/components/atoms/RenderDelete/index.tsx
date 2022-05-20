@@ -4,11 +4,11 @@ import { IconDelete } from 'assets';
 import * as S from './style';
 
 interface IRenderDeleteProps {
-  item: ICityProps | IScheduleProps
+  item: ICityProps | IScheduleProps;
   onPress: (rowKey: string | number) => void;
 }
 
-export const RenderDelete = ({item, onPress} : IRenderDeleteProps) => {
+export const RenderDelete = ({ item, onPress }: IRenderDeleteProps) => {
   return (
     <S.RenderRightButton onPress={() => onPress(item.key)}
     >

@@ -4,7 +4,7 @@ import { Title, TextBtn, DatePicker } from 'components';
 import * as S from './style';
 
 interface IBTargetDateProps {
-  onChangeDate: (event: DateTimePickerEvent, date?: Date | undefined) => void;
+  onChangeDate: (event: DateTimePickerEvent, date: Date | undefined) => void;
   date: Date;
 }
 

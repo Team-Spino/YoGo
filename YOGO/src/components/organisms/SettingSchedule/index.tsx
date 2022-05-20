@@ -16,34 +16,111 @@ import {
   SetCityAndDate,
   Button,
 } from 'components';
-import { DAY_OF_WEEK, TZ_DATA_BASES , TAG_COLOR } from 'utils';
-import { ITagListProps, IDayOfWeekProps, IHandelScheduleProps } from 'types';
+import { DAY_OF_WEEK, TZ_DATA_BASES, TAG_COLOR } from 'utils';
+import {
+  ITagListProps,
+  IDayOfWeekProps,
+  IHandelScheduleProps,
+  IItemProps,
+  keyType,
+} from 'types';
 import { useNotification } from 'hooks';
-import { connectDB, insertScheduleItem } from 'db';
+import { connectDB, insertScheduleItem, updateAllSchedule } from 'db';
 import { PopContext } from 'context';
 import * as S from './style';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-export function SettingSchedule({ navigation , route}: IHandelScheduleProps) {
+interface IGetInitialProps {
+  title: string;
+  key: keyType;
+  item: IItemProps;
+}
+
+const getInitialProps = ({ title, key, item }: IGetInitialProps) => {
+  // Title, Description Edit or Add
+  if (
+    title === 'Edit' &&
+    (key === 'TITLE' || key === 'DESCRIPTION' || key === 'TARGET_CITY')
+  )
+    return item[key];
+  else if (title === 'Add' && key === 'TARGET_CITY' && item[key])
+    return item[key];
+  else if (
+    title === 'Add' &&
+    (key === 'TITLE' || key === 'DESCRIPTION' || key === 'TARGET_CITY')
+  )
+    return '';
+
+  // TagColor Edit
+  if (title === 'Edit' && key === 'TAG_COLOR' && item[key] === '#B5B5B9')
+    return TAG_COLOR;
+  else if (title === 'Edit' && key === 'TAG_COLOR' && item[key] !== '#B5B5B9')
+    return TAG_COLOR.map(tag => {
+      return tag.color === item[key] ? { ...tag, isSelected: true } : tag;
+    });
+  else if (title === 'Add' && key === 'TAG_COLOR') return TAG_COLOR;
+
+  // Target Time
+  if (title === 'Edit' && key === 'TARGET_TIME') {
+    const date = dayjs().format('YYYY-MM-DD');
+    return new Date(`${date} ${item[key]}`);
+  } else if (title === 'Add' && key === 'TARGET_TIME') return new Date();
+  else if (title === 'Add' && key === 'TARGET_DAY')
+    return new Date(item[key] as Date);
+
+  // Day of week
+  if (title === 'Edit' && key === 'DAY_OF_WEEK') {
+    const selDayOfWeek = JSON.parse(item[key] as string);
+
+    return DAY_OF_WEEK.map(day =>
+      selDayOfWeek.includes(day.name) ? { ...day, isSelected: true } : day,
+    );
+  } else if (title === 'Add' && key == 'DAY_OF_WEEK') return DAY_OF_WEEK;
+};
+
+export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
+  const { title, item } = route.params;
+
+  const initialState = {
+    title: getInitialProps({ title, key: 'TITLE', item }) as string,
+    description: getInitialProps({ title, key: 'DESCRIPTION', item }) as string,
+    tagColor: getInitialProps({
+      title,
+      key: 'TAG_COLOR',
+      item,
+    }) as Array<ITagListProps>,
+    city: getInitialProps({ title, key: 'TARGET_CITY', item }) as string,
+    date: item?.isFromBottomSheet
+      ? (getInitialProps({ title, key: 'TARGET_DAY', item }) as Date)
+      : (getInitialProps({ title, key: 'TARGET_TIME', item }) as Date),
+    dayOfWeek: getInitialProps({
+      title,
+      key: 'DAY_OF_WEEK',
+      item,
+    }) as Array<IDayOfWeekProps>,
+  };
 
   const [inputs, setInputs] = useState({
-    title: '',
-    description: '',
+    title: initialState.title,
+    description: initialState.description,
   });
 
-  const [tagList, setTagList] = useState<Array<ITagListProps>>(TAG_COLOR);
+  const [tagList, setTagList] = useState<Array<ITagListProps>>(
+    initialState.tagColor,
+  );
 
   const [isCitySelected, setIsCitySelected] = useState<boolean>(false);
 
-  const [city, setCity] = useState<string>('');
+  const [city, setCity] = useState<string>(initialState.city as string);
 
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState<Date>(initialState.date);
 
   const [alartDate, setAlartDate] = useState<string | null>(null);
-  const [dayOfWeek, setDayOfWeek] =
-    useState<Array<IDayOfWeekProps>>(DAY_OF_WEEK);
+  const [dayOfWeek, setDayOfWeek] = useState<Array<IDayOfWeekProps>>(
+    initialState.dayOfWeek,
+  );
 
   const [isTitleInputValid, setIsTitleInputValid] = useState(true);
 
@@ -51,7 +128,7 @@ export function SettingSchedule({ navigation , route}: IHandelScheduleProps) {
 
   const { setPop } = useContext(PopContext);
 
-  const { makeNotification } = useNotification();
+  const { makeNotification, deleteAllNotification } = useNotification();
 
   const handleChange =
     (name: string) => (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
@@ -143,7 +220,16 @@ export function SettingSchedule({ navigation , route}: IHandelScheduleProps) {
       const db = await connectDB();
       return (await insertScheduleItem(db, formState)) as number;
     } catch (e) {
-      console.log(e);
+      console.error(e);
+    }
+  };
+
+  const editSchedule = async ({ formState }: { formState: any }) => {
+    try {
+      const db = await connectDB();
+      await updateAllSchedule(db, { ...formState, key: item.key, isActive: 1 });
+    } catch (e) {
+      console.error(e);
     }
   };
 
@@ -195,11 +281,28 @@ export function SettingSchedule({ navigation , route}: IHandelScheduleProps) {
         }
       }
 
-      const key = await insertSchedule({ formState });
+      if (title === 'Add') {
+        const key = await insertSchedule({ formState });
 
-      if (key) {
-        makeNotification({
-          key,
+        if (key) {
+          makeNotification({
+            key,
+            title: inputs.title,
+            description: inputs.description,
+            date: alartDate as string,
+            dayOfWeek: dayOfWeek
+              .filter(day => day.isSelected)
+              .map(day => day.name),
+          });
+        }
+      }
+
+      if (title === 'Edit') {
+        editSchedule({ formState });
+
+        await deleteAllNotification({ number: item.key as number });
+        await makeNotification({
+          key: item.key as number,
           title: inputs.title,
           description: inputs.description,
           date: alartDate as string,
@@ -207,10 +310,11 @@ export function SettingSchedule({ navigation , route}: IHandelScheduleProps) {
             .filter(day => day.isSelected)
             .map(day => day.name),
         });
-        setPop(true);
       }
-      navigation.pop();
     }
+
+    setPop(true);
+    navigation.pop();
   };
 
   return (
