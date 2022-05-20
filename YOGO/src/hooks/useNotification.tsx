@@ -67,7 +67,8 @@ export function useNotification() {
       playSound: true,
       date: new Date(date),
       allowWhileIdle: true,
-      number: key,
+      number: 1,
+      userInfo: { key: key },
     };
 
     const repeatOptions = {
@@ -121,7 +122,8 @@ export function useNotification() {
         resolve(
           notifications
             .filter(notification => {
-              return notification.number === number;
+              console.log(notification);
+              return notification.data.key === number;
             })
             .map(notification => notification.id),
         );
@@ -133,6 +135,7 @@ export function useNotification() {
     const notifications = (await getTagetNumberNotifications({
       number,
     })) as Array<string>;
+    console.log(notifications);
     PushNotificationIOS.removePendingNotificationRequests(notifications);
   };
 
