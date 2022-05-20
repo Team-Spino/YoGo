@@ -21,6 +21,7 @@ const Stack = createNativeStackNavigator();
 function App() {
   const notificationLogic = async () => {
     await PushNotificationIOS.requestPermissions();
+    PushNotificationIOS.setApplicationIconBadgeNumber(0);
 
     PushNotificationIOS.checkPermissions(async info => {
       const db = await connectDB();
