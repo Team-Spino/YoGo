@@ -5,7 +5,7 @@ import { Text, View } from 'react-native';
 import { ScheduleCard, SwipeContent, TagFilterContainer } from 'components';
 import { IScheduleProps, ITagFilter } from 'types';
 import { TAG_FILTER_COLOR } from 'utils';
-import * as S from './style';
+
 interface IAgendaProps {
   schedules: Array<IScheduleProps>;
   selectedDay: string;
@@ -21,7 +21,7 @@ export function AgendaBox({
   markedDates,
   onDayPress,
   onDeleteTarget,
-  onEditTarget
+  onEditTarget,
 }: IAgendaProps) {
   const [selectedTag, setSelectedTag] =
     useState<Array<ITagFilter>>(TAG_FILTER_COLOR);
@@ -74,16 +74,21 @@ export function AgendaBox({
         );
       }}
       // 날짜 가리기
-      renderDay={(day, item) => {
+      renderDay={() => {
         return <View style={{ display: 'none' }} />;
       }}
-      renderItem={({schedules})=>{
+      renderItem={() => {
         return (
-        <>
-        <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
-        <SwipeContent data= {filteredSchedule} onDeleteTarget={onDeleteTarget} onEditTarget ={onEditTarget} />
-        </>
-        )
+          <>
+            <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
+            <SwipeContent
+              data={filteredSchedule}
+              selectedDay={selectedDay}
+              onDeleteTarget={onDeleteTarget}
+              onEditTarget={onEditTarget}
+            />
+          </>
+        );
       }}
       selected={selectedDay}
       markedDates={{ ...markedDates }}

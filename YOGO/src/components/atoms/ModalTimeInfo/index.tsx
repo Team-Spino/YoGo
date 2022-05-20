@@ -39,11 +39,14 @@ export function ModalTimeInfo({ timeData, selectedDay }: IModalTimeProps) {
   const { TARGET_CITY } = target;
   const { CUR_TIME, CUR_CITY } = cur;
 
+  console.log(`selectedDay: ${selectedDay}`);
+  console.log(`CUR_TIME: ${CUR_TIME}`);
   const [date, time] = getTargetTime({
     currentTime: `${selectedDay} ${CUR_TIME}`,
     targetTimeZone: TARGET_CITY,
   }).split(' ');
 
+  console.log(`date: ${date}, time: ${time}`);
   const [targetDay, targetTime] = formatTo12Hour({
     date,
     time,

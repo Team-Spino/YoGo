@@ -13,6 +13,7 @@ export {
   deleteScheduleItem,
   dropScheduleTable,
   updateScheduleItemActive,
+  updateAllSchedule,
   getAllSchedule,
 } from 'db/schedule';
 

@@ -28,7 +28,7 @@ export function Home({ navigation }: { navigation: Prop }) {
   const { isPoped, setPop } = useContext(PopContext);
 
   const onPress = () => {
-    navigation.push('HandleSchedule', { title: 'Add' });
+    navigation.push('HandleSchedule', { title: 'Add', item: {} });
   };
 
   const onDayPress = (day: string) => {
@@ -55,6 +55,8 @@ export function Home({ navigation }: { navigation: Prop }) {
 
       const items = await getScheduleItems(db, dayOfWeek, selectedDay);
       setSchedules(items);
+
+      console.log(items);
     } catch (e) {
       console.error(e);
     }

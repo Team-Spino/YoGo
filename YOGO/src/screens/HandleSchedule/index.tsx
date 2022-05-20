@@ -1,15 +1,12 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native';
 import { HandleScheduleTemplate } from 'components';
-import { IHandelScheduleProps} from 'types';
-
-
+import { IHandelScheduleProps } from 'types';
 
 export function HandleSchedule({ navigation, route }: IHandelScheduleProps) {
-  console.log(route.params);
   return (
     <SafeAreaView>
-      <HandleScheduleTemplate navigation={navigation} route={route}/>
+      <HandleScheduleTemplate navigation={navigation} route={route} />
     </SafeAreaView>
   );
 }
