@@ -93,7 +93,7 @@ export function AgendaBox({
       showClosingKnob={true}
       theme={{
         dotColor: '#6564CC',
-        selectedDotColor: '#6564CC',
+        selectedDotColor: '#ffffff',
         selectedDayBackgroundColor: '#6564CC',
         todayTextColor: '#6564CC',
       }}
