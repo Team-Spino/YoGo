@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Alert, Linking } from 'react-native';
 import { ThemeProvider } from 'styled-components/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -12,6 +13,26 @@ const Stack = createNativeStackNavigator();
 function App() {
   useEffect(() => {
     PushNotificationIOS.requestPermissions();
+
+    PushNotificationIOS.checkPermissions(info => {
+      if (!info.notificationCenter) {
+        Alert.alert('React native', 'Please use Notification', [
+          {
+            text: 'Cancel',
+            onPress: () => {
+              console.log('Cancel Pressed');
+            },
+            style: 'cancel',
+          },
+          {
+            text: 'OK',
+            onPress: () => {
+              Linking.openSettings();
+            },
+          },
+        ]);
+      }
+    });
   }, []);
 
   return (
