@@ -1,5 +1,9 @@
 import styled from 'styled-components/native';
 
+interface ISlideProps{
+  isEnd?: boolean;
+}
+
 export const Container = styled.View`
   flex:1;
   position:relative;
@@ -19,9 +23,9 @@ export const MainImg = styled.View`
   z-index: -1;
 `;
 
-export const Content = styled.View`
+export const Content = styled.View<ISlideProps>`
   flex:1;
-  margin-top: 300;
+  margin-top: ${({ isEnd }) => isEnd ? '120%' : '100%'};
   justify-content: center;
   align-items: center;
 `

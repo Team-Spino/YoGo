@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet } from 'react-native'
 import Swiper from 'react-native-swiper'
 import { OnBoardingSlide  } from 'components'
 import { ImgOnBoarding1, ImgOnBoarding1Text, ImgOnBoarding2, ImgOnBoarding2Text, ImgOnBoarding3, ImgOnBoarding4, ImgOnBoarding4Text , ImgOnBoarding5, ImgOnBoarding5Text } from 'assets'
@@ -7,20 +7,24 @@ import { ImgOnBoarding1, ImgOnBoarding1Text, ImgOnBoarding2, ImgOnBoarding2Text,
 
 const styles = StyleSheet.create({
     dot:{
-        bottom: 40
+        bottom: 45,
     },
-    wrapper: {},
+    arrow:{
+      color: '#fff',
+    },
+    wrapper: {
+    },
   })
 
 export function OnBoardingSwiper(){
     return (
         <>
-        <Swiper style={styles.wrapper} showsButtons={true} dotStyle={styles.dot} activeDotStyle={styles.dot}>
+        <Swiper style={styles.wrapper} showsButtons={false} dotStyle={styles.dot} activeDotStyle={styles.dot} activeDotColor={'#ffffff'} loop={false}  >
           <OnBoardingSlide 
             mainImg={<ImgOnBoarding1 />} 
             typography={<ImgOnBoarding1Text />} 
             text={'Make to easy set up different timezones meetings'} 
-            btnText={'SKIP'} />
+            btnText={'Continue'} />
          <OnBoardingSlide 
             mainImg={<Image style={{
               width: '100%',
@@ -51,11 +55,12 @@ export function OnBoardingSwiper(){
             typography={<ImgOnBoarding4Text />} 
             text={'Make to easy set up different timezones meetings'} 
             btnText={'SKIP'} />
-        <OnBoardingSlide 
+          <OnBoardingSlide 
+            isEnd={true}
             mainImg={<ImgOnBoarding5 />} 
             typography={<ImgOnBoarding5Text />} 
             text={'Make to easy set up different timezones meetings'} 
-            btnText={'SKIP'} />
+            btnText={'Get Started'} />
       </Swiper>
       </>
     )

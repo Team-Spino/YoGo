@@ -7,15 +7,16 @@ interface ImgOnBoardingSlideProps {
   typography: React.ReactNode;
   text: string;
   btnText: string;
+  isEnd?: boolean;
 }
 
-export const OnBoardingSlide = ({ mainImg, typography ,text, btnText } : ImgOnBoardingSlideProps) => {
+export const OnBoardingSlide = ({ mainImg, typography ,text, btnText, isEnd } : ImgOnBoardingSlideProps) => {
   return (
     <S.Container>
       <S.MainImg>
       { mainImg }
       </S.MainImg>
-      <S.Content>
+      <S.Content isEnd={isEnd}>
         { typography }
        <S.Text>{ text }</S.Text>
       </S.Content>

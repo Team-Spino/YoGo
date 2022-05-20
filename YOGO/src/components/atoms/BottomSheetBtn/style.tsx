@@ -8,7 +8,7 @@ export const Container = styled.TouchableOpacity<IBottomSheetBtnProps>`
   height: 45px;
   width: 90%;
   position: absolute;
-  bottom: 10;
+  bottom: 15;
   display: flex;
   justify-content: center;
   align-items: center;
