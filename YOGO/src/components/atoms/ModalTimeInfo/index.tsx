@@ -2,7 +2,7 @@ import React from 'react';
 import dayjs from 'dayjs';
 import { Title, SubTitle } from 'components';
 import { IconRight } from 'assets';
-import { parseCity } from 'utils';
+import { parseCity, formatCityName } from 'utils';
 import { ITargetProps, ICurProps } from 'types';
 import { useTimeZone } from 'hooks';
 import * as S from './style';
@@ -39,14 +39,11 @@ export function ModalTimeInfo({ timeData, selectedDay }: IModalTimeProps) {
   const { TARGET_CITY } = target;
   const { CUR_TIME, CUR_CITY } = cur;
 
-  console.log(`selectedDay: ${selectedDay}`);
-  console.log(`CUR_TIME: ${CUR_TIME}`);
   const [date, time] = getTargetTime({
     currentTime: `${selectedDay} ${CUR_TIME}`,
     targetTimeZone: TARGET_CITY,
   }).split(' ');
 
-  console.log(`date: ${date}, time: ${time}`);
   const [targetDay, targetTime] = formatTo12Hour({
     date,
     time,
@@ -60,13 +57,13 @@ export function ModalTimeInfo({ timeData, selectedDay }: IModalTimeProps) {
   return (
     <S.Container>
       <ModalTimer
-        city={parseCity({ city: TARGET_CITY })}
+        city={formatCityName(parseCity({ city: TARGET_CITY }))}
         date={targetDay}
         time={targetTime}
       />
       <IconRight />
       <ModalTimer
-        city={parseCity({ city: CUR_CITY })}
+        city={formatCityName(parseCity({ city: CUR_CITY }))}
         date={curDay}
         time={curTime}
       />

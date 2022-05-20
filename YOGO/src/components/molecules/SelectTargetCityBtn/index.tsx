@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Title, TextBtn } from 'components';
 import { IconDownArrow } from 'assets';
 import { useTimeZone } from 'hooks';
+import { formatCityName, toFormat12Hour } from 'utils';
 import * as S from './style';
 interface IBTargetCityBtnProps {
   onPress: () => void;
@@ -31,8 +32,14 @@ export function SelectTargetCityBtn({
         });
 
         setAlartDate(time);
+
+        const [d, t] = time.split(' ');
+
         setNotiAlartTime(
-          `${locateCity} 기준 ${time.split(' ').at(-1)}에 알람이 울립니다.`,
+          `${locateCity} 기준 ${toFormat12Hour({
+            day: d,
+            time: t,
+          })}에 알람이 울립니다.`,
         );
       }
     }, [city, date]);
@@ -43,7 +50,7 @@ export function SelectTargetCityBtn({
       return 'Please select city';
     }
 
-    return city.trim() ? city : '국가, 도시';
+    return city.trim() ? formatCityName(city) : '국가, 도시';
   };
 
   return (
