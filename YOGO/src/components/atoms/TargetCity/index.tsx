@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatCityName } from 'utils';
 import * as S from './style';
 
 interface IBTTargetItemProps {
@@ -21,7 +22,7 @@ export function TargetCity({ item, onPress, selectedId }: IBTTargetCityProps) {
     <S.TouchOpacity onPress={() => onPress(item)}>
       <S.ListBox>
         <S.List size={18} style={{ backgroundColor, color }}>
-          {item.city}
+          {formatCityName(item.city)}
         </S.List>
       </S.ListBox>
     </S.TouchOpacity>

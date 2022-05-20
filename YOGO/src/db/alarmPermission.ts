@@ -35,8 +35,6 @@ export const getAlarmPermission = async (db: SQLiteDatabase) => {
 
     const results = await db.executeSql(query);
 
-    console.log(results[0]);
-
     return results[0].rows.length ? results[0].rows.item(0) : false;
   } catch (e) {
     console.error(e);
