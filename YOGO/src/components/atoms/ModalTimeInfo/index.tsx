@@ -1,8 +1,7 @@
 import React from 'react';
-import dayjs from 'dayjs';
 import { Title, SubTitle } from 'components';
 import { IconRight } from 'assets';
-import { parseCity, formatCityName } from 'utils';
+import { parseCity, formatCityName, toFormat12Hour } from 'utils';
 import { ITargetProps, ICurProps } from 'types';
 import { useTimeZone } from 'hooks';
 import * as S from './style';
@@ -22,11 +21,16 @@ interface IModalTimerProps {
 }
 
 function ModalTimer({ city, date, time }: IModalTimerProps) {
+  const [t] = time.split(' ');
   return (
     <S.Wrapper>
       <Title isEnable={true} text={city} size={20} />
       <SubTitle isEnable={true} text={date} />
-      <Title isEnable={true} text={time} size={17} />
+      <Title
+        isEnable={true}
+        text={toFormat12Hour({ day: date, time: t })}
+        size={17}
+      />
     </S.Wrapper>
   );
 }
