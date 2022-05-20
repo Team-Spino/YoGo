@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { Alert, Linking } from 'react-native';
 import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
@@ -221,10 +222,38 @@ export function useNotification() {
     });
   };
 
+  const getBadgeNumber = (): Promise<number> => {
+    return new Promise(resolve => {
+      PushNotification.getApplicationIconBadgeNumber(badge => {
+        resolve(badge);
+      });
+    });
+  };
+
+  const handleNotificationBadge = useCallback(() => {
+    PushNotificationIOS.setApplicationIconBadgeNumber(0);
+
+    PushNotificationIOS.addEventListener('notification', async () => {
+      const number = await getBadgeNumber();
+
+      if (number === 0) return;
+
+      PushNotificationIOS.setApplicationIconBadgeNumber(number - 1);
+    });
+    PushNotificationIOS.addEventListener('localNotification', async () => {
+      const number = await getBadgeNumber();
+
+      if (number === 0) return;
+
+      PushNotificationIOS.setApplicationIconBadgeNumber(number - 1);
+    });
+  }, []);
+
   return {
     makeNotification,
     deleteAllNotification,
     handleScheduleToggle,
     handleNotificationPermission,
+    handleNotificationBadge,
   };
 }

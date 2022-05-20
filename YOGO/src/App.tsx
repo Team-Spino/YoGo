@@ -10,9 +10,11 @@ import { PopProvider } from 'context';
 const Stack = createNativeStackNavigator();
 
 function App() {
-  const { handleNotificationPermission } = useNotification();
+  const { handleNotificationPermission, handleNotificationBadge } =
+    useNotification();
   useEffect(() => {
     handleNotificationPermission();
+    handleNotificationBadge();
   }, []);
 
   return (
