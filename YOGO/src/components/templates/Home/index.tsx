@@ -100,12 +100,12 @@ export function Home({ navigation }: { navigation: Prop }) {
 
   const makeWeekList = (rowWeek : object) => {
     const weekLiteral = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const today = dayjs(selectedDay).format('ddd');
+    const today = dayjs().format('ddd');
     let weekList = []
     for (const [key, value] of Object.entries(rowWeek)) {
       let diff = weekLiteral.indexOf(key) - weekLiteral.indexOf(today)
       let diffTimeStamp = diff * ONE_DAY
-      let date = dayjs(selectedDay).add(diffTimeStamp, 'second').format('YYYY-MM-DD')
+      let date = dayjs().add(diffTimeStamp, 'second').format('YYYY-MM-DD')
     for(let i = 0; i < 360; i+=7){
       weekList.push(dayjs(date).add(ONE_DAY * i, 'second').format('YYYY-MM-DD'))
       }
