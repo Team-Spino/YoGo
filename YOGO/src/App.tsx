@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import SplashScreen from 'react-native-splash-screen';
 import { ThemeProvider } from 'styled-components/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -12,6 +13,11 @@ const Stack = createNativeStackNavigator();
 function App() {
   const { handleNotificationPermission, handleNotificationBadge } =
     useNotification();
+
+  useEffect(() => {
+    setTimeout(() => SplashScreen.hide(), 1000);
+  }, []);
+
   useEffect(() => {
     handleNotificationPermission();
     handleNotificationBadge();
