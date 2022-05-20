@@ -18,4 +18,11 @@ export {
   getDateAndDayOfWeek,
 } from 'db/schedule';
 
+export {
+  createAlarmPermissionTable,
+  inesertAlarmPermission,
+  getAlarmPermission,
+  updateAlarmPermission,
+} from 'db/alarmPermission';
+
 export { connectDB } from 'db/connectDB';

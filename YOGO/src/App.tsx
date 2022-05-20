@@ -5,6 +5,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import { Main, HandleSchedule } from 'screens';
+import {
+  connectDB,
+  createAlarmPermissionTable,
+  inesertAlarmPermission,
+  getAlarmPermission,
+  updateAlarmPermission,
+} from 'db';
 import { theme } from 'styles/theme';
 import { PopProvider } from 'context';
 
@@ -14,7 +21,7 @@ function App() {
   useEffect(() => {
     PushNotificationIOS.requestPermissions();
 
-    PushNotificationIOS.checkPermissions(info => {
+    PushNotificationIOS.checkPermissions(async info => {
       if (!info.notificationCenter) {
         Alert.alert('React native', 'Please use Notification', [
           {
