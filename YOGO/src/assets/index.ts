@@ -10,3 +10,5 @@ export { IconTick } from 'assets/icons/IconTick';
 export { IconWorld } from 'assets/icons/IconWorld';
 export { IconSun } from 'assets/icons/IconSun';
 export { IconMoon } from 'assets/icons/IconMoon';
+export { IconDelete }  from 'assets/icons/IconDelete';
+export { IconEdit }  from 'assets/icons/IconEdit';
