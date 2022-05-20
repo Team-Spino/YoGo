@@ -32,6 +32,7 @@
     "react-native-svg": "^12.3.0",
     "react-native-svg-transformer": "^1.0.0",
     "react-native-swipe-list-view": "^3.2.9",
+    "react-native-swiper": "^1.6.0-rc.3",
     "react-native-uuid": "^2.0.1",
     "reanimated-bottom-sheet": "^1.0.0-alpha.22",
     "styled-components": "^5.3.3"

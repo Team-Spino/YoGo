@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Main, HandleSchedule } from 'screens';
+import { Main, HandleSchedule, OnBoarding } from 'screens';
 import { theme } from 'styles/theme';
 import { PopProvider } from 'context';
 
@@ -13,7 +13,7 @@ function App() {
     <NavigationContainer>
       <PopProvider>
         <ThemeProvider theme={theme}>
-          <Stack.Navigator initialRouteName="Main">
+          <Stack.Navigator initialRouteName="OnBoarding">
             <Stack.Screen
               name="Main"
               component={Main}
@@ -26,6 +26,13 @@ function App() {
               component={HandleSchedule}
               options={({ route }) => ({
                 title: route!.params.title as string,
+              })}
+            />
+             <Stack.Screen
+              name="OnBoarding"
+              component={OnBoarding}
+              options={({ route }) => ({
+                headerShown: false,
               })}
             />
           </Stack.Navigator>

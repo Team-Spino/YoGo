@@ -59,3 +59,4 @@ export { Home } from 'components/templates/Home';
 export { TimeZone } from 'components/templates/TimeZone';
 export { HandleScheduleTemplate } from 'components/templates/HandleScheduleTemplate';
 export { BottomSheet } from 'components/templates/BottomSheet';
+export { OnBoardingSwiper } from 'components/templates/OnBoardingSwiper';

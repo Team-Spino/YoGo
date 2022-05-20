@@ -7,8 +7,8 @@ interface IBottomSheetBtnProps {
 export const Container = styled.TouchableOpacity<IBottomSheetBtnProps>`
   height: 45px;
   width: 90%;
-  position: relative;
-  bottom: 0;
+  position: absolute;
+  bottom: 10;
   display: flex;
   justify-content: center;
   align-items: center;
