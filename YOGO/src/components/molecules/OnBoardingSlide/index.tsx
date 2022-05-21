@@ -6,11 +6,11 @@ interface ImgOnBoardingSlideProps {
   mainImg: React.ReactNode;
   typography: React.ReactNode;
   text: string;
-  onSKipePress: () => void;
+  onSkipePress: () => void;
   onNextPress: () => void;
 }
 
-export const OnBoardingSlide = ({ mainImg, typography ,text, onSKipePress, onNextPress } : ImgOnBoardingSlideProps) =>{
+export const OnBoardingSlide = ({ mainImg, typography ,text, onSkipePress, onNextPress } : ImgOnBoardingSlideProps) =>{
   return (
     <S.Container>
       <S.MainImg>
@@ -20,7 +20,7 @@ export const OnBoardingSlide = ({ mainImg, typography ,text, onSKipePress, onNex
         { typography }
        <S.Text>{ text }</S.Text>
       </S.Content>
-      <OnBoardingtBtn text={'Skip'} isSkip={true} onPress={()=>onSKipePress()} />
+      <OnBoardingtBtn text={'Skip'} isSkip={true} onPress={()=>onSkipePress()} />
       <OnBoardingtBtn text={'Next'} isSkip={false} onPress={()=>onNextPress()} />
     </S.Container>
   );

@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from 'react'
 import { Image, StyleSheet } from 'react-native'
 import Swiper from 'react-native-swiper'
-import { OnBoardingSlide  } from 'components'
+import { OnBoardingSlide, OnBoardingStartEnd  } from 'components'
 import { ImgOnBoarding1, ImgOnBoarding1Text, ImgOnBoarding2, ImgOnBoarding2Text, ImgOnBoarding3, ImgOnBoarding4, ImgOnBoarding4Text , ImgOnBoarding5, ImgOnBoarding5Text } from 'assets'
 import { IsFirstContext } from 'context'
 
@@ -9,6 +9,7 @@ import { IsFirstContext } from 'context'
 const styles = StyleSheet.create({
     dot:{
         bottom: '7%',
+        display: 'none'
     },
     arrow:{
       color: '#fff',
@@ -18,13 +19,15 @@ const styles = StyleSheet.create({
   })
 
 export function OnBoardingSwiper(){
+
   const { setFirst } = useContext(IsFirstContext);
   const swiperRef = useRef();
 
     return (
-        <Swiper style={styles.wrapper} showsButtons={false} dotStyle={styles.dot} activeDotStyle={styles.dot} activeDotColor={'#ffffff'} loop={false}
+        <Swiper style={styles.wrapper} showsButtons={false}
+         dotStyle={styles.dot} activeDotStyle={styles.dot} activeDotColor={'#ffffff'} loop={false}
         ref={swiperRef} index={0}>
-          <OnBoardingSlide 
+          < OnBoardingStartEnd
             mainImg={<ImgOnBoarding1 />} 
             typography={<ImgOnBoarding1Text />} 
             text={'Make to easy set up different timezones meetings'} 
@@ -43,8 +46,11 @@ export function OnBoardingSwiper(){
             typography={<ImgOnBoarding2Text />} 
             text={'Make to easy set up different timezones meetings'} 
             btnText={'SKIP'}
-            onPress={() => {
+            onSkipPress={() => {
               swiperRef.current.scrollTo(5,true)
+            }}
+            onNextPress={() => {
+              swiperRef.current.scrollTo(2,true)
             }}
             />
           <OnBoardingSlide 
@@ -57,8 +63,11 @@ export function OnBoardingSwiper(){
             typography={<ImgOnBoarding2Text />} 
             text={'Make to easy set up different timezones meetings'} 
             btnText={'SKIP'}
-            onPress={() => {
+            onSkipPress={() => {
               swiperRef.current.scrollTo(5,true)
+            }}
+            onNextPress={() => {
+              swiperRef.current.scrollTo(3,true)
             }}
             />
           <OnBoardingSlide 
@@ -71,8 +80,11 @@ export function OnBoardingSwiper(){
             typography={<ImgOnBoarding4Text />} 
             text={'Make to easy set up different timezones meetings'} 
             btnText={'SKIP'}
-            onPress={() => {
+            onSkipPress={() => {
               swiperRef.current.scrollTo(5,true)
+            }}
+            onNextPress={() => {
+              swiperRef.current.scrollTo(4,true)
             }}
             />
           <OnBoardingSlide 
@@ -81,11 +93,14 @@ export function OnBoardingSwiper(){
             typography={<ImgOnBoarding5Text />} 
             text={'Make to easy set up different timezones meetings'} 
             btnText={'SKIP'} 
-            onPress={() => {
+            onSkipPress={() => {
+              swiperRef.current.scrollTo(5,true)
+            }}
+            onNextPress={() => {
               swiperRef.current.scrollTo(5,true)
             }}
             />
-               <OnBoardingSlide 
+          < OnBoardingStartEnd
             isEnd={true}
             mainImg={<ImgOnBoarding5 />} 
             typography={<ImgOnBoarding5Text />} 
