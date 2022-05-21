@@ -3,7 +3,7 @@ import * as S from './style';
 
 interface IBottomSheetBtnProps {
   text: string;
-  onPress: () => void;
+  onPress: () => void | ((index: number) => void);
   isRevers?: boolean;
 }
 

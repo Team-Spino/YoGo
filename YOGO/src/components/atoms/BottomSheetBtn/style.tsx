@@ -5,15 +5,16 @@ interface IBottomSheetBtnProps {
 }
 
 export const Container = styled.TouchableOpacity<IBottomSheetBtnProps>`
-  height: 45px;
+  height: 5%;
   width: 90%;
-  position: relative;
-  bottom: 0;
+  position: absolute;
+  bottom: 4.5%;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
   background-color: ${props => props.isRevers ? props.theme.colors.white : props.theme.colors.blue};
+  z-index: 9999;
 `;
 
 export const Text = styled.Text<IBottomSheetBtnProps>`

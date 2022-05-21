@@ -12,3 +12,4 @@ export type { ICityProps } from 'types/city';
 export type { IMakeProps } from 'types/makeProps';
 export type { IHandelScheduleProps } from 'types/handelSchedule';
 export type { ISwipeDataProps } from 'types/swipeData';
+export type { IOnBoadingSlide } from 'types/onBoadingSlide';

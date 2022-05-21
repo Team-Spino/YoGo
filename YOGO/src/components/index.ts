@@ -24,6 +24,7 @@ export { IconAbsolute } from 'components/atoms/IconAbsolute';
 export { TagFilter } from 'components/atoms/TagFilter';
 export { RenderDelete } from 'components/atoms/RenderDelete';
 export { RenderEdit } from 'components/atoms/RenderEdit';
+export { OnBoardingtBtn } from 'components/atoms/OnBoardingtBtn';
 
 // Molecules
 export { TagSelectContainer } from 'components/molecules/TagSelectContainer';
@@ -42,6 +43,8 @@ export { TagFilterContainer } from 'components/molecules/TagFilterContainer';
 export { HiddenEditAndDelete } from 'components/molecules/HiddenEditAndDelete';
 export { HiddenDelete } from 'components/molecules/HiddenDelete';
 export { SwipeContent } from 'components/molecules/SwipeContent';
+export { OnBoardingSlide } from 'components/molecules/OnBoardingSlide';
+
 
 // Organisms
 export { DetailModal } from 'components/organisms/DetailModal';
@@ -59,3 +62,4 @@ export { Home } from 'components/templates/Home';
 export { TimeZone } from 'components/templates/TimeZone';
 export { HandleScheduleTemplate } from 'components/templates/HandleScheduleTemplate';
 export { BottomSheet } from 'components/templates/BottomSheet';
+export { OnBoardingSwiper } from 'components/templates/OnBoardingSwiper';

@@ -34,4 +34,5 @@ export type RootStackParamList = {
     title: string;
     item: IItemProps;
   };
+  OnBoarding: undefined;
 };
