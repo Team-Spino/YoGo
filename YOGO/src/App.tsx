@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import React, { useEffect } from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import { ThemeProvider } from 'styled-components/native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -12,7 +11,7 @@ import { PopProvider } from 'context';
 const Stack = createNativeStackNavigator();
 
 function App() {
-  const [onBoard, setOnBoard] = useState(false);
+  const [onBoard, setOnBoard] = useState(true);
   const KEY_VALUE = 'keyFirstLaunch';
 
   async function checkFirstLaunch() {
@@ -28,7 +27,7 @@ function App() {
       }
     });
   }
-  
+
   useEffect(() => {
     setTimeout(() => SplashScreen.hide(), 1000);
   }, []);
