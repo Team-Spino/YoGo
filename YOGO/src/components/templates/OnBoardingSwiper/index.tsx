@@ -1,129 +1,156 @@
-import React, { useContext, useRef, useState } from 'react'
-import { Image, StyleSheet } from 'react-native'
-import Swiper from 'react-native-swiper'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { OnBoardingSlide } from 'components'
-import { ImgOnBoarding1, ImgOnBoarding1Text, ImgOnBoarding2, ImgOnBoarding2Text, ImgOnBoarding3, ImgOnBoarding4, ImgOnBoarding4Text , ImgOnBoarding5, ImgOnBoarding5Text, ImgOnBoarding6 } from 'assets'
-import { IsFirstContext } from 'context'
-import { RootStackParamList } from 'types'
+import React, { useRef, useState } from 'react';
+import { Image, StyleSheet } from 'react-native';
+import Swiper from 'react-native-swiper';
+import { OnBoardingSlide } from 'components';
+import {
+  ImgOnBoarding1,
+  ImgOnBoarding1Text,
+  ImgOnBoarding2,
+  ImgOnBoarding2Text,
+  ImgOnBoarding3,
+  ImgOnBoarding4,
+  ImgOnBoarding4Text,
+  ImgOnBoarding5,
+  ImgOnBoarding5Text,
+  ImgOnBoarding6,
+} from 'assets';
+import { IOnBoadingSlide } from 'types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-
-
-
-export function OnBoardingSwiper({ navigation } : { navigation :  NativeStackNavigationProp<RootStackParamList, 'OnBoarding'> }) {
-
-  const [isStartOrEnd, setIsStartOrEnd] = useState(true)
-  const { setFirst } = useContext(IsFirstContext);
-  const swiperRef = useRef<Swiper>();
+export function OnBoardingSwiper({
+  setOnBoard,
+}: {
+  setOnBoard: (value: boolean) => void;
+}) {
+  const [isStartOrEnd, setIsStartOrEnd] = useState(true);
+  const swiperRef =
+    useRef<React.MutableRefObject<React.MutableRefObject<Swiper>>>();
 
   const styles = StyleSheet.create({
-    dot:{
-        bottom: '7%',
+    dot: {
+      bottom: '7%',
     },
-    disableDot : {
-        bottom: '7%',
-        display: 'none',
+    disableDot: {
+      bottom: '7%',
+      display: 'none',
     },
-  })
+  });
 
-  const slide = [
+  const slide: Array<IOnBoadingSlide> = [
     {
       mainImg: <ImgOnBoarding1 />,
       typography: <ImgOnBoarding1Text />,
       text: 'Welcome to YOGO',
       btnText: "Let's look into",
       isEdge: true,
-      onNextPress: (index : number) => {
-        swiperRef.current.scrollTo(index,true)
-      }
+      onNextPress: (index: number) => {
+        swiperRef.current!.scrollTo(index, true);
+      },
     },
     {
-      mainImg: <Image source={ImgOnBoarding2} style={{width: '100%', top: -100 }} resizeMode= 'contain' />,
+      mainImg: (
+        <Image
+          source={ImgOnBoarding2}
+          style={{ width: '100%', top: -100 }}
+          resizeMode="contain"
+        />
+      ),
       typography: <ImgOnBoarding2Text />,
       text: '',
       btnText: ['Next', 'Skip'],
       isEdge: false,
-      onSkipPress: ()=> swiperRef.current.scrollTo(slide.length - 1,true),
-      onNextPress: (index : number) => {
-        swiperRef.current.scrollTo(index,true)
-      }
+      onSkipPress: () => swiperRef.current!.scrollTo(slide.length - 1, true),
+      onNextPress: (index: number) => {
+        swiperRef.current!.scrollTo(index, true);
+      },
     },
     {
-      mainImg: <Image source={ImgOnBoarding3} style={{width: '100%', top : -40}} resizeMode= 'contain' />,
+      mainImg: (
+        <Image
+          source={ImgOnBoarding3}
+          style={{ width: '100%', top: -40 }}
+          resizeMode="contain"
+        />
+      ),
       typography: <ImgOnBoarding2Text />,
       text: '',
       btnText: ['Next', 'Skip'],
       isEdge: false,
-      onSkipPress: ()=> swiperRef.current.scrollTo(slide.length - 1,true),
-      onNextPress: (index : number) => {
-        swiperRef.current.scrollTo(index,true)
-      }
+      onSkipPress: () => swiperRef.current!.scrollTo(slide.length - 1, true),
+      onNextPress: (index: number) => {
+        swiperRef.current!.scrollTo(index, true);
+      },
     },
     {
-      mainImg: <Image source={ImgOnBoarding4} style={{width: '100%', top: -40}}  resizeMode= 'contain' />,
+      mainImg: (
+        <Image
+          source={ImgOnBoarding4}
+          style={{ width: '100%', top: -40 }}
+          resizeMode="contain"
+        />
+      ),
       typography: <ImgOnBoarding4Text />,
       text: '',
       btnText: ['Next', 'Skip'],
       isEdge: false,
-      onSkipPress: ()=> swiperRef.current.scrollTo(slide.length - 1,true),
-      onNextPress: (index : number) => {
-        swiperRef.current.scrollTo(index,true)
-      }
+      onSkipPress: () => swiperRef.current!.scrollTo(slide.length - 1, true),
+      onNextPress: (index: number) => {
+        swiperRef.current!.scrollTo(index, true);
       },
-      {
-        mainImg: <ImgOnBoarding5 />,
-        typography: <ImgOnBoarding5Text />,
-        text: '',
-        btnText: ['Next', 'Skip'],
-        isEdge: false,
-        onSkipPress: ()=> swiperRef.current.scrollTo(slide.length - 1,true),
-        onNextPress: (index : number) => {
-          swiperRef.current.scrollTo(index,true)
-        }
+    },
+    {
+      mainImg: <ImgOnBoarding5 />,
+      typography: <ImgOnBoarding5Text />,
+      text: '',
+      btnText: ['Next', 'Skip'],
+      isEdge: false,
+      onSkipPress: () => swiperRef.current!.scrollTo(slide.length - 1, true),
+      onNextPress: (index: number) => {
+        swiperRef.current!.scrollTo(index, true);
       },
-      {
-        mainImg: <ImgOnBoarding6 />,
-        btnText: 'Continue',
-        isEdge: true,
-        onNextPress: (index : number) => {
-          setFirst(false)
-          navigation.push('Main')
-        }
+    },
+    {
+      mainImg: <ImgOnBoarding6 />,
+      btnText: 'Continue',
+      isEdge: true,
+      onNextPress: (index: number) => {
+        setOnBoard(false);
+        AsyncStorage.setItem('keyFirstLaunch', 'true');
       },
-  ]
+    },
+  ];
 
-  const checkStartOrEnd = (index : number) => {
- 
-    if(index === 0 || index === 5){
-      setIsStartOrEnd(true)
+  const checkStartOrEnd = (index: number) => {
+    if (index === 0 || index === 5) {
+      setIsStartOrEnd(true);
+    } else {
+      setIsStartOrEnd(false);
     }
-    else{
-      setIsStartOrEnd(false)
-    }
-  }
+  };
 
-  
-    return (
-        <Swiper showsButtons={false}
-         dotStyle={isStartOrEnd ? styles.disableDot : styles.dot} activeDotStyle={isStartOrEnd ? styles.disableDot : styles.dot} activeDotColor={'#ffffff'} loop={false}
-         onIndexChanged ={checkStartOrEnd}
-         ref={swiperRef}>
-          {
-            slide.map((item, index) => {
-              return (
-                <OnBoardingSlide
-                  mainImg={item.mainImg}
-                  typography={item.typography}
-                  text={item.text}
-                  btnText={item.btnText}
-                  isEdge={item.isEdge}
-                  onSkipPress={item.onSkipPress}
-                  onNextPress={()=> item.onNextPress(index + 1)}
-                />
-              )
-            }
-          )}
-      </Swiper>
-    )
-  }
+  return (
+    <Swiper
+      showsButtons={false}
+      dotStyle={isStartOrEnd ? styles.disableDot : styles.dot}
+      activeDotStyle={isStartOrEnd ? styles.disableDot : styles.dot}
+      activeDotColor={'#ffffff'}
+      loop={false}
+      onIndexChanged={checkStartOrEnd}
+      ref={swiperRef}
+    >
+      {slide.map((item: IOnBoadingSlide, index) => {
+        return (
+          <OnBoardingSlide
+            mainImg={item.mainImg}
+            typography={item.typography}
+            text={item.text}
+            btnText={item.btnText}
+            isEdge={item.isEdge}
+            onSkipPress={item.onSkipPress}
+            onNextPress={() => item.onNextPress(index + 1)}
+          />
+        );
+      })}
+    </Swiper>
+  );
+}
