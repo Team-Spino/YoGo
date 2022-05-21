@@ -5,12 +5,14 @@ import { BottomSheetBtn, OnBoardingtBtn } from 'components';
 interface ImgOnBoardingSlideProps {
   mainImg: React.ReactNode;
   typography: React.ReactNode;
-  text: string;
-  onSkipePress: () => void;
+  text: string 
+  isEdge: boolean;
+  onSkipPress?: () => void;
   onNextPress: () => void;
+  btnText: string | string[];
 }
 
-export const OnBoardingSlide = ({ mainImg, typography ,text, onSkipePress, onNextPress } : ImgOnBoardingSlideProps) =>{
+export const OnBoardingSlide = ({ mainImg, typography , isEdge , text, btnText , onSkipPress, onNextPress } : ImgOnBoardingSlideProps) =>{
   return (
     <S.Container>
       <S.MainImg>
@@ -20,8 +22,17 @@ export const OnBoardingSlide = ({ mainImg, typography ,text, onSkipePress, onNex
         { typography }
        <S.Text>{ text }</S.Text>
       </S.Content>
-      <OnBoardingtBtn text={'Skip'} isSkip={true} onPress={()=>onSkipePress()} />
-      <OnBoardingtBtn text={'Next'} isSkip={false} onPress={()=>onNextPress()} />
+      {
+        isEdge && (<BottomSheetBtn text={btnText as string} isRevers={true} onPress={onNextPress} />)
+      }
+      {
+          !isEdge && (   
+          <>
+          <OnBoardingtBtn text={btnText[1]} isSkip={true} onPress={onSkipPress} />
+          <OnBoardingtBtn text={btnText[0]} isSkip={false} onPress={onNextPress} />
+          </>
+          )
+      }
     </S.Container>
   );
 }

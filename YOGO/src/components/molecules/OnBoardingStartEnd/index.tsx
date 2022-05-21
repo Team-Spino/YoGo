@@ -25,3 +25,11 @@ export const OnBoardingStartEnd = ({ mainImg, typography ,text, btnText, isEnd, 
     </S.Container>
   );
 }
+// isFirst: true
+// {
+// isFirst: false
+// }
+// {
+
+//   isFist: tuee
+// }

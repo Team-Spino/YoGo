@@ -2,7 +2,7 @@ import React from 'react';
 import * as S from './style';
 
 interface IBottomSheetBtnProps {
-  text: string;
+  text: string ;
   onPress: () => void;
   isRevers?: boolean
 }
