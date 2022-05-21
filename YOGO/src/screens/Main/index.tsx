@@ -1,12 +1,20 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import React, { useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Home, TimeZone } from 'components';
+import { useNotification } from 'hooks';
 import { IconHome, IconTimeZone } from 'assets';
 
 const Tab = createBottomTabNavigator();
 
 export function Main() {
+  const { handleNotificationPermission, handleNotificationBadge } =
+    useNotification();
+
+  useEffect(() => {
+    handleNotificationPermission();
+    handleNotificationBadge();
+  }, []);
+
   return (
     <Tab.Navigator initialRouteName="Home">
       <Tab.Screen

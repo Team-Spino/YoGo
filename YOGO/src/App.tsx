@@ -5,22 +5,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Main, HandleSchedule } from 'screens';
 import { theme } from 'styles/theme';
-import { useNotification } from 'hooks';
 import { PopProvider } from 'context';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
-  const { handleNotificationPermission, handleNotificationBadge } =
-    useNotification();
-
   useEffect(() => {
     setTimeout(() => SplashScreen.hide(), 1000);
-  }, []);
-
-  useEffect(() => {
-    handleNotificationPermission();
-    handleNotificationBadge();
   }, []);
 
   return (
