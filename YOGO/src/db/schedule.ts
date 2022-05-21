@@ -113,6 +113,27 @@ export const updateScheduleItemActive = async (
   await db.executeSql(updateQuery);
 };
 
+export const updateAllSchedule = async (db: SQLiteDatabase, schedule: any) => {
+  const {
+    key,
+    title,
+    description,
+    tagColor,
+    targetTime,
+    targetCity,
+    targetDay,
+    curTime,
+    curCity,
+    curDay,
+    dayOfWeek,
+    isActive,
+  } = schedule;
+
+  const updateQuery = `UPDATE ${SCHEDULE} SET TITLE = '${title}', DESCRIPTION = '${description}', TAG_COLOR = '${tagColor}', TARGET_TIME = '${targetTime}', TARGET_CITY = '${targetCity}', TARGET_DAY = '${targetDay}', CUR_TIME = '${curTime}', CUR_CITY = '${curCity}', CUR_DAY = '${curDay}', DAY_OF_WEEK = '${dayOfWeek}', IS_ACTIVE = ${isActive}  WHERE key = ${key}`;
+
+  await db.executeSql(updateQuery);
+};
+
 export const getAllSchedule = async (db: SQLiteDatabase) => {
   try {
     const scheduleItems: Array<IScheduleProps> = [];
@@ -129,6 +150,28 @@ export const getAllSchedule = async (db: SQLiteDatabase) => {
     });
 
     return scheduleItems;
+  } catch (e: unknown) {
+    console.error(e);
+    throw Error('Error in getScheduleItems');
+  }
+};
+
+export const getDateAndDayOfWeek = async (db: SQLiteDatabase) => {
+  try {
+    const dateAndDayOfWeek: any[] = [];
+    const query = `
+      SELECT case when(DAY_OF_WEEK = '[]') then ${SCHEDULE}.CUR_DAY else ${SCHEDULE}.DAY_OF_WEEK end AS result FROM ${SCHEDULE}
+    `;
+
+    const results = await db.executeSql(query);
+
+    results.forEach(result => {
+      for (let index = 0; index < result.rows.length; index++) {
+        dateAndDayOfWeek.push(result.rows.item(index));
+      }
+    });
+
+    return dateAndDayOfWeek;
   } catch (e: unknown) {
     console.error(e);
     throw Error('Error in getScheduleItems');

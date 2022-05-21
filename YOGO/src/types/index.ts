@@ -1,5 +1,9 @@
 export type { IScheduleProps, ITargetProps, ICurProps } from 'types/schedule';
-export type { RootStackParamList } from 'types/rootStackParam';
+export type {
+  RootStackParamList,
+  IItemProps,
+  keyType,
+} from 'types/rootStackParam';
 export type { ITagListProps, ITagFilterProps, ITagFilter } from 'types/tag';
 export type { IDayOfWeekProps } from 'types/dayOfWeek';
 export type { ICardState } from 'types/cardState';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Title, ToggleBtn, SubTitle } from 'components';
 import { ITargetProps, ICurProps } from 'types';
-import { parseCity } from 'utils';
+import { parseCity, formatCityName, toFormat12Hour } from 'utils';
 import * as S from './style';
 
 interface IScheduleCardContentProps {
@@ -10,17 +10,6 @@ interface IScheduleCardContentProps {
   target: ITargetProps;
   cur: ICurProps;
 }
-
-const toFormat12hour = ({ day, time }: { day: string; time: string }) => {
-  const [, hm, meridiem] = new Date(`${day} ${time}`)
-    .toLocaleDateString('en-US', {
-      hour: 'numeric',
-      minute: 'numeric',
-      hour12: true,
-    })
-    .split(' ');
-  return `${hm} ${meridiem}`;
-};
 
 export function ScheduleCardContent({
   isEnable,
@@ -35,7 +24,11 @@ export function ScheduleCardContent({
     <S.Container>
       <SubTitle
         isEnable={isEnable}
-        text={`${parseCity({ city: TARGET_CITY })} ${toFormat12hour({
+        text={`${formatCityName(
+          parseCity({
+            city: TARGET_CITY,
+          }),
+        )} ${toFormat12Hour({
           day: TARGET_DAY,
           time: TARGET_TIME,
         })}`}
@@ -43,7 +36,7 @@ export function ScheduleCardContent({
       <S.Wrapper>
         <Title
           isEnable={isEnable}
-          text={toFormat12hour({
+          text={toFormat12Hour({
             day: CUR_DAY,
             time: CUR_TIME,
           })}

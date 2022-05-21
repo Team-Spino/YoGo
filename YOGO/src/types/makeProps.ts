@@ -1,4 +1,5 @@
 export type IMakeProps = {
-    city: string;
-    date: string | Date;
-  }
+  TARGET_CITY: string;
+  TARGET_DAY: string | Date;
+  isFromBottomSheet?: boolean;
+};

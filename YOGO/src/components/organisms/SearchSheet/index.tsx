@@ -8,12 +8,12 @@ import {
   HeaderCenter,
   BottomSheetBtn,
 } from 'components';
-import { DUMMY_DATA_CITY } from 'utils';
+import { TZ_DATA_BASES  } from 'utils';
 import { IMakeProps } from 'types';
 import * as S from './style';
 
 interface ISearchBSProps {
-  onPress: (submitOnject : IMakeProps) => void;
+  onPress: (submitOnject: IMakeProps) => void;
 }
 export const SearchSheet = ({ onPress }: ISearchBSProps) => {
   const [date, setDate] = useState(new Date());
@@ -23,7 +23,7 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
   const [selectedSearchTargetCity, setSelectedSearchTargetCity] =
     useState<boolean>(false);
 
-  const targetList = DUMMY_DATA_CITY.filter(item =>
+  const targetList = TZ_DATA_BASES .filter(item =>
     item.city.toUpperCase().includes(city.toUpperCase()),
   );
 
@@ -47,10 +47,9 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
     setDate(currentDate);
   };
 
-
   const onSubmit = () => {
     if (city) {
-      onPress({ city, date });
+      onPress({ TARGET_CITY: city, TARGET_DAY: date });
       return;
     }
     setIsCityInputValid(false);
@@ -77,12 +76,12 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
 
       {selectedSearchTargetCity && (
         <S.Inner>
-        <SearchTarget
-          targetList={targetList}
-          city={city}
-          onChangeCity={onChangeCity}
-          onSubmitCity={onSubmitCity}
-        />
+          <SearchTarget
+            targetList={targetList}
+            city={city}
+            onChangeCity={onChangeCity}
+            onSubmitCity={onSubmitCity}
+          />
         </S.Inner>
       )}
     </S.SearchBox>

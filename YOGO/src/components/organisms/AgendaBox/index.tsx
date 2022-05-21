@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import uuid from 'react-native-uuid';
 import { Agenda } from 'react-native-calendars';
 import { Text, View } from 'react-native';
-import { ScheduleCard, SwipeContent, TagFilterContainer } from 'components';
+import { SwipeContent, TagFilterContainer } from 'components';
 import { IScheduleProps, ITagFilter } from 'types';
-import { TAG_FILTER_COLOR } from 'utils';
-import * as S from './style';
+import { ONE_DAY, TAG_FILTER_COLOR } from 'utils';
+import dayjs from 'dayjs';
 interface IAgendaProps {
   schedules: Array<IScheduleProps>;
   selectedDay: string;
@@ -21,7 +20,7 @@ export function AgendaBox({
   markedDates,
   onDayPress,
   onDeleteTarget,
-  onEditTarget
+  onEditTarget,
 }: IAgendaProps) {
   const [selectedTag, setSelectedTag] =
     useState<Array<ITagFilter>>(TAG_FILTER_COLOR);
@@ -57,45 +56,48 @@ export function AgendaBox({
         [schedules.length && selectedDay]: [{ schedules }],
       }}
       // 아직 사용하지 않음
-      loadItemsForMonth={month => {
-        console.log('trigger items loading');
-      }}
       onDayPress={day => {
         onDayPress(day.dateString);
       }}
       // 임시용
       renderEmptyData={() => {
         return (
+          <>
+          <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
           <View
             style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
           >
             <Text>This is empty date!</Text>
           </View>
+          </>
         );
       }}
       // 날짜 가리기
-      renderDay={(day, item) => {
+      renderDay={() => {
         return <View style={{ display: 'none' }} />;
       }}
-      renderItem={({schedules})=>{
+      renderItem={()=>{
         return (
         <>
-        <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
-        <SwipeContent data= {filteredSchedule} onDeleteTarget={onDeleteTarget} onEditTarget ={onEditTarget} />
+          <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
+          <SwipeContent data= {filteredSchedule} onDeleteTarget={onDeleteTarget} onEditTarget ={onEditTarget} selectedDay={selectedDay}/>
         </>
         )
       }}
+      minDate={dayjs().add(-ONE_DAY, 'second').format('YYYY-MM-DD')}
       selected={selectedDay}
+      pastScrollRange={1}
+      futureScrollRange={12}
       markedDates={{ ...markedDates }}
-      // 임시용
-      onRefresh={() => console.log('refreshing...')}
+      refreshing={false}
       showClosingKnob={true}
       theme={{
         dotColor: '#6564CC',
-        selectedDotColor: '#6564CC',
+        selectedDotColor: '#ffffff',
         selectedDayBackgroundColor: '#6564CC',
         todayTextColor: '#6564CC',
       }}
+      style={{}}
     />
   );
 }

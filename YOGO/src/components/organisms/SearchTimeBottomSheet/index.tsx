@@ -3,7 +3,7 @@ import { Modal, TouchableWithoutFeedback } from 'react-native';
 import { SearchTarget } from 'components';
 import { IconBottomSheetBar } from 'assets';
 import { useBottomSheet } from 'hooks';
-import { DUMMY_DATA_CITY } from 'utils';
+import { TZ_DATA_BASES  } from 'utils';
 import * as S from './style';
 
 interface ISearchBSProps {
@@ -25,7 +25,7 @@ export const SearchTimeBottomSheet = ({
 
   const [city, setCity] = useState('');
 
-  const targetList = DUMMY_DATA_CITY.filter(item =>
+  const targetList = TZ_DATA_BASES .filter(item =>
     item.city.toUpperCase().includes(city.toUpperCase()),
   );
 

@@ -14,7 +14,7 @@ interface ISetCityAndDateProps {
   setAlartDate: (date: string) => void;
   isBottomSheet: boolean;
   isCityInputValid?: boolean;
-  onChangeDate: (event: DateTimePickerEvent, date?: Date | undefined) => void;
+  onChangeDate: (event: DateTimePickerEvent, date: Date | undefined) => void;
   onPressSearchTargetCity: () => void;
   onPressFind?: () => void;
 }
