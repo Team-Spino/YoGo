@@ -5,4 +5,5 @@ export type RootStackParamList = {
     city?: string;
     date?: string;
   };
+  OnBoarding: undefined;
 };

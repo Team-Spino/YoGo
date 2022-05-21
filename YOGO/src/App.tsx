@@ -10,44 +10,48 @@ import { IsFirstProvider, PopProvider } from 'context';
 const Stack = createNativeStackNavigator();
 
 function App() {
-  const [isFrist, setIsFrist] = React.useState(false);
+  const [onBoard, setOnBoard] = React.useState(false);
   const KEY_VALUE = 'keyFirstLaunch';
 
-// 키값에 true로 저장한다.
 function setAppLaunched() {
   AsyncStorage.setItem(KEY_VALUE, 'true');
 }
 
 async function checkFirstLaunch() {
-  try {
-    const isFirstLaunched = await AsyncStorage.getItem(KEY_VALUE); 
-    if (isFirstLaunched === null) {  
+  return new Promise(
+   async (resolve) => { 
+    try {
+    const isFirstLaunched = await AsyncStorage.getItem(KEY_VALUE);
+    console.log("키값",isFirstLaunched);
+    if (isFirstLaunched === null) {   
       setAppLaunched(); 
-      return true; 
+      resolve(true);; 
     }
-    return false;  
+      resolve(false);  
   } catch (error) {
       console.log(' [chk first launch] :' + error);  
-    return false;
+    resolve(false)
   }
+}
+  )
 }
 
 useEffect(() => {
-  checkFirstLaunch().then(isFirst => {
+  checkFirstLaunch().then( isFirst => {
     if (isFirst) {
-      setIsFrist(true);
+      setOnBoard(true);
     } else {
-      setIsFrist(false);
+      setOnBoard(false);
     }
   });
-}, []);
+}, [setOnBoard]);
+
 
   return (
     <NavigationContainer>
       <PopProvider>
-        <IsFirstProvider>
         <ThemeProvider theme={theme}>
-          <Stack.Navigator initialRouteName={`${!isFrist ? 'OnBoarding' : 'Main'}`}>
+          <Stack.Navigator initialRouteName={`${onBoard ? 'OnBoarding' : 'Main'}`}>
             <Stack.Screen
               name="Main"
               component={Main}
@@ -71,7 +75,6 @@ useEffect(() => {
             />
           </Stack.Navigator>
         </ThemeProvider>
-        </IsFirstProvider>
       </PopProvider>
     </NavigationContainer>
   );

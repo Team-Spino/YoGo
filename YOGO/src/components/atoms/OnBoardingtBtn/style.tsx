@@ -20,5 +20,6 @@ export const Container = styled.TouchableOpacity<IBottomSheetBtnProps>`
 export const Text = styled.Text<IBottomSheetBtnProps>`
   font-size: 20px;
   font-weight: bold;
+  opacity: ${({ isSkip }) => isSkip ? '0.5' : '1'};
   color: ${props => !props.isSkip ? props.theme.colors.blue : props.theme.colors.white};
 `;

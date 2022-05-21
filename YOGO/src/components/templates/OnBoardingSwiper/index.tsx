@@ -1,14 +1,17 @@
 import React, { useContext, useRef, useState } from 'react'
 import { Image, StyleSheet } from 'react-native'
 import Swiper from 'react-native-swiper'
-import { OnBoardingSlide, OnBoardingStartEnd  } from 'components'
-import { ImgOnBoarding1, ImgOnBoarding1Text, ImgOnBoarding2, ImgOnBoarding2Text, ImgOnBoarding3, ImgOnBoarding4, ImgOnBoarding4Text , ImgOnBoarding5, ImgOnBoarding5Text } from 'assets'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { OnBoardingSlide } from 'components'
+import { ImgOnBoarding1, ImgOnBoarding1Text, ImgOnBoarding2, ImgOnBoarding2Text, ImgOnBoarding3, ImgOnBoarding4, ImgOnBoarding4Text , ImgOnBoarding5, ImgOnBoarding5Text, ImgOnBoarding6 } from 'assets'
 import { IsFirstContext } from 'context'
+import { RootStackParamList } from 'types'
 
 
 
 
-export function OnBoardingSwiper(){
+
+export function OnBoardingSwiper({ navigation } : { navigation :  NativeStackNavigationProp<RootStackParamList, 'OnBoarding'> }) {
 
   const [isStartOrEnd, setIsStartOrEnd] = useState(true)
   const { setFirst } = useContext(IsFirstContext);
@@ -38,7 +41,7 @@ export function OnBoardingSwiper(){
     {
       mainImg: <Image source={ImgOnBoarding2} style={{width: '100%', top: -100 }} resizeMode= 'contain' />,
       typography: <ImgOnBoarding2Text />,
-      text: 'YOGO is a platform that connects you with the best local businesses',
+      text: '',
       btnText: ['Next', 'Skip'],
       isEdge: false,
       onSkipPress: ()=> swiperRef.current.scrollTo(slide.length - 1,true),
@@ -49,7 +52,7 @@ export function OnBoardingSwiper(){
     {
       mainImg: <Image source={ImgOnBoarding3} style={{width: '100%', top : -40}} resizeMode= 'contain' />,
       typography: <ImgOnBoarding2Text />,
-      text: 'YOGO is a platform that connects you with the best local businesses',
+      text: '',
       btnText: ['Next', 'Skip'],
       isEdge: false,
       onSkipPress: ()=> swiperRef.current.scrollTo(slide.length - 1,true),
@@ -60,7 +63,7 @@ export function OnBoardingSwiper(){
     {
       mainImg: <Image source={ImgOnBoarding4} style={{width: '100%', top: -40}}  resizeMode= 'contain' />,
       typography: <ImgOnBoarding4Text />,
-      text: 'YOGO is a platform that connects you with the best local businesses',
+      text: '',
       btnText: ['Next', 'Skip'],
       isEdge: false,
       onSkipPress: ()=> swiperRef.current.scrollTo(slide.length - 1,true),
@@ -71,7 +74,7 @@ export function OnBoardingSwiper(){
       {
         mainImg: <ImgOnBoarding5 />,
         typography: <ImgOnBoarding5Text />,
-        text: 'YOGO is a platform that connects you with the best local businesses',
+        text: '',
         btnText: ['Next', 'Skip'],
         isEdge: false,
         onSkipPress: ()=> swiperRef.current.scrollTo(slide.length - 1,true),
@@ -80,13 +83,12 @@ export function OnBoardingSwiper(){
         }
       },
       {
-        mainImg: <ImgOnBoarding5 />,
-        typography: <ImgOnBoarding5Text />,
-        text: 'YOGO is a platform that connects you with the best local businesses',
+        mainImg: <ImgOnBoarding6 />,
         btnText: 'Continue',
         isEdge: true,
         onNextPress: (index : number) => {
-          swiperRef.current.scrollTo(index,true)
+          setFirst(false)
+          navigation.push('Main')
         }
       },
   ]

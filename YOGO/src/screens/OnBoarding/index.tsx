@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { OnBoardingSwiper } from 'components'
+import { RootStackParamList } from 'types'
 
-export function OnBoarding(){
+export function OnBoarding({ navigation } : { navigation :  NativeStackNavigationProp<RootStackParamList, 'OnBoarding'> }){
     return (
-      <>
-      <OnBoardingSwiper />
-      </>
+      <OnBoardingSwiper navigation={navigation} />
     )
   }

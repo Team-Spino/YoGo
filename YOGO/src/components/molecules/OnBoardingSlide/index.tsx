@@ -4,8 +4,8 @@ import { BottomSheetBtn, OnBoardingtBtn } from 'components';
 
 interface ImgOnBoardingSlideProps {
   mainImg: React.ReactNode;
-  typography: React.ReactNode;
-  text: string 
+  typograph?: React.ReactNode;
+  text?: string 
   isEdge: boolean;
   onSkipPress?: () => void;
   onNextPress: () => void;
