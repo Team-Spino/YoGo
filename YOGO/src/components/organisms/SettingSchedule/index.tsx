@@ -175,7 +175,7 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
     );
   };
 
-  const targetList = TZ_DATA_BASES .filter(item =>
+  const targetList = TZ_DATA_BASES.filter(item =>
     item.city.toUpperCase().includes(city.toUpperCase()),
   );
 
@@ -278,6 +278,21 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
           )[0];
 
           formState = { ...formState, dayOfWeek: JSON.stringify([name]) };
+        }
+      }
+
+      if (formState.dayOfWeek !== '[]') {
+        const selDayOfWeek = date.toLocaleDateString('en', {
+          weekday: 'short',
+        });
+
+        const dayOfWeekList = JSON.parse(formState.dayOfWeek);
+
+        if (!dayOfWeekList.includes(selDayOfWeek)) {
+          formState.dayOfWeek = JSON.stringify([
+            ...dayOfWeekList,
+            selDayOfWeek,
+          ]);
         }
       }
 

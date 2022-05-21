@@ -1,17 +1,26 @@
 import React, { useEffect } from 'react';
+import SplashScreen from 'react-native-splash-screen';
 import { ThemeProvider } from 'styled-components/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import { Main, HandleSchedule } from 'screens';
 import { theme } from 'styles/theme';
+import { useNotification } from 'hooks';
 import { PopProvider } from 'context';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
+  const { handleNotificationPermission, handleNotificationBadge } =
+    useNotification();
+
   useEffect(() => {
-    PushNotificationIOS.requestPermissions();
+    setTimeout(() => SplashScreen.hide(), 1000);
+  }, []);
+
+  useEffect(() => {
+    handleNotificationPermission();
+    handleNotificationBadge();
   }, []);
 
   return (

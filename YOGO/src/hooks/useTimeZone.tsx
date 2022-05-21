@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc'; // dependent on utc plugin
 import timezone from 'dayjs/plugin/timezone';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { formatCityName } from 'utils';
 import { ILiveTimeState } from 'types';
 
 dayjs.extend(utc);
@@ -75,7 +76,7 @@ export function useTimeZone() {
       ...formatTime({ targetTime }),
       timeDifference,
       date,
-      city: location?.split('/')[1],
+      city: formatCityName(location?.split('/')[1]),
     };
   };
 

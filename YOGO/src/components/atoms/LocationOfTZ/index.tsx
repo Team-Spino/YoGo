@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatCityName } from 'utils';
 import { IconMoon, IconSun } from 'assets';
 import * as S from './style';
 
@@ -32,8 +33,10 @@ export const LocationOfTZ = ({
       {checkSun() && <IconSun />}
       {!checkSun() && <IconMoon />}
       <S.leftDivContainer>
-        <S.leftDivHeader size={headerSize}>{timeDifference}</S.leftDivHeader>
-        <S.leftDivContent size={22}>{city}</S.leftDivContent>
+        <S.leftDivHeader size={headerSize}>
+          {formatCityName(timeDifference)}
+        </S.leftDivHeader>
+        <S.leftDivContent size={22}>{formatCityName(city)}</S.leftDivContent>
       </S.leftDivContainer>
     </S.leftDiv>
   );
