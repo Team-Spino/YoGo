@@ -44,6 +44,7 @@ export { HiddenEditAndDelete } from 'components/molecules/HiddenEditAndDelete';
 export { HiddenDelete } from 'components/molecules/HiddenDelete';
 export { SwipeContent } from 'components/molecules/SwipeContent';
 export { OnBoardingSlide } from 'components/molecules/OnBoardingSlide';
+export { RenderEmptyData } from 'components/molecules/RenderEmptyData';
 
 
 // Organisms
