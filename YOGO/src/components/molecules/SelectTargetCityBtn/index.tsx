@@ -50,12 +50,12 @@ export function SelectTargetCityBtn({
       return 'Please select city';
     }
 
-    return city.trim() ? formatCityName(city) : '국가, 도시';
+    return city.trim() ? formatCityName(city) : 'Country, City';
   };
 
   return (
     <S.Container isCityInputValid={isCityInputValid}>
-      <Title isEnable={true} text={'상대 도시 선택'} size={15} />
+      <Title isEnable={true} text={'Time Zone for The Destination Country'} size={15} />
       <S.PressContainer onPress={onPress}>
         <TextBtn>{placeholder()}</TextBtn>
         <IconDownArrow />
