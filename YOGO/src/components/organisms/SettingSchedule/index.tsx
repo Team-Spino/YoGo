@@ -7,6 +7,7 @@ import {
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import {
   TextInput,
@@ -31,6 +32,7 @@ import * as S from './style';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
+dayjs.extend(isSameOrBefore);
 
 interface IGetInitialProps {
   title: string;
@@ -254,8 +256,9 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
         const result = await asyncAlert();
         const now = dayjs().format('YYYY-MM-DD HH:mm');
         const alartTime = `${formState.curDay} ${formState.curTime}`;
-        const isBefore = dayjs(alartTime).isBefore(now);
+        const isBefore = dayjs(alartTime).isSameOrBefore(now);
 
+        console.log(isBefore);
         if (!result && isBefore) {
           Alert.alert(
             'Yogo',
