@@ -15,32 +15,37 @@ interface ISwipeContentProps {
   onEditTarget: (item: IScheduleProps) => void;
 }
 
-export const SwipeContent = ({data,  onDeleteTarget, onEditTarget, selectedDay } : ISwipeContentProps) => {
+export const SwipeContent = ({
+  data,
+  onDeleteTarget,
+  onEditTarget,
+  selectedDay,
+}: ISwipeContentProps) => {
+  const { deleteRow } = useSwipeList({
+    listData: data,
+    rowBackValue: WINDOW_WIDTH * 0.3,
+    onDeleteTarget,
+  });
 
-  const {deleteRow} = useSwipeList({listData : data , rowBackValue: WINDOW_WIDTH*0.3, onDeleteTarget});
-
-  const renderItem = ({item} : any) => (
-      <S.Container>
-        <ScheduleCard key={item.key} schedule={item} selectedDay={selectedDay} />
-      </S.Container>
-    );
-
+  const renderItem = ({ item }: any) => (
+    <S.Container>
+      <ScheduleCard key={item.key} schedule={item} selectedDay={selectedDay} />
+    </S.Container>
+  );
 
   return (
-    <S.Inner>
-      <SwipeListView
-          disableRightSwipe
-          data={data}
-          rightOpenValue={-WINDOW_WIDTH * 0.3}
-          renderItem={renderItem}
-          renderHiddenItem={({item})=> (
-                <HiddenEditAndDelete
-                  item={item}
-                  onPressDelete={deleteRow}
-                  onPressEdit={onEditTarget}
-                  />
-                )}
+    <SwipeListView
+      disableRightSwipe
+      data={data}
+      rightOpenValue={-WINDOW_WIDTH * 0.3}
+      renderItem={renderItem}
+      renderHiddenItem={({ item }) => (
+        <HiddenEditAndDelete
+          item={item}
+          onPressDelete={deleteRow}
+          onPressEdit={onEditTarget}
         />
-      </S.Inner>
+      )}
+    />
   );
 };
