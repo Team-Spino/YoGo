@@ -34,12 +34,11 @@ export function SelectTargetCityBtn({
         setAlartDate(time);
 
         const [d, t] = time.split(' ');
-
+// The alarm goes off at 12:09 AM in Seoul
         setNotiAlartTime(
-          `${locateCity} 기준 ${toFormat12Hour({
-            day: d,
-            time: t,
-          })}에 알람이 울립니다.`,
+          `The Alarm goes off at ${toFormat12Hour({ 
+              day: d,
+              time: t,})} in ${locateCity}.`
         );
       }
     }, [city, date]);
