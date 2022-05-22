@@ -2,13 +2,13 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   width: 100%;
-  flex: 1;
+  height: 90%;
   background-color: #fff;
 `;
 
 export const RenderHiddenContainer = styled.View`
   align-items: center;
-  background-color: #EB5545;
+  background-color: #eb5545;
   flex: 1;
   fex-direction: row;
   justify-content: space-between;
@@ -16,9 +16,9 @@ export const RenderHiddenContainer = styled.View`
 `;
 
 export const RenderRightButton = styled.TouchableOpacity`
-  width: 70px;  
+  width: 70px;
   align-items: center;
-  background-color: #EB5545;
+  background-color: #eb5545;
   justify-content: center;
   position: absolute;
   bottom: 0;
