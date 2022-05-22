@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { Animated} from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import { TimeZoneCard, HiddenDelete } from 'components';
+import { TimeZoneCard, HiddenDelete, RenderEmptyData } from 'components';
 import { useSwipeList } from 'hooks';
 import { WINDOW_WIDTH } from 'styles';
 import { ICityProps } from 'types';
@@ -36,7 +36,8 @@ export function TimeZoneList({cardState, onDeleteTarget}: ITimeZoneListProps) {
 
   return (
      <S.Container>
-        <SwipeListView
+        {cardState.length > 0 && (
+            <SwipeListView
             disableRightSwipe
             data={cardState}
             renderItem={renderItem}
@@ -45,6 +46,9 @@ export function TimeZoneList({cardState, onDeleteTarget}: ITimeZoneListProps) {
             onSwipeValueChange={onSwipeValueChange}
             useNativeDriver={false}
         />
+        )    
+        }
+        {cardState.length === 0 && <RenderEmptyData text={'No Time List!'}/>}
     </S.Container>
   );
 }

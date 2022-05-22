@@ -4,14 +4,14 @@ import { ImgNoSchedule } from 'assets';
 import { Title } from 'components';
 
 
-export function RenderEmptyData() {
+export function RenderEmptyData({text} : {text : string}) {
   return (
     <S.Container>
     <S.Image
       source={ImgNoSchedule}
       resizeMode="contain"
     />
-    <Title isEnable={false} text={'No Schedule!'} size={22} />
+    <Title isEnable={false} text={text} size={22} />
   </S.Container>
   );
 }
