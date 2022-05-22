@@ -181,16 +181,16 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
 
   const asyncAlert = async () =>
     new Promise(resolve => {
-      Alert.alert('Yogo', '이 일정을 반복하겠습니까?', [
+      Alert.alert('Yogo', 'Please choose the type of schedule', [
         {
-          text: 'Cancel',
+          text: 'One Day!',
           onPress: () => {
             resolve(false);
           },
           style: 'cancel',
         },
         {
-          text: 'OK',
+          text: 'Every Week!',
           onPress: () => {
             resolve(true);
           },
