@@ -1,9 +1,9 @@
+import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
   width: 100%;
-  height: 100%;
-  padding-bottom: 40px;
+  height: Dimensions.get('window') .height;
   background-color: #fff;
 `;
 

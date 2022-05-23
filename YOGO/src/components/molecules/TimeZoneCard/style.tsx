@@ -12,4 +12,8 @@ export const Container = styled.View`
   border-bottom-color: #eee;
   border-bottom-width: 1;
   padding: 0 15px;
+
+  &:last-child {
+    border-bottom-width: 0;
+  }
 `;
