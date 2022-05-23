@@ -115,7 +115,6 @@ export function AgendaBox({
 const style = StyleSheet.create({
   container: {
     width: '100%',
-    height: Dimensions.get('window').height * 0.8,
-    paddingBottom: 40,
+    height: Dimensions.get('window').height * 0.68,
   },
 });

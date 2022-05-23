@@ -1,12 +1,10 @@
 import React from 'react';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import uuid from 'react-native-uuid';
 import { HiddenEditAndDelete, ScheduleCard } from 'components';
 import { useSwipeList } from 'hooks';
 import { IScheduleProps } from 'types';
 import { WINDOW_WIDTH } from 'styles';
 import * as S from './style';
-import { Animated } from 'react-native';
 
 interface ISwipeContentProps {
   data: IScheduleProps[];
@@ -39,6 +37,8 @@ export const SwipeContent = ({
       data={data}
       rightOpenValue={-WINDOW_WIDTH * 0.3}
       renderItem={renderItem}
+      scrollEnabled={false}
+      nestedScrollEnabled={false}
       renderHiddenItem={({ item }) => (
         <HiddenEditAndDelete
           item={item}
@@ -46,6 +46,7 @@ export const SwipeContent = ({
           onPressEdit={onEditTarget}
         />
       )}
+      style={{ marginBottom: 40 }}
     />
   );
 };

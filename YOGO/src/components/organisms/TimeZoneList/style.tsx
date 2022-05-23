@@ -11,7 +11,7 @@ export const RenderHiddenContainer = styled.View`
   align-items: center;
   background-color: #eb5545;
   flex: 1;
-  fex-direction: row;
+  flex-direction: row;
   justify-content: space-between;
   padding-left: 15px;
 `;
