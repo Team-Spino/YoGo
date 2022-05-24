@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext, useCallback } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import dayjs from 'dayjs';
+import { PortalProvider } from '@gorhom/portal';
 import { FloatingButton, AgendaBox } from 'components';
 import { IconPlus } from 'assets';
 import { RootStackParamList, IScheduleProps } from 'types';

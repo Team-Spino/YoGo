@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { Text, View, Dimensions, StyleSheet } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import { View } from 'react-native';
 import { RenderEmptyData, SwipeContent, TagFilterContainer } from 'components';
 import { IScheduleProps, ITagFilter } from 'types';
 import { ONE_DAY, TAG_FILTER_COLOR } from 'utils';
+import * as S from './style';
 import dayjs from 'dayjs';
 
 interface IAgendaProps {
@@ -73,13 +75,20 @@ export function AgendaBox({
       renderDay={() => {
         return <View style={{ display: 'none' }} />;
       }}
-      renderItem={()=>{
+      renderItem={() => {
         return (
-        <>
-          <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
-          <SwipeContent data= {filteredSchedule} onDeleteTarget={onDeleteTarget} onEditTarget ={onEditTarget} selectedDay={selectedDay}/>
-        </>
-        )
+          <View style={style.container}>
+            <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
+            <S.Wrapper>
+              <SwipeContent
+                data={filteredSchedule}
+                onDeleteTarget={onDeleteTarget}
+                onEditTarget={onEditTarget}
+                selectedDay={selectedDay}
+              />
+            </S.Wrapper>
+          </View>
+        );
       }}
       minDate={dayjs().add(-ONE_DAY, 'second').format('YYYY-MM-DD')}
       selected={selectedDay}
@@ -94,7 +103,12 @@ export function AgendaBox({
         selectedDayBackgroundColor: '#6564CC',
         todayTextColor: '#6564CC',
       }}
-      style={{}}
     />
   );
 }
+const style = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: Dimensions.get('window').height * 0.68,
+  },
+});

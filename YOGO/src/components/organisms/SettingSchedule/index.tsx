@@ -7,6 +7,7 @@ import {
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import {
   TextInput,
@@ -31,6 +32,7 @@ import * as S from './style';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
+dayjs.extend(isSameOrBefore);
 
 interface IGetInitialProps {
   title: string;
@@ -220,7 +222,7 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
       const db = await connectDB();
       return (await insertScheduleItem(db, formState)) as number;
     } catch (e) {
-      console.error(e);
+      console.error(e.message);
     }
   };
 
@@ -254,9 +256,9 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
         const result = await asyncAlert();
         const now = dayjs().format('YYYY-MM-DD HH:mm');
         const alartTime = `${formState.curDay} ${formState.curTime}`;
-        const isBefore = dayjs(alartTime).isBefore(now);
+        const isSameOrBefore = dayjs(alartTime).isSameOrBefore(now);
 
-        if (!result && isBefore) {
+        if (!result && isSameOrBefore) {
           Alert.alert(
             'Yogo',
             '이미 지난 일정입니다. 시간을 다시 입력해주세요.',
