@@ -132,7 +132,6 @@ export function useNotification() {
         resolve(
           notifications
             .filter(notification => {
-              console.log(notification);
               return notification.data.key === number;
             })
             .map(notification => notification.id),
@@ -145,7 +144,6 @@ export function useNotification() {
     const notifications = (await getTagetNumberNotifications({
       number,
     })) as Array<string>;
-    console.log(notifications);
     PushNotificationIOS.removePendingNotificationRequests(notifications);
   };
 
@@ -201,21 +199,25 @@ export function useNotification() {
 
       // 알람이 허가되지 않았고, db에 반영되지 않았을 때
       if (!info.notificationCenter && !permission) {
-        Alert.alert('YOGO', 'Please allow permission to use the schedule notification service', [
-          {
-            text: 'Cancel',
-            onPress: async () => {
-              await inesertAlarmPermission(db, 0);
+        Alert.alert(
+          'YOGO',
+          'Please allow permission to use the schedule notification service',
+          [
+            {
+              text: 'Cancel',
+              onPress: async () => {
+                await inesertAlarmPermission(db, 0);
+              },
+              style: 'cancel',
             },
-            style: 'cancel',
-          },
-          {
-            text: 'OK',
-            onPress: () => {
-              Linking.openSettings();
+            {
+              text: 'OK',
+              onPress: () => {
+                Linking.openSettings();
+              },
             },
-          },
-        ]);
+          ],
+        );
 
         return;
       }

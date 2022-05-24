@@ -10,7 +10,6 @@ export function OnBoarding({
   navigation: NativeStackNavigationProp<RootStackParamList, 'OnBoarding'>;
   route: any;
 }) {
-  console.log(route);
   const { setOnBoard } = route.params;
   return <OnBoardingSwiper setOnBoard={setOnBoard} />;
 }

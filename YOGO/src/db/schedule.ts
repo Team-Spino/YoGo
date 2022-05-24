@@ -69,8 +69,6 @@ export const insertScheduleItem = async (db: SQLiteDatabase, schedule: any) => {
     dayOfWeek,
   } = schedule;
 
-  console.log('insertScheduleItem', schedule);
-
   try {
     const insertQuery = `
     INSERT INTO ${SCHEDULE} (TITLE, DESCRIPTION, TAG_COLOR, TARGET_TIME, TARGET_CITY, TARGET_DAY, CUR_TIME, CUR_CITY, CUR_DAY, DAY_OF_WEEK, IS_ACTIVE)
@@ -95,7 +93,7 @@ export const insertScheduleItem = async (db: SQLiteDatabase, schedule: any) => {
 
     return insertId;
   } catch (e) {
-    console.log(e.message);
+    console.error(e.message);
   }
 };
 

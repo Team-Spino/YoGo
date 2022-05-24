@@ -23,7 +23,6 @@ function App() {
         if (isFirstLaunched === null) resolve(true);
         resolve(false);
       } catch (error) {
-        console.log(' [chk first launch] :' + error);
         resolve(false);
       }
     });
