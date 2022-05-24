@@ -279,11 +279,12 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
             day => day.name === curDateOfWeek,
           )[0];
 
+          console.log(name);
+          console.log(formState);
+
           formState = { ...formState, dayOfWeek: JSON.stringify([name]) };
         }
-      }
-
-      if (formState.dayOfWeek !== '[]') {
+      } else if (formState.dayOfWeek !== '[]') {
         const selDayOfWeek = date.toLocaleDateString('en', {
           weekday: 'short',
         });
