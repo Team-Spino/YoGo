@@ -58,7 +58,7 @@ export function DetailModal({
       isVisible={isVisible}
       onBackdropPress={onCloseDetailPress}
       onSwipeComplete={onCloseDetailPress}
-      swipeDirection="left"
+      coverScreen={true}
     >
       <S.Container>
         <S.Content>

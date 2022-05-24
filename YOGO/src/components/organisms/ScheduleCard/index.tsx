@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Portal } from '@gorhom/portal';
 import {
   ScheduleCardHeader,
   ScheduleCardContent,
@@ -72,12 +73,14 @@ export function ScheduleCard({ schedule, selectedDay }: IScheduleCardProps) {
           />
         </S.Wrapper>
       </S.Container>
-      <DetailModal
-        isVisible={isVisible}
-        onCloseDetailPress={onCloseDetailPress}
-        selectedDay={selectedDay}
-        schedule={schedule}
-      />
+      <Portal>
+        <DetailModal
+          isVisible={isVisible}
+          onCloseDetailPress={onCloseDetailPress}
+          selectedDay={selectedDay}
+          schedule={schedule}
+        />
+      </Portal>
     </>
   );
 }
