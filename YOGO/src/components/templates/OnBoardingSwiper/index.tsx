@@ -40,7 +40,7 @@ export function OnBoardingSwiper({
     {
       mainImg: <ImgOnBoarding1 />,
       typography: <ImgOnBoarding1Text />,
-      text: 'Make to easy set up \n different timezones meetings',
+      text: `YOGO helps users to set up \n meetings  easily across different timezones`,
       btnText: "Let's look into",
       isEdge: true,
       onNextPress: (index: number) => {

@@ -4,7 +4,6 @@ export const Container = styled.View<{
   isCityInputValid?: boolean;
 }>`
   width: 100%;
-
   border-bottom-color: rgba(0, 0, 0, 0.1);
   border-bottom-width: 1px;
   padding: 15px 20px;
@@ -20,6 +19,7 @@ export const Container = styled.View<{
 export const PressContainer = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
+  margin-top: 15px;
   width: 100%;
   align-items: center;
   justify-content: space-between;

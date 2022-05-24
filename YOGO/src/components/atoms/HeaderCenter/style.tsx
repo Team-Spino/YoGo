@@ -13,6 +13,5 @@ export const Text = styled.Text<IHeaderCenterProps>`
   font-size: ${props => props.size};
   font-weight: bold;
   margin-top: 30px;
-
   align-self: center;
 `;
