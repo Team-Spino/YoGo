@@ -72,17 +72,17 @@ export const insertScheduleItem = async (db: SQLiteDatabase, schedule: any) => {
   const insertQuery = `
     INSERT INTO ${SCHEDULE} (TITLE, DESCRIPTION, TAG_COLOR, TARGET_TIME, TARGET_CITY, TARGET_DAY, CUR_TIME, CUR_CITY, CUR_DAY, DAY_OF_WEEK, IS_ACTIVE)
     VALUES (
-      '${title}', 
-      '${description}', 
-      '${tagColor}', 
-      '${targetTime}', 
-      '${targetCity}',
-      '${targetDay}',
-      '${curTime}', 
-      '${curCity}',
-      '${curDay}',
-      '${dayOfWeek}',
-      '${1}'
+      "${title}", 
+      "${description}", 
+      "${tagColor}", 
+      "${targetTime}", 
+      "${targetCity}",
+      "${targetDay}",
+      "${curTime}", 
+      "${curCity}",
+      "${curDay}",
+      "${dayOfWeek}",
+      ${1}
       )
   `;
 

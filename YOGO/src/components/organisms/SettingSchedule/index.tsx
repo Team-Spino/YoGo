@@ -256,10 +256,9 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
         const result = await asyncAlert();
         const now = dayjs().format('YYYY-MM-DD HH:mm');
         const alartTime = `${formState.curDay} ${formState.curTime}`;
-        const isBefore = dayjs(alartTime).isSameOrBefore(now);
+        const isSameOrBefore = dayjs(alartTime).isSameOrBefore(now);
 
-        console.log(isBefore);
-        if (!result && isBefore) {
+        if (!result && isSameOrBefore) {
           Alert.alert(
             'Yogo',
             '이미 지난 일정입니다. 시간을 다시 입력해주세요.',
