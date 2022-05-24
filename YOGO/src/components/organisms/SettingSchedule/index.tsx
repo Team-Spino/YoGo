@@ -279,15 +279,15 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
             day => day.name === curDateOfWeek,
           )[0];
 
-          console.log(name);
-          console.log(formState);
-
           formState = { ...formState, dayOfWeek: JSON.stringify([name]) };
         }
       } else if (formState.dayOfWeek !== '[]') {
-        const selDayOfWeek = date.toLocaleDateString('en', {
-          weekday: 'short',
-        });
+        const selDayOfWeek = new Date(alartDate as string).toLocaleDateString(
+          'en',
+          {
+            weekday: 'short',
+          },
+        );
 
         const dayOfWeekList = JSON.parse(formState.dayOfWeek);
 
