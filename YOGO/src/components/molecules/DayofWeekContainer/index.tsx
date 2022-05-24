@@ -14,7 +14,7 @@ export function DayOfWeekContainer({
 }: ITagSelectContainerProps) {
   return (
     <S.Container>
-      <Title isEnable={true} text={'요일 선택'} size={15} />
+      <Title isEnable={true} text={'Select a Day of the week to repeat'} size={15} />
       <S.Wrapper>
         {dayOfWeek.map((day: IDayOfWeekProps) => (
           <DayOfWeekBtn key={day.key} day={day} onDaySelect={onDaySelect} />

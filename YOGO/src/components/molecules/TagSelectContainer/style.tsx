@@ -14,6 +14,5 @@ export const Wrapper = styled.View`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-
   margin-top: 15px;
 `;

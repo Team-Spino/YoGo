@@ -16,8 +16,10 @@ export function SelectTargetDate({ onChangeDate, date }: IBTargetDateProps) {
 
   return (
     <S.Container>
-      <Title isEnable={true} text={'상대 날짜 선택'} size={15} />
+      <Title isEnable={true} text={'Select Target Date'} size={15} />
+      <S.BtnContainer>
       <TextBtn>{`${week}, ${month} ${day}, ${year}`}</TextBtn>
+      </S.BtnContainer>
       <DatePicker onChangeDate={onChangeDate} date={date} />
     </S.Container>
   );

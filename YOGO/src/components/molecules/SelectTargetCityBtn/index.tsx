@@ -34,12 +34,11 @@ export function SelectTargetCityBtn({
         setAlartDate(time);
 
         const [d, t] = time.split(' ');
-
+// The alarm goes off at 12:09 AM in Seoul
         setNotiAlartTime(
-          `${locateCity} 기준 ${toFormat12Hour({
-            day: d,
-            time: t,
-          })}에 알람이 울립니다.`,
+          `The Alarm goes off at ${toFormat12Hour({ 
+              day: d,
+              time: t,})} in ${locateCity}.`
         );
       }
     }, [city, date]);
@@ -50,12 +49,12 @@ export function SelectTargetCityBtn({
       return 'Please select city';
     }
 
-    return city.trim() ? formatCityName(city) : '국가, 도시';
+    return city.trim() ? formatCityName(city) : 'Country, City';
   };
 
   return (
     <S.Container isCityInputValid={isCityInputValid}>
-      <Title isEnable={true} text={'상대 도시 선택'} size={15} />
+      <Title isEnable={true} text={'Time Zone for The Destination Country'} size={15} />
       <S.PressContainer onPress={onPress}>
         <TextBtn>{placeholder()}</TextBtn>
         <IconDownArrow />

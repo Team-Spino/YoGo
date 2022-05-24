@@ -32,8 +32,7 @@ export const Content = styled.View<ISlideProps>`
 
 export const Text = styled.Text`
   color: ${({ theme }) => theme.colors.white};
-  margin-top: 30;
-  font-size: 24;
+  margin-top: 30px;
+  font-size: 18px;
   text-align: center; 
-  font-weight: bold;
 `

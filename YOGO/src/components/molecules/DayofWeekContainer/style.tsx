@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 export const Container = styled.View`
   width: 100%;
   flex: 1;
-  padding: 30px 20px;
+  padding: 15px 20px;
 `;
 
 export const Wrapper = styled.View`

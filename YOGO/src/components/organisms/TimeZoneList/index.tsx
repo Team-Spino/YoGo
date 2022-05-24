@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { Animated, View, StyleSheet } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import { TimeZoneCard, HiddenDelete } from 'components';
+import { TimeZoneCard, HiddenDelete, RenderEmptyData } from 'components';
 import { useSwipeList } from 'hooks';
 import { WINDOW_WIDTH } from 'styles';
 import { ICityProps } from 'types';
@@ -46,20 +46,21 @@ export function TimeZoneList({
     );
   };
   return (
-    <View style={style.container}>
-      <SwipeListView
-        disableRightSwipe
-        data={cardState}
-        renderItem={renderItem}
-        renderHiddenItem={({ item }) => (
-          <HiddenDelete item={item} onPress={deleteRow} />
-        )}
-        rightOpenValue={isOpen}
-        onSwipeValueChange={onSwipeValueChange}
-        useNativeDriver={false}
-        style={{ marginBottom: 40 }}
-      />
-    </View>
+     <S.Container>
+        {cardState.length > 0 && (
+            <SwipeListView
+            disableRightSwipe
+            data={cardState}
+            renderItem={renderItem}
+            renderHiddenItem={({item})=> <HiddenDelete item={item} onPress={deleteRow}/>}
+            rightOpenValue={isOpen}
+            onSwipeValueChange={onSwipeValueChange}
+            useNativeDriver={false}
+        />
+        )    
+        }
+        {cardState.length === 0 && <RenderEmptyData text={'No Time List!'}/>}
+    </S.Container>
   );
 }
 

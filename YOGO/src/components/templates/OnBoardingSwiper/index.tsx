@@ -40,7 +40,7 @@ export function OnBoardingSwiper({
     {
       mainImg: <ImgOnBoarding1 />,
       typography: <ImgOnBoarding1Text />,
-      text: 'Welcome to YOGO',
+      text: `YOGO helps users to set up \n meetings  easily across different timezones`,
       btnText: "Let's look into",
       isEdge: true,
       onNextPress: (index: number) => {
@@ -56,7 +56,7 @@ export function OnBoardingSwiper({
         />
       ),
       typography: <ImgOnBoarding2Text />,
-      text: '',
+      text: "Press '+'(plus) button to add schedule",
       btnText: ['Next', 'Skip'],
       isEdge: false,
       onSkipPress: () => swiperRef.current!.scrollTo(slide.length - 1, true),
@@ -73,7 +73,7 @@ export function OnBoardingSwiper({
         />
       ),
       typography: <ImgOnBoarding2Text />,
-      text: '',
+      text: "If you select  \n the time zone for the destination country, \n the schedule is automatically made",
       btnText: ['Next', 'Skip'],
       isEdge: false,
       onSkipPress: () => swiperRef.current!.scrollTo(slide.length - 1, true),
@@ -85,12 +85,12 @@ export function OnBoardingSwiper({
       mainImg: (
         <Image
           source={ImgOnBoarding4}
-          style={{ width: '100%', top: -40 }}
+          style={{ width: '90%', top: -40 }}
           resizeMode="contain"
         />
       ),
       typography: <ImgOnBoarding4Text />,
-      text: '',
+      text: 'Check the time \n difference of many countries at the same time',
       btnText: ['Next', 'Skip'],
       isEdge: false,
       onSkipPress: () => swiperRef.current!.scrollTo(slide.length - 1, true),

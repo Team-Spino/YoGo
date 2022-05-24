@@ -13,12 +13,14 @@ export { IconSun } from 'assets/icons/IconSun';
 export { IconMoon } from 'assets/icons/IconMoon';
 export { IconDelete }  from 'assets/icons/IconDelete';
 export { IconEdit }  from 'assets/icons/IconEdit';
+export { IconResultArrow } from 'assets/icons/IconResultArrow';
 
 // Images
 export { ImgOnBoarding1 } from 'assets/images/ImgOnBoarding1';
 export ImgOnBoarding2  from "assets/images/ImgOnBoarding2.png";
 export ImgOnBoarding3  from "assets/images/ImgOnBoarding3.png";
 export ImgOnBoarding4 from "assets/images/ImgOnBoarding4.png";
+export ImgNoSchedule from "assets/images/ImgNoSchedule.png";
 export { ImgOnBoarding5 } from "assets/images/ImgOnBoarding5";
 export { ImgOnBoarding6 } from "assets/images/ImgOnBoarding6";
 export { ImgOnBoarding1Text } from 'assets/images/ImgOnBoarding1Text';

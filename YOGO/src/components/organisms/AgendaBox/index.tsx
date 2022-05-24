@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, Dimensions, StyleSheet } from 'react-native';
 import { Agenda } from 'react-native-calendars';
-import { SwipeContent, TagFilterContainer } from 'components';
+import { View } from 'react-native';
+import { RenderEmptyData, SwipeContent, TagFilterContainer } from 'components';
 import { IScheduleProps, ITagFilter } from 'types';
 import { ONE_DAY, TAG_FILTER_COLOR } from 'utils';
 import * as S from './style';
 import dayjs from 'dayjs';
+
 interface IAgendaProps {
   schedules: Array<IScheduleProps>;
   selectedDay: string;
@@ -64,16 +66,8 @@ export function AgendaBox({
       renderEmptyData={() => {
         return (
           <>
-            <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Text>This is empty date!</Text>
-            </View>
+          <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
+          <RenderEmptyData text={'No Schedule'} />
           </>
         );
       }}

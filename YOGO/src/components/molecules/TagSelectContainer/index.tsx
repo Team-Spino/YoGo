@@ -14,7 +14,7 @@ export function TagSelectContainer({
 }: ITagSelectContainerProps) {
   return (
     <S.Container>
-      <Title isEnable={true} text={'컬러 태그 선택'} size={15} />
+      <Title isEnable={true} text={'Select Color Tag'} size={15} />
       <S.Wrapper>
         {tagList.map(tag => (
           <TagSelect key={tag.key} tag={tag} onSelectTag={onSelectTag} />
