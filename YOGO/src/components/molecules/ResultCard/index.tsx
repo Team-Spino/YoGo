@@ -4,13 +4,15 @@ import { formatCityName } from 'utils';
 import * as S from './style';
 
 interface IResultCardProps {
-  city: any;
+  cardHeader : string;
+  city: string | undefined;
   date: string;
   time: string;
   meridiem: string;
 }
 
 export const ResultCard = ({
+  cardHeader,
   city,
   date,
   time,
@@ -18,6 +20,9 @@ export const ResultCard = ({
 }: IResultCardProps) => {
   return (
     <S.Container>
+      <S.CardHeaderBox>
+        <S.CardHeaderText>{cardHeader}</S.CardHeaderText>
+      </S.CardHeaderBox>
       <LocationOfTZ
         timeDifference={city}
         city={date}

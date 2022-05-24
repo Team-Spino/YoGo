@@ -4,7 +4,8 @@ const screenHeight = Dimensions.get('screen').height;
 
 export const Inner = styled.View`
   width: 100%;
-  flex: 1;
+  margin-top: ${screenHeight * 0.05}px;
+  height: 80%;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
@@ -14,7 +15,6 @@ export const Inner = styled.View`
 export const ResultBox = styled.View`
   height: ${screenHeight * 0.90}px;
   width: 100%;
-  justify-content: space-between;
   align-items: center;
   padding-top: 20px;
 `;

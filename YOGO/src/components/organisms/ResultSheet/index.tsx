@@ -6,7 +6,7 @@ import {
   BottomSheetHeader,
   IconAbsolute,
 } from 'components';
-import { IconWorld } from 'assets';
+import { IconResultArrow, IconWorld } from 'assets';
 import { IMakeProps } from 'types';
 import { useTimeZone } from 'hooks';
 import * as S from './style';
@@ -38,7 +38,7 @@ export function ResultSheet({ onPress, submitObject }: IResultBSProps) {
   return (
     <S.ResultBox>
       <BottomSheetHeader
-        text={'We Find your Time Zone'}
+        text={'Caculated Time Zone'}
         size={18}
         isWhite={true}
       />
@@ -47,20 +47,23 @@ export function ResultSheet({ onPress, submitObject }: IResultBSProps) {
           <IconWorld />
         </IconAbsolute>
         <ResultCard
-          city={locateCity}
-          date={curDate}
-          time={curTime}
-          meridiem={curMeridiem}
-        />
-        <ResultCard
+          cardHeader={'Target Time Zone'}
           city={tarCity.split('/').at(-1)}
           date={tarDateFormat}
           time={tarTime}
           meridiem={tarMeridiem}
         />
+        <IconResultArrow />
+        <ResultCard
+          cardHeader='Your Time Zone'
+          city={locateCity}
+          date={curDate}
+          time={curTime}
+          meridiem={curMeridiem}
+        />
       </S.Inner>
       <BottomSheetBtn
-        text={'Make'}
+        text={'Make Schedule'}
         onPress={() => onPress(submitObject)}
         isRevers={true}
       />

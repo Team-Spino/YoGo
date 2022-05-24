@@ -13,6 +13,7 @@ export { IconSun } from 'assets/icons/IconSun';
 export { IconMoon } from 'assets/icons/IconMoon';
 export { IconDelete }  from 'assets/icons/IconDelete';
 export { IconEdit }  from 'assets/icons/IconEdit';
+export { IconResultArrow } from 'assets/icons/IconResultArrow';
 
 // Images
 export { ImgOnBoarding1 } from 'assets/images/ImgOnBoarding1';
