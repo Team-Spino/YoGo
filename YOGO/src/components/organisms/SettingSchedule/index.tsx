@@ -222,7 +222,7 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
       const db = await connectDB();
       return (await insertScheduleItem(db, formState)) as number;
     } catch (e) {
-      console.error(e);
+      console.error(e.message);
     }
   };
 
