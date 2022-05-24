@@ -22,7 +22,7 @@ import * as S from './style';
 
 type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
 
-export function TimeZone({ navigation }: { navigation: Prop}) {
+export function TimeZone({ navigation }: { navigation: Prop }) {
   const [cardState, setCardState] = useState<Array<ICityProps>>([]);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [timeSearchVisible, setTimeSearchVisible] = useState<boolean>(false);
@@ -43,7 +43,6 @@ export function TimeZone({ navigation }: { navigation: Prop}) {
   };
 
   const onDeleteTarget = async (id: number) => {
-    
     setCardState(cardState.filter(item => item.key !== id));
 
     const db = await connectDB();
@@ -76,7 +75,11 @@ export function TimeZone({ navigation }: { navigation: Prop}) {
   return (
     <>
       <S.Container>
-        <TimeZoneList cardState={cardState} setCardState = {setCardState} onDeleteTarget={onDeleteTarget} />
+        <TimeZoneList
+          cardState={cardState}
+          setCardState={setCardState}
+          onDeleteTarget={onDeleteTarget}
+        />
         <BottomSheet
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
@@ -94,4 +97,3 @@ export function TimeZone({ navigation }: { navigation: Prop}) {
     </>
   );
 }
-
