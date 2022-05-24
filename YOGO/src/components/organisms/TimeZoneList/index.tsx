@@ -6,6 +6,7 @@ import { useSwipeList } from 'hooks';
 import { WINDOW_WIDTH } from 'styles';
 import { ICityProps } from 'types';
 import { Dimensions } from 'react-native';
+import * as S from './style';
 
 interface IItemProps {
   key: number;

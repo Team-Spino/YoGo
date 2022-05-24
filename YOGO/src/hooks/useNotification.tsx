@@ -201,7 +201,7 @@ export function useNotification() {
 
       // 알람이 허가되지 않았고, db에 반영되지 않았을 때
       if (!info.notificationCenter && !permission) {
-        Alert.alert('YOGO', 'Please use Notification', [
+        Alert.alert('YOGO', 'Please allow permission to use the schedule notification service', [
           {
             text: 'Cancel',
             onPress: async () => {

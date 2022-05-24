@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Dimensions, StyleSheet } from 'react-native';
+import { View, Dimensions, StyleSheet } from 'react-native';
 import { Agenda } from 'react-native-calendars';
-import { View } from 'react-native';
 import { RenderEmptyData, SwipeContent, TagFilterContainer } from 'components';
 import { IScheduleProps, ITagFilter } from 'types';
 import { ONE_DAY, TAG_FILTER_COLOR } from 'utils';
@@ -90,7 +89,7 @@ export function AgendaBox({
           </View>
         );
       }}
-      minDate={dayjs().add(-ONE_DAY, 'second').format('YYYY-MM-DD')}
+      minDate={dayjs().format('YYYY-MM-DD')}
       selected={selectedDay}
       pastScrollRange={1}
       futureScrollRange={12}
