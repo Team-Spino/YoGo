@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Portal } from '@gorhom/portal';
 import {
   ScheduleCardHeader,
@@ -16,7 +16,10 @@ interface IScheduleCardProps {
   selectedDay: string;
 }
 
-export function ScheduleCard({ schedule, selectedDay }: IScheduleCardProps) {
+export const ScheduleCard = React.memo(function ({
+  schedule,
+  selectedDay,
+}: IScheduleCardProps) {
   const {
     key,
     TITLE,
@@ -38,6 +41,7 @@ export function ScheduleCard({ schedule, selectedDay }: IScheduleCardProps) {
   const onTogglePress = async () => {
     const db = await connectDB();
     await updateScheduleItemActive(db, key, isEnable ? 0 : 1);
+    console.log(await getAllSchedule(db));
     handleScheduleToggle({
       number: Number(key),
       isActive: isEnable ? false : true,
@@ -45,6 +49,10 @@ export function ScheduleCard({ schedule, selectedDay }: IScheduleCardProps) {
     });
     setIsEnable(!isEnable);
   };
+
+  useEffect(() => {
+    setIsEnable(IS_ACTIVE ? true : false);
+  }, [IS_ACTIVE]);
 
   const onShowDetailPress = () => setIsVisible(true);
   const onCloseDetailPress = () => setIsVisible(false);
@@ -83,4 +91,4 @@ export function ScheduleCard({ schedule, selectedDay }: IScheduleCardProps) {
       </Portal>
     </>
   );
-}
+});
