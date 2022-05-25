@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, TouchableWithoutFeedback } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import dayjs from 'dayjs';
 import { ResultSheet, SearchSheet } from 'components';
 import { IconBottomSheetBar } from 'assets';
 import { useBottomSheet } from 'hooks';
@@ -46,7 +47,7 @@ export const BottomSheet = ({
     closeBottomSheet();
     navigation.push('HandleSchedule', {
       title: 'Add',
-      item: { TARGET_CITY, TARGET_DAY, isFromBottomSheet: true } as IMakeProps,
+      item: { TARGET_CITY, TARGET_DAY: dayjs(TARGET_DAY).format('YYYY-MM-DD'), isFromBottomSheet: true } as IMakeProps,
     });
   };
 

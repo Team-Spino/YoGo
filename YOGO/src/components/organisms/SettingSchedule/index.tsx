@@ -260,10 +260,9 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
 
         if (!result && isSameOrBefore) {
           Alert.alert(
-            'Yogo',
-            '이미 지난 일정입니다. 시간을 다시 입력해주세요.',
+            'YOGO',
+            'The date has already passed \n Please set up the time again',
           );
-
           return;
         }
 
