@@ -6,17 +6,10 @@ interface ITagSelectProps {
 }
 
 export const Container = styled.TouchableOpacity<ITagSelectProps>`
-  width: 15px;
-  height: 15px;
-  border-radius: 15px;
+  width: 18px;
+  height: 18px;
+  border-radius: 18px;
   background: ${props => props.color};
-
-  ${props =>
-    props.isSelected &&
-    `
-        width: 20px;
-        height: 20px;
-        border-radius: 20px;
-        border: 4px solid #6564CC;
-    `}
+  border: ${props =>
+    props.isSelected ? '3px solid #6564CC' : '3px solid transparent'};
 `;
