@@ -307,9 +307,7 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
             title: inputs.title,
             description: inputs.description,
             date: alartDate as string,
-            dayOfWeek: dayOfWeek
-              .filter(day => day.isSelected)
-              .map(day => day.name),
+            dayOfWeek: JSON.parse(formState.dayOfWeek),
           });
         }
       }
@@ -323,9 +321,7 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
           title: inputs.title,
           description: inputs.description,
           date: alartDate as string,
-          dayOfWeek: dayOfWeek
-            .filter(day => day.isSelected)
-            .map(day => day.name),
+          dayOfWeek: JSON.parse(formState.dayOfWeek),
         });
       }
       setPop(true);

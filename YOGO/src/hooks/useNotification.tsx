@@ -84,7 +84,6 @@ export function useNotification() {
     const repeatOptions = {
       repeatType: 'week',
     };
-
     return isRepeat ? { ...defaultOptions, ...repeatOptions } : defaultOptions;
   };
 
