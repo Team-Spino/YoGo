@@ -7,3 +7,4 @@ export { ONE_DAY } from 'utils/ONE_DAY';
 export { TZ_DATA_BASES } from 'utils/TZ_DATA_BASES';
 export { formatCityName } from 'utils/formatCityName';
 export { toFormat12Hour } from 'utils/toFormat12Hour';
+export { parseToSlash } from 'utils/parseToSlash';

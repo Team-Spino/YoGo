@@ -1,3 +1,5 @@
+import { parseToSlash } from 'utils';
+
 export const toFormat12Hour = ({
   day,
   time,
@@ -5,7 +7,7 @@ export const toFormat12Hour = ({
   day: string;
   time: string;
 }) => {
-  const [, hm, meridiem] = new Date(`${day} ${time}`)
+  const [, hm, meridiem] = new Date(parseToSlash(`${day} ${time}`))
     .toLocaleDateString('en-US', {
       hour: 'numeric',
       minute: 'numeric',

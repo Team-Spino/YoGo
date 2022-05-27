@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc'; // dependent on utc plugin
 import timezone from 'dayjs/plugin/timezone';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { formatCityName } from 'utils';
+import { formatCityName, parseToSlash } from 'utils';
 import { ILiveTimeState } from 'types';
 
 dayjs.extend(utc);
@@ -32,8 +32,8 @@ export function useTimeZone() {
   };
 
   const getDate = ({ currentTime, targetTime }: ITimeProps) => {
-    const currentDate = new Date(currentTime).getDate();
-    const targetDate = new Date(targetTime).getDate();
+    const currentDate = new Date(parseToSlash(currentTime)).getDate();
+    const targetDate = new Date(parseToSlash(targetTime)).getDate();
 
     if (currentDate > targetDate) return 'Yesterday';
     if (currentDate < targetDate) return 'Tomorrow';
@@ -41,7 +41,7 @@ export function useTimeZone() {
   };
 
   const formatTime = ({ targetTime }: { targetTime: string | Date }) => {
-    const [, time, meridiem] = new Date(targetTime)
+    const [, time, meridiem] = new Date(parseToSlash(targetTime))
       .toLocaleString('en-US')
       .split(' ');
     const [h, m] = time.split(':');
@@ -53,7 +53,9 @@ export function useTimeZone() {
   };
 
   const formatTo12Hour = ({ date, time }: { date: string; time: string }) => {
-    const temp = new Date(`${date} ${time}`).toLocaleString('en-US');
+    const temp = new Date(parseToSlash(`${date} ${time}`)).toLocaleString(
+      'en-US',
+    );
 
     const [d, t, m] = dayjs(temp).format('YYYY-MM-DD HH:mm A').split(' ');
 
@@ -62,6 +64,7 @@ export function useTimeZone() {
 
   const setLiveTimeState = ({ location }: { location: string }) => {
     const currentTime = getCurrentTime();
+
     const targetTime = getTargetTime({
       currentTime,
       targetTimeZone: location,
@@ -70,6 +73,7 @@ export function useTimeZone() {
       currentTime,
       targetTime,
     });
+
     const date = getDate({ currentTime, targetTime });
 
     return {

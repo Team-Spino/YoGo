@@ -17,7 +17,7 @@ import {
   SetCityAndDate,
   Button,
 } from 'components';
-import { DAY_OF_WEEK, TZ_DATA_BASES, TAG_COLOR } from 'utils';
+import { DAY_OF_WEEK, TZ_DATA_BASES, TAG_COLOR, parseToSlash } from 'utils';
 import {
   ITagListProps,
   IDayOfWeekProps,
@@ -67,10 +67,12 @@ const getInitialProps = ({ title, key, item }: IGetInitialProps) => {
   // Target Time
   if (title === 'Edit' && key === 'TARGET_TIME') {
     const date = dayjs().format('YYYY-MM-DD');
-    return new Date(`${date} ${item[key]}`);
+    return new Date(parseToSlash(`${date} ${item[key]}`));
   } else if (title === 'Add' && key === 'TARGET_TIME') return new Date();
-  else if (title === 'Add' && key === 'TARGET_DAY')
-    return new Date(item[key] as Date);
+  else if (title === 'Add' && key === 'TARGET_DAY') {
+    console.log(`item: ${item[key]}`);
+    return new Date(parseToSlash(item[key] as string));
+  }
 
   // Day of week
   if (title === 'Edit' && key === 'DAY_OF_WEEK') {
@@ -267,12 +269,11 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
         }
 
         if (result) {
-          const curDateOfWeek = new Date(alartTime).toLocaleDateString(
-            'en-US',
-            {
-              weekday: 'short',
-            },
-          );
+          const curDateOfWeek = new Date(
+            parseToSlash(alartTime),
+          ).toLocaleDateString('en-US', {
+            weekday: 'short',
+          });
 
           const { name } = dayOfWeek.filter(
             day => day.name === curDateOfWeek,
@@ -281,12 +282,11 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
           formState = { ...formState, dayOfWeek: JSON.stringify([name]) };
         }
       } else if (formState.dayOfWeek !== '[]') {
-        const selDayOfWeek = new Date(alartDate as string).toLocaleDateString(
-          'en',
-          {
-            weekday: 'short',
-          },
-        );
+        const selDayOfWeek = new Date(
+          parseToSlash(alartDate as string),
+        ).toLocaleDateString('en', {
+          weekday: 'short',
+        });
 
         const dayOfWeekList = JSON.parse(formState.dayOfWeek);
 
@@ -324,6 +324,7 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
           dayOfWeek: JSON.parse(formState.dayOfWeek),
         });
       }
+
       setPop(true);
       navigation.pop();
     }

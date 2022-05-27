@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext, useCallback } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import dayjs from 'dayjs';
-import { PortalProvider } from '@gorhom/portal';
 import { FloatingButton, AgendaBox } from 'components';
 import { IconPlus } from 'assets';
 import { RootStackParamList, IScheduleProps } from 'types';
@@ -13,7 +12,7 @@ import {
   getScheduleItems,
 } from 'db';
 import { useNotification } from 'hooks';
-import { ONE_DAY } from 'utils';
+import { ONE_DAY, parseToSlash } from 'utils';
 import { PopContext } from 'context';
 import * as S from './style';
 
@@ -57,9 +56,12 @@ export function Home({ navigation }: { navigation: Prop }) {
     try {
       const db = await connectDB();
       await createScheduleTable(db);
-      const dayOfWeek = new Date(selectedDay).toLocaleDateString('en', {
-        weekday: 'short',
-      });
+      const dayOfWeek = new Date(parseToSlash(selectedDay)).toLocaleDateString(
+        'en',
+        {
+          weekday: 'short',
+        },
+      );
 
       const items = await getScheduleItems(db, dayOfWeek, selectedDay);
       setSchedules(items);
