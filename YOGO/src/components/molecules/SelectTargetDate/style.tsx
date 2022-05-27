@@ -9,6 +9,7 @@ export const Container = styled.View`
   border-bottom-width: 1px;
 
   padding: 0 20px;
+  padding-bottom: 15px;
 `;
 
 export const BtnContainer = styled.View`
