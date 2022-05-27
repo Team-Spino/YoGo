@@ -17,10 +17,11 @@ export function DatePicker({ date, onChangeDate }: IDatePickerProps) {
         value={date}
         minimumDate={new Date()}
         mode={'datetime'}
-        onChange={onChangeDate}
+        onChange={onChangeDate} 
         display="inline"
         accentColor="#6564CC"
         locale="EN"
+        themeVariant="light"
       />
     </S.Container>
   );

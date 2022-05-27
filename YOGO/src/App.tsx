@@ -8,6 +8,7 @@ import { Main, HandleSchedule, OnBoarding } from 'screens';
 import { theme } from 'styles/theme';
 import { PopProvider } from 'context';
 import { PortalProvider } from '@gorhom/portal';
+import { StatusBar } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
@@ -47,6 +48,7 @@ function App() {
       <PortalProvider>
         <PopProvider>
           <ThemeProvider theme={theme}>
+          <StatusBar barStyle="dark-content" />
             <Stack.Navigator>
               {onBoard && (
                 <Stack.Screen
