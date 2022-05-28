@@ -33,6 +33,7 @@ export const SwipeContent = ({
 
   return (
     <SwipeListView
+      recalculateHiddenLayout={true}
       disableRightSwipe
       data={data}
       rightOpenValue={-WINDOW_WIDTH * 0.3}
