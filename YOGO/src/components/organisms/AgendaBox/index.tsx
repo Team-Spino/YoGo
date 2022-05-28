@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { View, Dimensions, StyleSheet, Text } from 'react-native';
-import { Agenda, CalendarProvider, ExpandableCalendar } from 'react-native-calendars';
+import React, { useState, useEffect } from 'react';
+import { CalendarProvider, ExpandableCalendar } from 'react-native-calendars';
 import { RenderEmptyData, SwipeContent, TagFilterContainer } from 'components';
 import { IScheduleProps, ITagFilter } from 'types';
-import { ONE_DAY, TAG_FILTER_COLOR } from 'utils';
+import { TAG_FILTER_COLOR } from 'utils';
 import * as S from './style';
 import dayjs from 'dayjs';
-import { ScrollView } from 'react-native-gesture-handler';
 
 interface IAgendaProps {
   schedules: Array<IScheduleProps>;
@@ -83,9 +81,7 @@ export function AgendaBox({
           firstDay={1}
           markedDates={{...markedDates}}
         />
-        <View style={{ 
-          marginTop: '30%',
-        }}>
+        <S.Content>
         <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
         {schedules.length === 0 && (
           <RenderEmptyData text={'No Schedule'} />
@@ -98,7 +94,7 @@ export function AgendaBox({
                 selectedDay={selectedDay}
               />
         )}
-        </View>
+        </S.Content>
       </CalendarProvider>
   );
 }
