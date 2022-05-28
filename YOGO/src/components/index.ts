@@ -25,6 +25,7 @@ export { TagFilter } from 'components/atoms/TagFilter';
 export { RenderDelete } from 'components/atoms/RenderDelete';
 export { RenderEdit } from 'components/atoms/RenderEdit';
 export { OnBoardingtBtn } from 'components/atoms/OnBoardingtBtn';
+export { CardTitle } from 'components/atoms/CardTitle';
 
 // Molecules
 export { TagSelectContainer } from 'components/molecules/TagSelectContainer';
