@@ -25,6 +25,7 @@ export function SelectTargetCityBtn({
 
   if (setAlartDate) {
     useEffect(() => {
+      console.log(`date : ${date}`);
       if (city && date) {
         const { time, locateCity, isPastFormNow } = getAlarmTime({
           date: date.toString(),
@@ -34,11 +35,12 @@ export function SelectTargetCityBtn({
         setAlartDate(time);
 
         const [d, t] = time.split(' ');
-// The alarm goes off at 12:09 AM in Seoul
+
         setNotiAlartTime(
-          `The Alarm goes off at ${toFormat12Hour({ 
-              day: d,
-              time: t,})} in ${locateCity}.`
+          `The Alarm goes off at ${toFormat12Hour({
+            day: d,
+            time: t,
+          })} in ${locateCity}.`,
         );
       }
     }, [city, date]);
@@ -54,7 +56,11 @@ export function SelectTargetCityBtn({
 
   return (
     <S.Container isCityInputValid={isCityInputValid}>
-      <Title isEnable={true} text={'Time Zone for The Destination Country'} size={15} />
+      <Title
+        isEnable={true}
+        text={'Time Zone for The Destination Country'}
+        size={15}
+      />
       <S.PressContainer onPress={onPress}>
         <TextBtn>{placeholder()}</TextBtn>
         <IconDownArrow />

@@ -47,7 +47,11 @@ export const BottomSheet = ({
     closeBottomSheet();
     navigation.push('HandleSchedule', {
       title: 'Add',
-      item: { TARGET_CITY, TARGET_DAY: dayjs(TARGET_DAY).format('YYYY-MM-DD'), isFromBottomSheet: true } as IMakeProps,
+      item: {
+        TARGET_CITY,
+        TARGET_DAY: dayjs(TARGET_DAY).format('YYYY-MM-DD HH:mm:ss'),
+        isFromBottomSheet: true,
+      } as IMakeProps,
     });
   };
 

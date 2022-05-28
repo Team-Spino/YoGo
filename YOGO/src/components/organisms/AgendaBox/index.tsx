@@ -65,8 +65,8 @@ export function AgendaBox({
       renderEmptyData={() => {
         return (
           <>
-          <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
-          <RenderEmptyData text={'No Schedule'} />
+            <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
+            <RenderEmptyData text={'No Schedule'} />
           </>
         );
       }}

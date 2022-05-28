@@ -48,7 +48,7 @@ function App() {
       <PortalProvider>
         <PopProvider>
           <ThemeProvider theme={theme}>
-          <StatusBar barStyle="dark-content" />
+            <StatusBar barStyle="dark-content" />
             <Stack.Navigator>
               {onBoard && (
                 <Stack.Screen

@@ -17,15 +17,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="IYz-m7-jXj">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="IYz-m7-jXj">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="375" id="cwu-rt-TEO"/>
+                                    <constraint firstAttribute="height" constant="667" id="f5c-EO-2Y6"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ayI-Kj-ZJY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="IYz-m7-jXj" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" id="DFP-Sg-Qqp"/>
+                            <constraint firstAttribute="trailing" secondItem="IYz-m7-jXj" secondAttribute="trailing" id="MpI-nG-dNR"/>
                             <constraint firstAttribute="bottomMargin" secondItem="IYz-m7-jXj" secondAttribute="bottom" id="N5B-L3-8FL"/>
+                            <constraint firstItem="IYz-m7-jXj" firstAttribute="leading" secondItem="ayI-Kj-ZJY" secondAttribute="leading" id="bau-Mh-HxP"/>
                             <constraint firstAttribute="trailingMargin" secondItem="IYz-m7-jXj" secondAttribute="trailing" id="gDt-xg-Pfs"/>
                             <constraint firstItem="IYz-m7-jXj" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="gI7-wO-HFp"/>
                         </constraints>
@@ -37,7 +43,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="splash" width="233" height="505"/>
+        <image name="splash" width="233.5" height="505.5"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
