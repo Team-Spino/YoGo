@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Dimensions, StyleSheet } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import { RenderEmptyData, SwipeContent, TagFilterContainer } from 'components';
@@ -50,7 +50,7 @@ export function AgendaBox({
         ? schedules.filter(schedule => schedule.TAG_COLOR === selTag.color)
         : schedules,
     );
-  }, [selectedTag, schedules]);
+  }, [selectedTag,schedules]);
 
   return (
     <Agenda

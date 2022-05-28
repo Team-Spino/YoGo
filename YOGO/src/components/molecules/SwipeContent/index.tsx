@@ -12,7 +12,6 @@ interface ISwipeContentProps {
   onDeleteTarget: (id: number) => Promise<void>;
   onEditTarget: (item: IScheduleProps) => void;
 }
-
 export const SwipeContent = ({
   data,
   onDeleteTarget,
@@ -25,9 +24,9 @@ export const SwipeContent = ({
     onDeleteTarget,
   });
 
-  const renderItem = ({ item }: any) => (
-    <S.Container>
-      <ScheduleCard key={item.key} schedule={item} selectedDay={selectedDay} />
+  const renderItem = ({ item, index }: any) => (
+    <S.Container key={index}>
+      <ScheduleCard schedule={item} selectedDay={selectedDay} />
     </S.Container>
   );
 
