@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tag, Title } from 'components';
+import { Tag, CardTitle } from 'components';
 import * as S from './style';
 
 interface IScheduleCardHeaderProps {
@@ -16,7 +16,7 @@ export function ScheduleCardHeader({
   return (
     <S.Container>
       <Tag color={tagColor} />
-      <Title isEnable={isEnable} size={23} text={title} />
+      <CardTitle isEnable={isEnable} size={23} text={title} />
     </S.Container>
   );
 }
