@@ -6,7 +6,7 @@ export const Wrapper = styled.View`
 `;
 
 export const Content = styled.View`
-  margin-top: 30%;
+  top: -${Dimensions.get('window').height * 0.068}px;
   width: 100%;
   height: ${Dimensions.get('window').height * 0.68};
 `;

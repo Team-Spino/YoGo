@@ -5,6 +5,7 @@ import { IScheduleProps, ITagFilter } from 'types';
 import { TAG_FILTER_COLOR } from 'utils';
 import * as S from './style';
 import dayjs from 'dayjs';
+import { Dimensions } from 'react-native';
 
 interface IAgendaProps {
   schedules: Array<IScheduleProps>;
@@ -61,8 +62,7 @@ export function AgendaBox({
         <ExpandableCalendar
           hideArrows
           style={{
-            position: 'absolute',
-            top: isExpand ? '0%' : '-5%',
+            top: isExpand ? '0%' : `-${Dimensions.get('window').height * 0.008}%`,
           }}
           onCalendarToggled={(isOpen) => {
             setIsExpand(isOpen);
