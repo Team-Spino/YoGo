@@ -99,7 +99,7 @@ export function useTimeZone() {
     const isPastFormNow = dayjs(time).isBefore(dayjs(currentTime));
     return {
       time,
-      locateCity: currentCity.split('/').at(-1),
+      locateCity: currentCity.split('/').pop(),
       isPastFormNow,
     };
   };
