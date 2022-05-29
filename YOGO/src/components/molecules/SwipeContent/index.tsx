@@ -37,7 +37,7 @@ export const SwipeContent = ({
       data={data}
       rightOpenValue={-WINDOW_WIDTH * 0.3}
       renderItem={renderItem}
-      scrollEnabled={true}
+      scrollEnabled={false}
       nestedScrollEnabled={false}
       renderHiddenItem={({ item }) => (
         <HiddenEditAndDelete
