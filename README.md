@@ -1,5 +1,11 @@
 # YOGO Time zone planner
 
+[![GitHub issues](https://img.shields.io/github/issues/Team-Spino/YoGo)](https://github.com/Team-Spino/YoGo/issues)
+[![GitHub forks](https://img.shields.io/github/forks/Team-Spino/YoGo)](https://github.com/Team-Spino/YoGo/network)
+[![GitHub stars](https://img.shields.io/github/stars/Team-Spino/YoGo)](https://github.com/Team-Spino/YoGo/stargazers)
+[![GitHub license](https://img.shields.io/github/license/Team-Spino/YoGo)](https://github.com/Team-Spino/YoGo/blob/main/LICENSE)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FTeam-Spino%2FYoGo&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+
 <br/>
 
 <details>
@@ -55,19 +61,19 @@
     <td align="center">
       <a href="https://github.com/kimseungdeok">
         <img src="https://avatars.githubusercontent.com/u/81807434?v=4" width="100px;" alt="" /><br />
-        <b>ksmfou98</b>
+        <b>kimseungdeok</b>
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/HY219">
         <img src="https://avatars.githubusercontent.com/u/82134668?v=4" width="100px;" alt="" /><br />
-        <b>ksmfou98</b>
+        <b>HY219</b>
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/Woongstar">
         <img src="https://avatars.githubusercontent.com/u/69667560?v=4" width="100px;" alt="" /><br />
-        <b>ksmfou98</b>
+        <b>Woongstar</b>
       </a>
     </td>
   </tr>
@@ -113,7 +119,8 @@
    - 요일 및 시간 별로 등록된 일정을 조회가능 합니다.
 2. **시차를 계산된 일정 등록**
    - 해당 도시를 입력하고 일정을 등록하면 시차가 계산된 시간에 일정이 알람과 함께 등록됩니다.
-   </div>
+
+</div>
 
 <br/>
 <br/>
@@ -141,16 +148,15 @@
 <div style="display: flex; width: fit-content; height: 400px; justify-content: center; align-items: center;">
 <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/c8da8358-ba31-47ba-a553-aa4f9511bdaa/selectGif.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220606%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220606T093934Z&X-Amz-Expires=86400&X-Amz-Signature=34ed09dfd860fd9de1eb1edabdccea1b130cba2c298a22535bc9ce5e54cbf139&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22selectGif.gif%22&x-id=GetObject"  width="200" height="400"/>
 
-1. 하단 검색 버튼
-   - 하단 검색 버튼을 누르면 현재 시간 기준이 아닌 특정 입력 시간에 따른 시차가 계산된 시간을 볼 수 있습니다.
-2. 일정 생성 버튼
+1.  하단 검색 버튼
+    - 하단 검색 버튼을 누르면 현재 시간 기준이 아닌 특정 입력 시간에 따른 시차가 계산된 시간을 볼 수 있습니다.
+2.  일정 생성 버튼
 
-   - 만약, 해당 시간에 일정을 생성해야 할때, 일정 등록 가능합니다.
-     </div>
+    - 만약, 해당 시간에 일정을 생성해야 할때, 일정 등록 가능합니다.
 
-        <br/>
-     <br/>
+</div>
 
+<br/>
 <br/>
 
 # 📲 Install
