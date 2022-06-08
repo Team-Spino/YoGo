@@ -81,7 +81,8 @@
 
 # 📕 About YOGO
 
-[![이미지 텍스트](https://i.imgur.com/Wzmyvam.jpg)](https://youtu.be/zHVuFmpARY0)
+[![image](https://user-images.githubusercontent.com/79236624/172534407-3240cd89-0139-4e48-a117-d0d799a1a2aa.png)](https://youtu.be/zHVuFmpARY0)
+
 
 ![Frame 91.png](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/6c7ff75f-54f5-4576-902d-c82b6519fd2e/Frame_91.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220606%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220606T093238Z&X-Amz-Expires=86400&X-Amz-Signature=9b0ed0e2db677c3eae83eeb6818ea9fc04739f9649f54c2bd906500df1c309df&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Frame%252091.png%22&x-id=GetObject)
 
@@ -164,5 +165,6 @@
 <br/>
 
 <a href="https://apps.apple.com/kr/app/yogo-time-zone-planner/id1626444795">
-<img src="https://i.imgur.com/PVRBqHv.png" style="display: flex; justify-content: center; align-items: center;"  width="450" height="400"/>
+<img width="1079" alt="image" src="https://user-images.githubusercontent.com/79236624/172534340-5d6fd346-7925-4730-8a81-17207742550b.png">
+<!-- <img src="https://i.imgur.com/PVRBqHv.png" style="display: flex; justify-content: center; align-items: center;"  width="450" height="400"/> -->
 </a>
