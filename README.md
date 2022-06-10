@@ -84,7 +84,7 @@
 [![image](https://user-images.githubusercontent.com/79236624/172534407-3240cd89-0139-4e48-a117-d0d799a1a2aa.png)](https://youtu.be/zHVuFmpARY0)
 
 
-![Frame 91.png](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/6c7ff75f-54f5-4576-902d-c82b6519fd2e/Frame_91.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220606%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220606T093238Z&X-Amz-Expires=86400&X-Amz-Signature=9b0ed0e2db677c3eae83eeb6818ea9fc04739f9649f54c2bd906500df1c309df&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Frame%252091.png%22&x-id=GetObject)
+![Frame 91.png](https://i.imgur.com/Nd33IFk.jpg)
 
 <br/>
 
@@ -113,15 +113,24 @@
 
 <br/>
 
-<div style="display: flex; width: fit-content; height: 400px; justify-content: center; align-items: center;">
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/0ab7ac00-f9a9-4562-909d-549414cf93cd/uploadGif.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220606%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220606T093305Z&X-Amz-Expires=86400&X-Amz-Signature=84b5a16092ad8f6845dbbbcaa9e2ebe42ebf48d26f90b64207a4d88da4cb2cde&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22uploadGif.gif%22&x-id=GetObject"  width="200" height="400"/>
+<img src="https://i.imgur.com/8gu90dI.gif"  width="200" height="400"/>
 
-1. **일정 & 알람 관리**
-   - 요일 및 시간 별로 등록된 일정을 조회가능 합니다.
-2. **시차를 계산된 일정 등록**
-   - 해당 도시를 입력하고 일정을 등록하면 시차가 계산된 시간에 일정이 알람과 함께 등록됩니다.
+<br/>
 
-</div>
+  <ol>
+    <li>
+      <b>일정 & 알람 관리</b>
+      <ul>
+        <li>요일 및 시간 별로 등록된 일정을 조회가능 합니다.</li>
+      </ul>
+    </li>
+    <li>
+      <b>시차를 계산된 일정 등록</b>
+      <ul>
+        <li>요일 및 시간 별로 등록된 일정을 조회가능 합니다.</li>
+      </ul>
+    </li>
+  </ol>
 
 <br/>
 <br/>
@@ -130,14 +139,27 @@
 
 <br/>
 
-<div style="display: flex; width: fit-content; height: 400px; justify-content: center; align-items: center;">
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7e2c9807-41e8-43a6-805b-6d26658c5c79/timezoneGif.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220606%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220606T093332Z&X-Amz-Expires=86400&X-Amz-Signature=5b047862677a20d9cf20398ace481bc3d4e0e91eade6050839828110c3630341&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22timezoneGif.gif%22&x-id=GetObject"  width="200" height="400"/>
-
-1. **Time zone 카드**
-   - 다른 도시의 현재 시간을 볼 수 있습니다.
-2. **카드 생성 버튼**
-   - 다른 도시의 카드를 등록할 수 있습니다.
-   </div>
+<div style="display: flex; ">
+<img src="https://i.imgur.com/KacMdfp.gif"  width="200" height="400"/>
+  
+  <br/>
+  
+  <ol>
+    <li>
+      <b>Time zone 카드</b>
+      <ul>
+        <li>다른 도시의 현재 시간을 볼 수 있습니다.</li>
+      </ul>
+    </li>
+    <li>
+      <b>카드 생성 버튼</b>
+      <ul>
+        <li>다른 도시의 카드를 등록할 수 있습니다.</li>
+      </ul>
+    </li>
+  </ol>
+  
+</div>
 
 <br/>
 <br/>
@@ -147,13 +169,22 @@
 <br/>
 
 <div style="display: flex; width: fit-content; height: 400px; justify-content: center; align-items: center;">
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/c8da8358-ba31-47ba-a553-aa4f9511bdaa/selectGif.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220606%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220606T093934Z&X-Amz-Expires=86400&X-Amz-Signature=34ed09dfd860fd9de1eb1edabdccea1b130cba2c298a22535bc9ce5e54cbf139&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22selectGif.gif%22&x-id=GetObject"  width="200" height="400"/>
-
-1.  하단 검색 버튼
-    - 하단 검색 버튼을 누르면 현재 시간 기준이 아닌 특정 입력 시간에 따른 시차가 계산된 시간을 볼 수 있습니다.
-2.  일정 생성 버튼
-
-    - 만약, 해당 시간에 일정을 생성해야 할때, 일정 등록 가능합니다.
+<img src="https://i.imgur.com/8RacePC.gif"  width="200" height="400"/>
+  
+  <ol>
+    <li>
+      <b>하단 검색 버튼</b>
+      <ul>
+        <li>하단 검색 버튼을 누르면 현재 시간 기준이 아닌 특정 입력 시간에 따른 시차가 계산된 시간을 볼 수 있습니다.</li>
+      </ul>
+    </li>
+    <li>
+      <b>일정 생성 버튼</b>
+      <ul>
+        <li>만약, 해당 시간에 일정을 생성해야 할때, 일정 등록 가능합니다.</li>
+      </ul>
+    </li>
+  </ol>
 
 </div>
 
