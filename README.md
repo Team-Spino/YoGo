@@ -113,7 +113,7 @@
 
 <br/>
 
-<img src="https://i.imgur.com/8gu90dI.gif"  width="200" height="400"/>
+<img src="https://user-images.githubusercontent.com/60822846/183273554-6d697e99-9308-4d78-b3cf-5ea6911d0ada.gif"  width="200" height="400"/>
 
 <br/>
 
@@ -167,7 +167,6 @@
 ### 빠른 시간대 검색
 
 <br/>
-
 <div style="display: flex; width: fit-content; height: 400px; justify-content: center; align-items: center;">
 <img src="https://i.imgur.com/8RacePC.gif"  width="200" height="400"/>
   
