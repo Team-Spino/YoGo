@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Platform } from 'react-native';
 import { Portal } from '@gorhom/portal';
 import {
   ScheduleCardHeader,
@@ -38,11 +39,14 @@ export function ScheduleCard({ schedule, selectedDay }: IScheduleCardProps) {
   const onTogglePress = async () => {
     const db = await connectDB();
     await updateScheduleItemActive(db, key, isEnable ? 0 : 1);
-    handleScheduleToggle({
-      number: Number(key),
-      isActive: isEnable ? false : true,
-      schedule,
-    });
+    
+    if (Platform.OS === 'ios') {
+      handleScheduleToggle({
+        number: Number(key),
+        isActive: isEnable ? false : true,
+        schedule,
+      });
+    }
     setIsEnable(!isEnable);
   };
 

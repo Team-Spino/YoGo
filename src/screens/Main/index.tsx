@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Home, TimeZone } from 'components';
 import { useNotification } from 'hooks';
@@ -11,8 +12,10 @@ export function Main() {
     useNotification();
 
   useEffect(() => {
-    handleNotificationPermission();
-    handleNotificationBadge();
+    if (Platform.OS === 'ios') {      
+      handleNotificationPermission();
+      handleNotificationBadge();
+    }
   }, []);
 
   return (
