@@ -10,7 +10,7 @@ module.exports = {
     browser: true,
   },
   extends: [
-      '@react-native-community',
+      '@react-native',
       'airbnb',
       'airbnb-typescript',
       'plugin:react/recommended',
