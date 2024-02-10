@@ -1,2 +1,2 @@
 export { PopContext, PopProvider } from 'context/popState';
-export { IsFirstContext, IsFirstProvider } from 'context/firstState';
+export { FirstLaunchContext, FirstLaunchProvider } from 'context/firstLaunch';
