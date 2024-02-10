@@ -499,7 +499,7 @@ PODS:
     - React-perflogger (= 0.72.10)
   - RNCPushNotificationIOS (1.11.0):
     - React-Core
-  - RNDateTimePicker (6.7.5):
+  - RNDateTimePicker (7.6.2):
     - React-Core
   - RNGestureHandler (2.15.0):
     - RCT-Folly (= 2021.07.22.00)
@@ -770,7 +770,7 @@ SPEC CHECKSUMS:
   React-utils: 372b83030a74347331636909278bf0a60ec30d59
   ReactCommon: 38824bfffaf4c51fbe03a2730b4fd874ef34d67b
   RNCPushNotificationIOS: 64218f3c776c03d7408284a819b2abfda1834bc8
-  RNDateTimePicker: 65e1d202799460b286ff5e741d8baf54695e8abd
+  RNDateTimePicker: fc2e4f2795877d45e84d85659bebe627eba5c931
   RNGestureHandler: 7909c50383a18f0cb10ce1db7262b9a6da504c03
   RNReanimated: 9dfe7a19dd7c3e123b23db42e74bf051725f2ea3
   RNScreens: 3c5b9f4a9dcde752466854b6109b79c0e205dad3
