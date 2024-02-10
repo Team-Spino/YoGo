@@ -1,6 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useContext } from 'react';
 import { Image, StyleSheet } from 'react-native';
 import Swiper from 'react-native-swiper';
+import { storage } from 'utils/mmkv';
 import { OnBoardingSlide } from 'components';
 import {
   ImgOnBoarding1,
@@ -14,14 +15,11 @@ import {
   ImgOnBoarding5Text,
   ImgOnBoarding6,
 } from 'assets';
+import { FirstLaunchContext } from 'context';
 import { IOnBoadingSlide } from 'types';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export function OnBoardingSwiper({
-  setOnBoard,
-}: {
-  setOnBoard: (value: boolean) => void;
-}) {
+export function OnBoardingSwiper() {
+  const { checkFirstLaunch } = useContext(FirstLaunchContext);
   const [isStartOrEnd, setIsStartOrEnd] = useState(true);
   const swiperRef =
     useRef<React.MutableRefObject<React.MutableRefObject<Swiper>>>();
@@ -113,9 +111,8 @@ export function OnBoardingSwiper({
       mainImg: <ImgOnBoarding6 />,
       btnText: 'Continue',
       isEdge: true,
-      onNextPress: (index: number) => {
-        setOnBoard(false);
-        AsyncStorage.setItem('keyFirstLaunch', 'true');
+      onNextPress: () => {
+        checkFirstLaunch();
       },
     },
   ];
