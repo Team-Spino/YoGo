@@ -22,7 +22,7 @@
     "dayjs": "^1.11.0",
     "react": "18.2.0",
     "react-native": "0.72.10",
-    "react-native-calendars": "^1.1282.0",
+    "react-native-calendars": "^1.1303.0",
     "react-native-gesture-handler": "^2.4.0",
     "react-native-modal": "^13.0.1",
     "react-native-paper": "^4.12.0",
@@ -38,6 +38,7 @@
     "react-native-swiper": "^1.6.0-rc.3",
     "react-native-uuid": "^2.0.1",
     "reanimated-bottom-sheet": "^1.0.0-alpha.22",
+    "recyclerlistview": "^4.2.0",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {
