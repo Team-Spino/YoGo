@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext, useCallback } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import dayjs from 'dayjs';
-import { PortalProvider } from '@gorhom/portal';
+import { Platform } from 'react-native';
 import { FloatingButton, AgendaBox } from 'components';
 import { IconPlus } from 'assets';
 import { RootStackParamList, IScheduleProps } from 'types';
@@ -49,7 +49,10 @@ export function Home({ navigation }: { navigation: Prop }) {
     const db = await connectDB();
     await deleteScheduleItem(db, id);
 
-    deleteAllNotification({ number: id });
+    if (Platform.OS === 'ios') {
+      deleteAllNotification({ number: id });
+    }
+    
     markedDB();
   };
 

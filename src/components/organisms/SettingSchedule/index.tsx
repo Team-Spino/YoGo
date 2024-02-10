@@ -3,6 +3,7 @@ import {
   NativeSyntheticEvent,
   TextInputChangeEventData,
   Alert,
+  Platform,
 } from 'react-native';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -298,10 +299,10 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
         }
       }
 
-      if (title === 'Add') {
+      if (title === 'Add' ) {
         const key = await insertSchedule({ formState });
 
-        if (key) {
+        if (key && Platform.OS === 'ios') {
           makeNotification({
             key,
             title: inputs.title,
@@ -317,16 +318,19 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
       if (title === 'Edit') {
         editSchedule({ formState });
 
-        await deleteAllNotification({ number: item.key as number });
-        await makeNotification({
-          key: item.key as number,
-          title: inputs.title,
-          description: inputs.description,
-          date: alartDate as string,
-          dayOfWeek: dayOfWeek
-            .filter(day => day.isSelected)
-            .map(day => day.name),
-        });
+        if (Platform.OS === 'ios') {
+          await deleteAllNotification({ number: item.key as number });
+          await makeNotification({
+            key: item.key as number,
+            title: inputs.title,
+            description: inputs.description,
+            date: alartDate as string,
+            dayOfWeek: dayOfWeek
+              .filter(day => day.isSelected)
+              .map(day => day.name),
+          });
+        }
+
       }
       setPop(true);
       navigation.pop();
