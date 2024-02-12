@@ -48,14 +48,14 @@ export function ResultSheet({ onPress, submitObject }: IResultBSProps) {
         </IconAbsolute>
         <ResultCard
           cardHeader={'Target Time Zone'}
-          city={tarCity.split('/').at(-1)}
+          city={tarCity.split('/').pop()}
           date={tarDateFormat}
           time={tarTime}
           meridiem={tarMeridiem}
         />
         <IconResultArrow />
         <ResultCard
-          cardHeader='Your Time Zone'
+          cardHeader="Your Time Zone"
           city={locateCity}
           date={curDate}
           time={curTime}

@@ -138,6 +138,7 @@ export function OnBoardingSwiper() {
       {slide.map((item: IOnBoadingSlide, index) => {
         return (
           <OnBoardingSlide
+            key={index}
             mainImg={item.mainImg}
             typography={item.typography}
             text={item.text}

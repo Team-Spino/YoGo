@@ -17,7 +17,10 @@ interface IScheduleCardProps {
   selectedDay: string;
 }
 
-export function ScheduleCard({ schedule, selectedDay }: IScheduleCardProps) {
+export const ScheduleCard = React.memo(function ({
+  schedule,
+  selectedDay,
+}: IScheduleCardProps) {
   const {
     key,
     TITLE,
@@ -49,6 +52,10 @@ export function ScheduleCard({ schedule, selectedDay }: IScheduleCardProps) {
     }
     setIsEnable(!isEnable);
   };
+
+  useEffect(() => {
+    setIsEnable(IS_ACTIVE ? true : false);
+  }, [IS_ACTIVE]);
 
   const onShowDetailPress = () => setIsVisible(true);
   const onCloseDetailPress = () => setIsVisible(false);
@@ -87,4 +94,4 @@ export function ScheduleCard({ schedule, selectedDay }: IScheduleCardProps) {
       </Portal>
     </>
   );
-}
+});

@@ -12,6 +12,7 @@ import {
   updateAlarmPermission,
   deleteAlarmPermission,
 } from 'db';
+import { parseToSlash } from 'utils';
 import { IScheduleProps } from 'types';
 
 interface INotificationProps {
@@ -37,9 +38,9 @@ interface IAlartOptionProps {
 
 export function useNotification() {
   const getNextDay = ({ date }: { date: string }) => {
-    const nextDay = new Date(date);
+    const nextDay = new Date(parseToSlash(date));
     nextDay.setDate(nextDay.getDate() + 1);
-    return dayjs(new Date(nextDay)).format('YYYY-MM-DD HH:mm');
+    return dayjs(new Date(parseToSlash(nextDay))).format('YYYY-MM-DD HH:mm');
   };
 
   const makeAlartDate = ({ date, dayOfWeek }: IMakeAlartDateProps) => {
@@ -50,9 +51,12 @@ export function useNotification() {
     for (let i = 0; i < LENGTH_OF_DAY_OF_WEEK; i++) {
       nextDate = getNextDay({ date: nextDate });
 
-      const weekDay = new Date(nextDate).toLocaleDateString('en-US', {
-        weekday: 'short',
-      });
+      const weekDay = new Date(parseToSlash(nextDate)).toLocaleDateString(
+        'en-US',
+        {
+          weekday: 'short',
+        },
+      );
 
       if (dayOfWeek.includes(weekDay)) {
         alartList.push(nextDate.trim());
@@ -75,7 +79,7 @@ export function useNotification() {
       message: description,
       soundName: 'default',
       playSound: true,
-      date: new Date(date),
+      date: new Date(parseToSlash(date)),
       allowWhileIdle: true,
       number: 1,
       userInfo: { key: key },
@@ -84,7 +88,6 @@ export function useNotification() {
     const repeatOptions = {
       repeatType: 'week',
     };
-
     return isRepeat ? { ...defaultOptions, ...repeatOptions } : defaultOptions;
   };
 
@@ -132,7 +135,6 @@ export function useNotification() {
         resolve(
           notifications
             .filter(notification => {
-              console.log(notification);
               return notification.data.key === number;
             })
             .map(notification => notification.id),
@@ -145,7 +147,6 @@ export function useNotification() {
     const notifications = (await getTagetNumberNotifications({
       number,
     })) as Array<string>;
-    console.log(notifications);
     PushNotificationIOS.removePendingNotificationRequests(notifications);
   };
 
@@ -201,21 +202,25 @@ export function useNotification() {
 
       // 알람이 허가되지 않았고, db에 반영되지 않았을 때
       if (!info.notificationCenter && !permission) {
-        Alert.alert('YOGO', 'Please allow permission to use the schedule notification service', [
-          {
-            text: 'Cancel',
-            onPress: async () => {
-              await inesertAlarmPermission(db, 0);
+        Alert.alert(
+          'YOGO',
+          'Please allow permission to use the schedule notification service',
+          [
+            {
+              text: 'Cancel',
+              onPress: async () => {
+                await inesertAlarmPermission(db, 0);
+              },
+              style: 'cancel',
             },
-            style: 'cancel',
-          },
-          {
-            text: 'OK',
-            onPress: () => {
-              Linking.openSettings();
+            {
+              text: 'OK',
+              onPress: () => {
+                Linking.openSettings();
+              },
             },
-          },
-        ]);
+          ],
+        );
 
         return;
       }

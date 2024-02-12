@@ -18,7 +18,7 @@ import {
   SetCityAndDate,
   Button,
 } from 'components';
-import { DAY_OF_WEEK, TZ_DATA_BASES, TAG_COLOR } from 'utils';
+import { DAY_OF_WEEK, TZ_DATA_BASES, TAG_COLOR, parseToSlash } from 'utils';
 import {
   ITagListProps,
   IDayOfWeekProps,
@@ -68,10 +68,12 @@ const getInitialProps = ({ title, key, item }: IGetInitialProps) => {
   // Target Time
   if (title === 'Edit' && key === 'TARGET_TIME') {
     const date = dayjs().format('YYYY-MM-DD');
-    return new Date(`${date} ${item[key]}`);
+    return new Date(parseToSlash(`${date} ${item[key]}`));
   } else if (title === 'Add' && key === 'TARGET_TIME') return new Date();
-  else if (title === 'Add' && key === 'TARGET_DAY')
-    return new Date(item[key] as Date);
+  else if (title === 'Add' && key === 'TARGET_DAY') {
+    console.log(`item: ${item[key]}`);
+    return new Date(parseToSlash(item[key] as string));
+  }
 
   // Day of week
   if (title === 'Edit' && key === 'DAY_OF_WEEK') {
@@ -261,20 +263,18 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
 
         if (!result && isSameOrBefore) {
           Alert.alert(
-            'Yogo',
-            '이미 지난 일정입니다. 시간을 다시 입력해주세요.',
+            'YOGO',
+            'The date has already passed \n Please set up the time again',
           );
-
           return;
         }
 
         if (result) {
-          const curDateOfWeek = new Date(alartTime).toLocaleDateString(
-            'en-US',
-            {
-              weekday: 'short',
-            },
-          );
+          const curDateOfWeek = new Date(
+            parseToSlash(alartTime),
+          ).toLocaleDateString('en-US', {
+            weekday: 'short',
+          });
 
           const { name } = dayOfWeek.filter(
             day => day.name === curDateOfWeek,
@@ -282,10 +282,10 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
 
           formState = { ...formState, dayOfWeek: JSON.stringify([name]) };
         }
-      }
-
-      if (formState.dayOfWeek !== '[]') {
-        const selDayOfWeek = date.toLocaleDateString('en', {
+      } else if (formState.dayOfWeek !== '[]') {
+        const selDayOfWeek = new Date(
+          parseToSlash(alartDate as string),
+        ).toLocaleDateString('en', {
           weekday: 'short',
         });
 
@@ -308,9 +308,7 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
             title: inputs.title,
             description: inputs.description,
             date: alartDate as string,
-            dayOfWeek: dayOfWeek
-              .filter(day => day.isSelected)
-              .map(day => day.name),
+            dayOfWeek: JSON.parse(formState.dayOfWeek),
           });
         }
       }
@@ -332,6 +330,7 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
         }
 
       }
+
       setPop(true);
       navigation.pop();
     }

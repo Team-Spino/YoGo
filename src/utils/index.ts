@@ -8,3 +8,4 @@ export { TZ_DATA_BASES } from 'utils/TZ_DATA_BASES';
 export { formatCityName } from 'utils/formatCityName';
 export { toFormat12Hour } from 'utils/toFormat12Hour';
 export { storage } from 'utils/mmkv';
+export { parseToSlash } from 'utils/parseToSlash';
