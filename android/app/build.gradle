@@ -75,7 +75,7 @@ android {
 
     namespace "com.yogo"
     defaultConfig {
-        applicationId "com.yogo"
+        applicationId "com.yogo.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
