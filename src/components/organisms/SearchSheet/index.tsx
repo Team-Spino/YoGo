@@ -8,7 +8,7 @@ import {
   HeaderCenter,
   BottomSheetBtn,
 } from 'components';
-import { TZ_DATA_BASES  } from 'utils';
+import { useCitySearch } from 'hooks';
 import { IMakeProps } from 'types';
 import * as S from './style';
 
@@ -17,30 +17,17 @@ interface ISearchBSProps {
 }
 export const SearchSheet = ({ onPress }: ISearchBSProps) => {
   const [date, setDate] = useState(new Date());
-  const [city, setCity] = useState('');
-  const [isCityInputValid, setIsCityInputValid] = useState(true);
 
-  const [selectedSearchTargetCity, setSelectedSearchTargetCity] =
-    useState<boolean>(false);
-
-  const targetList = TZ_DATA_BASES .filter(item =>
-    item.city.toUpperCase().includes(city.toUpperCase()),
-  );
-
-  const onPressSearchTargetCity = () => {
-    setSelectedSearchTargetCity(true);
-    setCity('');
-  };
-
-  const onChangeCity = (text: string) => {
-    setCity(text);
-  };
-
-  const onSubmitCity = (city: string) => {
-    setSelectedSearchTargetCity(false);
-    setIsCityInputValid(true);
-    setCity(city);
-  };
+  const {
+    city,
+    targetList,
+    isCityPickerOpen,
+    isCityInputValid,
+    onChangeCity,
+    openCityPicker,
+    selectCity,
+    markCityInvalid,
+  } = useCitySearch();
 
   const onChangeDate = (event: DateTimePickerEvent, selectedDate?: Date) => {
     if (!selectedDate) return;
@@ -53,19 +40,19 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
       onPress({ TARGET_CITY: city, TARGET_DAY: date });
       return;
     }
-    setIsCityInputValid(false);
+    markCityInvalid();
 
     Alert.alert('Yogo', 'Please select city');
   };
 
   return (
     <S.SearchBox>
-      {!selectedSearchTargetCity && (
+      {!isCityPickerOpen && (
         <S.ScrollView showsVerticalScrollIndicator={false}>
           <S.Inner>
             <HeaderCenter text={`Search Time Zone`} size={18} />
             <SelectTargetCityBtn
-              onPress={() => onPressSearchTargetCity()}
+              onPress={openCityPicker}
               city={city}
               isCityInputValid={isCityInputValid}
             />
@@ -75,13 +62,13 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
         </S.ScrollView>
       )}
 
-      {selectedSearchTargetCity && (
+      {isCityPickerOpen && (
         <S.Inner>
           <SearchTarget
             targetList={targetList}
             city={city}
             onChangeCity={onChangeCity}
-            onSubmitCity={onSubmitCity}
+            onSubmitCity={selectCity}
           />
         </S.Inner>
       )}

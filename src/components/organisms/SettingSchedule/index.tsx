@@ -18,7 +18,7 @@ import {
   SetCityAndDate,
   Button,
 } from 'components';
-import { DAY_OF_WEEK, TZ_DATA_BASES, TAG_COLOR, parseToSlash } from 'utils';
+import { DAY_OF_WEEK, TAG_COLOR, parseToSlash } from 'utils';
 import {
   ITagListProps,
   IDayOfWeekProps,
@@ -27,7 +27,7 @@ import {
   IScheduleInput,
   keyType,
 } from 'types';
-import { useNotification } from 'hooks';
+import { useCitySearch, useNotification } from 'hooks';
 import { addSchedule, editSchedule } from 'db';
 import { PopContext } from 'context';
 import * as S from './style';
@@ -116,9 +116,16 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
     initialState.tagColor,
   );
 
-  const [isCitySelected, setIsCitySelected] = useState<boolean>(false);
-
-  const [city, setCity] = useState<string>(initialState.city as string);
+  const {
+    city,
+    targetList,
+    isCityPickerOpen,
+    isCityInputValid,
+    onChangeCity,
+    openCityPicker,
+    selectCity,
+    markCityInvalid,
+  } = useCitySearch(initialState.city as string);
 
   const [date, setDate] = useState<Date>(initialState.date);
 
@@ -128,8 +135,6 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
   );
 
   const [isTitleInputValid, setIsTitleInputValid] = useState(true);
-
-  const [isCityInputValid, setIsCityInputValid] = useState(true);
 
   const { setPop } = useContext(PopContext);
 
@@ -154,19 +159,6 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
     );
   };
 
-  const onPressSearchTargetCity = () => {
-    setIsCitySelected(true);
-    setCity('');
-  };
-
-  const onChangeCity = (city: string) => setCity(city);
-
-  const onSubmitCity = (city: string) => {
-    setIsCitySelected(false);
-    setIsCityInputValid(true);
-    setCity(city);
-  };
-
   const onChangeDate = (event: DateTimePickerEvent, selectedDate?: Date) => {
     if (!selectedDate) return;
 
@@ -180,10 +172,6 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
       ),
     );
   };
-
-  const targetList = TZ_DATA_BASES.filter(item =>
-    item.city.toUpperCase().includes(city.toUpperCase()),
-  );
 
   const asyncAlert = async () =>
     new Promise(resolve => {
@@ -211,7 +199,7 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
       else if (!city) message = 'Please Input City';
       else if (!inputs.title) message = 'Please Input Title';
 
-      if (!city) setIsCityInputValid(false);
+      if (!city) markCityInvalid();
       if (!inputs.title) setIsTitleInputValid(false);
 
       Alert.alert('Yogo', message);
@@ -351,7 +339,7 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
     <>
       <S.Container>
         <S.Wrapper>
-          {!isCitySelected && (
+          {!isCityPickerOpen && (
             <>
               <TextInput
                 placeholder="Title"
@@ -374,7 +362,7 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
                 setAlartDate={setAlartDate}
                 onChangeDate={onChangeDate}
                 isCityInputValid={isCityInputValid}
-                onPressSearchTargetCity={onPressSearchTargetCity}
+                onPressSearchTargetCity={openCityPicker}
               />
               <DayOfWeekContainer
                 dayOfWeek={dayOfWeek}
@@ -385,12 +373,12 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
           <Button text="Submit" onPress={onSubmit} />
         </S.Wrapper>
       </S.Container>
-      {isCitySelected && (
+      {isCityPickerOpen && (
         <SearchTarget
           targetList={targetList}
           city={city}
           onChangeCity={onChangeCity}
-          onSubmitCity={onSubmitCity}
+          onSubmitCity={selectCity}
         />
       )}
     </>

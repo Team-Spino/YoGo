@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Modal, TouchableWithoutFeedback } from 'react-native';
 import { SearchTarget } from 'components';
 import { IconBottomSheetBar } from 'assets';
-import { useBottomSheet } from 'hooks';
-import { TZ_DATA_BASES  } from 'utils';
+import { useBottomSheet, useCitySearch } from 'hooks';
 import * as S from './style';
 
 interface ISearchBSProps {
@@ -23,20 +22,12 @@ export const SearchTimeBottomSheet = ({
     setModalVisible,
   });
 
-  const [city, setCity] = useState('');
+  const { city, setCity, targetList, onChangeCity } = useCitySearch();
 
-  const targetList = TZ_DATA_BASES .filter(item =>
-    item.city.toUpperCase().includes(city.toUpperCase()),
-  );
-
-
-  const onChangeCity = (city: string) => {
-    setCity(city);
-  };
-
-  const onSubmitCity = (city: string) => {
-    selectTarget(city)
-    closeBottomSheet()
+  // 여기서는 고른 도시를 화면에 남기지 않고, 카드로 넘긴 뒤 검색어를 비웁니다.
+  const onSubmitCity = (selected: string) => {
+    selectTarget(selected);
+    closeBottomSheet();
     setCity('');
   };
 
