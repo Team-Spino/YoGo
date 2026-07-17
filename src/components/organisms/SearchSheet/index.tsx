@@ -42,9 +42,10 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
     setCity(city);
   };
 
-  const onChangeDate = (event: DateTimePickerEvent, selectedDate: Date) => {
-    const currentDate = selectedDate;
-    setDate(currentDate);
+  const onChangeDate = (event: DateTimePickerEvent, selectedDate?: Date) => {
+    if (!selectedDate) return;
+
+    setDate(selectedDate);
   };
 
   const onSubmit = () => {

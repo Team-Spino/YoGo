@@ -3,7 +3,13 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc'; // dependent on utc plugin
 import timezone from 'dayjs/plugin/timezone';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { formatCityName, parseToSlash } from 'utils';
+import {
+  getCityFromZone,
+  getOffsetMinutes,
+  getRelativeDay,
+  getTimeDifference,
+  parseToSlash,
+} from 'utils';
 import { ILiveTimeState } from 'types';
 
 dayjs.extend(utc);
@@ -14,31 +20,12 @@ interface ITargetTimeProps {
   currentTime: string;
   targetTimeZone: string;
 }
-interface ITimeProps {
-  currentTime: string;
-  targetTime: string;
-}
 
 export function useTimeZone() {
   const getCurrentTime = () => dayjs().format('YYYY-MM-DD HH:mm');
 
   const getTargetTime = ({ currentTime, targetTimeZone }: ITargetTimeProps) =>
     dayjs(currentTime).tz(targetTimeZone).format('YYYY-MM-DD HH:mm');
-
-  const getTimeDifference = ({ currentTime, targetTime }: ITimeProps) => {
-    const timeDiff = dayjs(currentTime).diff(dayjs(targetTime), 'hour');
-
-    return timeDiff >= 0 ? `+${timeDiff}` : `${timeDiff}`;
-  };
-
-  const getDate = ({ currentTime, targetTime }: ITimeProps) => {
-    const currentDate = new Date(parseToSlash(currentTime)).getDate();
-    const targetDate = new Date(parseToSlash(targetTime)).getDate();
-
-    if (currentDate > targetDate) return 'Yesterday';
-    if (currentDate < targetDate) return 'Tomorrow';
-    return 'Today';
-  };
 
   const formatTime = ({ targetTime }: { targetTime: string | Date }) => {
     const [, time, meridiem] = new Date(parseToSlash(targetTime))
@@ -64,43 +51,36 @@ export function useTimeZone() {
 
   const setLiveTimeState = ({ location }: { location: string }) => {
     const currentTime = getCurrentTime();
+    const baseZone = dayjs.tz.guess();
 
     const targetTime = getTargetTime({
       currentTime,
       targetTimeZone: location,
     });
-    const timeDifference = getTimeDifference({
-      currentTime,
-      targetTime,
-    });
-
-    const date = getDate({ currentTime, targetTime });
 
     return {
       ...formatTime({ targetTime }),
-      timeDifference,
-      date,
-      city: formatCityName(location?.split('/')[1]),
+      timeDifference: getTimeDifference({ targetZone: location, baseZone }),
+      date: getRelativeDay({ targetZone: location, baseZone }),
+      city: getCityFromZone(location),
     };
   };
 
   const getAlarmTime = ({ date, city }: { date: string; city: string }) => {
     const currentTime = getCurrentTime();
-    const targetTime = getTargetTime({
-      currentTime,
-      targetTimeZone: city,
-    });
-    const currentCity = dayjs.tz.guess();
+    const baseZone = dayjs.tz.guess();
 
-    const diff = Number(getTimeDifference({ currentTime, targetTime }));
+    // 사용자가 고른 시각은 대상 도시의 벽시계 기준이라, 기기 시각으로 되돌려야 알람이 맞습니다.
+    const offsetMinutes = getOffsetMinutes({ targetZone: city, baseZone });
 
-    const millisec = dayjs(date).valueOf() + diff * 3600000;
+    const millisec = dayjs(date).valueOf() - offsetMinutes * 60000;
     const time = dayjs(millisec).format('YYYY-MM-DD HH:mm');
-    const isPastFormNow = dayjs(time).isBefore(dayjs(currentTime));
+    const isPastFromNow = dayjs(time).isBefore(dayjs(currentTime));
+
     return {
       time,
-      locateCity: currentCity.split('/').pop(),
-      isPastFormNow,
+      locateCity: getCityFromZone(baseZone),
+      isPastFromNow,
     };
   };
 
@@ -122,7 +102,7 @@ export function useTimeZone() {
         }));
       }, 500);
       return () => clearInterval(timeout);
-    }, [timeState, setTimeState, location]);
+    }, [location]);
 
     return timeState;
   };

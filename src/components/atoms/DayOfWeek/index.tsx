@@ -1,5 +1,4 @@
 import React from 'react';
-import uuid from 'react-native-uuid';
 import * as S from './style';
 
 interface IDayOfWeekProps {
@@ -21,7 +20,7 @@ export function DayOfWeek({ isEnable, selectedDay }: IDayOfWeekProps) {
   return (
     <S.Container>
       {DAY_OF_WEEK.map(day => (
-        <S.Text key={uuid.v4()} color={handleDateColor({ day })}>
+        <S.Text key={day} color={handleDateColor({ day })}>
           {day.substring(0, 1)}
         </S.Text>
       ))}

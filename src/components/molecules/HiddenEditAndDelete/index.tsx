@@ -5,7 +5,7 @@ import * as S from './style';
 
 interface IProps {
   item: IScheduleProps;
-  onPressDelete: (rowKey: string) => void;
+  onPressDelete: (rowKey: string | number) => void;
   onPressEdit: (item: IScheduleProps) => void;
 }
 

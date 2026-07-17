@@ -5,5 +5,5 @@ export interface IOnBoadingSlide {
   btnText: string | Array<string>;
   isEdge: boolean;
   onSkipPress?: () => void;
-  onNextPress?: (index: number) => void | (() => void);
+  onNextPress: (index: number) => void;
 }

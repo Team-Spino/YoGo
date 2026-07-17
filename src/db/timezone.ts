@@ -36,21 +36,16 @@ export const getTimezoneItems = async (
 };
 
 export const insertTimezoneItem = async (db: SQLiteDatabase, city: string) => {
-  const insertQuery = `INSERT INTO ${TIME_ZONE} (CITY) VALUES ('${city}')`;
+  const insertQuery = `INSERT INTO ${TIME_ZONE} (CITY) VALUES (?)`;
 
-  const result = await db.executeSql(insertQuery);
+  const result = await db.executeSql(insertQuery, [city]);
 
   const { insertId } = result[0];
   return insertId;
 };
 
 export const deleteTimezoneItem = async (db: SQLiteDatabase, id: number) => {
-  const deleteQuery = `DELETE from ${TIME_ZONE} where rowid = ${id}`;
-  await db.executeSql(deleteQuery);
+  const deleteQuery = `DELETE from ${TIME_ZONE} where rowid = ?`;
+  await db.executeSql(deleteQuery, [id]);
 };
 
-export const dropTimezoneTable = async (db: SQLiteDatabase) => {
-  const query = `DROP TABLE IF EXISTS ${TIME_ZONE}`;
-
-  await db.executeSql(query);
-};

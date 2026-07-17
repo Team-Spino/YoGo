@@ -3,8 +3,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Main, HandleSchedule, OnBoarding } from 'screens';
 import { FirstLaunchContext } from 'context/firstLaunch';
+import { RootStackParamList } from 'types';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function RootStack() {
   const {isFirstLaunch} = useContext(FirstLaunchContext);
@@ -34,7 +35,7 @@ export default function RootStack() {
               name="HandleSchedule"
               component={HandleSchedule}
               options={({ route }) => ({
-                title: route!.params!.title as string,
+                title: route.params.title,
               })}
             />
           </>

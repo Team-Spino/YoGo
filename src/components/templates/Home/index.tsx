@@ -6,11 +6,10 @@ import { FloatingButton, AgendaBox } from 'components';
 import { IconPlus } from 'assets';
 import { RootStackParamList, IScheduleProps } from 'types';
 import {
-  connectDB,
-  createScheduleTable,
-  deleteScheduleItem,
-  getDateAndDayOfWeek,
-  getScheduleItems,
+  findScheduleDays,
+  findSchedulesByDay,
+  initScheduleTable,
+  removeSchedule,
 } from 'db';
 import { useNotification } from 'hooks';
 import { ONE_DAY, parseToSlash } from 'utils';
@@ -46,8 +45,7 @@ export function Home({ navigation }: { navigation: Prop }) {
   const onDeleteTarget = async (id: number) => {
     setSchedules(schedules.filter(item => item.key !== id));
 
-    const db = await connectDB();
-    await deleteScheduleItem(db, id);
+    await removeSchedule(id);
 
     if (Platform.OS === 'ios') {
       deleteAllNotification({ number: id });
@@ -58,8 +56,8 @@ export function Home({ navigation }: { navigation: Prop }) {
 
   const initDB = async () => {
     try {
-      const db = await connectDB();
-      await createScheduleTable(db);
+      await initScheduleTable();
+
       const dayOfWeek = new Date(parseToSlash(selectedDay)).toLocaleDateString(
         'en',
         {
@@ -67,7 +65,7 @@ export function Home({ navigation }: { navigation: Prop }) {
         },
       );
 
-      const items = await getScheduleItems(db, dayOfWeek, selectedDay);
+      const items = await findSchedulesByDay(dayOfWeek, selectedDay);
       setSchedules(items);
     } catch (e) {
       console.error(e);
@@ -75,8 +73,7 @@ export function Home({ navigation }: { navigation: Prop }) {
   };
 
   const markedDB = async () => {
-    const db = await connectDB();
-    const dateAndDayOfWeek = await getDateAndDayOfWeek(db);
+    const dateAndDayOfWeek = await findScheduleDays();
     const { dateList, rowWeek } = dividDateAndDayOfWeek(dateAndDayOfWeek);
     const weekList = makeWeekList(rowWeek);
     makeMarkedDates([...dateList, ...weekList]);

@@ -24,10 +24,11 @@ import {
   IDayOfWeekProps,
   IHandelScheduleProps,
   IItemProps,
+  IScheduleInput,
   keyType,
 } from 'types';
 import { useNotification } from 'hooks';
-import { connectDB, insertScheduleItem, updateAllSchedule } from 'db';
+import { addSchedule, editSchedule } from 'db';
 import { PopContext } from 'context';
 import * as S from './style';
 
@@ -71,7 +72,6 @@ const getInitialProps = ({ title, key, item }: IGetInitialProps) => {
     return new Date(parseToSlash(`${date} ${item[key]}`));
   } else if (title === 'Add' && key === 'TARGET_TIME') return new Date();
   else if (title === 'Add' && key === 'TARGET_DAY') {
-    console.log(`item: ${item[key]}`);
     return new Date(parseToSlash(item[key] as string));
   }
 
@@ -167,9 +167,10 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
     setCity(city);
   };
 
-  const onChangeDate = (event: DateTimePickerEvent, selectedDate: Date) => {
-    const currentDate = selectedDate;
-    setDate(currentDate);
+  const onChangeDate = (event: DateTimePickerEvent, selectedDate?: Date) => {
+    if (!selectedDate) return;
+
+    setDate(selectedDate);
   };
 
   const onDaySelect = (key: string) => {
@@ -220,19 +221,29 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
     return true;
   };
 
-  const insertSchedule = async ({ formState }: { formState: any }) => {
+  const insertSchedule = async ({
+    formState,
+  }: {
+    formState: IScheduleInput;
+  }) => {
     try {
-      const db = await connectDB();
-      return (await insertScheduleItem(db, formState)) as number;
+      return (await addSchedule(formState)) as number;
     } catch (e) {
-      console.error(e.message);
+      console.error(e);
     }
   };
 
-  const editSchedule = async ({ formState }: { formState: any }) => {
+  const updateSchedule = async ({
+    formState,
+  }: {
+    formState: IScheduleInput;
+  }) => {
     try {
-      const db = await connectDB();
-      await updateAllSchedule(db, { ...formState, key: item.key, isActive: 1 });
+      await editSchedule({
+        ...formState,
+        key: item.key as number,
+        isActive: 1,
+      });
     } catch (e) {
       console.error(e);
     }
@@ -314,7 +325,7 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
       }
 
       if (title === 'Edit') {
-        editSchedule({ formState });
+        updateSchedule({ formState });
 
         if (Platform.OS === 'ios') {
           await deleteAllNotification({ number: item.key as number });

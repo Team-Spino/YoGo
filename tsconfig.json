@@ -12,6 +12,7 @@
     "strict": true,
     "target": "esnext",
     "skipLibCheck": true,
+    "types": ["react-native", "jest", "styled-components-react-native"],
     "baseUrl": "./src",
     "paths": {
       "~/*": ["./*"],

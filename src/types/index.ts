@@ -1,4 +1,10 @@
-export type { IScheduleProps, ITargetProps, ICurProps } from 'types/schedule';
+export type {
+  IScheduleProps,
+  IScheduleInput,
+  IScheduleUpdate,
+  ITargetProps,
+  ICurProps,
+} from 'types/schedule';
 export type {
   RootStackParamList,
   IItemProps,

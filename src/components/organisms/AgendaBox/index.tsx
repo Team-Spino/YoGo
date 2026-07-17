@@ -5,7 +5,6 @@ import { IScheduleProps, ITagFilter } from 'types';
 import { TAG_FILTER_COLOR } from 'utils';
 import * as S from './style';
 import dayjs from 'dayjs';
-import { Dimensions } from 'react-native';
 
 interface IAgendaProps {
   schedules: Array<IScheduleProps>;
@@ -70,7 +69,6 @@ export function AgendaBox({
           minDate={dayjs().format('YYYY-MM-DD')}
           pastScrollRange={1}
           futureScrollRange={12}
-          showClosingKnob={true}
           theme={{
             dotColor: '#6564CC',
             selectedDotColor: '#ffffff',

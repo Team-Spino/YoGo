@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Platform } from 'react-native';
 import { Portal } from '@gorhom/portal';
 import {
@@ -7,7 +7,7 @@ import {
   DetailModal,
   DayOfWeek,
 } from 'components';
-import { connectDB, updateScheduleItemActive, getAllSchedule } from 'db';
+import { setScheduleActive } from 'db';
 import { useNotification } from 'hooks';
 import { IScheduleProps } from 'types';
 import * as S from './style';
@@ -40,9 +40,9 @@ export const ScheduleCard = React.memo(function ({
   const { handleScheduleToggle } = useNotification();
 
   const onTogglePress = async () => {
-    const db = await connectDB();
-    await updateScheduleItemActive(db, key, isEnable ? 0 : 1);
-    
+    await setScheduleActive(key, isEnable ? 0 : 1);
+
+
     if (Platform.OS === 'ios') {
       handleScheduleToggle({
         number: Number(key),

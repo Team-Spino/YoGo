@@ -5,12 +5,10 @@ import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import dayjs from 'dayjs';
 import uuid from 'react-native-uuid';
 import {
-  connectDB,
-  createAlarmPermissionTable,
-  inesertAlarmPermission,
-  getAlarmPermission,
-  updateAlarmPermission,
-  deleteAlarmPermission,
+  addAlarmPermission,
+  editAlarmPermission,
+  findAlarmPermission,
+  initAlarmPermissionTable,
 } from 'db';
 import { parseToSlash } from 'utils';
 import { IScheduleProps } from 'types';
@@ -180,21 +178,19 @@ export function useNotification() {
 
     // 사용자 허가 체크
     PushNotificationIOS.checkPermissions(async info => {
-      const db = await connectDB();
+      await initAlarmPermissionTable();
 
-      await createAlarmPermissionTable(db);
-
-      const permission = await getAlarmPermission(db);
+      const permission = await findAlarmPermission();
 
       // 알람이 허가되었고, db에 반영되지 않았을 때
       if (info.notificationCenter && !permission) {
-        await inesertAlarmPermission(db, 1);
+        await addAlarmPermission(1);
         return;
       }
 
       // 알람이 허가 되었고, db에 isAgree가 0일때 -> db에 업데이트
       if (info.notificationCenter && !permission.IS_AGREE) {
-        await updateAlarmPermission(db, 1);
+        await editAlarmPermission(1);
       }
 
       // 알람이 허가되었고, db에 active 되었을 때
@@ -209,7 +205,7 @@ export function useNotification() {
             {
               text: 'Cancel',
               onPress: async () => {
-                await inesertAlarmPermission(db, 0);
+                await addAlarmPermission(0);
               },
               style: 'cancel',
             },

@@ -1,11 +1,10 @@
 import React from 'react';
 import { TimeOfTZ, LocationOfTZ } from 'components';
-import { formatCityName } from 'utils';
 import * as S from './style';
 
 interface IResultCardProps {
-  cardHeader : string;
-  city: string | undefined;
+  cardHeader: string;
+  city: string;
   date: string;
   time: string;
   meridiem: string;

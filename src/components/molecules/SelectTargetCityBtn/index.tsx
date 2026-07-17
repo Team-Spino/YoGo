@@ -23,28 +23,25 @@ export function SelectTargetCityBtn({
 
   const { getAlarmTime } = useTimeZone();
 
-  if (setAlartDate) {
-    useEffect(() => {
-      console.log(`date : ${date}`);
-      if (city && date) {
-        const { time, locateCity, isPastFormNow } = getAlarmTime({
-          date: date.toString(),
-          city: city,
-        });
+  useEffect(() => {
+    if (setAlartDate && city && date) {
+      const { time, locateCity } = getAlarmTime({
+        date: date.toString(),
+        city: city,
+      });
 
-        setAlartDate(time);
+      setAlartDate(time);
 
-        const [d, t] = time.split(' ');
+      const [d, t] = time.split(' ');
 
-        setNotiAlartTime(
-          `The Alarm goes off at ${toFormat12Hour({
-            day: d,
-            time: t,
-          })} in ${locateCity}.`,
-        );
-      }
-    }, [city, date]);
-  }
+      setNotiAlartTime(
+        `The Alarm goes off at ${toFormat12Hour({
+          day: d,
+          time: t,
+        })} in ${locateCity}.`,
+      );
+    }
+  }, [city, date]);
 
   const placeholder = () => {
     if (!isCityInputValid) {

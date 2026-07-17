@@ -9,6 +9,7 @@ import {
 import { IconResultArrow, IconWorld } from 'assets';
 import { IMakeProps } from 'types';
 import { useTimeZone } from 'hooks';
+import { getCityFromZone } from 'utils';
 import * as S from './style';
 
 interface IResultBSProps {
@@ -48,7 +49,7 @@ export function ResultSheet({ onPress, submitObject }: IResultBSProps) {
         </IconAbsolute>
         <ResultCard
           cardHeader={'Target Time Zone'}
-          city={tarCity.split('/').pop()}
+          city={getCityFromZone(tarCity)}
           date={tarDateFormat}
           time={tarTime}
           meridiem={tarMeridiem}

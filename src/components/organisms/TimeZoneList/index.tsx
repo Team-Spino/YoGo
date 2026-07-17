@@ -1,11 +1,10 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { Animated, View, StyleSheet } from 'react-native';
+import { Animated, View } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { TimeZoneCard, HiddenDelete, RenderEmptyData } from 'components';
 import { useSwipeList } from 'hooks';
 import { WINDOW_WIDTH } from 'styles';
 import { ICityProps } from 'types';
-import { Dimensions } from 'react-native';
 import * as S from './style';
 
 interface IItemProps {
@@ -64,10 +63,3 @@ export function TimeZoneList({
     </S.Container>
   );
 }
-
-const style = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: Dimensions.get('window').height * 0.8,
-  },
-});

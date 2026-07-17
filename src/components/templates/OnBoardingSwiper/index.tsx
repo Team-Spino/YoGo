@@ -21,8 +21,7 @@ import { IOnBoadingSlide } from 'types';
 export function OnBoardingSwiper() {
   const { checkFirstLaunch } = useContext(FirstLaunchContext);
   const [isStartOrEnd, setIsStartOrEnd] = useState(true);
-  const swiperRef =
-    useRef<React.MutableRefObject<React.MutableRefObject<Swiper>>>();
+  const swiperRef = useRef<Swiper>(null);
 
   const styles = StyleSheet.create({
     dot: {
@@ -42,7 +41,7 @@ export function OnBoardingSwiper() {
       btnText: "Let's look into",
       isEdge: true,
       onNextPress: (index: number) => {
-        swiperRef.current!.scrollTo(index, true);
+        swiperRef.current?.scrollTo(index, true);
       },
     },
     {
@@ -57,9 +56,9 @@ export function OnBoardingSwiper() {
       text: "Press '+'(plus) button to add schedule",
       btnText: ['Next', 'Skip'],
       isEdge: false,
-      onSkipPress: () => swiperRef.current!.scrollTo(slide.length - 1, true),
+      onSkipPress: () => swiperRef.current?.scrollTo(slide.length - 1, true),
       onNextPress: (index: number) => {
-        swiperRef.current!.scrollTo(index, true);
+        swiperRef.current?.scrollTo(index, true);
       },
     },
     {
@@ -74,9 +73,9 @@ export function OnBoardingSwiper() {
       text: "If you select \n the time zone for the destination country, \n the schedule is automatically made",
       btnText: ['Next', 'Skip'],
       isEdge: false,
-      onSkipPress: () => swiperRef.current!.scrollTo(slide.length - 1, true),
+      onSkipPress: () => swiperRef.current?.scrollTo(slide.length - 1, true),
       onNextPress: (index: number) => {
-        swiperRef.current!.scrollTo(index, true);
+        swiperRef.current?.scrollTo(index, true);
       },
     },
     {
@@ -91,9 +90,9 @@ export function OnBoardingSwiper() {
       text: 'Check the time \n difference of many countries at the same time',
       btnText: ['Next', 'Skip'],
       isEdge: false,
-      onSkipPress: () => swiperRef.current!.scrollTo(slide.length - 1, true),
+      onSkipPress: () => swiperRef.current?.scrollTo(slide.length - 1, true),
       onNextPress: (index: number) => {
-        swiperRef.current!.scrollTo(index, true);
+        swiperRef.current?.scrollTo(index, true);
       },
     },
     {
@@ -102,9 +101,9 @@ export function OnBoardingSwiper() {
       text: '',
       btnText: ['Next', 'Skip'],
       isEdge: false,
-      onSkipPress: () => swiperRef.current!.scrollTo(slide.length - 1, true),
+      onSkipPress: () => swiperRef.current?.scrollTo(slide.length - 1, true),
       onNextPress: (index: number) => {
-        swiperRef.current!.scrollTo(index, true);
+        swiperRef.current?.scrollTo(index, true);
       },
     },
     {

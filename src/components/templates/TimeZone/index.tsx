@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import uuid from 'react-native-uuid';
 import {
   FloatingButton,
   HeaderRightButton,
@@ -12,11 +11,10 @@ import {
 import { IconSearch } from 'assets';
 import { ICityProps, RootStackParamList } from 'types';
 import {
-  connectDB,
-  createTimezoneTable,
-  getTimezoneItems,
-  insertTimezoneItem,
-  deleteTimezoneItem,
+  addTimezone,
+  findTimezones,
+  initTimezoneTable,
+  removeTimezone,
 } from 'db';
 import * as S from './style';
 
@@ -36,8 +34,7 @@ export function TimeZone({ navigation }: { navigation: Prop }) {
   };
 
   const selectTarget = async (city: string) => {
-    const db = await connectDB();
-    const id = await insertTimezoneItem(db, city);
+    const id = await addTimezone(city);
 
     setCardState([...cardState, { key: id, CITY: city }]);
   };
@@ -45,15 +42,14 @@ export function TimeZone({ navigation }: { navigation: Prop }) {
   const onDeleteTarget = async (id: number) => {
     setCardState(cardState.filter(item => item.key !== id));
 
-    const db = await connectDB();
-    await deleteTimezoneItem(db, id);
+    await removeTimezone(id);
   };
 
   const initDB = useCallback(async () => {
     try {
-      const db = await connectDB();
-      await createTimezoneTable(db);
-      const items = await getTimezoneItems(db);
+      await initTimezoneTable();
+
+      const items = await findTimezones();
       setCardState(items);
     } catch (e) {
       console.error(e);
