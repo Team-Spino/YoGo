@@ -12,10 +12,11 @@ export function Main() {
     useNotification();
 
   useEffect(() => {
-    if (Platform.OS === 'ios') {      
-      handleNotificationPermission();
-      handleNotificationBadge();
-    }
+    if (Platform.OS !== 'ios') return;
+
+    handleNotificationPermission();
+
+    return handleNotificationBadge();
   }, []);
 
   return (

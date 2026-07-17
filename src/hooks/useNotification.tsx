@@ -234,20 +234,21 @@ export function useNotification() {
   const handleNotificationBadge = useCallback(() => {
     PushNotificationIOS.setApplicationIconBadgeNumber(0);
 
-    PushNotificationIOS.addEventListener('notification', async () => {
+    const lowerBadge = async () => {
       const number = await getBadgeNumber();
 
       if (number === 0) return;
 
       PushNotificationIOS.setApplicationIconBadgeNumber(number - 1);
-    });
-    PushNotificationIOS.addEventListener('localNotification', async () => {
-      const number = await getBadgeNumber();
+    };
 
-      if (number === 0) return;
+    PushNotificationIOS.addEventListener('notification', lowerBadge);
+    PushNotificationIOS.addEventListener('localNotification', lowerBadge);
 
-      PushNotificationIOS.setApplicationIconBadgeNumber(number - 1);
-    });
+    return () => {
+      PushNotificationIOS.removeEventListener('notification');
+      PushNotificationIOS.removeEventListener('localNotification');
+    };
   }, []);
 
   return {
