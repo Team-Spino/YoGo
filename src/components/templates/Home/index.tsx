@@ -12,7 +12,11 @@ import {
   removeSchedule,
 } from 'db';
 import { useNotification } from 'hooks';
-import { ONE_DAY, parseToSlash } from 'utils';
+import {
+  getDatesForWeekdays,
+  parseToSlash,
+  splitScheduleDays,
+} from 'utils';
 import { PopContext } from 'context';
 import * as S from './style';
 
@@ -73,59 +77,10 @@ export function Home({ navigation }: { navigation: Prop }) {
   };
 
   const markedDB = async () => {
-    const dateAndDayOfWeek = await findScheduleDays();
-    const { dateList, rowWeek } = dividDateAndDayOfWeek(dateAndDayOfWeek);
-    const weekList = makeWeekList(rowWeek);
-    makeMarkedDates([...dateList, ...weekList]);
-  };
+    const scheduleDays = await findScheduleDays();
+    const { dates, weekdays } = splitScheduleDays(scheduleDays);
 
-  interface IDateAndDayOfWeek {
-    result: string;
-  }
-
-  const dividDateAndDayOfWeek = (dateAndDayOfWeek: IDateAndDayOfWeek[]) => {
-    const checkYYMMDD = /\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])/;
-    const removeSpecial = /[\{\}\[\]\/?.;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
-    const dateList: string[] = [];
-    const dayOfWeekList: string[] = [];
-    dateAndDayOfWeek.forEach((item: IDateAndDayOfWeek) => {
-      const isDate = checkYYMMDD.exec(item.result);
-      if (isDate) {
-        return dateList.push(item.result);
-      }
-      return item.result
-        .replace(removeSpecial, '')
-        .split(',')
-        .map((el: string) => dayOfWeekList.push(el));
-    });
-    const rowWeek = countDayOfWeek(dayOfWeekList);
-    return { dateList, rowWeek };
-  };
-
-  const countDayOfWeek = (dayOfWeekList: string[]) => {
-    return dayOfWeekList.reduce((accu: any, curr: string) => {
-      accu[curr] = (accu[curr] || 0) + 1;
-      return accu;
-    }, {});
-  };
-
-  const makeWeekList = (rowWeek: object) => {
-    const weekLiteral = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const today = dayjs().format('ddd');
-    let weekList = [];
-    for (const [key, value] of Object.entries(rowWeek)) {
-      let diff = weekLiteral.indexOf(key) - weekLiteral.indexOf(today);
-      let diffTimeStamp = diff * ONE_DAY;
-      let date = dayjs().add(diffTimeStamp, 'second').format('YYYY-MM-DD');
-      for (let i = 0; i < 360; i += 7) {
-        weekList.push(
-          dayjs(date)
-            .add(ONE_DAY * i, 'second')
-            .format('YYYY-MM-DD'),
-        );
-      }
-    }
-    return weekList;
+    makeMarkedDates([...dates, ...getDatesForWeekdays(weekdays)]);
   };
 
   const makeMarkedDates = useCallback((dateList: string[]) => {
