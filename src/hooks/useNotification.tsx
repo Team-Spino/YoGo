@@ -10,18 +10,13 @@ import {
   findAlarmPermission,
   initAlarmPermissionTable,
 } from 'db';
-import { parseToSlash } from 'utils';
+import { getAlarmDates, parseToSlash } from 'utils';
 import { IScheduleProps } from 'types';
 
 interface INotificationProps {
   key: number;
   title: string;
   description: string;
-  date: string;
-  dayOfWeek: Array<string>;
-}
-
-interface IMakeAlartDateProps {
   date: string;
   dayOfWeek: Array<string>;
 }
@@ -35,35 +30,6 @@ interface IAlartOptionProps {
 }
 
 export function useNotification() {
-  const getNextDay = ({ date }: { date: string }) => {
-    const nextDay = new Date(parseToSlash(date));
-    nextDay.setDate(nextDay.getDate() + 1);
-    return dayjs(new Date(parseToSlash(nextDay))).format('YYYY-MM-DD HH:mm');
-  };
-
-  const makeAlartDate = ({ date, dayOfWeek }: IMakeAlartDateProps) => {
-    let nextDate = date;
-    const alartList = [date];
-    const LENGTH_OF_DAY_OF_WEEK = 6;
-
-    for (let i = 0; i < LENGTH_OF_DAY_OF_WEEK; i++) {
-      nextDate = getNextDay({ date: nextDate });
-
-      const weekDay = new Date(parseToSlash(nextDate)).toLocaleDateString(
-        'en-US',
-        {
-          weekday: 'short',
-        },
-      );
-
-      if (dayOfWeek.includes(weekDay)) {
-        alartList.push(nextDate.trim());
-      }
-    }
-
-    return alartList;
-  };
-
   const setOptions = ({
     key,
     title,
@@ -110,7 +76,7 @@ export function useNotification() {
       return;
     }
 
-    makeAlartDate({ date, dayOfWeek }).forEach(alartDate => {
+    getAlarmDates({ date, weekdays: dayOfWeek }).forEach(alartDate => {
       PushNotification.localNotificationSchedule(
         setOptions({
           key,

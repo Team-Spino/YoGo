@@ -1,5 +1,79 @@
 import dayjs from 'dayjs';
-import { getDatesForWeekdays, splitScheduleDays } from '../scheduleCalendar';
+import {
+  getAlarmDates,
+  getDatesForWeekdays,
+  splitScheduleDays,
+} from '../scheduleCalendar';
+
+/**
+ * 테스트 타임존은 America/New_York입니다(jest.config.js).
+ * UTC보다 서쪽이라 오프셋에 `-`가 붙고, 그래서 오프셋을 망가뜨리는
+ * 문자열 처리가 여기서 드러납니다.
+ */
+describe('getAlarmDates', () => {
+  // 2024-01-15는 월요일입니다.
+  const mondayMorning = '2024-01-15 09:00';
+
+  it('고른 시각부터 시작합니다', () => {
+    const dates = getAlarmDates({ date: mondayMorning, weekdays: ['Mon'] });
+
+    expect(dates[0]).toBe('2024-01-15 09:00');
+  });
+
+  it('며칠이 지나도 시각이 흐트러지지 않습니다', () => {
+    const dates = getAlarmDates({
+      date: mondayMorning,
+      weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    });
+
+    const strayTimes = dates.filter(date => !date.endsWith('09:00'));
+
+    expect(strayTimes).toEqual([]);
+  });
+
+  it('고른 요일이 다가오는 한 주에 정확히 한 번씩 잡힙니다', () => {
+    const dates = getAlarmDates({
+      date: mondayMorning,
+      weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    });
+
+    expect(dates).toEqual([
+      '2024-01-15 09:00',
+      '2024-01-16 09:00',
+      '2024-01-17 09:00',
+      '2024-01-18 09:00',
+      '2024-01-19 09:00',
+      '2024-01-20 09:00',
+      '2024-01-21 09:00',
+    ]);
+  });
+
+  it('고르지 않은 요일은 건너뜁니다', () => {
+    const dates = getAlarmDates({
+      date: mondayMorning,
+      weekdays: ['Mon', 'Wed'],
+    });
+
+    expect(dates).toEqual(['2024-01-15 09:00', '2024-01-17 09:00']);
+  });
+
+  it('고른 요일이 시작일 하나뿐이면 그날만 잡습니다', () => {
+    const dates = getAlarmDates({ date: mondayMorning, weekdays: ['Mon'] });
+
+    expect(dates).toEqual(['2024-01-15 09:00']);
+  });
+
+  it('서머타임이 시작하는 주를 지나도 시각이 유지됩니다', () => {
+    // 2024-03-10에 서머타임이 시작합니다. 그 주의 목요일에서 출발합니다.
+    const dates = getAlarmDates({
+      date: '2024-03-07 09:00',
+      weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    });
+
+    expect(dates).toContain('2024-03-11 09:00');
+    expect(dates.filter(date => !date.endsWith('09:00'))).toEqual([]);
+  });
+});
 
 describe('splitScheduleDays', () => {
   it('reads a one-off schedule as a date', () => {

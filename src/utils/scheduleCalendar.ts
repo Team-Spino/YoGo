@@ -6,6 +6,9 @@ const NON_DAY_CHARACTERS = /[[\]"' ]/g;
 const WEEK_LITERAL = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const WEEKS_AHEAD = 52;
+const DAYS_IN_WEEK = 7;
+
+const ALARM_FORMAT = 'YYYY-MM-DD HH:mm';
 
 interface IScheduleDayRow {
   result: string;
@@ -59,4 +62,32 @@ export const getDatesForWeekdays = (
       firstDate.add(week * 7, 'day').format('YYYY-MM-DD'),
     );
   });
+};
+
+interface IGetAlarmDatesProps {
+  date: string;
+  weekdays: Array<string>;
+}
+
+/**
+ * 알람이 처음 울릴 날짜들을 구합니다.
+ *
+ * 고른 시각과, 다가오는 한 주 안에서 고른 요일에 해당하는 날들입니다.
+ * 날짜는 매번 시작 시각에서 더합니다. 하루 더한 결과를 다음 계산의
+ * 입력으로 되먹이면 오차가 쌓입니다.
+ */
+export const getAlarmDates = ({ date, weekdays }: IGetAlarmDatesProps) => {
+  const start = dayjs(date);
+
+  const dates = [start.format(ALARM_FORMAT)];
+
+  for (let day = 1; day < DAYS_IN_WEEK; day++) {
+    const next = start.add(day, 'day');
+
+    if (weekdays.includes(next.format('ddd'))) {
+      dates.push(next.format(ALARM_FORMAT));
+    }
+  }
+
+  return dates;
 };

@@ -9,6 +9,7 @@ import {
   getRelativeDay,
   getTimeDifference,
   parseToSlash,
+  toLocalDate,
 } from 'utils';
 import { ILiveTimeState } from 'types';
 
@@ -28,7 +29,7 @@ export function useTimeZone() {
     dayjs(currentTime).tz(targetTimeZone).format('YYYY-MM-DD HH:mm');
 
   const formatTime = ({ targetTime }: { targetTime: string | Date }) => {
-    const [, time, meridiem] = new Date(parseToSlash(targetTime))
+    const [, time, meridiem] = toLocalDate(targetTime)
       .toLocaleString('en-US')
       .split(' ');
     const [h, m] = time.split(':');

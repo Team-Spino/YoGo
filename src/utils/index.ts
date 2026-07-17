@@ -6,6 +6,7 @@ export { parseCity } from 'utils/parseCity';
 export {
   splitScheduleDays,
   getDatesForWeekdays,
+  getAlarmDates,
 } from 'utils/scheduleCalendar';
 export {
   getInitialScheduleForm,
@@ -23,4 +24,4 @@ export {
 } from 'utils/timeZone';
 export { toFormat12Hour } from 'utils/toFormat12Hour';
 export { storage } from 'utils/mmkv';
-export { parseToSlash } from 'utils/parseToSlash';
+export { parseToSlash, toLocalDate } from 'utils/parseToSlash';

@@ -69,3 +69,26 @@ describe('getAlarmTime', () => {
     expect(locateCity).toBe('New York');
   });
 });
+
+describe('formatTime', () => {
+  it('문자열로 준 시각을 그대로 읽습니다', () => {
+    const { formatTime } = renderUseTimeZone();
+
+    expect(formatTime({ targetTime: '2024-01-15 14:00' })).toEqual({
+      time: '2:00',
+      meridiem: 'PM',
+    });
+  });
+
+  it('Date로 줘도 문자열과 같은 시각을 냅니다', () => {
+    const { formatTime } = renderUseTimeZone();
+
+    // 기기가 뉴욕이므로 둘 다 같은 순간입니다.
+    const fromText = formatTime({ targetTime: '2024-01-15 14:00' });
+    const fromDate = formatTime({
+      targetTime: new Date('2024-01-15T14:00:00-05:00'),
+    });
+
+    expect(fromDate).toEqual(fromText);
+  });
+});
