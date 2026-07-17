@@ -89,6 +89,35 @@ describe('getDatesForWeekdays', () => {
     expect(everyDateIsAMonday).toBe(true);
   });
 
+  /**
+   * 하루를 86400초로 세면 서머타임이 끝나 25시간이 되는 주에 하루가 밀립니다.
+   *
+   * 위의 1월 시작 케이스로는 못 잡습니다. 봄에 한 시간 잃고 가을에 한 시간
+   * 얻어 서로 상쇄되기 때문입니다. 서머타임 구간에서 출발해야 드러납니다.
+   * (테스트 타임존은 jest.config.js가 서머타임 있는 곳으로 고정합니다.)
+   */
+  describe('서머타임이 끝나는 구간을 지날 때', () => {
+    // 2024-07-01은 서머타임 구간의 월요일이고, 서머타임은 11-03에 끝납니다.
+    const summerMonday = dayjs('2024-07-01');
+
+    it('하루가 밀리지 않습니다', () => {
+      const dates = getDatesForWeekdays(['Mon'], summerMonday);
+
+      expect(dates).toContain('2024-11-04');
+      expect(dates).not.toContain('2024-11-03');
+    });
+
+    it('요일이 유지됩니다', () => {
+      const dates = getDatesForWeekdays(['Mon'], summerMonday);
+
+      const strayDates = dates.filter(
+        date => dayjs(date).format('ddd') !== 'Mon',
+      );
+
+      expect(strayDates).toEqual([]);
+    });
+  });
+
   it('covers every day it was asked for', () => {
     const dates = getDatesForWeekdays(['Mon', 'Wed'], monday);
 

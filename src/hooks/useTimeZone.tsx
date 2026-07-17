@@ -71,7 +71,13 @@ export function useTimeZone() {
     const baseZone = dayjs.tz.guess();
 
     // 사용자가 고른 시각은 대상 도시의 벽시계 기준이라, 기기 시각으로 되돌려야 알람이 맞습니다.
-    const offsetMinutes = getOffsetMinutes({ targetZone: city, baseZone });
+    // 시차는 일정 날짜 기준으로 읽습니다. 지금 기준으로 읽으면 그 사이에
+    // 서머타임이 바뀌는 일정이 한 시간 어긋납니다.
+    const offsetMinutes = getOffsetMinutes({
+      targetZone: city,
+      baseZone,
+      at: date,
+    });
 
     const millisec = dayjs(date).valueOf() - offsetMinutes * 60000;
     const time = dayjs(millisec).format('YYYY-MM-DD HH:mm');
