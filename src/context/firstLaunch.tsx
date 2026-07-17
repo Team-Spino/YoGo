@@ -9,7 +9,9 @@ const FIRST_LAUNCH_KEY = 'FIRST_LAUNCH';
 
 export const FirstLaunchContext = createContext({
   isFirstLaunch: false,
-  checkFirstLaunch: () => {},
+  checkFirstLaunch: () => {
+    // Provider 밖에서 쓰면 아무 일도 일어나지 않습니다.
+  },
 });
 
 export const FirstLaunchProvider = ({ children }: IisFirstProps) => {

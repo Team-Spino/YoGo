@@ -3,15 +3,7 @@ import { Pressable } from 'react-native';
 import { IconPlus } from 'assets';
 import * as S from './style';
 
-export function HeaderRightButton({
-  name,
-  color,
-  onPress,
-}: {
-  name: string;
-  color: string;
-  onPress: any;
-}) {
+export function HeaderRightButton({ onPress }: { onPress: () => void }) {
   return (
     <S.Wrapper>
       <Pressable onPress={onPress}>
@@ -24,7 +16,3 @@ export function HeaderRightButton({
     </S.Wrapper>
   );
 }
-
-HeaderRightButton.defaultProps = {
-  color: '#6200ee',
-};

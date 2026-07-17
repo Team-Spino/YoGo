@@ -1,5 +1,5 @@
 import React from 'react';
-import Svg, { Circle, ClipPath, Defs, G, Line, Path, Rect } from 'react-native-svg';
+import Svg, { Circle, ClipPath, Defs, G, Path, Rect } from 'react-native-svg';
 
 export function ImgOnBoarding6() {
   return (

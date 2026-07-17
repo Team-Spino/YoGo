@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { Animated, View } from 'react-native';
+import { Animated } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { TimeZoneCard, HiddenDelete, RenderEmptyData } from 'components';
 import { useSwipeList } from 'hooks';

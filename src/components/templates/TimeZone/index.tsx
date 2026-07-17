@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {
   FloatingButton,
@@ -60,10 +59,7 @@ export function TimeZone({ navigation }: { navigation: Prop }) {
     initDB();
     navigation.setOptions({
       headerRight: () => (
-        <HeaderRightButton
-          name={''}
-          onPress={() => pressHeaderRightButton()}
-        ></HeaderRightButton>
+        <HeaderRightButton onPress={pressHeaderRightButton} />
       ),
     });
   }, [navigation, initDB]);

@@ -17,7 +17,7 @@ interface IScheduleCardProps {
   selectedDay: string;
 }
 
-export const ScheduleCard = React.memo(function ({
+export const ScheduleCard = React.memo(function ScheduleCard({
   schedule,
   selectedDay,
 }: IScheduleCardProps) {

@@ -5,11 +5,11 @@ import * as S from './style';
 
 
 interface IRenderEditProps {
-  item: IScheduleProps
-  onPress: (item : IScheduleProps) => void;
+  item: IScheduleProps;
+  onPress: (item: IScheduleProps) => void;
 }
 
-export const RenderEdit = ({item, onPress} : any) => {
+export const RenderEdit = ({ item, onPress }: IRenderEditProps) => {
   return (
     <S.RenderRightButton onPress={() => onPress(item)}
     >

@@ -6,7 +6,9 @@ interface IPopProps {
 
 export const PopContext = createContext({
   isPoped: false,
-  setPop: (state: boolean) => {},
+  setPop: (_state: boolean) => {
+    // Provider 밖에서 쓰면 아무 일도 일어나지 않습니다.
+  },
 });
 
 export const PopProvider = ({ children }: IPopProps) => {

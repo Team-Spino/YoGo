@@ -1,7 +1,6 @@
 import React, { useRef, useState, useContext } from 'react';
 import { Image, StyleSheet } from 'react-native';
 import Swiper from 'react-native-swiper';
-import { storage } from 'utils/mmkv';
 import { OnBoardingSlide } from 'components';
 import {
   ImgOnBoarding1,
