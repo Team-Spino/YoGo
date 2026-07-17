@@ -25,11 +25,17 @@ export function useSwipeList({
   onDeleteTarget,
 }: IuseSwipeListProps) {
   /**
-   * list만큼 배열을 만들고 해당하는 key 값에 맞는 animated.vlaue를 만듭니다.
+   * key 값마다 animated value를 하나씩 두고 리렌더 사이에 유지합니다.
+   *
+   * 매 렌더 새로 만들면 진행 중이던 스와이프 애니메이션이 처음으로 되돌아갑니다.
    */
-  const rowTranslateAnimatedValues: IrowTranslateAnimatedValuesType = {};
+  const rowTranslateAnimatedValues =
+    useRef<IrowTranslateAnimatedValuesType>({}).current;
+
   listData?.forEach(({ key }: { key: string }) => {
-    rowTranslateAnimatedValues[`${key}`] = new Animated.Value(1);
+    if (!rowTranslateAnimatedValues[`${key}`]) {
+      rowTranslateAnimatedValues[`${key}`] = new Animated.Value(1);
+    }
   });
 
   /**

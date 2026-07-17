@@ -372,7 +372,6 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
                 city={city}
                 date={date}
                 setAlartDate={setAlartDate}
-                isBottomSheet={false}
                 onChangeDate={onChangeDate}
                 isCityInputValid={isCityInputValid}
                 onPressSearchTargetCity={onPressSearchTargetCity}
