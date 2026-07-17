@@ -7,6 +7,12 @@ export {
   splitScheduleDays,
   getDatesForWeekdays,
 } from 'utils/scheduleCalendar';
+export {
+  getInitialScheduleForm,
+  buildScheduleInput,
+  addWeekdayOf,
+} from 'utils/scheduleForm';
+export type { IScheduleFormState } from 'utils/scheduleForm';
 export { TZ_DATA_BASES } from 'utils/TZ_DATA_BASES';
 export { formatCityName } from 'utils/formatCityName';
 export {
