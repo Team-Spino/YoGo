@@ -1,6 +1,4 @@
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
 import {
   IDayOfWeekProps,
   IItemProps,
@@ -10,9 +8,7 @@ import {
 import { DAY_OF_WEEK } from 'utils/DAY_OF_WEEK';
 import { TAG_COLOR } from 'utils/TAG_COLOR';
 import { parseToSlash } from 'utils/parseToSlash';
-
-dayjs.extend(utc);
-dayjs.extend(timezone);
+import { getDeviceZone } from 'utils/timeZone';
 
 const NO_TAG_COLOR = '#B5B5B9';
 
@@ -122,7 +118,7 @@ export const buildScheduleInput = ({
     targetCity: city,
     curTime: alarmMoment.format('HH:mm'),
     curDay: alarmMoment.format('YYYY-MM-DD'),
-    curCity: dayjs.tz.guess(),
+    curCity: getDeviceZone(),
     dayOfWeek: JSON.stringify(
       dayOfWeek.filter(day => day.isSelected).map(day => day.name),
     ),

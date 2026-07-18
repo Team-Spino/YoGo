@@ -1,9 +1,20 @@
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
+import { ZONE_ALIASES } from 'utils/zoneAliases';
 
-dayjs.extend(utc);
-dayjs.extend(timezone);
+/**
+ * 타임존 계산을 Intl 위에 직접 올립니다.
+ *
+ * dayjs의 timezone 플러그인은 쓰지 않습니다. 그 플러그인은 속으로
+ * `new Date(date.toLocaleString('en-US', { timeZone }))`처럼 로케일 문자열을
+ * 다시 Date로 되돌리는데, Hermes(앱이 실제로 쓰는 엔진)의 Date 파서는
+ * ISO 8601만 읽습니다. 그래서 `.tz()`가 통째로 Invalid Date가 되고,
+ * 시차와 시각이 전부 NaN으로 나옵니다.
+ *
+ * 반면 `Intl.DateTimeFormat.formatToParts`는 Hermes에서도 제대로 동작하므로,
+ * 존의 벽시계 값을 그걸로 읽어 오프셋을 직접 셈합니다.
+ * jest는 Node(V8)에서 도는데 V8의 Date 파서는 관대해서, 이 차이는
+ * 테스트로는 드러나지 않고 실기기에서만 드러납니다.
+ */
 
 type RelativeDay = 'Yesterday' | 'Today' | 'Tomorrow';
 
@@ -12,6 +23,95 @@ interface IZoneComparisonProps {
   baseZone: string;
   at?: string | number | Date;
 }
+
+interface IZoneParts {
+  year: number;
+  month: number;
+  day: number;
+  hour: number;
+  minute: number;
+  second: number;
+}
+
+const pad = (value: number) => String(value).padStart(2, '0');
+
+/**
+ * 별칭 타임존 이름을 Hermes가 아는 정규 이름으로 바꿉니다.
+ *
+ * 표에 없으면 그대로 둡니다. 정규 이름은 그 자체로 통과합니다.
+ */
+export const canonicalZone = (timeZone: string): string =>
+  ZONE_ALIASES[timeZone] ?? timeZone;
+
+/** 어떤 순간을 주어진 존의 벽시계로 읽습니다. */
+const getZoneParts = (date: Date, timeZone: string): IZoneParts => {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    hour12: false,
+    timeZone: canonicalZone(timeZone),
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  }).formatToParts(date);
+
+  const read = (type: string) =>
+    Number(parts.find(part => part.type === type)?.value);
+
+  return {
+    year: read('year'),
+    month: read('month'),
+    day: read('day'),
+    // hour12: false로 읽으면 자정을 24로 내놓는 엔진이 있습니다.
+    hour: read('hour') % 24,
+    minute: read('minute'),
+    second: read('second'),
+  };
+};
+
+/**
+ * 어떤 순간에 그 존이 UTC와 몇 분 떨어져 있는지 구합니다.
+ *
+ * 존의 벽시계 값을 UTC인 셈 치고 되돌린 뒤 실제 순간과의 차이를 봅니다.
+ * 그 차이가 곧 그 시점의 오프셋이고, 서머타임도 자연히 반영됩니다.
+ */
+export const getZoneOffsetMinutes = (date: Date, timeZone: string): number => {
+  const wallClock = getZoneParts(date, timeZone);
+
+  const asIfUtc = Date.UTC(
+    wallClock.year,
+    wallClock.month - 1,
+    wallClock.day,
+    wallClock.hour,
+    wallClock.minute,
+    wallClock.second,
+  );
+
+  // 벽시계에는 밀리초가 없으니 실제 순간에서도 떼고 견줍니다.
+  const instant = Math.floor(date.getTime() / 1000) * 1000;
+
+  return (asIfUtc - instant) / 60000;
+};
+
+/** 기기가 놓인 타임존입니다. */
+export const getDeviceZone = (): string =>
+  new Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+/** 어떤 순간을 주어진 존의 `YYYY-MM-DD HH:mm`으로 씁니다. */
+export const getZonedWallClock = (
+  date: Date,
+  timeZone: string,
+  format: 'date' | 'dateTime' = 'dateTime',
+): string => {
+  const { year, month, day, hour, minute } = getZoneParts(date, timeZone);
+
+  const calendarDate = `${year}-${pad(month)}-${pad(day)}`;
+
+  if (format === 'date') return calendarDate;
+
+  return `${calendarDate} ${pad(hour)}:${pad(minute)}`;
+};
 
 /**
  * 두 타임존의 시차를 분 단위로 구합니다.
@@ -24,9 +124,12 @@ export const getOffsetMinutes = ({
   baseZone,
   at,
 }: IZoneComparisonProps): number => {
-  const instant = dayjs(at);
+  const instant = dayjs(at).toDate();
 
-  return instant.tz(targetZone).utcOffset() - instant.tz(baseZone).utcOffset();
+  return (
+    getZoneOffsetMinutes(instant, targetZone) -
+    getZoneOffsetMinutes(instant, baseZone)
+  );
 };
 
 /**
@@ -46,7 +149,7 @@ export const getTimeDifference = ({
 
   if (minutes === 0) return `${sign}${hours}`;
 
-  return `${sign}${hours}:${String(minutes).padStart(2, '0')}`;
+  return `${sign}${hours}:${pad(minutes)}`;
 };
 
 /**
@@ -59,9 +162,10 @@ export const getRelativeDay = ({
   baseZone,
   at,
 }: IZoneComparisonProps): RelativeDay => {
-  const instant = dayjs(at);
-  const targetDate = instant.tz(targetZone).format('YYYY-MM-DD');
-  const baseDate = instant.tz(baseZone).format('YYYY-MM-DD');
+  const instant = dayjs(at).toDate();
+
+  const targetDate = getZonedWallClock(instant, targetZone, 'date');
+  const baseDate = getZonedWallClock(instant, baseZone, 'date');
 
   if (targetDate < baseDate) return 'Yesterday';
   if (targetDate > baseDate) return 'Tomorrow';

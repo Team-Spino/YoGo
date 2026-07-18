@@ -17,10 +17,14 @@ export type { IScheduleFormState } from 'utils/scheduleForm';
 export { TZ_DATA_BASES } from 'utils/TZ_DATA_BASES';
 export { formatCityName } from 'utils/formatCityName';
 export {
+  canonicalZone,
   getCityFromZone,
+  getDeviceZone,
   getOffsetMinutes,
   getRelativeDay,
   getTimeDifference,
+  getZoneOffsetMinutes,
+  getZonedWallClock,
 } from 'utils/timeZone';
 export { toFormat12Hour } from 'utils/toFormat12Hour';
 export { storage } from 'utils/mmkv';

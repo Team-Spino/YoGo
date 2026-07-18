@@ -1,20 +1,18 @@
 import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc'; // dependent on utc plugin
-import timezone from 'dayjs/plugin/timezone';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import {
   getCityFromZone,
+  getDeviceZone,
   getOffsetMinutes,
   getRelativeDay,
   getTimeDifference,
+  getZonedWallClock,
   parseToSlash,
   toLocalDate,
 } from 'utils';
 import { ILiveTimeState } from 'types';
 
-dayjs.extend(utc);
-dayjs.extend(timezone);
 dayjs.extend(relativeTime);
 
 interface ITargetTimeProps {
@@ -26,7 +24,7 @@ export function useTimeZone() {
   const getCurrentTime = () => dayjs().format('YYYY-MM-DD HH:mm');
 
   const getTargetTime = ({ currentTime, targetTimeZone }: ITargetTimeProps) =>
-    dayjs(currentTime).tz(targetTimeZone).format('YYYY-MM-DD HH:mm');
+    getZonedWallClock(dayjs(currentTime).toDate(), targetTimeZone);
 
   const formatTime = ({ targetTime }: { targetTime: string | Date }) => {
     const [, time, meridiem] = toLocalDate(targetTime)
@@ -52,7 +50,7 @@ export function useTimeZone() {
 
   const setLiveTimeState = ({ location }: { location: string }) => {
     const currentTime = getCurrentTime();
-    const baseZone = dayjs.tz.guess();
+    const baseZone = getDeviceZone();
 
     const targetTime = getTargetTime({
       currentTime,
@@ -69,7 +67,7 @@ export function useTimeZone() {
 
   const getAlarmTime = ({ date, city }: { date: string; city: string }) => {
     const currentTime = getCurrentTime();
-    const baseZone = dayjs.tz.guess();
+    const baseZone = getDeviceZone();
 
     // 사용자가 고른 시각은 대상 도시의 벽시계 기준이라, 기기 시각으로 되돌려야 알람이 맞습니다.
     // 시차는 일정 날짜 기준으로 읽습니다. 지금 기준으로 읽으면 그 사이에
