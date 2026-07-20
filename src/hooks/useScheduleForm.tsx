@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import {
-  Alert,
   NativeSyntheticEvent,
   Platform,
   TextInputChangeEventData,
 } from 'react-native';
+import { useDialog } from 'context/dialog';
 import dayjs from 'dayjs';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
@@ -37,6 +37,7 @@ interface IUseScheduleFormProps {
  * 일정을 만들고 고치는 화면의 상태와 저장 흐름입니다.
  */
 export function useScheduleForm({ title, item }: IUseScheduleFormProps) {
+  const { alert, open } = useDialog();
   const initialState = getInitialScheduleForm({ title, item });
 
   const [inputs, setInputs] = useState({
@@ -101,19 +102,23 @@ export function useScheduleForm({ title, item }: IUseScheduleFormProps) {
     if (!city) markCityInvalid();
     if (!inputs.title) setIsTitleInputValid(false);
 
-    Alert.alert('Yogo', message);
+    alert(message);
 
     return false;
   };
 
   /** 반복할지 하루만인지 사용자에게 묻습니다. */
-  const askIsWeekly = async (): Promise<boolean> =>
-    new Promise(resolve => {
-      Alert.alert('Yogo', 'Please choose the type of schedule', [
-        { text: 'One Day!', onPress: () => resolve(false), style: 'cancel' },
-        { text: 'Every Week!', onPress: () => resolve(true) },
-      ]);
+  const askIsWeekly = async (): Promise<boolean> => {
+    const index = await open({
+      title: 'Schedule type',
+      message: 'How often should this schedule repeat?',
+      buttons: [
+        { text: 'Just once', variant: 'cancel' },
+        { text: 'Every week', variant: 'primary' },
+      ],
     });
+    return index === 1;
+  };
 
   /**
    * 요일을 하나도 고르지 않았을 때, 하루만인지 매주인지 정합니다.
@@ -131,10 +136,7 @@ export function useScheduleForm({ title, item }: IUseScheduleFormProps) {
     );
 
     if (hasPassed) {
-      Alert.alert(
-        'YOGO',
-        'The date has already passed \n Please set up the time again',
-      );
+      alert('This time has already passed. Please pick a future time.');
 
       return null;
     }

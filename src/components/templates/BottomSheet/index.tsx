@@ -76,13 +76,13 @@ export const BottomSheet = ({
             height: screenHeight * 0.95,
             justifyContent: 'flex-start',
             alignItems: 'center',
-            backgroundColor: result ? theme.accent.val : theme.background.val,
+            backgroundColor: theme.background.val,
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
             paddingTop: 10,
-            shadowColor: '#4A3F9E',
+            shadowColor: '#000000',
             shadowOffset: { width: 0, height: -4 },
-            shadowOpacity: 0.12,
+            shadowOpacity: 0.1,
             shadowRadius: 20,
             elevation: 16,
             transform: [{ translateY: translateY }],
@@ -95,9 +95,7 @@ export const BottomSheet = ({
             borderRadius={3}
             marginTop={2}
             marginBottom={6}
-            backgroundColor={
-              result ? 'rgba(255, 255, 255, 0.6)' : '$borderColorStrong'
-            }
+            backgroundColor="$borderColorStrong"
           />
           {!result && <SearchSheet onPress={onPressBottomSheetFindBtn} />}
           {result && (

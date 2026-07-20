@@ -20,7 +20,7 @@ export function TargetCity({ item, onPress, selectedId }: IBTTargetCityProps) {
   const isSelected = item.id === selectedId;
 
   const backgroundColor = isSelected
-    ? theme.backgroundHover.val
+    ? theme.backgroundStrong.val
     : 'transparent';
 
   const color = isSelected ? theme.accent.val : theme.color.val;
@@ -32,17 +32,16 @@ export function TargetCity({ item, onPress, selectedId }: IBTTargetCityProps) {
       style={{ backgroundColor: 'transparent' }}
     >
       <View
+        minHeight={56}
         justifyContent="center"
-        borderBottomWidth={0.5}
+        borderBottomWidth={1}
         borderBottomColor="$borderColor"
-        borderRadius={12}
+        paddingHorizontal={8}
         style={{ backgroundColor }}
       >
         <Text
-          fontSize={16}
+          fontSize={17}
           fontWeight={isSelected ? '500' : '400'}
-          paddingVertical={16}
-          paddingHorizontal={16}
           style={{ color }}
         >
           {formatCityName(item.city)}

@@ -50,13 +50,13 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
         style={{ width: '100%', flex: 1, backgroundColor: 'transparent' }}
         contentContainerStyle={{
           paddingHorizontal: 20,
-          paddingTop: 12,
-          paddingBottom: 32,
+          paddingTop: 8,
+          paddingBottom: 40,
         }}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
-        <View width="100%" flexDirection="column" gap={14}>
+        <View width="100%" flexDirection="column" gap={4}>
           {!isCityPickerOpen && (
             <>
               <TextInput
@@ -88,7 +88,7 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
               />
             </>
           )}
-          <View marginTop={8}>
+          <View marginTop={24}>
             <Button text="Save schedule" onPress={onPressSubmit} />
           </View>
         </View>

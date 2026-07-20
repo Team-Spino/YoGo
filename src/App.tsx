@@ -5,6 +5,7 @@ import { TamaguiProvider } from '@tamagui/core';
 import { PortalProvider } from '@gorhom/portal';
 import { config } from 'styles/tamagui.config';
 import { FirstLaunchProvider, SelectedDayProvider } from 'context';
+import { DialogProvider } from 'context/dialog';
 import RootStack from './RootState';
 
 function App() {
@@ -24,7 +25,9 @@ function App() {
       <FirstLaunchProvider>
         <SelectedDayProvider>
           <PortalProvider>
-            <RootStack />
+            <DialogProvider>
+              <RootStack />
+            </DialogProvider>
           </PortalProvider>
         </SelectedDayProvider>
       </FirstLaunchProvider>

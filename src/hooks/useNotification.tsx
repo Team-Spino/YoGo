@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
-import { Alert, Linking } from 'react-native';
+import { Linking } from 'react-native';
+import { useDialog } from 'context/dialog';
 import notifee, {
   AuthorizationStatus,
   EventType,
@@ -43,6 +44,8 @@ interface IAlartOptionProps {
  * 타임스탬프는 반드시 dayjs로 만들어야 합니다.
  */
 export function useNotification() {
+  const { confirm } = useDialog();
+
   const buildTrigger = ({
     date,
     isRepeat,
@@ -161,25 +164,15 @@ export function useNotification() {
 
     // 알람이 허가되지 않았고, db에 반영되지 않았을 때
     if (!isGranted && !permission) {
-      Alert.alert(
-        'YOGO',
-        'Please allow permission to use the schedule notification service',
-        [
-          {
-            text: 'Cancel',
-            onPress: async () => {
-              await addAlarmPermission(0);
-            },
-            style: 'cancel',
-          },
-          {
-            text: 'OK',
-            onPress: () => {
-              Linking.openSettings();
-            },
-          },
-        ],
-      );
+      const openSettings = await confirm({
+        title: 'Turn on notifications',
+        message: 'Allow notifications to get your schedule alerts.',
+        confirmText: 'Open settings',
+        cancelText: 'Not now',
+      });
+
+      if (openSettings) Linking.openSettings();
+      else await addAlarmPermission(0);
     }
   };
 

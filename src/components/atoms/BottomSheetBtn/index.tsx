@@ -8,11 +8,7 @@ interface IBottomSheetBtnProps {
   isRevers?: boolean;
 }
 
-export function BottomSheetBtn({
-  text,
-  onPress,
-  isRevers = false,
-}: IBottomSheetBtnProps) {
+export function BottomSheetBtn({ text, onPress }: IBottomSheetBtnProps) {
   const theme = useTheme();
 
   return (
@@ -20,26 +16,22 @@ export function BottomSheetBtn({
       onPress={onPress}
       activeOpacity={0.85}
       style={{
-        height: 54,
+        height: 56,
         width: '90%',
         position: 'absolute',
         bottom: 24,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 16,
-        backgroundColor: isRevers ? theme.background.val : theme.accent.val,
-        shadowColor: '#4A3F9E',
+        borderRadius: 28,
+        backgroundColor: theme.ink.val,
+        shadowColor: '#000000',
         shadowOffset: { width: 0, height: 6 },
-        shadowOpacity: isRevers ? 0.12 : 0.25,
+        shadowOpacity: 0.12,
         shadowRadius: 14,
         zIndex: 9999,
       }}
     >
-      <Text
-        fontSize={16}
-        fontWeight="500"
-        color={isRevers ? '$accent' : '$onAccent'}
-      >
+      <Text fontSize={16} fontWeight="500" color="$onInk">
         {text}
       </Text>
     </TouchableOpacity>

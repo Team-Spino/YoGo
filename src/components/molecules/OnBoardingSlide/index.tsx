@@ -18,7 +18,7 @@ export const OnBoardingSlide = ({
       position="relative"
       justifyContent="center"
       alignItems="center"
-      backgroundColor="$accent"
+      backgroundColor="$background"
     >
       <View
         width="100%"
@@ -40,12 +40,11 @@ export const OnBoardingSlide = ({
       >
         {typography}
         <Text
-          color="$onAccent"
+          color="$colorSubtle"
           marginTop={24}
           fontSize={16}
           lineHeight={24}
           letterSpacing={-0.2}
-          opacity={0.92}
           paddingHorizontal={32}
           textAlign="center"
         >

@@ -6,7 +6,7 @@ interface IOnBoardingtBtnProps {
   text: string;
   onPress: () => void;
   isSkip?: boolean;
-  // 마지막/엣지 슬라이드의 풀폭 CTA("Continue" 등). 보라 배경 위라 반전 스타일을 씁니다.
+  // 마지막/엣지 슬라이드의 풀폭 CTA("Continue" 등). 에디토리얼 잉크 필 버튼을 씁니다.
   isCTA?: boolean;
 }
 
@@ -18,8 +18,8 @@ export function OnBoardingtBtn({
 }: IOnBoardingtBtnProps) {
   const theme = useTheme();
 
-  // 풀폭 CTA — Button 아톰과 같은 라운드(16)/높이(54). 보라 배경 위에서 읽히도록
-  // 배경을 $onAccent(흰색), 글자를 $accent로 반전합니다.
+  // 풀폭 CTA — Button/InkButton 아톰과 동일한 잉크 필(높이 56/라운드 28).
+  // 오프화이트 페이지 위에서 잉크 배경 + $onInk 글자로 읽힙니다.
   if (isCTA) {
     return (
       <TouchableOpacity
@@ -29,26 +29,22 @@ export function OnBoardingtBtn({
           position: 'absolute',
           bottom: '6%',
           width: '90%',
-          height: 54,
-          borderRadius: 16,
+          height: 56,
+          borderRadius: 28,
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: theme.onAccent.val,
-          shadowColor: '#4A3F9E',
-          shadowOffset: { width: 0, height: 6 },
-          shadowOpacity: 0.2,
-          shadowRadius: 14,
+          backgroundColor: theme.ink.val,
           zIndex: 9999,
         }}
       >
-        <Text fontSize={16} fontWeight="500" color="$accent">
+        <Text fontSize={16} fontWeight="500" color="$onInk">
           {text}
         </Text>
       </TouchableOpacity>
     );
   }
 
-  // Skip = 고스트 텍스트, Next = 반전된 라운드 필. 둘 다 보라 배경 위에 놓입니다.
+  // Skip = 서브틀 고스트 텍스트, Next = 잉크 필. 둘 다 오프화이트 페이지 위에 놓입니다.
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -61,15 +57,14 @@ export function OnBoardingtBtn({
         paddingHorizontal: isSkip ? 14 : 26,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 16,
-        backgroundColor: isSkip ? 'transparent' : theme.onAccent.val,
+        borderRadius: 999,
+        backgroundColor: isSkip ? 'transparent' : theme.ink.val,
       }}
     >
       <Text
         fontSize={16}
         fontWeight="500"
-        opacity={isSkip ? 0.7 : 1}
-        color={isSkip ? '$onAccent' : '$accent'}
+        color={isSkip ? '$colorSubtle' : '$onInk'}
       >
         {text}
       </Text>

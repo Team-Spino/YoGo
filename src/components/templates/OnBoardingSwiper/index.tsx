@@ -26,17 +26,16 @@ export function OnBoardingSwiper() {
 
   const styles = StyleSheet.create({
     dot: {
-      width: 7,
-      height: 7,
-      borderRadius: 4,
+      width: 6,
+      height: 6,
+      borderRadius: 3,
       marginHorizontal: 4,
       bottom: '9%',
-      opacity: 0.4,
     },
     activeDot: {
-      width: 22,
-      height: 7,
-      borderRadius: 4,
+      width: 20,
+      height: 6,
+      borderRadius: 3,
       marginHorizontal: 4,
       bottom: '9%',
     },
@@ -141,8 +140,8 @@ export function OnBoardingSwiper() {
       showsButtons={false}
       dotStyle={isStartOrEnd ? styles.disableDot : styles.dot}
       activeDotStyle={isStartOrEnd ? styles.disableDot : styles.activeDot}
-      dotColor={theme.onAccent.val}
-      activeDotColor={theme.onAccent.val}
+      dotColor={theme.borderColor.val}
+      activeDotColor={theme.ink.val}
       loop={false}
       onIndexChanged={checkStartOrEnd}
       ref={swiperRef}

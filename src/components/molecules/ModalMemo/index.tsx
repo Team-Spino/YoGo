@@ -11,13 +11,15 @@ export function ModalMemo({ description }: { description: string }) {
         flex: 1,
       }}
       contentContainerStyle={{
-        paddingHorizontal: 20,
-        paddingTop: 18,
-        paddingBottom: 24,
+        paddingHorizontal: 24,
+        paddingTop: 22,
+        paddingBottom: 28,
       }}
     >
-      <Eyebrow marginBottom={8}>Memo</Eyebrow>
-      <Text color="$color" fontSize={15} lineHeight={22}>
+      <Eyebrow marginBottom={10} letterSpacing={0.3}>
+        Memo
+      </Eyebrow>
+      <Text color="$color" fontSize={16} lineHeight={24}>
         {description}
       </Text>
     </ScrollView>

@@ -1,7 +1,8 @@
 import React from 'react';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { View } from '@tamagui/core';
-import { Title, TextBtn, DatePicker } from 'components';
+import { TextBtn, DatePicker } from 'components';
+import { Eyebrow } from 'styles/ui';
 
 interface IBTargetDateProps {
   onChangeDate: (event: DateTimePickerEvent, date: Date | undefined) => void;
@@ -15,16 +16,11 @@ export function SelectTargetDate({ onChangeDate, date }: IBTargetDateProps) {
   const week = date.toLocaleDateString('en', { weekday: 'short' });
 
   return (
-    <View
-      marginTop={4}
-      width="100%"
-      flex={1}
-      paddingHorizontal={20}
-      paddingTop={0}
-      paddingBottom={16}
-    >
-      <Title isEnable={true} text={'Select Target Date'} size={15} />
-      <View marginTop={12}>
+    <View width="100%" flex={1} paddingVertical={18}>
+      <Eyebrow textTransform="uppercase" letterSpacing={0.6} fontWeight="500">
+        Target date
+      </Eyebrow>
+      <View marginTop={14}>
         <TextBtn>{`${week}, ${month} ${day}, ${year}`}</TextBtn>
       </View>
       <DatePicker onChangeDate={onChangeDate} date={date} />

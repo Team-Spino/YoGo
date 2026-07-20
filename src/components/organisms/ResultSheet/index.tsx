@@ -1,14 +1,8 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
-import { View } from '@tamagui/core';
+import { View, Text } from '@tamagui/core';
 import dayjs from 'dayjs';
-import {
-  ResultCard,
-  BottomSheetBtn,
-  BottomSheetHeader,
-  IconAbsolute,
-} from 'components';
-import { IconResultArrow, IconWorld } from 'assets';
+import { ResultCard, BottomSheetBtn, BottomSheetHeader } from 'components';
 import { IMakeProps } from 'types';
 import { useTimeZone } from 'hooks';
 import { getCityFromZone } from 'utils';
@@ -46,24 +40,17 @@ export function ResultSheet({ onPress, submitObject }: IResultBSProps) {
       alignItems="center"
       paddingTop={20}
     >
-      <BottomSheetHeader
-        text={'Caculated Time Zone'}
-        size={18}
-        isWhite={true}
-      />
+      <BottomSheetHeader text={'Caculated Time Zone'} size={18} />
       <View
         width="100%"
         flex={1}
-        paddingHorizontal={20}
+        paddingHorizontal={24}
         paddingBottom={100}
         flexDirection="column"
         justifyContent="center"
         alignItems="center"
-        gap={16}
+        gap={28}
       >
-        <IconAbsolute>
-          <IconWorld />
-        </IconAbsolute>
         <ResultCard
           cardHeader={'Target Time Zone'}
           city={getCityFromZone(tarCity)}
@@ -71,7 +58,9 @@ export function ResultSheet({ onPress, submitObject }: IResultBSProps) {
           time={tarTime}
           meridiem={tarMeridiem}
         />
-        <IconResultArrow />
+        <Text color="$colorMuted" fontSize={22}>
+          ↓
+        </Text>
         <ResultCard
           cardHeader="Your Time Zone"
           city={locateCity}

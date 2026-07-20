@@ -34,7 +34,7 @@ export function SearchTarget({
       justifyContent="flex-start"
       alignItems="center"
       paddingHorizontal={20}
-      paddingTop={8}
+      paddingTop={12}
     >
       <SelectTargetInput
         city={city}

@@ -70,7 +70,7 @@ export function DetailModal({
         flex={0.5}
         flexDirection="column"
         overflow="hidden"
-        borderRadius={18}
+        borderRadius={20}
       >
         <ModalHeader tagColor={TAG_COLOR} title={TITLE} />
         <ModalTime timeData={timeData} leftTime={leftTime} />
@@ -81,14 +81,16 @@ export function DetailModal({
           activeOpacity={0.8}
           style={{
             position: 'absolute',
-            top: 16,
-            right: 16,
-            width: 32,
-            height: 32,
-            borderRadius: 16,
+            top: 18,
+            right: 18,
+            width: 34,
+            height: 34,
+            borderRadius: 17,
             justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: theme.backgroundStrong.val,
+            borderWidth: 0.5,
+            borderColor: theme.borderColor.val,
           }}
         >
           <Text fontSize={15} fontWeight="500" color="$colorSubtle">

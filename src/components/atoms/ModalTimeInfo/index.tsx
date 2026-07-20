@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from '@tamagui/core';
-import { IconRight } from 'assets';
+import { Eyebrow, Meta } from 'styles/ui';
 import { getModalTimeInfo } from 'utils';
 import { ITargetProps, ICurProps } from 'types';
 import { useSelectedDay } from 'context';
@@ -25,23 +25,19 @@ function ModalTimer({ city, date, time }: IModalTimerProps) {
       justifyContent="center"
       alignItems="center"
       flexDirection="column"
-      gap={4}
+      gap={8}
     >
-      <Text color="$color" fontSize={15} fontWeight="500" numberOfLines={1}>
-        {city}
-      </Text>
+      <Eyebrow numberOfLines={1}>{city}</Eyebrow>
       <Text
         color="$color"
-        fontSize={20}
-        fontWeight="500"
-        letterSpacing={-0.3}
+        fontSize={34}
+        fontWeight="600"
+        letterSpacing={-1.4}
         numberOfLines={1}
       >
         {time}
       </Text>
-      <Text color="$colorSubtle" fontSize={12} numberOfLines={1}>
-        {date}
-      </Text>
+      <Meta numberOfLines={1}>{date}</Meta>
     </View>
   );
 }
@@ -60,7 +56,9 @@ export function ModalTimeInfo({ timeData }: IModalTimeProps) {
       gap={12}
     >
       <ModalTimer city={target.city} date={target.date} time={target.time} />
-      <IconRight />
+      <Text color="$colorSubtle" fontSize={22} fontWeight="400">
+        →
+      </Text>
       <ModalTimer city={cur.city} date={cur.date} time={cur.time} />
     </View>
   );

@@ -21,17 +21,15 @@ export function SelectTargetInput({
       flexDirection="row"
       alignItems="center"
       width="100%"
-      marginBottom={12}
-      paddingHorizontal={16}
-      borderRadius={14}
-      borderWidth={0.5}
-      borderColor="$borderColor"
-      backgroundColor="$backgroundStrong"
+      marginBottom={16}
+      paddingHorizontal={4}
+      borderBottomWidth={1}
+      borderBottomColor="$borderColor"
     >
       <TextInput
         style={{
           flex: 1,
-          fontSize: 16,
+          fontSize: 18,
           fontWeight: '500',
           paddingVertical: 14,
           color: theme.color.val,

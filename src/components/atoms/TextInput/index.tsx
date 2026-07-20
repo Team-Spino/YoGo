@@ -31,14 +31,13 @@ export function TextInput({
       placeholderTextColor={theme.colorMuted.val}
       style={{
         width: '100%',
-        fontSize: 16,
+        fontSize: 17,
         fontWeight: '500',
-        paddingVertical: 15,
-        paddingHorizontal: 16,
-        borderRadius: 14,
-        borderWidth: showError ? 1 : 0.5,
-        borderColor: showError ? '#FF4949' : theme.borderColor.val,
-        backgroundColor: theme.backgroundStrong.val,
+        paddingVertical: 14,
+        paddingHorizontal: 2,
+        borderBottomWidth: 1,
+        borderBottomColor: showError ? '#FF4949' : theme.borderColor.val,
+        backgroundColor: 'transparent',
         color: theme.color.val,
       }}
     />

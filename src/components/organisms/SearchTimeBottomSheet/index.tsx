@@ -2,7 +2,6 @@ import React from 'react';
 import { Animated, Modal, TouchableWithoutFeedback } from 'react-native';
 import { View, useTheme } from '@tamagui/core';
 import { SearchTarget } from 'components';
-import { IconBottomSheetBar } from 'assets';
 import { useBottomSheet, useCitySearch } from 'hooks';
 
 interface ISearchBSProps {
@@ -63,7 +62,13 @@ export const SearchTimeBottomSheet = ({
           }}
           {...panResponders.panHandlers}
         >
-          <IconBottomSheetBar />
+          <View
+            width={40}
+            height={5}
+            borderRadius={3}
+            marginBottom={6}
+            backgroundColor="$borderColorStrong"
+          />
           <SearchTarget targetList={targetList} city={city} onChangeCity={onChangeCity} onSubmitCity={onSubmitCity} />
         </Animated.View>
       </View>

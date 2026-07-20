@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Alert, Dimensions, ScrollView } from 'react-native';
+import { Dimensions, ScrollView } from 'react-native';
 import { View } from '@tamagui/core';
+import { useDialog } from 'context/dialog';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import {
   SearchTarget,
@@ -18,6 +19,7 @@ interface ISearchBSProps {
   onPress: (submitOnject: IMakeProps) => void;
 }
 export const SearchSheet = ({ onPress }: ISearchBSProps) => {
+  const { alert } = useDialog();
   const [date, setDate] = useState(new Date());
 
   const {
@@ -44,7 +46,7 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
     }
     markCityInvalid();
 
-    Alert.alert('Yogo', 'Please select city');
+    alert('Please select a city first.');
   };
 
   return (

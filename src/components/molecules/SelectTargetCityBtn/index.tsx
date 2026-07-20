@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import dayjs from 'dayjs';
 import { View, Text, useTheme } from '@tamagui/core';
-import { Title, TextBtn } from 'components';
+import { TextBtn } from 'components';
+import { Eyebrow } from 'styles/ui';
 import { IconDownArrow } from 'assets';
 import { useTimeZone } from 'hooks';
 import { formatCityName, toFormat12Hour } from 'utils';
@@ -63,39 +64,30 @@ export function SelectTargetCityBtn({
   const showError = !isCityInputValid;
 
   return (
-    <View width="100%" paddingVertical={16} paddingHorizontal={20}>
-      <Title
-        isEnable={true}
-        text={'Time Zone for The Destination Country'}
-        size={15}
-      />
+    <View width="100%" paddingVertical={18}>
+      <Eyebrow textTransform="uppercase" letterSpacing={0.6} fontWeight="500">
+        Destination time zone
+      </Eyebrow>
       <TouchableOpacity
         onPress={onPress}
         activeOpacity={0.7}
         style={{
           flexDirection: 'row',
-          marginTop: 12,
+          marginTop: 14,
           width: '100%',
           alignItems: 'center',
           justifyContent: 'space-between',
-          paddingVertical: 14,
-          paddingHorizontal: 16,
-          borderRadius: 14,
-          borderWidth: showError ? 1 : 0.5,
-          borderColor: showError ? '#FF4949' : theme.borderColor.val,
-          backgroundColor: theme.backgroundStrong.val,
+          paddingVertical: 12,
+          paddingHorizontal: 2,
+          borderBottomWidth: 1,
+          borderBottomColor: showError ? '#FF4949' : theme.borderColor.val,
         }}
       >
         <TextBtn>{placeholder()}</TextBtn>
         <IconDownArrow />
       </TouchableOpacity>
       {notiAlartTime !== '' && (
-        <View
-          width="100%"
-          paddingVertical={15}
-          justifyContent="center"
-          alignItems="center"
-        >
+        <View width="100%" paddingTop={14}>
           <Text fontSize={13} fontWeight="bold" color="#e5565e">
             {notiAlartTime}
           </Text>
