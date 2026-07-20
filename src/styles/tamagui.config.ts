@@ -10,27 +10,28 @@ import { createTamagui, createTokens, createFont } from '@tamagui/core';
  */
 const tokens = createTokens({
   color: {
-    // 브랜드
+    // 브랜드 포인트(선택/상호작용에만 절제해서)
     violet: '#6D5DF6',
     violetPress: '#5A4BD8',
     violetLight: '#9C8FFF',
-    // 라이트 표면/텍스트
+    // 라이트: 따뜻한 오프화이트 페이지 + 잉크 블랙 (에디토리얼)
+    page: '#FBFAF7',
     white: '#FFFFFF',
-    tint: '#F4F2FF',
-    tintHover: '#EEEBFB',
-    ink: '#1A1730',
-    inkSubtle: '#6B6880',
-    inkMuted: '#A8A6B8',
-    line: '#ECEAF5',
-    lineStrong: '#DAD7EA',
-    // 다크 표면/텍스트
-    night: '#16151F',
-    nightCard: '#211F2E',
-    nightHover: '#2A2838',
-    nightInk: '#F2F1F7',
-    nightInkSubtle: '#A8A6BC',
-    nightLine: '#2A2838',
-    nightLineStrong: '#3A3750',
+    tint: '#F2F0E9',
+    tintHover: '#ECEAE1',
+    ink: '#14140F',
+    inkSubtle: '#8A867A',
+    inkMuted: '#B4B0A4',
+    line: '#EAE8E0',
+    lineStrong: '#DBD8CE',
+    // 다크: 잉크 페이지 + 웜 화이트 텍스트
+    night: '#0F0E0C',
+    nightCard: '#1A1915',
+    nightHover: '#201E18',
+    nightInk: '#F4F2EC',
+    nightInkSubtle: '#9A968A',
+    nightLine: '#26241E',
+    nightLineStrong: '#35322A',
     transparent: 'transparent',
   },
   space: {
@@ -117,7 +118,7 @@ const notoSans = createFont({
 
 // 컴포넌트가 참조하는 테마 토큰. 키 집합은 light/dark가 동일해야 합니다.
 const light = {
-  background: tokens.color.white,
+  background: tokens.color.page,
   backgroundStrong: tokens.color.tint,
   backgroundHover: tokens.color.tintHover,
   card: tokens.color.white,
@@ -129,6 +130,9 @@ const light = {
   accent: tokens.color.violet,
   accentPress: tokens.color.violetPress,
   onAccent: tokens.color.white,
+  // 에디토리얼 1차 액션(잉크 버튼)에 쓰는 표면/글자.
+  ink: tokens.color.ink,
+  onInk: tokens.color.page,
 };
 
 const dark = {
@@ -144,6 +148,8 @@ const dark = {
   accent: tokens.color.violetLight,
   accentPress: tokens.color.violet,
   onAccent: tokens.color.white,
+  ink: tokens.color.nightInk,
+  onInk: tokens.color.night,
 };
 
 export const config = createTamagui({

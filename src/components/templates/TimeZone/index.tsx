@@ -12,7 +12,7 @@ import {
 import { IconSearch, IconPlus } from 'assets';
 import { RootStackParamList } from 'types';
 import { useTimezones } from 'hooks';
-import { Screen, ScreenTitle, Eyebrow } from 'styles/ui';
+import { Screen, Display, Eyebrow } from 'styles/ui';
 
 type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
 
@@ -30,14 +30,20 @@ export function TimeZone({ navigation }: { navigation: Prop }) {
         <View
           flexDirection="row"
           justifyContent="space-between"
-          alignItems="flex-end"
+          alignItems="flex-start"
           paddingHorizontal={20}
-          paddingTop={insets.top + 8}
-          paddingBottom={10}
+          paddingTop={insets.top + 14}
+          paddingBottom={16}
         >
-          <View>
-            <Eyebrow>Compare across the world</Eyebrow>
-            <ScreenTitle marginTop={2}>Time zones</ScreenTitle>
+          <View flex={1}>
+            <Display>World clock</Display>
+            <Eyebrow marginTop={8}>
+              {timezones.length === 0
+                ? 'Add cities to compare'
+                : `${timezones.length} ${
+                    timezones.length === 1 ? 'city' : 'cities'
+                  }`}
+            </Eyebrow>
           </View>
           <Pressable
             onPress={() => setTimeSearchVisible(true)}
@@ -45,14 +51,14 @@ export function TimeZone({ navigation }: { navigation: Prop }) {
             style={({ pressed }) => ({ opacity: pressed ? 0.4 : 1 })}
           >
             <View
-              width={40}
-              height={40}
+              width={44}
+              height={44}
               borderRadius={999}
-              backgroundColor="$backgroundStrong"
+              backgroundColor="$ink"
               alignItems="center"
               justifyContent="center"
             >
-              <IconPlus color={theme.accent.val} />
+              <IconPlus color={theme.onInk.val} />
             </View>
           </Pressable>
         </View>
@@ -71,7 +77,7 @@ export function TimeZone({ navigation }: { navigation: Prop }) {
         />
       </Screen>
       <FloatingButton onPress={() => setModalVisible(true)}>
-        <IconSearch color={theme.onAccent.val} />
+        <IconSearch color={theme.onInk.val} />
       </FloatingButton>
     </>
   );

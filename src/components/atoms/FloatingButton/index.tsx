@@ -18,9 +18,9 @@ export const FloatingButton = ({ children, onPress }: IFloatingButtonProps) => {
         width: 56,
         height: 56,
         borderRadius: 28,
-        shadowColor: '#4A3F9E',
+        shadowColor: '#000',
         shadowOffset: { width: 0, height: 6 },
-        shadowOpacity: 0.3,
+        shadowOpacity: 0.18,
         shadowRadius: 12,
         elevation: 6,
       }}
@@ -31,7 +31,7 @@ export const FloatingButton = ({ children, onPress }: IFloatingButtonProps) => {
         borderRadius={28}
         alignItems="center"
         justifyContent="center"
-        backgroundColor="$accent"
+        backgroundColor="$ink"
       >
         {children}
       </View>

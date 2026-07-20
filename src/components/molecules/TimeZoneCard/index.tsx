@@ -1,7 +1,7 @@
 import React from 'react';
-import { View } from '@tamagui/core';
-import { LocationOfTZ, TimeOfTZ } from 'components';
-import { Card } from 'styles/ui';
+import { View, Text } from '@tamagui/core';
+import { HairRow, Meta } from 'styles/ui';
+import { formatCityName } from 'utils';
 import { useTimeZone } from 'hooks';
 
 export const TimeZoneCard = ({ location }: { location: string }) => {
@@ -14,24 +14,30 @@ export const TimeZoneCard = ({ location }: { location: string }) => {
     <View
       height="100%"
       justifyContent="center"
-      paddingHorizontal={16}
-      paddingVertical={6}
+      paddingHorizontal={20}
       backgroundColor="$background"
     >
-      <Card
-        flexDirection="row"
-        justifyContent="space-between"
-        alignItems="center"
-        padding={16}
-      >
-        <LocationOfTZ
-          timeDifference={`${date} ${timeDifference}`}
-          city={city}
-          time={time}
-          meridiem={meridiem}
-        />
-        <TimeOfTZ time={time} meridiem={meridiem} isResult={false} />
-      </Card>
+      <HairRow>
+        <View flex={1}>
+          <Text fontSize={21} fontWeight="500" color="$color">
+            {formatCityName(city)}
+          </Text>
+          <Meta marginTop={4}>{formatCityName(`${date} ${timeDifference}`)}</Meta>
+        </View>
+        <View flexDirection="row" alignItems="baseline">
+          <Text
+            fontSize={40}
+            fontWeight="600"
+            color="$color"
+            letterSpacing={-1.6}
+          >
+            {time}
+          </Text>
+          <Text fontSize={14} color="$colorSubtle" marginLeft={5}>
+            {meridiem}
+          </Text>
+        </View>
+      </HairRow>
     </View>
   );
 };

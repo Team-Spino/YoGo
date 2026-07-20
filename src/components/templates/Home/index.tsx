@@ -8,7 +8,7 @@ import { RootStackParamList, IScheduleProps } from 'types';
 import { useSchedules } from 'hooks';
 import { useSelectedDay } from 'context';
 import { View, useTheme } from '@tamagui/core';
-import { Screen, ScreenTitle, Eyebrow } from 'styles/ui';
+import { Screen, Display, Eyebrow } from 'styles/ui';
 
 type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
 
@@ -31,11 +31,11 @@ export function Home({ navigation }: { navigation: Prop }) {
     <Screen>
       <View
         paddingHorizontal={20}
-        paddingTop={insets.top + 8}
-        paddingBottom={6}
+        paddingTop={insets.top + 14}
+        paddingBottom={8}
       >
-        <Eyebrow>{dayjs(selectedDay).format('dddd, MMMM D')}</Eyebrow>
-        <ScreenTitle marginTop={2}>Your schedules</ScreenTitle>
+        <Display>Schedules</Display>
+        <Eyebrow marginTop={8}>{dayjs(selectedDay).format('dddd, MMMM D')}</Eyebrow>
       </View>
       <AgendaBox
         schedules={schedules}
@@ -46,7 +46,7 @@ export function Home({ navigation }: { navigation: Prop }) {
         onEditTarget={onEditTarget}
       />
       <FloatingButton onPress={onAddPress}>
-        <IconPlus color={theme.onAccent.val} />
+        <IconPlus color={theme.onInk.val} />
       </FloatingButton>
     </Screen>
   );

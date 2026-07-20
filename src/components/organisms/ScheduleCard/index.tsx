@@ -3,7 +3,7 @@ import { Platform, Pressable } from 'react-native';
 import { Text, View, useTheme } from '@tamagui/core';
 import { Portal } from '@gorhom/portal';
 import { ToggleBtn, DetailModal } from 'components';
-import { Card, CardName, Meta } from 'styles/ui';
+import { HairRow, CardName, Meta } from 'styles/ui';
 import { setScheduleActive } from 'db';
 import { useNotification } from 'hooks';
 import { formatCityName, parseCity, to12Hour, toFormat12Hour } from 'utils';
@@ -73,44 +73,35 @@ export const ScheduleCard = React.memo(function ScheduleCard({
         style={{
           height: '100%',
           justifyContent: 'center',
-          paddingHorizontal: 16,
-          paddingVertical: 6,
+          paddingHorizontal: 20,
           backgroundColor: theme.background.val,
         }}
       >
-        <Card
-          flexDirection="row"
-          alignItems="center"
-          padding={15}
-          opacity={isEnable ? 1 : 0.5}
-        >
-          <View
-            width={4}
-            alignSelf="stretch"
-            borderRadius={4}
-            marginRight={13}
-            backgroundColor={TAG_COLOR || '#B5B5B9'}
-          />
-
-          <View flex={1}>
-            <CardName numberOfLines={1}>{TITLE}</CardName>
-            <Meta marginTop={3} numberOfLines={1}>
-              {targetLabel}
-            </Meta>
-            {repeatDays.length > 0 && (
-              <Meta marginTop={2} color="$colorMuted" numberOfLines={1}>
-                ↻ {repeatDays.join(' · ')}
+        <HairRow opacity={isEnable ? 1 : 0.4}>
+          <View flexDirection="row" alignItems="center" flex={1} gap={12}>
+            <View
+              width={9}
+              height={9}
+              borderRadius={999}
+              backgroundColor={TAG_COLOR || '#B5B5B9'}
+            />
+            <View flex={1}>
+              <CardName numberOfLines={1}>{TITLE || 'Untitled'}</CardName>
+              <Meta marginTop={3} numberOfLines={1}>
+                {repeatDays.length > 0
+                  ? `${targetLabel} · ↻ ${repeatDays.join(' ')}`
+                  : targetLabel}
               </Meta>
-            )}
+            </View>
           </View>
 
-          <View alignItems="flex-end" marginLeft={12}>
+          <View flexDirection="row" alignItems="center" gap={14}>
             <View flexDirection="row" alignItems="baseline">
               <Text
                 color="$color"
-                fontSize={19}
-                fontWeight="500"
-                letterSpacing={-0.3}
+                fontSize={30}
+                fontWeight="600"
+                letterSpacing={-1}
               >
                 {alarmTime}
               </Text>
@@ -118,11 +109,9 @@ export const ScheduleCard = React.memo(function ScheduleCard({
                 {alarmMeridiem}
               </Text>
             </View>
-            <View marginTop={6}>
-              <ToggleBtn isEnable={isEnable} onTogglePress={onTogglePress} />
-            </View>
+            <ToggleBtn isEnable={isEnable} onTogglePress={onTogglePress} />
           </View>
-        </Card>
+        </HairRow>
       </Pressable>
 
       <Portal>
