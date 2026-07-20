@@ -5,5 +5,5 @@
 process.env.TZ = 'America/New_York';
 
 module.exports = {
-  preset: 'react-native',
+  preset: '@react-native/jest-preset',
 };

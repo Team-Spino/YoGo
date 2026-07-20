@@ -1,5 +1,5 @@
 module.exports = {
-  presets: ['module:metro-react-native-babel-preset'],
+  presets: ['module:@react-native/babel-preset'],
   plugins: [
     'babel-plugin-styled-components',
     [
@@ -17,12 +17,9 @@ module.exports = {
           '.js',
           '.json',
         ],
-        alias: {
-          '@': './src',
-          '@components': './src/components',
-          '@utils': './src/utils',
-        },
       },
     ],
+    // Reanimated 4의 worklets 플러그인. 반드시 목록의 마지막이어야 합니다.
+    'react-native-worklets/plugin',
   ],
 };
