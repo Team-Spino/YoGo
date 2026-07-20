@@ -1,16 +1,20 @@
 import { useCallback } from 'react';
 import { Alert, Linking } from 'react-native';
-import PushNotification from 'react-native-push-notification';
-import PushNotificationIOS from '@react-native-community/push-notification-ios';
+import notifee, {
+  AuthorizationStatus,
+  EventType,
+  RepeatFrequency,
+  TimestampTrigger,
+  TriggerType,
+} from '@notifee/react-native';
 import dayjs from 'dayjs';
-import uuid from 'react-native-uuid';
 import {
   addAlarmPermission,
   editAlarmPermission,
   findAlarmPermission,
   initAlarmPermissionTable,
 } from 'db';
-import { getAlarmDates, parseToSlash } from 'utils';
+import { getAlarmDates } from 'utils';
 import { IScheduleProps } from 'types';
 
 interface INotificationProps {
@@ -29,30 +33,41 @@ interface IAlartOptionProps {
   isRepeat: boolean;
 }
 
+/**
+ * op-sqlite 커넥션처럼, 알림도 라이브러리를 갈아끼웠습니다.
+ *
+ * react-native-push-notification(관리 중단) → @notifee/react-native.
+ * Notifee는 트리거 알림을 `id`로 식별하므로, 스케줄 한 건이 만드는 여러 개의
+ * 요일별 알림에 같은 `data.scheduleKey`를 달아 두고, 삭제할 때 그 키로 모아
+ * 지웁니다. Hermes는 `new Date('2024/01/15 09:00')`를 파싱하지 못하므로,
+ * 타임스탬프는 반드시 dayjs로 만들어야 합니다.
+ */
 export function useNotification() {
-  const setOptions = ({
+  const buildTrigger = ({
+    date,
+    isRepeat,
+  }: Pick<IAlartOptionProps, 'date' | 'isRepeat'>): TimestampTrigger => ({
+    type: TriggerType.TIMESTAMP,
+    timestamp: dayjs(date).valueOf(),
+    ...(isRepeat ? { repeatFrequency: RepeatFrequency.WEEKLY } : {}),
+  });
+
+  const scheduleOne = async ({
     key,
     title,
     description,
     date,
     isRepeat,
   }: IAlartOptionProps) => {
-    const defaultOptions = {
-      id: uuid.v4() as string,
-      title,
-      message: description,
-      soundName: 'default',
-      playSound: true,
-      date: new Date(parseToSlash(date)),
-      allowWhileIdle: true,
-      number: 1,
-      userInfo: { key: key },
-    };
-
-    const repeatOptions = {
-      repeatType: 'week',
-    };
-    return isRepeat ? { ...defaultOptions, ...repeatOptions } : defaultOptions;
+    await notifee.createTriggerNotification(
+      {
+        title,
+        body: description,
+        data: { scheduleKey: String(key) },
+        ios: { sound: 'default' },
+      },
+      buildTrigger({ date, isRepeat }),
+    );
   };
 
   const makeNotification = async ({
@@ -63,55 +78,34 @@ export function useNotification() {
     dayOfWeek,
   }: INotificationProps) => {
     if (dayOfWeek.length === 0) {
-      PushNotification.localNotificationSchedule(
-        setOptions({
-          key,
-          title,
-          description,
-          date,
-          isRepeat: false,
-        }),
-      );
-
+      await scheduleOne({ key, title, description, date, isRepeat: false });
       return;
     }
 
-    getAlarmDates({ date, weekdays: dayOfWeek }).forEach(alartDate => {
-      PushNotification.localNotificationSchedule(
-        setOptions({
+    await Promise.all(
+      getAlarmDates({ date, weekdays: dayOfWeek }).map(alartDate =>
+        scheduleOne({
           key,
           title,
           description,
           date: alartDate,
           isRepeat: true,
         }),
-      );
-    });
-  };
-
-  const getTagetNumberNotifications = async ({
-    number,
-  }: {
-    number: number;
-  }) => {
-    return new Promise(resolve => {
-      PushNotification.getScheduledLocalNotifications(notifications => {
-        resolve(
-          notifications
-            .filter(notification => {
-              return notification.data.key === number;
-            })
-            .map(notification => notification.id),
-        );
-      });
-    });
+      ),
+    );
   };
 
   const deleteAllNotification = async ({ number }: { number: number }) => {
-    const notifications = (await getTagetNumberNotifications({
-      number,
-    })) as Array<string>;
-    PushNotificationIOS.removePendingNotificationRequests(notifications);
+    const triggers = await notifee.getTriggerNotifications();
+
+    const ids = triggers
+      .filter(
+        ({ notification }) =>
+          notification.data?.scheduleKey === String(number) && notification.id,
+      )
+      .map(({ notification }) => notification.id as string);
+
+    await Promise.all(ids.map(id => notifee.cancelTriggerNotification(id)));
   };
 
   const handleScheduleToggle = async ({
@@ -124,13 +118,13 @@ export function useNotification() {
     schedule: IScheduleProps;
   }) => {
     if (!isActive) {
-      deleteAllNotification({ number });
+      await deleteAllNotification({ number });
       return;
     }
 
     const { TITLE, DESCRIPTION, CUR_DAY, CUR_TIME, DAY_OF_WEEK } = schedule;
 
-    makeNotification({
+    await makeNotification({
       key: number,
       title: TITLE,
       description: DESCRIPTION,
@@ -140,81 +134,73 @@ export function useNotification() {
   };
 
   const handleNotificationPermission = async () => {
-    await PushNotificationIOS.requestPermissions();
+    const settings = await notifee.requestPermission();
 
-    // 사용자 허가 체크
-    PushNotificationIOS.checkPermissions(async info => {
-      await initAlarmPermissionTable();
+    const isGranted =
+      settings.authorizationStatus === AuthorizationStatus.AUTHORIZED ||
+      settings.authorizationStatus === AuthorizationStatus.PROVISIONAL;
 
-      const permission = await findAlarmPermission();
+    await initAlarmPermissionTable();
 
-      // 알람이 허가되었고, db에 반영되지 않았을 때
-      if (info.notificationCenter && !permission) {
-        await addAlarmPermission(1);
-        return;
-      }
+    const permission = await findAlarmPermission();
 
-      // 알람이 허가 되었고, db에 isAgree가 0일때 -> db에 업데이트
-      if (info.notificationCenter && !permission.IS_AGREE) {
-        await editAlarmPermission(1);
-      }
+    // 알람이 허가되었고, db에 반영되지 않았을 때
+    if (isGranted && !permission) {
+      await addAlarmPermission(1);
+      return;
+    }
 
-      // 알람이 허가되었고, db에 active 되었을 때
-      if (info.notificationCenter && permission.IS_AGREE) return;
+    // 알람이 허가 되었고, db에 isAgree가 0일때 -> db에 업데이트
+    if (isGranted && !permission.IS_AGREE) {
+      await editAlarmPermission(1);
+      return;
+    }
 
-      // 알람이 허가되지 않았고, db에 반영되지 않았을 때
-      if (!info.notificationCenter && !permission) {
-        Alert.alert(
-          'YOGO',
-          'Please allow permission to use the schedule notification service',
-          [
-            {
-              text: 'Cancel',
-              onPress: async () => {
-                await addAlarmPermission(0);
-              },
-              style: 'cancel',
+    // 알람이 허가되었고, db에 active 되었을 때
+    if (isGranted && permission.IS_AGREE) return;
+
+    // 알람이 허가되지 않았고, db에 반영되지 않았을 때
+    if (!isGranted && !permission) {
+      Alert.alert(
+        'YOGO',
+        'Please allow permission to use the schedule notification service',
+        [
+          {
+            text: 'Cancel',
+            onPress: async () => {
+              await addAlarmPermission(0);
             },
-            {
-              text: 'OK',
-              onPress: () => {
-                Linking.openSettings();
-              },
+            style: 'cancel',
+          },
+          {
+            text: 'OK',
+            onPress: () => {
+              Linking.openSettings();
             },
-          ],
-        );
-
-        return;
-      }
-    });
-  };
-
-  const getBadgeNumber = (): Promise<number> => {
-    return new Promise(resolve => {
-      PushNotification.getApplicationIconBadgeNumber(badge => {
-        resolve(badge);
-      });
-    });
+          },
+        ],
+      );
+    }
   };
 
   const handleNotificationBadge = useCallback(() => {
-    PushNotificationIOS.setApplicationIconBadgeNumber(0);
+    notifee.setBadgeCount(0);
 
     const lowerBadge = async () => {
-      const number = await getBadgeNumber();
+      const number = await notifee.getBadgeCount();
 
       if (number === 0) return;
 
-      PushNotificationIOS.setApplicationIconBadgeNumber(number - 1);
+      await notifee.setBadgeCount(number - 1);
     };
 
-    PushNotificationIOS.addEventListener('notification', lowerBadge);
-    PushNotificationIOS.addEventListener('localNotification', lowerBadge);
+    const unsubscribeForeground = notifee.onForegroundEvent(({ type }) => {
+      if (type === EventType.DELIVERED) {
+        lowerBadge();
+      }
+    });
 
-    return () => {
-      PushNotificationIOS.removeEventListener('notification');
-      PushNotificationIOS.removeEventListener('localNotification');
-    };
+    return unsubscribeForeground;
   }, []);
 
   return {

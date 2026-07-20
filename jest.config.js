@@ -6,4 +6,11 @@ process.env.TZ = 'America/New_York';
 
 module.exports = {
   preset: '@react-native/jest-preset',
+  setupFiles: ['./jest.setup.js'],
+  // 기본 preset은 react-native/@react-native만 변환합니다. 앱 트리를 통째로
+  // 마운트하는 스모크 테스트(App-test)를 위해, ESM으로 배포되는 커뮤니티
+  // 패키지들도 변환 대상에 넣습니다.
+  transformIgnorePatterns: [
+    'node_modules/(?!(?:jest-)?react-native|@react-native|@react-navigation|react-native-.*|@gorhom|@op-engineering|@notifee)/',
+  ],
 };

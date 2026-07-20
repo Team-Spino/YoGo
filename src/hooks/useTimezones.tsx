@@ -31,9 +31,11 @@ export function useTimezones() {
   }, [load]);
 
   const addTimezone = useCallback(async (city: string) => {
-    const key = await addTimezoneToDb(city);
+    // 새 행의 진짜 key(rowid)가 필요하므로, 넣고 나서 DB에서 다시 읽습니다.
+    // 삭제가 key로 동작하기 때문에 낙관적 추정 key를 쓰면 안 됩니다.
+    await addTimezoneToDb(city);
 
-    setTimezones(prev => [...prev, { key, CITY: city }]);
+    setTimezones(await findTimezones());
   }, []);
 
   const removeTimezone = useCallback(async (id: number) => {

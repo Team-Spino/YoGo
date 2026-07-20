@@ -22,9 +22,8 @@ export function useBottomSheet({
   const closeBottomSheet = () => {
     moveBottomSheet({ value: screenHeight }).start(() => {
       setModalVisible(false);
-      setResult && setResult(false)
-    }
-    );
+      if (setResult) setResult(false);
+    });
   };
 
   const moveBottomSheet = ({ value }: { value: number }) =>

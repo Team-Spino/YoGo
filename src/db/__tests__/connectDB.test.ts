@@ -1,8 +1,10 @@
 export {};
 
-jest.mock('react-native-sqlite-storage', () => ({
-  enablePromise: jest.fn(),
-  openDatabase: jest.fn(),
+// op-sqlite의 open은 동기 함수입니다(예전 sqlite-storage의 openDatabase처럼
+// Promise를 돌려주지 않습니다). 커넥션을 한 번만 열고 재사용하는지,
+// 실패하면 캐시를 비워 다음 호출이 다시 시도하는지 확인합니다.
+jest.mock('@op-engineering/op-sqlite', () => ({
+  open: jest.fn(),
 }));
 
 describe('connectDB', () => {
@@ -12,35 +14,37 @@ describe('connectDB', () => {
   });
 
   it('opens the database once and reuses it on later calls', async () => {
-    const { openDatabase } = require('react-native-sqlite-storage');
-    openDatabase.mockResolvedValue({ name: 'main.db' });
+    const { open } = require('@op-engineering/op-sqlite');
+    open.mockReturnValue({ execute: jest.fn() });
 
     const { connectDB } = require('../connectDB');
 
     const first = await connectDB();
     const second = await connectDB();
 
-    expect(openDatabase).toHaveBeenCalledTimes(1);
+    expect(open).toHaveBeenCalledTimes(1);
     expect(first).toBe(second);
   });
 
   it('opens the database once when callers race', async () => {
-    const { openDatabase } = require('react-native-sqlite-storage');
-    openDatabase.mockResolvedValue({ name: 'main.db' });
+    const { open } = require('@op-engineering/op-sqlite');
+    open.mockReturnValue({ execute: jest.fn() });
 
     const { connectDB } = require('../connectDB');
 
     const [first, second] = await Promise.all([connectDB(), connectDB()]);
 
-    expect(openDatabase).toHaveBeenCalledTimes(1);
+    expect(open).toHaveBeenCalledTimes(1);
     expect(first).toBe(second);
   });
 
   it('retries opening after a failure', async () => {
-    const { openDatabase } = require('react-native-sqlite-storage');
-    openDatabase
-      .mockRejectedValueOnce(new Error('locked'))
-      .mockResolvedValueOnce({ name: 'main.db' });
+    const { open } = require('@op-engineering/op-sqlite');
+    open
+      .mockImplementationOnce(() => {
+        throw new Error('locked');
+      })
+      .mockReturnValueOnce({ execute: jest.fn() });
 
     const { connectDB } = require('../connectDB');
 
@@ -48,7 +52,7 @@ describe('connectDB', () => {
 
     const retried = await connectDB();
 
-    expect(retried).toEqual({ name: 'main.db' });
-    expect(openDatabase).toHaveBeenCalledTimes(2);
+    expect(retried).toHaveProperty('executeSql');
+    expect(open).toHaveBeenCalledTimes(2);
   });
 });

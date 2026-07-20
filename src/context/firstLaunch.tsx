@@ -2,7 +2,7 @@ import React, { createContext, useCallback, useMemo, useState } from 'react';
 import { storage } from 'utils/mmkv';
 
 interface IisFirstProps {
-  children: JSX.Element | Array<JSX.Element>;
+  children: React.JSX.Element | Array<React.JSX.Element>;
 }
 
 const FIRST_LAUNCH_KEY = 'FIRST_LAUNCH';

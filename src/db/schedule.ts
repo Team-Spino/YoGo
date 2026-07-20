@@ -1,10 +1,8 @@
-import { enablePromise, SQLiteDatabase } from 'react-native-sqlite-storage';
+import { LegacyDb } from 'db/connectDB';
 import { SCHEDULE } from 'utils';
 import { IScheduleInput, IScheduleProps, IScheduleUpdate } from 'types';
 
-enablePromise(true);
-
-export const createScheduleTable = async (db: SQLiteDatabase) => {
+export const createScheduleTable = async (db: LegacyDb) => {
   const query = `
   CREATE TABLE IF NOT EXISTS ${SCHEDULE}
   (
@@ -27,7 +25,7 @@ export const createScheduleTable = async (db: SQLiteDatabase) => {
 };
 
 export const getScheduleItems = async (
-  db: SQLiteDatabase,
+  db: LegacyDb,
   dayOfWeek: string,
   curDay: string,
 ) => {
@@ -59,7 +57,7 @@ export const getScheduleItems = async (
 };
 
 export const insertScheduleItem = async (
-  db: SQLiteDatabase,
+  db: LegacyDb,
   schedule: IScheduleInput,
 ) => {
   const {
@@ -103,13 +101,13 @@ export const insertScheduleItem = async (
   }
 };
 
-export const deleteScheduleItem = async (db: SQLiteDatabase, id: number) => {
+export const deleteScheduleItem = async (db: LegacyDb, id: number) => {
   const deleteQuery = `DELETE from ${SCHEDULE} WHERE key = ?`;
   await db.executeSql(deleteQuery, [id]);
 };
 
 export const updateScheduleItemActive = async (
-  db: SQLiteDatabase,
+  db: LegacyDb,
   id: number,
   isActive: number,
 ) => {
@@ -118,7 +116,7 @@ export const updateScheduleItemActive = async (
 };
 
 export const updateAllSchedule = async (
-  db: SQLiteDatabase,
+  db: LegacyDb,
   schedule: IScheduleUpdate,
 ) => {
   const {
@@ -154,7 +152,7 @@ export const updateAllSchedule = async (
   ]);
 };
 
-export const getDateAndDayOfWeek = async (db: SQLiteDatabase) => {
+export const getDateAndDayOfWeek = async (db: LegacyDb) => {
   try {
     const dateAndDayOfWeek: Array<{ result: string }> = [];
     const query = `

@@ -1,9 +1,7 @@
-import { enablePromise, SQLiteDatabase } from 'react-native-sqlite-storage';
+import { LegacyDb } from 'db/connectDB';
 import { ALARM_PERMISSION } from 'utils';
 
-enablePromise(true);
-
-export const createAlarmPermissionTable = async (db: SQLiteDatabase) => {
+export const createAlarmPermissionTable = async (db: LegacyDb) => {
   const query = `
     CREATE TABLE IF NOT EXISTS ${ALARM_PERMISSION}
     (
@@ -16,7 +14,7 @@ export const createAlarmPermissionTable = async (db: SQLiteDatabase) => {
 };
 
 export const insertAlarmPermission = async (
-  db: SQLiteDatabase,
+  db: LegacyDb,
   isAgree: number,
 ) => {
   const query = `
@@ -27,7 +25,7 @@ export const insertAlarmPermission = async (
   await db.executeSql(query, [isAgree]);
 };
 
-export const getAlarmPermission = async (db: SQLiteDatabase) => {
+export const getAlarmPermission = async (db: LegacyDb) => {
   try {
     const query = `
         SELECT * FROM ${ALARM_PERMISSION} WHERE key = 1
@@ -43,7 +41,7 @@ export const getAlarmPermission = async (db: SQLiteDatabase) => {
 };
 
 export const updateAlarmPermission = async (
-  db: SQLiteDatabase,
+  db: LegacyDb,
   isAgree: number,
 ) => {
   try {

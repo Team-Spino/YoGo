@@ -1,6 +1,8 @@
+import { ReactElement } from 'react';
+
 export interface IOnBoadingSlide {
-  mainImg: JSX.Element;
-  typography?: JSX.Element;
+  mainImg: ReactElement;
+  typography?: ReactElement;
   text?: string;
   btnText: string | Array<string>;
   isEdge: boolean;

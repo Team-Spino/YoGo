@@ -28,7 +28,7 @@ export function Main() {
         component={Home}
         options={{
           title: 'Home',
-          tabBarIcon: ({ color, size }) => <IconHome color={color} />,
+          tabBarIcon: ({ color }) => <IconHome color={color} />,
           tabBarActiveTintColor: '#6564CC',
           tabBarLabelStyle: {
             fontSize: 12,
@@ -41,7 +41,7 @@ export function Main() {
         component={TimeZone}
         options={{
           title: 'TimeZone',
-          tabBarIcon: ({ color, size }) => <IconTimeZone color={color}  />,
+          tabBarIcon: ({ color }) => <IconTimeZone color={color} />,
           tabBarActiveTintColor: '#6564CC',
           tabBarLabelStyle: {
             fontSize: 12,

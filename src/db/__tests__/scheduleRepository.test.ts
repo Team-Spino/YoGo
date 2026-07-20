@@ -2,9 +2,10 @@ import { IScheduleInput } from 'types';
 
 const mockExecuteSql = jest.fn();
 
-jest.mock('react-native-sqlite-storage', () => ({
-  enablePromise: jest.fn(),
-  openDatabase: jest.fn(() => Promise.resolve({ executeSql: mockExecuteSql })),
+// 저장소는 어떤 SQLite 라이브러리를 쓰는지 몰라야 합니다. connectDB 경계에서
+// 목을 잡으면, op-sqlite로 갈아끼워도 이 테스트들은 그대로 통과합니다.
+jest.mock('../connectDB', () => ({
+  connectDB: jest.fn(() => Promise.resolve({ executeSql: mockExecuteSql })),
 }));
 
 import {

@@ -2,7 +2,7 @@ import React, { createContext, useCallback, useMemo, useState } from 'react';
 import dayjs from 'dayjs';
 
 interface ISelectedDayProps {
-  children: JSX.Element | Array<JSX.Element>;
+  children: React.JSX.Element | Array<React.JSX.Element>;
 }
 
 /**

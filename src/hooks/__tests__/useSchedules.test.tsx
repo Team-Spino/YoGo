@@ -101,7 +101,7 @@ describe('useSchedules', () => {
   });
 
   it('reloads when something changes elsewhere', async () => {
-    const latest = await renderUseSchedules();
+    await renderUseSchedules();
 
     expect(mockFindSchedulesByDay).toHaveBeenCalledTimes(1);
 

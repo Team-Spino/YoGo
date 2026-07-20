@@ -58,8 +58,11 @@ describe('useTimezones', () => {
   });
 
   it('adds a city and shows it right away', async () => {
-    mockAddTimezone.mockResolvedValue(7);
     const latest = await renderUseTimezones();
+
+    // 넣은 뒤 DB에서 다시 읽어 진짜 key로 목록을 채웁니다.
+    // 삭제가 key로 동작하므로 낙관적 추정 key가 아니라 저장된 rowid를 씁니다.
+    mockFindTimezones.mockResolvedValue([{ key: 7, CITY: 'Asia/Tokyo' }]);
 
     await act(async () => {
       await latest().addTimezone('Asia/Tokyo');
