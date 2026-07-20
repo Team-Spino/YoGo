@@ -46,14 +46,17 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
 
   return (
     <>
-      <ScrollView style={{ width: '100%', flex: 1 }}>
-        <View
-          width="100%"
-          flex={1}
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-        >
+      <ScrollView
+        style={{ width: '100%', flex: 1, backgroundColor: 'transparent' }}
+        contentContainerStyle={{
+          paddingHorizontal: 20,
+          paddingTop: 12,
+          paddingBottom: 32,
+        }}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+      >
+        <View width="100%" flexDirection="column" gap={14}>
           {!isCityPickerOpen && (
             <>
               <TextInput
@@ -85,7 +88,9 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
               />
             </>
           )}
-          <Button text="Submit" onPress={onPressSubmit} />
+          <View marginTop={8}>
+            <Button text="Save schedule" onPress={onPressSubmit} />
+          </View>
         </View>
       </ScrollView>
       {isCityPickerOpen && (

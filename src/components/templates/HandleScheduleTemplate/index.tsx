@@ -8,6 +8,7 @@ export function HandleScheduleTemplate({ navigation, route }: IHandelSchedulePro
     <View
       width="100%"
       height="100%"
+      backgroundColor="$background"
       display="flex"
       flexDirection="column"
       justifyContent="space-between"

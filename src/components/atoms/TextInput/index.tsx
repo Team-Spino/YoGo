@@ -16,36 +16,30 @@ interface ITextInputProps {
 
 export function TextInput({
   placeholder,
-  size,
   value,
   setValue,
   isTitleInputValid,
 }: ITextInputProps) {
   const theme = useTheme();
+  const showError = isTitleInputValid === false;
 
   return (
     <RNTextInput
       value={value}
-      multiline={true}
-      numberOfLines={10}
       onChange={e => setValue(e)}
-      placeholder={isTitleInputValid ? placeholder : 'Please Input Title'}
+      placeholder={showError ? 'Please enter a title' : placeholder}
+      placeholderTextColor={theme.colorMuted.val}
       style={{
         width: '100%',
-        fontSize: Number(size),
+        fontSize: 16,
         fontWeight: '500',
-        paddingVertical: 13,
-        paddingHorizontal: 15,
+        paddingVertical: 15,
+        paddingHorizontal: 16,
+        borderRadius: 14,
+        borderWidth: showError ? 1 : 0.5,
+        borderColor: showError ? '#FF4949' : theme.borderColor.val,
+        backgroundColor: theme.backgroundStrong.val,
         color: theme.color.val,
-        borderBottomColor: theme.borderColor.val,
-        borderBottomWidth: 1,
-        ...(!isTitleInputValid
-          ? {
-              borderBottomColor: '#FF4949',
-              borderWidth: 1,
-              borderColor: '#FF4949',
-            }
-          : {}),
       }}
     />
   );

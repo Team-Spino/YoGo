@@ -18,11 +18,11 @@ export const FloatingButton = ({ children, onPress }: IFloatingButtonProps) => {
         width: 56,
         height: 56,
         borderRadius: 28,
-        shadowColor: '#000',
-        shadowOffset: { width: 2, height: 3 },
-        shadowOpacity: 0.5,
-        shadowRadius: 2,
-        elevation: 5,
+        shadowColor: '#4A3F9E',
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: 0.3,
+        shadowRadius: 12,
+        elevation: 6,
       }}
     >
       <View
