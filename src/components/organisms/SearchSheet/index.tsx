@@ -65,6 +65,7 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
             flexDirection="column"
             justifyContent="space-evenly"
             alignItems="center"
+            gap={8}
           >
             <HeaderCenter text={`Search Time Zone`} size={18} />
             <SelectTargetCityBtn

@@ -4,7 +4,6 @@ import { View, useTheme } from '@tamagui/core';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import dayjs from 'dayjs';
 import { ResultSheet, SearchSheet } from 'components';
-import { IconBottomSheetBar } from 'assets';
 import { useBottomSheet } from 'hooks';
 import { IMakeProps, RootStackParamList } from 'types';
 
@@ -78,14 +77,28 @@ export const BottomSheet = ({
             justifyContent: 'flex-start',
             alignItems: 'center',
             backgroundColor: result ? theme.accent.val : theme.background.val,
-            borderTopLeftRadius: 10,
-            borderTopRightRadius: 10,
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
             paddingTop: 10,
+            shadowColor: '#4A3F9E',
+            shadowOffset: { width: 0, height: -4 },
+            shadowOpacity: 0.12,
+            shadowRadius: 20,
+            elevation: 16,
             transform: [{ translateY: translateY }],
           }}
           {...panResponders.panHandlers}
         >
-          <IconBottomSheetBar />
+          <View
+            width={40}
+            height={5}
+            borderRadius={3}
+            marginTop={2}
+            marginBottom={6}
+            backgroundColor={
+              result ? 'rgba(255, 255, 255, 0.6)' : '$borderColorStrong'
+            }
+          />
           {!result && <SearchSheet onPress={onPressBottomSheetFindBtn} />}
           {result && (
             <ResultSheet

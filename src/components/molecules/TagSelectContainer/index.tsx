@@ -15,17 +15,19 @@ export function TagSelectContainer({
   return (
     <View
       width="100%"
-      paddingVertical={15}
-      paddingHorizontal={20}
-      borderBottomColor="$borderColor"
-      borderBottomWidth={1}
+      paddingVertical={16}
+      paddingHorizontal={16}
+      borderRadius={16}
+      borderWidth={0.5}
+      borderColor="$borderColor"
+      backgroundColor="$backgroundStrong"
     >
       <Title isEnable={true} text={'Select Color Tag'} size={15} />
       <View
         width="100%"
         flexDirection="row"
         justifyContent="space-evenly"
-        marginTop={15}
+        marginTop={16}
       >
         {tagList.map(tag => (
           <TagSelect key={tag.key} tag={tag} onSelectTag={onSelectTag} />

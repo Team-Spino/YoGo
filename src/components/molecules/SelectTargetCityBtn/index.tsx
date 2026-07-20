@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import dayjs from 'dayjs';
-import { View, Text } from '@tamagui/core';
+import { View, Text, useTheme } from '@tamagui/core';
 import { Title, TextBtn } from 'components';
 import { IconDownArrow } from 'assets';
 import { useTimeZone } from 'hooks';
@@ -23,6 +23,7 @@ export function SelectTargetCityBtn({
 }: IBTargetCityBtnProps) {
   const [notiAlartTime, setNotiAlartTime] = useState<string>('');
 
+  const theme = useTheme();
   const { getAlarmTime } = useTimeZone();
 
   useEffect(() => {
@@ -62,15 +63,7 @@ export function SelectTargetCityBtn({
   const showError = !isCityInputValid;
 
   return (
-    <View
-      width="100%"
-      paddingVertical={15}
-      paddingHorizontal={20}
-      borderWidth={showError ? 1 : undefined}
-      borderColor={showError ? '#FF4949' : undefined}
-      borderBottomWidth={1}
-      borderBottomColor={showError ? '#FF4949' : '$borderColor'}
-    >
+    <View width="100%" paddingVertical={16} paddingHorizontal={20}>
       <Title
         isEnable={true}
         text={'Time Zone for The Destination Country'}
@@ -78,12 +71,19 @@ export function SelectTargetCityBtn({
       />
       <TouchableOpacity
         onPress={onPress}
+        activeOpacity={0.7}
         style={{
           flexDirection: 'row',
-          marginTop: 15,
+          marginTop: 12,
           width: '100%',
           alignItems: 'center',
           justifyContent: 'space-between',
+          paddingVertical: 14,
+          paddingHorizontal: 16,
+          borderRadius: 14,
+          borderWidth: showError ? 1 : 0.5,
+          borderColor: showError ? '#FF4949' : theme.borderColor.val,
+          backgroundColor: theme.backgroundStrong.val,
         }}
       >
         <TextBtn>{placeholder()}</TextBtn>

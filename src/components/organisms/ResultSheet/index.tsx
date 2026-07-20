@@ -53,11 +53,13 @@ export function ResultSheet({ onPress, submitObject }: IResultBSProps) {
       />
       <View
         width="100%"
-        marginTop={screenHeight * 0.05}
-        height="80%"
+        flex={1}
+        paddingHorizontal={20}
+        paddingBottom={100}
         flexDirection="column"
-        justifyContent="space-evenly"
+        justifyContent="center"
         alignItems="center"
+        gap={16}
       >
         <IconAbsolute>
           <IconWorld />

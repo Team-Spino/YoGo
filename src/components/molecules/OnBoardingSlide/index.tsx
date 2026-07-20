@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from '@tamagui/core';
-import { BottomSheetBtn, OnBoardingtBtn } from 'components';
+import { OnBoardingtBtn } from 'components';
 import { IOnBoadingSlide } from 'types';
 
 export const OnBoardingSlide = ({
@@ -39,14 +39,23 @@ export const OnBoardingSlide = ({
         alignItems="center"
       >
         {typography}
-        <Text color="$onAccent" marginTop={30} fontSize={18} textAlign="center">
+        <Text
+          color="$onAccent"
+          marginTop={24}
+          fontSize={16}
+          lineHeight={24}
+          letterSpacing={-0.2}
+          opacity={0.92}
+          paddingHorizontal={32}
+          textAlign="center"
+        >
           {text}
         </Text>
       </View>
       {isEdge && (
-        <BottomSheetBtn
+        <OnBoardingtBtn
           text={btnText as string}
-          isRevers={true}
+          isCTA={true}
           onPress={onNextPress as () => void | ((index: number) => void)}
         />
       )}

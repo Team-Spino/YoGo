@@ -56,9 +56,9 @@ export const SearchTimeBottomSheet = ({
             justifyContent: 'flex-start',
             alignItems: 'center',
             backgroundColor: theme.background.val,
-            borderTopLeftRadius: 10,
-            borderTopRightRadius: 10,
-            paddingTop: 10,
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+            paddingTop: 12,
             transform: [{ translateY: translateY }],
           }}
           {...panResponders.panHandlers}

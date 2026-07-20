@@ -28,7 +28,6 @@ export function AgendaBox({
 }: IAgendaProps) {
   const [selectedTag, setSelectedTag] =
     useState<Array<ITagFilter>>(TAG_FILTER_COLOR);
-  const [isExpand, setIsExpand] = useState<boolean>(false);
   // react-native-calendars의 theme prop은 RN 객체라 토큰 문자열을 못 받으므로
   // useTheme으로 실제 값을 읽어 넣습니다.
   const theme = useTheme();
@@ -68,9 +67,6 @@ export function AgendaBox({
           hideArrows
           style={{
             top: '0%',
-          }}
-          onCalendarToggled={(isOpen) => {
-            setIsExpand(isOpen);
           }}
           minDate={dayjs().format('YYYY-MM-DD')}
           pastScrollRange={1}

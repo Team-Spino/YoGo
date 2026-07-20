@@ -18,21 +18,26 @@ export function BottomSheetBtn({
   return (
     <TouchableOpacity
       onPress={onPress}
+      activeOpacity={0.85}
       style={{
-        height: '5%',
+        height: 54,
         width: '90%',
         position: 'absolute',
-        bottom: '4.5%',
+        bottom: 24,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 5,
+        borderRadius: 16,
         backgroundColor: isRevers ? theme.background.val : theme.accent.val,
+        shadowColor: '#4A3F9E',
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: isRevers ? 0.12 : 0.25,
+        shadowRadius: 14,
         zIndex: 9999,
       }}
     >
       <Text
-        fontSize={20}
-        fontWeight="bold"
+        fontSize={16}
+        fontWeight="500"
         color={isRevers ? '$accent' : '$onAccent'}
       >
         {text}

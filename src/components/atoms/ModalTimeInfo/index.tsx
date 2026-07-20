@@ -1,6 +1,5 @@
 import React from 'react';
-import { View } from '@tamagui/core';
-import { Title, SubTitle } from 'components';
+import { View, Text } from '@tamagui/core';
 import { IconRight } from 'assets';
 import { getModalTimeInfo } from 'utils';
 import { ITargetProps, ICurProps } from 'types';
@@ -21,10 +20,28 @@ interface IModalTimerProps {
 
 function ModalTimer({ city, date, time }: IModalTimerProps) {
   return (
-    <View justifyContent="center" alignItems="center" flexDirection="column">
-      <Title isEnable={true} text={city} size={20} />
-      <SubTitle isEnable={true} text={date} />
-      <Title isEnable={true} text={time} size={17} />
+    <View
+      flex={1}
+      justifyContent="center"
+      alignItems="center"
+      flexDirection="column"
+      gap={4}
+    >
+      <Text color="$color" fontSize={15} fontWeight="500" numberOfLines={1}>
+        {city}
+      </Text>
+      <Text
+        color="$color"
+        fontSize={20}
+        fontWeight="500"
+        letterSpacing={-0.3}
+        numberOfLines={1}
+      >
+        {time}
+      </Text>
+      <Text color="$colorSubtle" fontSize={12} numberOfLines={1}>
+        {date}
+      </Text>
     </View>
   );
 }
@@ -40,6 +57,7 @@ export function ModalTimeInfo({ timeData }: IModalTimeProps) {
       justifyContent="space-evenly"
       alignItems="center"
       flexDirection="row"
+      gap={12}
     >
       <ModalTimer city={target.city} date={target.date} time={target.time} />
       <IconRight />

@@ -14,18 +14,26 @@ interface IModalTimeProps {
 export function ModalTime({ timeData, leftTime }: IModalTimeProps) {
   return (
     <View
-      borderBottomColor="$borderColor"
-      borderBottomWidth={2}
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
+      gap={14}
       paddingVertical={20}
-      paddingHorizontal={10}
+      paddingHorizontal={20}
+      borderBottomColor="$borderColor"
+      borderBottomWidth={0.5}
     >
       <ModalTimeInfo timeData={timeData} />
-      <Text marginTop={7} color="$accent">
-        {leftTime}
-      </Text>
+      <View
+        backgroundColor="$backgroundStrong"
+        paddingHorizontal={14}
+        paddingVertical={7}
+        borderRadius={999}
+      >
+        <Text color="$accent" fontSize={13} fontWeight="500">
+          {leftTime}
+        </Text>
+      </View>
     </View>
   );
 }

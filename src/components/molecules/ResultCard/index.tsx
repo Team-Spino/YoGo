@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text } from '@tamagui/core';
+import { View } from '@tamagui/core';
 import { TimeOfTZ, LocationOfTZ } from 'components';
+import { Card, Eyebrow } from 'styles/ui';
 
 interface IResultCardProps {
   cardHeader: string;
@@ -18,41 +19,24 @@ export const ResultCard = ({
   meridiem,
 }: IResultCardProps) => {
   return (
-    <View
-      width="80%"
-      height="15%"
-      borderWidth={1}
-      borderColor="$accent"
-      flexDirection="row"
-      justifyContent="space-between"
-      paddingVertical={0}
-      paddingHorizontal={20}
-      alignItems="center"
-      backgroundColor="$background"
-      marginTop={18}
-      borderRadius={5}
-    >
+    <Card width="86%" paddingVertical={16} paddingHorizontal={18}>
+      <Eyebrow fontWeight="500" marginBottom={12}>
+        {cardHeader}
+      </Eyebrow>
       <View
-        position="absolute"
-        backgroundColor="$accent"
-        borderRadius={5}
-        paddingVertical={2}
-        paddingHorizontal={10}
-        borderWidth={1}
-        borderColor="$background"
-        top="-15%"
-        left="2%"
+        flexDirection="row"
+        justifyContent="space-between"
+        alignItems="center"
       >
-        <Text color="$onAccent">{cardHeader}</Text>
+        <LocationOfTZ
+          timeDifference={city}
+          city={date}
+          time={time}
+          meridiem={meridiem}
+          isResult={true}
+        />
+        <TimeOfTZ time={time} meridiem={meridiem} isResult={false} />
       </View>
-      <LocationOfTZ
-        timeDifference={city}
-        city={date}
-        time={time}
-        meridiem={meridiem}
-        isResult={true}
-      />
-      <TimeOfTZ time={time} meridiem={meridiem} isResult={false} />
-    </View>
+    </Card>
   );
 };

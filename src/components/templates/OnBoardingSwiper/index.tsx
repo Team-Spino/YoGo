@@ -26,10 +26,21 @@ export function OnBoardingSwiper() {
 
   const styles = StyleSheet.create({
     dot: {
-      bottom: '7%',
+      width: 7,
+      height: 7,
+      borderRadius: 4,
+      marginHorizontal: 4,
+      bottom: '9%',
+      opacity: 0.4,
+    },
+    activeDot: {
+      width: 22,
+      height: 7,
+      borderRadius: 4,
+      marginHorizontal: 4,
+      bottom: '9%',
     },
     disableDot: {
-      bottom: '7%',
       display: 'none',
     },
   });
@@ -129,7 +140,8 @@ export function OnBoardingSwiper() {
     <Swiper
       showsButtons={false}
       dotStyle={isStartOrEnd ? styles.disableDot : styles.dot}
-      activeDotStyle={isStartOrEnd ? styles.disableDot : styles.dot}
+      activeDotStyle={isStartOrEnd ? styles.disableDot : styles.activeDot}
+      dotColor={theme.onAccent.val}
       activeDotColor={theme.onAccent.val}
       loop={false}
       onIndexChanged={checkStartOrEnd}

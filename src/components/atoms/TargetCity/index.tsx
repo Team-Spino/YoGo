@@ -17,23 +17,33 @@ interface IBTTargetCityProps {
 export function TargetCity({ item, onPress, selectedId }: IBTTargetCityProps) {
   const theme = useTheme();
 
-  const backgroundColor =
-    item.id === selectedId ? theme.accent.val : 'transparent';
+  const isSelected = item.id === selectedId;
 
-  const color = item.id === selectedId ? theme.onAccent.val : theme.color.val;
+  const backgroundColor = isSelected
+    ? theme.backgroundHover.val
+    : 'transparent';
+
+  const color = isSelected ? theme.accent.val : theme.color.val;
 
   return (
     <TouchableOpacity
       onPress={() => onPress(item)}
+      activeOpacity={0.7}
       style={{ backgroundColor: 'transparent' }}
     >
-      <View justifyContent="center" borderBottomWidth={0.7} borderBottomColor="$accent">
+      <View
+        justifyContent="center"
+        borderBottomWidth={0.5}
+        borderBottomColor="$borderColor"
+        borderRadius={12}
+        style={{ backgroundColor }}
+      >
         <Text
-          fontSize={18}
-          fontWeight="200"
-          alignItems="flex-start"
-          padding={20}
-          style={{ backgroundColor, color }}
+          fontSize={16}
+          fontWeight={isSelected ? '500' : '400'}
+          paddingVertical={16}
+          paddingHorizontal={16}
+          style={{ color }}
         >
           {formatCityName(item.city)}
         </Text>

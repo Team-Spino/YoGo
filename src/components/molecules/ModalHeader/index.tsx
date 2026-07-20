@@ -1,6 +1,5 @@
 import React from 'react';
-import { View } from '@tamagui/core';
-import { Tag, Title } from 'components';
+import { View, Text } from '@tamagui/core';
 
 export function ModalHeader({
   tagColor,
@@ -13,15 +12,31 @@ export function ModalHeader({
     <View
       width="100%"
       flexDirection="row"
-      justifyContent="flex-start"
       alignItems="center"
-      paddingVertical={15}
-      paddingHorizontal={10}
+      gap={12}
+      paddingTop={22}
+      paddingBottom={16}
+      paddingLeft={20}
+      paddingRight={56}
       borderBottomColor="$borderColor"
-      borderBottomWidth={2}
+      borderBottomWidth={0.5}
     >
-      <Tag color={tagColor} />
-      <Title isEnable={true} text={title} size={25} />
+      <View
+        width={4}
+        height={22}
+        borderRadius={4}
+        backgroundColor={tagColor || '#B5B5B9'}
+      />
+      <Text
+        flex={1}
+        color="$color"
+        fontSize={20}
+        fontWeight="500"
+        letterSpacing={-0.3}
+        numberOfLines={1}
+      >
+        {title}
+      </Text>
     </View>
   );
 }

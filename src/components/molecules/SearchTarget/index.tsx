@@ -31,15 +31,17 @@ export function SearchTarget({
     <View
       width="100%"
       height="100%"
-      justifyContent="center"
+      justifyContent="flex-start"
       alignItems="center"
+      paddingHorizontal={20}
+      paddingTop={8}
     >
       <SelectTargetInput
         city={city}
         onChangeCity={onChangeCity}
       ></SelectTargetInput>
       <FlatList
-        style={{ width: '85%' }}
+        style={{ width: '100%' }}
         data={targetList}
         renderItem={({ item }) => (
           <TargetCity item={item} onPress={onPress} selectedId={selectedId} />

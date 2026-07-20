@@ -27,6 +27,7 @@ export function SetCityAndDate({
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
+      gap={12}
     >
       <SelectTargetCityBtn
         onPress={() => onPressSearchTargetCity()}

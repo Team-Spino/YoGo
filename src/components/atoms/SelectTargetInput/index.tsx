@@ -20,18 +20,20 @@ export function SelectTargetInput({
     <View
       flexDirection="row"
       alignItems="center"
-      width="90%"
-      margin={10}
-      paddingHorizontal={12}
-      borderRadius={20}
-      borderWidth={1}
+      width="100%"
+      marginBottom={12}
+      paddingHorizontal={16}
+      borderRadius={14}
+      borderWidth={0.5}
       borderColor="$borderColor"
+      backgroundColor="$backgroundStrong"
     >
       <TextInput
         style={{
           flex: 1,
           fontSize: 16,
-          paddingVertical: 12,
+          fontWeight: '500',
+          paddingVertical: 14,
           color: theme.color.val,
         }}
         placeholder="Search Target City"

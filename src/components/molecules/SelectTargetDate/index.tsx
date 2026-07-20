@@ -16,17 +16,15 @@ export function SelectTargetDate({ onChangeDate, date }: IBTargetDateProps) {
 
   return (
     <View
-      marginTop={15}
+      marginTop={4}
       width="100%"
       flex={1}
-      borderBottomColor="$borderColor"
-      borderBottomWidth={1}
       paddingHorizontal={20}
       paddingTop={0}
-      paddingBottom={15}
+      paddingBottom={16}
     >
       <Title isEnable={true} text={'Select Target Date'} size={15} />
-      <View marginTop={15}>
+      <View marginTop={12}>
         <TextBtn>{`${week}, ${month} ${day}, ${year}`}</TextBtn>
       </View>
       <DatePicker onChangeDate={onChangeDate} date={date} />

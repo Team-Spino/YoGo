@@ -1,9 +1,10 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
-import { View, Text, useTheme } from '@tamagui/core';
+import { Text, useTheme } from '@tamagui/core';
 import { useTimeZone } from 'hooks';
 import { ModalHeader, ModalTime, ModalMemo } from 'components';
+import { Card } from 'styles/ui';
 import { useSelectedDay } from 'context';
 import { IScheduleProps } from 'types';
 
@@ -64,42 +65,37 @@ export function DetailModal({
       onSwipeComplete={onCloseDetailPress}
       coverScreen={true}
     >
-      <View
-        backgroundColor="$background"
+      <Card
+        width="100%"
         flex={0.5}
-        borderRadius={10}
         flexDirection="column"
-        justifyContent="space-between"
-        alignItems="center"
+        overflow="hidden"
+        borderRadius={18}
       >
-        <View
-          flex={1}
-          width="100%"
-          borderTopLeftRadius={10}
-          borderTopRightRadius={10}
-        >
-          <ModalHeader tagColor={TAG_COLOR} title={TITLE} />
-          <ModalTime timeData={timeData} leftTime={leftTime} />
-          <ModalMemo description={DESCRIPTION} />
-        </View>
+        <ModalHeader tagColor={TAG_COLOR} title={TITLE} />
+        <ModalTime timeData={timeData} leftTime={leftTime} />
+        <ModalMemo description={DESCRIPTION} />
+
         <TouchableOpacity
           onPress={onCloseDetailPress}
+          activeOpacity={0.8}
           style={{
-            width: '100%',
-            height: '15%',
-            borderWidth: 2,
-            borderColor: theme.borderColor.val,
+            position: 'absolute',
+            top: 16,
+            right: 16,
+            width: 32,
+            height: 32,
+            borderRadius: 16,
             justifyContent: 'center',
             alignItems: 'center',
-            borderBottomRightRadius: 10,
-            borderBottomLeftRadius: 10,
+            backgroundColor: theme.backgroundStrong.val,
           }}
         >
-          <Text fontSize={20} color="#e5565e">
-            Close
+          <Text fontSize={15} fontWeight="500" color="$colorSubtle">
+            ✕
           </Text>
         </TouchableOpacity>
-      </View>
+      </Card>
     </Modal>
   );
 }
