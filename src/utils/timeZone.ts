@@ -43,6 +43,50 @@ const pad = (value: number) => String(value).padStart(2, '0');
 export const canonicalZone = (timeZone: string): string =>
   ZONE_ALIASES[timeZone] ?? timeZone;
 
+/** 24시간제 시/분을 12시간제 표시로 바꿉니다. */
+const toMeridiem = (hour24: number, minute: number) => {
+  const meridiem = hour24 < 12 ? 'AM' : 'PM';
+  const hour12 = hour24 % 12 === 0 ? 12 : hour24 % 12;
+
+  return { time: `${hour12}:${pad(minute)}`, meridiem };
+};
+
+/**
+ * 시각을 `9:05 AM` 꼴로 읽습니다.
+ *
+ * 문자열이면 `HH:mm`만 그대로 떼어 씁니다. 문자열을 다시 Date로 되돌리지
+ * 않습니다. Hermes의 Date 파서는 ISO만 읽어서, `2024/01/15 09:05` 같은
+ * 값을 파싱하면 Invalid Date가 되고 화면에 "Date"만 뜹니다.
+ */
+export const to12Hour = (
+  value: string | Date,
+): { time: string; meridiem: string } => {
+  if (value instanceof Date) {
+    return toMeridiem(value.getHours(), value.getMinutes());
+  }
+
+  const match = value.match(/(\d{1,2}):(\d{2})/);
+
+  if (!match) return { time: value, meridiem: '' };
+
+  return toMeridiem(Number(match[1]), Number(match[2]));
+};
+
+/**
+ * `YYYY-MM-DD` 날짜와 `HH:mm` 시각을 `[날짜, "9:05 AM"]`으로 묶습니다.
+ *
+ * 날짜는 그대로 두고 시각만 12시간제로 바꿉니다. 여기서도 문자열을 다시
+ * Date로 되돌리지 않습니다.
+ */
+export const splitDateAnd12Hour = (
+  date: string,
+  time: string,
+): [string, string] => {
+  const { time: label, meridiem } = to12Hour(`${date} ${time}`);
+
+  return [date, `${label} ${meridiem}`];
+};
+
 /** 어떤 순간을 주어진 존의 벽시계로 읽습니다. */
 const getZoneParts = (date: Date, timeZone: string): IZoneParts => {
   const parts = new Intl.DateTimeFormat('en-US', {

@@ -25,6 +25,8 @@ export {
   getTimeDifference,
   getZoneOffsetMinutes,
   getZonedWallClock,
+  to12Hour,
+  splitDateAnd12Hour,
 } from 'utils/timeZone';
 export { toFormat12Hour } from 'utils/toFormat12Hour';
 export { storage } from 'utils/mmkv';

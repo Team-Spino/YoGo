@@ -8,8 +8,8 @@ import {
   getRelativeDay,
   getTimeDifference,
   getZonedWallClock,
-  parseToSlash,
-  toLocalDate,
+  splitDateAnd12Hour,
+  to12Hour,
 } from 'utils';
 import { ILiveTimeState } from 'types';
 
@@ -26,27 +26,11 @@ export function useTimeZone() {
   const getTargetTime = ({ currentTime, targetTimeZone }: ITargetTimeProps) =>
     getZonedWallClock(dayjs(currentTime).toDate(), targetTimeZone);
 
-  const formatTime = ({ targetTime }: { targetTime: string | Date }) => {
-    const [, time, meridiem] = toLocalDate(targetTime)
-      .toLocaleString('en-US')
-      .split(' ');
-    const [h, m] = time.split(':');
+  const formatTime = ({ targetTime }: { targetTime: string | Date }) =>
+    to12Hour(targetTime);
 
-    return {
-      time: `${h}:${m}`,
-      meridiem: meridiem,
-    };
-  };
-
-  const formatTo12Hour = ({ date, time }: { date: string; time: string }) => {
-    const temp = new Date(parseToSlash(`${date} ${time}`)).toLocaleString(
-      'en-US',
-    );
-
-    const [d, t, m] = dayjs(temp).format('YYYY-MM-DD HH:mm A').split(' ');
-
-    return [d, `${t} ${m}`];
-  };
+  const formatTo12Hour = ({ date, time }: { date: string; time: string }) =>
+    splitDateAnd12Hour(date, time);
 
   const setLiveTimeState = ({ location }: { location: string }) => {
     const currentTime = getCurrentTime();
