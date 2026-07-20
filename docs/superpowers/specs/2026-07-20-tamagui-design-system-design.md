@@ -26,43 +26,47 @@ styled-components v5로 되어 있는 스타일 계층을 **Tamagui로 전면 �
   Phase 3는 `@tamagui/core`의 `styled()`와 프리미티브(`View`/`Text`/`Stack`)만 쓴다.
 - op-sqlite 데이터 마이그레이션(별도 배포 선행 과제, 이 스펙과 무관).
 
-## 접근 (패턴 A: `styled()` 1:1 포팅)
+## 접근 (패턴 B: 프리미티브 + 인라인 props)
 
-각 `components/**/style.tsx`(styled-components)를 Tamagui `styled()`로 **같은 이름·
-같은 리터럴 px 값**으로 옮긴다. 소비하는 `index.tsx`는 `import * as S from './style'`
-그대로 두어 변경을 최소화한다.
+각 컴포넌트의 `style.tsx`를 **삭제**하고, 소비하는 `index.tsx`에서 styled-components
+엘리먼트를 Tamagui 프리미티브(`View`/`Text`/`Stack`)로 바꾸고 스타일은 **인라인
+props**로 붙인다. `import * as S from './style'`는 사라진다.
 
 예:
 
 ```tsx
-// before — styled-components/native
-import styled from 'styled-components/native';
-export const Container = styled.View`
-  flex-direction: row;
-  padding: 0 12px;
-  border-radius: 20px;
-  border-width: 1px;
-  border-color: #e6e6e6;
-`;
+// before — index.tsx + style.tsx
+import * as S from './style';
+<S.Container>
+  <S.InputText ... />
+</S.Container>
 
-// after — Tamagui
-import { styled, View } from '@tamagui/core';
-export const Container = styled(View, {
-  flexDirection: 'row',
-  paddingHorizontal: 12,
-  borderRadius: 20,
-  borderWidth: 1,
-  borderColor: '#e6e6e6',
-});
+// style.tsx
+export const Container = styled.View`
+  flex-direction: row; padding: 0 12px; border-radius: 20px;
+`;
+export const InputText = styled.TextInput`flex: 1; font-size: 16px;`;
+
+// after — index.tsx (style.tsx 삭제)
+import { View, Input } from '@tamagui/core';
+<View flexDirection="row" paddingHorizontal={12} borderRadius={20}>
+  <Input flex={1} fontSize={16} ... />
+</View>
 ```
 
 원칙:
-- **리터럴 값 유지** — 지금 하드코딩된 px/색을 토큰으로 바꾸지 않는다(모양 보존).
-  토큰 스케일은 config에 존재하되, 값 교체는 Phase 4.
-- `props`로 분기하던 styled-components 패턴(`${({active}) => ...}`)은 Tamagui
-  `variants`로 옮긴다.
+- **리터럴 값 유지** — 지금 하드코딩된 px/색을 인라인 props로 그대로 옮긴다(모양
+  보존). 토큰 스케일은 config에 존재하되, 값 교체는 Phase 4.
+- `props`로 분기하던 styled-components 패턴(`${({active}) => ...}`)은 소비처에서
+  조건부 인라인 props(`color={active ? '#6564CC' : '#999'}`)로 옮긴다.
 - `theme` 참조(`${({theme}) => theme.colors.blue}`)는 해당 리터럴(`#6564CC`)로
   치환한다(현재값 유지). 테마 토큰 연결은 Phase 4.
+- 프리미티브 매핑: `View→View`, `Text→Text`, `TextInput→Input`,
+  `ScrollView→ScrollView`(RN), `TouchableOpacity`/`Pressable` 등 상호작용 엘리먼트는
+  RN 것을 유지하되 그 위/안의 스타일 컨테이너만 Tamagui로. `FlatList`/`SwipeListView`
+  등 RN 전용 컴포넌트는 그대로 두고 `style`/`contentContainerStyle`만 정리.
+- 반복되는 인라인 조합이 3곳 이상에서 똑같이 나오면, 그때만 config의 공용 프리미티브
+  (`styled()`로 만든 named 컴포넌트)로 추출한다 — 무분별한 재-styled화는 지양.
 
 ## 아키텍처
 
@@ -94,10 +98,12 @@ export const Container = styled(View, {
 
 ### 3. 컴포넌트 이관
 
-`grep`로 확인된 **~59개 `style.tsx`** 를 원자→분자→유기체→템플릿 순으로 포팅.
-소비 `index.tsx`는 대부분 무변경. 변경이 필요한 경우:
-- styled-components 전용 prop 문법을 쓰던 곳 → Tamagui `variants` 소비로 조정.
+`grep`로 확인된 **~59개 `style.tsx`** 를 삭제하고, 각 소비 `index.tsx`를 프리미티브 +
+인라인 props로 재작성한다. 원자→분자→유기체→템플릿 순.
+- `S.*` 사용을 모두 인라인 프리미티브로 치환, `import * as S` 제거.
+- styled-components 전용 prop 분기 → 조건부 인라인 props.
 - `ThemeProvider`/`useTheme`(styled) 사용처 → 리터럴 또는 Tamagui `useTheme`.
+- 상호작용/리스트 등 RN 전용 컴포넌트는 유지, 그 style prop만 정리.
 
 ### 4. 정리(제거)
 
@@ -138,8 +144,9 @@ export const Container = styled(View, {
 |---|---|
 | Tamagui × RN 0.86 New Arch 호환 | 런타임 우선(컴파일러 배제)로 표면적 축소, 시뮬레이터 조기 검증 |
 | babel 플러그인 순서(worklets 마지막) | 컴파일러는 초록불 이후 별도 스텝, worklets 마지막 불변 규칙 명시 |
-| `variants`로 옮길 prop 분기 누락 → 모양 틀어짐 | 화면별 시뮬레이터 육안 대조(파리티 체크) |
-| 대량(~59개) 기계적 변환의 실수 | 원자→…→템플릿 계층 순 소단위 커밋, 각 단계 tsc/jest |
+| 패턴 B는 소비처(~59 index.tsx)까지 크게 손댐 → 모양 틀어짐 위험 큼 | 원자부터 계층 순, 소단위 커밋; 각 화면 시뮬레이터 육안 파리티 대조 |
+| 조건부 인라인 props 분기 누락 → 상태별 스타일 유실 | 원본 styled 템플릿의 모든 분기 목록화 후 1:1 이전 |
+| Tamagui 프리미티브가 RN 컴포넌트와 미묘한 기본값 차이(예: Text 상속) | 프리미티브 매핑 규칙 고정, 파리티 체크 |
 | 다크 테마 값 미정 | Phase 3는 구조만; dark=light 값으로 시작 |
 
 ## 검증 게이트
@@ -153,8 +160,8 @@ export const Container = styled(View, {
 
 ## 완료 정의(DoD)
 
-- 코드베이스에 `styled-components` import 0건.
-- 모든 스타일이 Tamagui 위에서 동작, config 단일 SSOT.
+- 코드베이스에 `styled-components` import 0건, `**/style.tsx` 0개.
+- 모든 스타일이 Tamagui 프리미티브 + 인라인 props로 동작, config 단일 SSOT.
 - shim.js 제거됨.
 - 위 게이트 전부 초록불, 시뮬레이터 파리티 확인.
 - Phase 4(비주얼 리디자인)는 토큰 값·테마·레이아웃/모션에만 손대면 되도록 정리됨.
