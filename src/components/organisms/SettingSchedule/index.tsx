@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import {
   TextInput,
   SearchTarget,
@@ -9,13 +9,10 @@ import {
 } from 'components';
 import { IHandelScheduleProps } from 'types';
 import { useScheduleForm } from 'hooks';
-import { PopContext } from 'context';
 import * as S from './style';
 
 export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
   const { title, item } = route.params;
-
-  const { setPop } = useContext(PopContext);
 
   const {
     inputs,
@@ -43,7 +40,6 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
 
     if (!isSaved) return;
 
-    setPop(true);
     navigation.pop();
   };
 

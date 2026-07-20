@@ -14,6 +14,7 @@ export {
   addWeekdayOf,
 } from 'utils/scheduleForm';
 export type { IScheduleFormState } from 'utils/scheduleForm';
+export { getModalTimeInfo } from 'utils/modalTimeInfo';
 export { TZ_DATA_BASES } from 'utils/TZ_DATA_BASES';
 export { formatCityName } from 'utils/formatCityName';
 export {

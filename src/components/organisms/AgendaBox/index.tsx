@@ -89,7 +89,6 @@ export function AgendaBox({
                 data={filteredSchedule}
                 onDeleteTarget={onDeleteTarget}
                 onEditTarget={onEditTarget}
-                selectedDay={selectedDay}
               />
         )}
         </S.Content>

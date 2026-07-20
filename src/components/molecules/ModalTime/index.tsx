@@ -9,17 +9,12 @@ interface IModalTimeProps {
     cur: ICurProps;
   };
   leftTime: string;
-  selectedDay: string;
 }
 
-export function ModalTime({
-  timeData,
-  leftTime,
-  selectedDay,
-}: IModalTimeProps) {
+export function ModalTime({ timeData, leftTime }: IModalTimeProps) {
   return (
     <S.Container>
-      <ModalTimeInfo timeData={timeData} selectedDay={selectedDay} />
+      <ModalTimeInfo timeData={timeData} />
       <S.Text>{leftTime}</S.Text>
     </S.Container>
   );

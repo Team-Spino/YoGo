@@ -11,6 +11,7 @@ import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { addSchedule, editSchedule } from 'db';
 import { useCitySearch } from 'hooks/useCitySearch';
 import { useNotification } from 'hooks/useNotification';
+import { scheduleStore } from 'stores';
 import {
   IDayOfWeekProps,
   IItemProps,
@@ -214,6 +215,9 @@ export function useScheduleForm({ title, item }: IUseScheduleFormProps) {
 
       return false;
     }
+
+    // 저장이 끝났으니 다른 화면(홈 목록)이 다시 불러오도록 알립니다.
+    scheduleStore.emitChanged();
 
     return true;
   };

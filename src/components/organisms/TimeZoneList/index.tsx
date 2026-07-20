@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import { Animated } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { TimeZoneCard, HiddenDelete, RenderEmptyData } from 'components';
@@ -14,7 +14,6 @@ interface IItemProps {
 
 interface ITimeZoneListProps {
   cardState: Array<ICityProps>;
-  setCardState: Dispatch<SetStateAction<Array<ICityProps>>>;
   onDeleteTarget: (id: number) => Promise<void>;
 }
 

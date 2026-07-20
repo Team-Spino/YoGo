@@ -8,7 +8,6 @@ import * as S from './style';
 
 interface ISwipeContentProps {
   data: IScheduleProps[];
-  selectedDay: string;
   onDeleteTarget: (id: number) => Promise<void>;
   onEditTarget: (item: IScheduleProps) => void;
 }
@@ -16,7 +15,6 @@ export const SwipeContent = ({
   data,
   onDeleteTarget,
   onEditTarget,
-  selectedDay,
 }: ISwipeContentProps) => {
   const { deleteRow } = useSwipeList({
     listData: data,
@@ -26,7 +24,7 @@ export const SwipeContent = ({
 
   const renderItem = ({ item, index }: any) => (
     <S.Container key={index}>
-      <ScheduleCard schedule={item} selectedDay={selectedDay} />
+      <ScheduleCard schedule={item} />
     </S.Container>
   );
 
