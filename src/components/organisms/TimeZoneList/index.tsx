@@ -45,7 +45,7 @@ export function TimeZoneList({
     );
   };
   return (
-     <View width="100%" flex={1} backgroundColor="#fff">
+     <View width="100%" flex={1} backgroundColor="$background">
         {cardState.length > 0 && (
             <SwipeListView
             disableRightSwipe

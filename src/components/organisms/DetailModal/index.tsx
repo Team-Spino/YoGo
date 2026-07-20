@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
-import { View, Text } from '@tamagui/core';
+import { View, Text, useTheme } from '@tamagui/core';
 import { useTimeZone } from 'hooks';
 import { ModalHeader, ModalTime, ModalMemo } from 'components';
 import { useSelectedDay } from 'context';
@@ -19,6 +19,8 @@ export function DetailModal({
   schedule,
 }: IDetailModalProps) {
   const { selectedDay } = useSelectedDay();
+  // RN TouchableOpacity의 style 객체는 토큰 문자열을 못 받으므로 실제 값을 읽습니다.
+  const theme = useTheme();
 
   const {
     TITLE,
@@ -63,7 +65,7 @@ export function DetailModal({
       coverScreen={true}
     >
       <View
-        backgroundColor="rgba(255, 255, 255, 1)"
+        backgroundColor="$background"
         flex={0.5}
         borderRadius={10}
         flexDirection="column"
@@ -86,7 +88,7 @@ export function DetailModal({
             width: '100%',
             height: '15%',
             borderWidth: 2,
-            borderColor: '#e6e6e6',
+            borderColor: theme.borderColor.val,
             justifyContent: 'center',
             alignItems: 'center',
             borderBottomRightRadius: 10,

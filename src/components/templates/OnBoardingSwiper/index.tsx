@@ -16,8 +16,10 @@ import {
 } from 'assets';
 import { FirstLaunchContext } from 'context';
 import { IOnBoadingSlide } from 'types';
+import { useTheme } from '@tamagui/core';
 
 export function OnBoardingSwiper() {
+  const theme = useTheme();
   const { checkFirstLaunch } = useContext(FirstLaunchContext);
   const [isStartOrEnd, setIsStartOrEnd] = useState(true);
   const swiperRef = useRef<Swiper>(null);
@@ -128,7 +130,7 @@ export function OnBoardingSwiper() {
       showsButtons={false}
       dotStyle={isStartOrEnd ? styles.disableDot : styles.dot}
       activeDotStyle={isStartOrEnd ? styles.disableDot : styles.dot}
-      activeDotColor={'#ffffff'}
+      activeDotColor={theme.onAccent.val}
       loop={false}
       onIndexChanged={checkStartOrEnd}
       ref={swiperRef}

@@ -10,11 +10,12 @@ import {
 import { IconSearch } from 'assets';
 import { RootStackParamList } from 'types';
 import { useTimezones } from 'hooks';
-import { View } from '@tamagui/core';
+import { View, useTheme } from '@tamagui/core';
 
 type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
 
 export function TimeZone({ navigation }: { navigation: Prop }) {
+  const theme = useTheme();
   const { timezones, addTimezone, removeTimezone } = useTimezones();
 
   const [modalVisible, setModalVisible] = useState<boolean>(false);
@@ -30,7 +31,7 @@ export function TimeZone({ navigation }: { navigation: Prop }) {
 
   return (
     <>
-      <View backgroundColor="#fff" flex={1}>
+      <View backgroundColor="$background" flex={1}>
         <TimeZoneList
           cardState={timezones}
           onDeleteTarget={removeTimezone}
@@ -47,7 +48,7 @@ export function TimeZone({ navigation }: { navigation: Prop }) {
         />
       </View>
       <FloatingButton onPress={() => setModalVisible(true)}>
-        <IconSearch color="white" />
+        <IconSearch color={theme.onAccent.val} />
       </FloatingButton>
     </>
   );

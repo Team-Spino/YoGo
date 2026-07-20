@@ -1,9 +1,10 @@
 import React from 'react';
 import { Pressable } from 'react-native';
-import { View } from '@tamagui/core';
+import { View, useTheme } from '@tamagui/core';
 import { IconPlus } from 'assets';
 
 export function HeaderRightButton({ onPress }: { onPress: () => void }) {
+  const theme = useTheme();
   return (
     <View overflow="hidden">
       <Pressable onPress={onPress}>
@@ -15,7 +16,7 @@ export function HeaderRightButton({ onPress }: { onPress: () => void }) {
             justifyContent="center"
             opacity={pressed ? 0.3 : 1}
           >
-            <IconPlus color="#231F20" />
+            <IconPlus color={theme.color.val} />
           </View>
         )}
       </Pressable>

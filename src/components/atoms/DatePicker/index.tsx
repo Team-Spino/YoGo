@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
+import { useTheme } from '@tamagui/core';
 import DateTimePicker, {
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
@@ -10,6 +11,7 @@ interface IDatePickerProps {
 }
 
 export function DatePicker({ date, onChangeDate }: IDatePickerProps) {
+  const theme = useTheme();
   const minimumDate = new Date();
 
   // display="inline"(iOS UICalendarView)은 value가 유효하지 않거나 minimumDate보다
@@ -27,7 +29,7 @@ export function DatePicker({ date, onChangeDate }: IDatePickerProps) {
         mode={'datetime'}
         onChange={onChangeDate}
         display="inline"
-        accentColor="#6564CC"
+        accentColor={theme.accent.val}
         locale="EN"
         themeVariant="light"
       />

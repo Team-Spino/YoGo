@@ -25,7 +25,7 @@ export const RenderEdit = ({ item, onPress }: IRenderEditProps) => {
         right: WINDOW_WIDTH * 0.15,
       }}
     >
-      <Text color="#fff">
+      <Text color="$onAccent">
         <IconEdit />
       </Text>
     </TouchableOpacity>

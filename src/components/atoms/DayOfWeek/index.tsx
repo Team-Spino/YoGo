@@ -11,10 +11,10 @@ export function DayOfWeek({ isEnable, selectedDay }: IDayOfWeekProps) {
 
   const handleDateColor = ({ day }: { day: string }): string => {
     if (!isEnable) {
-      return 'rgba(0, 0, 0, 0.1)';
+      return '$borderColor';
     }
 
-    return selectedDay.includes(day) ? ' #6564CC' : 'rgba(0, 0, 0, 0.1)';
+    return selectedDay.includes(day) ? '$accent' : '$borderColor';
   };
 
   return (

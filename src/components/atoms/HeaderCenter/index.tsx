@@ -10,7 +10,7 @@ export function HeaderCenter({ text, size }: IHeaderCenterProps) {
   return (
     <View width="100%">
       <Text
-        color="black"
+        color="$color"
         fontSize={size}
         fontWeight="bold"
         marginTop={30}

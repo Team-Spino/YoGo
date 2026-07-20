@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, TouchableWithoutFeedback, Animated } from 'react-native';
-import { View } from '@tamagui/core';
+import { View, useTheme } from '@tamagui/core';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import dayjs from 'dayjs';
 import { ResultSheet, SearchSheet } from 'components';
@@ -19,6 +19,7 @@ export const BottomSheet = ({
   setModalVisible,
   navigation,
 }: ISearchBSProps) => {
+  const theme = useTheme();
   const [result, setResult] = useState<boolean>(false);
   const [submitObject, setSubmitObject] = useState<IMakeProps>({
     TARGET_CITY: '',
@@ -76,7 +77,7 @@ export const BottomSheet = ({
             height: screenHeight * 0.95,
             justifyContent: 'flex-start',
             alignItems: 'center',
-            backgroundColor: result ? '#6564CC' : '#FCFCFC',
+            backgroundColor: result ? theme.accent.val : theme.background.val,
             borderTopLeftRadius: 10,
             borderTopRightRadius: 10,
             paddingTop: 10,

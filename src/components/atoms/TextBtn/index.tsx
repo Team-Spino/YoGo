@@ -7,7 +7,7 @@ interface ITitleProps {
 
 export function TextBtn({ children }: ITitleProps) {
   return (
-    <Text width="90%" fontSize={28} color="#000000" fontWeight="200">
+    <Text width="90%" fontSize={28} color="$color" fontWeight="200">
       {children}
     </Text>
   );

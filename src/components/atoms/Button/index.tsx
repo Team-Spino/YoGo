@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { Text } from '@tamagui/core';
+import { Text, useTheme } from '@tamagui/core';
 
 interface IButtonProps {
   text: string;
@@ -8,6 +8,8 @@ interface IButtonProps {
 }
 
 export function Button({ text, onPress }: IButtonProps) {
+  const theme = useTheme();
+
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -16,10 +18,10 @@ export function Button({ text, onPress }: IButtonProps) {
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#6564CC',
+        backgroundColor: theme.accent.val,
       }}
     >
-      <Text fontSize={20} color="#fff">
+      <Text fontSize={20} color="$onAccent">
         {text}
       </Text>
     </TouchableOpacity>

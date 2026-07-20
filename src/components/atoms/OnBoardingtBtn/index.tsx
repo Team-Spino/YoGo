@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { Text } from '@tamagui/core';
+import { Text, useTheme } from '@tamagui/core';
 
 interface IOnBoardingtBtnProps {
   text: string;
@@ -9,6 +9,8 @@ interface IOnBoardingtBtnProps {
 }
 
 export function OnBoardingtBtn({ text, onPress, isSkip = false }: IOnBoardingtBtnProps) {
+  const theme = useTheme();
+
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -21,14 +23,14 @@ export function OnBoardingtBtn({ text, onPress, isSkip = false }: IOnBoardingtBt
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 20,
-        backgroundColor: !isSkip ? '#FCFCFC' : '#6564CC',
+        backgroundColor: !isSkip ? theme.background.val : theme.accent.val,
       }}
     >
       <Text
         fontSize={20}
         fontWeight="bold"
         opacity={isSkip ? 0.5 : 1}
-        color={!isSkip ? '#6564CC' : '#FCFCFC'}
+        color={!isSkip ? '$accent' : '$onAccent'}
       >
         {text}
       </Text>

@@ -22,28 +22,28 @@ export const ResultCard = ({
       width="80%"
       height="15%"
       borderWidth={1}
-      borderColor="#6564CC"
+      borderColor="$accent"
       flexDirection="row"
       justifyContent="space-between"
       paddingVertical={0}
       paddingHorizontal={20}
       alignItems="center"
-      backgroundColor="#FCFCFC"
+      backgroundColor="$background"
       marginTop={18}
       borderRadius={5}
     >
       <View
         position="absolute"
-        backgroundColor="#6564CC"
+        backgroundColor="$accent"
         borderRadius={5}
         paddingVertical={2}
         paddingHorizontal={10}
         borderWidth={1}
-        borderColor="#FCFCFC"
+        borderColor="$background"
         top="-15%"
         left="2%"
       >
-        <Text color="#FCFCFC">{cardHeader}</Text>
+        <Text color="$onAccent">{cardHeader}</Text>
       </View>
       <LocationOfTZ
         timeDifference={city}

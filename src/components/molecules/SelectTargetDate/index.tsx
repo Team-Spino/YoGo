@@ -19,7 +19,7 @@ export function SelectTargetDate({ onChangeDate, date }: IBTargetDateProps) {
       marginTop={15}
       width="100%"
       flex={1}
-      borderBottomColor="rgba(0, 0, 0, 0.1)"
+      borderBottomColor="$borderColor"
       borderBottomWidth={1}
       paddingHorizontal={20}
       paddingTop={0}

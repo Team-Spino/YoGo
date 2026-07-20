@@ -17,7 +17,7 @@ export function TagSelectContainer({
       width="100%"
       paddingVertical={15}
       paddingHorizontal={20}
-      borderBottomColor="rgba(0, 0, 0, 0.1)"
+      borderBottomColor="$borderColor"
       borderBottomWidth={1}
     >
       <Title isEnable={true} text={'Select Color Tag'} size={15} />

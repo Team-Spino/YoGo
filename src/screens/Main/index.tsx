@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useTheme } from '@tamagui/core';
 import { Home, TimeZone } from 'components';
 import { useNotification } from 'hooks';
 import { IconHome, IconTimeZone } from 'assets';
@@ -10,6 +11,7 @@ const Tab = createBottomTabNavigator();
 export function Main() {
   const { handleNotificationPermission, handleNotificationBadge } =
     useNotification();
+  const theme = useTheme();
 
   useEffect(() => {
     if (Platform.OS !== 'ios') return;
@@ -21,7 +23,7 @@ export function Main() {
 
   return (
     <Tab.Navigator initialRouteName="Home" screenOptions={{
-      tabBarActiveTintColor: '#6564CC',
+      tabBarActiveTintColor: theme.accent.val,
     }}>
       <Tab.Screen
         name="Home"
@@ -29,7 +31,7 @@ export function Main() {
         options={{
           title: 'Home',
           tabBarIcon: ({ color }) => <IconHome color={color} />,
-          tabBarActiveTintColor: '#6564CC',
+          tabBarActiveTintColor: theme.accent.val,
           tabBarLabelStyle: {
             fontSize: 12,
             fontWeight: 'bold',
@@ -42,7 +44,7 @@ export function Main() {
         options={{
           title: 'TimeZone',
           tabBarIcon: ({ color }) => <IconTimeZone color={color} />,
-          tabBarActiveTintColor: '#6564CC',
+          tabBarActiveTintColor: theme.accent.val,
           tabBarLabelStyle: {
             fontSize: 12,
             fontWeight: 'bold',

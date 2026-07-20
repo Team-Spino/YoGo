@@ -15,7 +15,7 @@ export const HiddenEditAndDelete = ({
   onPressEdit,
 }: IProps) => {
   return (
-    <View alignItems="center" backgroundColor="#EEEEEE" flex={1}>
+    <View alignItems="center" backgroundColor="$backgroundStrong" flex={1}>
       <RenderDelete item={item} onPress={onPressDelete} />
       <RenderEdit item={item} onPress={onPressEdit} />
     </View>

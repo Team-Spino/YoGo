@@ -19,7 +19,7 @@ export function BottomSheetHeader({
       marginBottom={5}
       alignItems="center"
       justifyContent="center"
-      color={isWhite ? '#fff' : '#000'}
+      color={isWhite ? '$onAccent' : '$color'}
     >
       {text}
     </Text>

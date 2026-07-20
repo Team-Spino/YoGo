@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Dimensions } from 'react-native';
-import { View } from '@tamagui/core';
+import { View, useTheme } from '@tamagui/core';
 import { CalendarProvider, ExpandableCalendar } from 'react-native-calendars';
 import { RenderEmptyData, SwipeContent, TagFilterContainer } from 'components';
 import { IScheduleProps, ITagFilter } from 'types';
@@ -29,6 +29,9 @@ export function AgendaBox({
   const [selectedTag, setSelectedTag] =
     useState<Array<ITagFilter>>(TAG_FILTER_COLOR);
   const [isExpand, setIsExpand] = useState<boolean>(false);
+  // react-native-calendars의 theme prop은 RN 객체라 토큰 문자열을 못 받으므로
+  // useTheme으로 실제 값을 읽어 넣습니다.
+  const theme = useTheme();
 
   const [filteredSchedule, setFilteredSchedule] = useState<
     Array<IScheduleProps>
@@ -73,10 +76,17 @@ export function AgendaBox({
           pastScrollRange={1}
           futureScrollRange={12}
           theme={{
-            dotColor: '#6564CC',
-            selectedDotColor: '#ffffff',
-            selectedDayBackgroundColor: '#6564CC',
-            todayTextColor: '#6564CC',
+            calendarBackground: theme.background.val,
+            backgroundColor: theme.background.val,
+            dayTextColor: theme.color.val,
+            monthTextColor: theme.color.val,
+            textSectionTitleColor: theme.colorSubtle.val,
+            textDisabledColor: theme.colorMuted.val,
+            dotColor: theme.accent.val,
+            selectedDotColor: theme.onAccent.val,
+            selectedDayBackgroundColor: theme.accent.val,
+            selectedDayTextColor: theme.onAccent.val,
+            todayTextColor: theme.accent.val,
           }}
           onDayPress={day =>  onDayPress(day.dateString)}
           firstDay={1}

@@ -14,7 +14,7 @@ interface IModalTimeProps {
 export function ModalTime({ timeData, leftTime }: IModalTimeProps) {
   return (
     <View
-      borderBottomColor="#e6e6e6"
+      borderBottomColor="$borderColor"
       borderBottomWidth={2}
       flexDirection="column"
       justifyContent="center"
@@ -23,7 +23,7 @@ export function ModalTime({ timeData, leftTime }: IModalTimeProps) {
       paddingHorizontal={10}
     >
       <ModalTimeInfo timeData={timeData} />
-      <Text marginTop={7} color="#6564cc">
+      <Text marginTop={7} color="$accent">
         {leftTime}
       </Text>
     </View>

@@ -5,11 +5,12 @@ import { IconPlus } from 'assets';
 import { RootStackParamList, IScheduleProps } from 'types';
 import { useSchedules } from 'hooks';
 import { useSelectedDay } from 'context';
-import { View } from '@tamagui/core';
+import { View, useTheme } from '@tamagui/core';
 
 type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
 
 export function Home({ navigation }: { navigation: Prop }) {
+  const theme = useTheme();
   const { selectedDay, setSelectedDay } = useSelectedDay();
 
   const { schedules, markedDates, removeSchedule } = useSchedules(selectedDay);
@@ -23,7 +24,7 @@ export function Home({ navigation }: { navigation: Prop }) {
   };
 
   return (
-    <View width="100%" height="100%" backgroundColor="#fff">
+    <View width="100%" height="100%" backgroundColor="$background">
       <AgendaBox
         schedules={schedules}
         selectedDay={selectedDay}
@@ -33,7 +34,7 @@ export function Home({ navigation }: { navigation: Prop }) {
         onEditTarget={onEditTarget}
       />
       <FloatingButton onPress={onAddPress}>
-        <IconPlus color="#fff" />
+        <IconPlus color={theme.onAccent.val} />
       </FloatingButton>
     </View>
   );

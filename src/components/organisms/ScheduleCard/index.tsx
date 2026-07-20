@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Platform, Pressable } from 'react-native';
-import { View } from '@tamagui/core';
+import { View, useTheme } from '@tamagui/core';
 import { Portal } from '@gorhom/portal';
 import {
   ScheduleCardHeader,
@@ -36,6 +36,8 @@ export const ScheduleCard = React.memo(function ScheduleCard({
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isEnable, setIsEnable] = useState<boolean>(IS_ACTIVE ? true : false);
   const { handleScheduleToggle } = useNotification();
+  // RN Pressable의 style 객체는 토큰 문자열을 못 받으므로 실제 값을 읽습니다.
+  const theme = useTheme();
 
   const onTogglePress = async () => {
     await setScheduleActive(key, isEnable ? 0 : 1);
@@ -67,8 +69,8 @@ export const ScheduleCard = React.memo(function ScheduleCard({
         onPress={onShowDetailPress}
         style={{
           flexShrink: 1,
-          backgroundColor: '#ffffff',
-          borderBottomColor: '#eee',
+          backgroundColor: theme.background.val,
+          borderBottomColor: theme.backgroundStrong.val,
           borderBottomWidth: 1,
           paddingVertical: 5,
           paddingHorizontal: 8.2,

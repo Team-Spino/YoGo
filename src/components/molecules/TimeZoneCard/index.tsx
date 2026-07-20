@@ -14,12 +14,12 @@ export const TimeZoneCard = ({ location }: { location: string }) => {
     <View
       width="100%"
       height="100%"
-      backgroundColor="#fff"
+      backgroundColor="$background"
       flexDirection="row"
       justifyContent="space-between"
       alignItems="center"
       flexShrink={1}
-      borderBottomColor="#eee"
+      borderBottomColor="$borderColor"
       borderBottomWidth={1}
       paddingHorizontal={15}
     >

@@ -4,6 +4,7 @@ import {
   NativeSyntheticEvent,
   TextInputChangeEventData,
 } from 'react-native';
+import { useTheme } from '@tamagui/core';
 
 interface ITextInputProps {
   placeholder: string;
@@ -20,6 +21,8 @@ export function TextInput({
   setValue,
   isTitleInputValid,
 }: ITextInputProps) {
+  const theme = useTheme();
+
   return (
     <RNTextInput
       value={value}
@@ -33,7 +36,8 @@ export function TextInput({
         fontWeight: '500',
         paddingVertical: 13,
         paddingHorizontal: 15,
-        borderBottomColor: 'rgba(0, 0, 0, 0.1)',
+        color: theme.color.val,
+        borderBottomColor: theme.borderColor.val,
         borderBottomWidth: 1,
         ...(!isTitleInputValid
           ? {

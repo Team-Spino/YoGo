@@ -31,7 +31,7 @@ export const FloatingButton = ({ children, onPress }: IFloatingButtonProps) => {
         borderRadius={28}
         alignItems="center"
         justifyContent="center"
-        backgroundColor="#6564CC"
+        backgroundColor="$accent"
       >
         {children}
       </View>

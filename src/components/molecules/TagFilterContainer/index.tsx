@@ -9,7 +9,7 @@ export function TagFilterContainer({ tags, onTagPress }: ITagFilterProps) {
     <View
       width="95%"
       height={30}
-      backgroundColor="#fcfcfc"
+      backgroundColor="$background"
       marginVertical={20}
       marginHorizontal={10}
       justifyContent="space-evenly"

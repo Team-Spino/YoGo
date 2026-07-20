@@ -1,24 +1,38 @@
 import { createTamagui, createTokens, createFont } from '@tamagui/core';
 
 /**
- * Phase 3 디자인 시스템 토큰.
+ * Phase 4 디자인 시스템 — Refined Violet + 시스템 연동 다크 모드.
  *
- * 구조는 최신화하되(제대로 된 스케일 + light/dark 테마), 값은 지금 화면과
- * 똑같게 맞춰 둡니다. 새 비주얼 값은 Phase 4에서 이 파일만 바꾸면 됩니다.
- * 색/간격은 현재 컴포넌트에 하드코딩돼 있던 값들을 그대로 담았습니다.
+ * 색은 컴포넌트에서 테마 토큰(`$background`, `$color`, `$accent` …)으로만
+ * 참조합니다. 그래야 다크 모드에서 값이 자동으로 뒤집힙니다. 브랜드 보라는
+ * 기존 #6564CC를 세련되게 승격한 #6D5DF6입니다. 태그(카테고리) 색은 의미 색이라
+ * 테마와 무관하게 리터럴로 둡니다(TAG_COLOR).
  */
 const tokens = createTokens({
   color: {
-    white: '#FCFCFC',
-    lightGray: '#EEEEEE',
-    border: '#E6E6E6',
-    gray: '#999999',
-    darkGray: '#555555',
-    black: '#1A1A1A',
-    blue: '#6564CC',
+    // 브랜드
+    violet: '#6D5DF6',
+    violetPress: '#5A4BD8',
+    violetLight: '#9C8FFF',
+    // 라이트 표면/텍스트
+    white: '#FFFFFF',
+    tint: '#F4F2FF',
+    tintHover: '#EEEBFB',
+    ink: '#1A1730',
+    inkSubtle: '#6B6880',
+    inkMuted: '#A8A6B8',
+    line: '#ECEAF5',
+    lineStrong: '#DAD7EA',
+    // 다크 표면/텍스트
+    night: '#16151F',
+    nightCard: '#211F2E',
+    nightHover: '#2A2838',
+    nightInk: '#F2F1F7',
+    nightInkSubtle: '#A8A6BC',
+    nightLine: '#2A2838',
+    nightLineStrong: '#3A3750',
     transparent: 'transparent',
   },
-  // 4pt 기반. 현재 코드에 흔한 8/10/12/16/20/24를 포함합니다.
   space: {
     0: 0,
     1: 4,
@@ -54,9 +68,10 @@ const tokens = createTokens({
     1: 4,
     2: 8,
     3: 12,
-    4: 20,
+    4: 16,
+    5: 20,
     round: 999,
-    true: 8,
+    true: 12,
   },
   zIndex: {
     0: 0,
@@ -100,17 +115,34 @@ const notoSans = createFont({
   },
 });
 
-// light: 현재값 매핑. dark: 구조만(값은 light와 동일하게 시작 — Phase 4에서 실값).
+// 컴포넌트가 참조하는 테마 토큰. 키 집합은 light/dark가 동일해야 합니다.
 const light = {
   background: tokens.color.white,
-  backgroundStrong: tokens.color.lightGray,
-  color: tokens.color.black,
-  colorSubtle: tokens.color.gray,
-  borderColor: tokens.color.border,
-  accent: tokens.color.blue,
+  backgroundStrong: tokens.color.tint,
+  backgroundHover: tokens.color.tintHover,
+  color: tokens.color.ink,
+  colorSubtle: tokens.color.inkSubtle,
+  colorMuted: tokens.color.inkMuted,
+  borderColor: tokens.color.line,
+  borderColorStrong: tokens.color.lineStrong,
+  accent: tokens.color.violet,
+  accentPress: tokens.color.violetPress,
+  onAccent: tokens.color.white,
 };
 
-const dark = { ...light };
+const dark = {
+  background: tokens.color.night,
+  backgroundStrong: tokens.color.nightCard,
+  backgroundHover: tokens.color.nightHover,
+  color: tokens.color.nightInk,
+  colorSubtle: tokens.color.nightInkSubtle,
+  colorMuted: tokens.color.inkSubtle,
+  borderColor: tokens.color.nightLine,
+  borderColorStrong: tokens.color.nightLineStrong,
+  accent: tokens.color.violetLight,
+  accentPress: tokens.color.violet,
+  onAccent: tokens.color.white,
+};
 
 export const config = createTamagui({
   tokens,
@@ -121,8 +153,7 @@ export const config = createTamagui({
   },
   defaultFont: 'body',
   settings: {
-    // color/backgroundColor에 임의의 hex 문자열(동적 값 포함)을 그대로 허용합니다.
-    // Phase 3는 현재값(리터럴 hex)을 유지하므로 토큰 강제는 켜지 않습니다.
+    // color/backgroundColor에 임의의 hex 문자열(태그 색 등)도 그대로 허용합니다.
     fastSchemeChange: true,
   },
 });

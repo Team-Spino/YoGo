@@ -69,7 +69,7 @@ export function SelectTargetCityBtn({
       borderWidth={showError ? 1 : undefined}
       borderColor={showError ? '#FF4949' : undefined}
       borderBottomWidth={1}
-      borderBottomColor={showError ? '#FF4949' : 'rgba(0, 0, 0, 0.1)'}
+      borderBottomColor={showError ? '#FF4949' : '$borderColor'}
     >
       <Title
         isEnable={true}

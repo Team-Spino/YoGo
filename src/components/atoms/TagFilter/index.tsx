@@ -1,9 +1,11 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
+import { useTheme } from '@tamagui/core';
 import { ITagFilterProps, ITagFilter } from 'types';
 
 export function TagFilter({ tag, onTagPress }: ITagFilterProps) {
   const { key, color, isSelected } = tag as ITagFilter;
+  const theme = useTheme();
 
   return (
     <TouchableOpacity
@@ -14,7 +16,7 @@ export function TagFilter({ tag, onTagPress }: ITagFilterProps) {
         borderRadius: 18,
         backgroundColor: color,
         borderWidth: 3,
-        borderColor: isSelected ? '#6564CC' : 'transparent',
+        borderColor: isSelected ? theme.accent.val : 'transparent',
       }}
     />
   );

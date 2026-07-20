@@ -25,7 +25,7 @@ export const RenderDelete = ({ item, onPress }: IRenderDeleteProps) => {
         right: 0,
       }}
     >
-      <Text color="#fff">
+      <Text color="$onAccent">
         <IconDelete />
       </Text>
     </TouchableOpacity>

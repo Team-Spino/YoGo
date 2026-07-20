@@ -17,7 +17,7 @@ export function ModalHeader({
       alignItems="center"
       paddingVertical={15}
       paddingHorizontal={10}
-      borderBottomColor="#e6e6e6"
+      borderBottomColor="$borderColor"
       borderBottomWidth={2}
     >
       <Tag color={tagColor} />

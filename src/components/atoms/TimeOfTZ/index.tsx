@@ -19,8 +19,10 @@ export const TimeOfTZ = ({ time, meridiem, isResult }: ITimeOfTZProps) => {
       };
   return (
     <View justifyContent="flex-end" flexDirection="row" alignItems="baseline">
-      <Text fontSize={size.time}>{time}</Text>
-      <Text marginLeft={5} fontSize={size.meridiem}>
+      <Text color="$color" fontSize={size.time}>
+        {time}
+      </Text>
+      <Text color="$color" marginLeft={5} fontSize={size.meridiem}>
         {meridiem}
       </Text>
     </View>

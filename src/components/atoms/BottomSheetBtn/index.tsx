@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { Text } from '@tamagui/core';
+import { Text, useTheme } from '@tamagui/core';
 
 interface IBottomSheetBtnProps {
   text: string;
@@ -13,6 +13,8 @@ export function BottomSheetBtn({
   onPress,
   isRevers = false,
 }: IBottomSheetBtnProps) {
+  const theme = useTheme();
+
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -24,14 +26,14 @@ export function BottomSheetBtn({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 5,
-        backgroundColor: isRevers ? '#FCFCFC' : '#6564CC',
+        backgroundColor: isRevers ? theme.background.val : theme.accent.val,
         zIndex: 9999,
       }}
     >
       <Text
         fontSize={20}
         fontWeight="bold"
-        color={isRevers ? '#6564CC' : '#FCFCFC'}
+        color={isRevers ? '$accent' : '$onAccent'}
       >
         {text}
       </Text>

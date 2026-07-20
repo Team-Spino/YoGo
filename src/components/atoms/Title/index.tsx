@@ -10,7 +10,7 @@ interface ITitleProps {
 export function Title({ isEnable, text, size }: ITitleProps) {
   return (
     <Text
-      color={isEnable ? '#000000' : '#999999'}
+      color={isEnable ? '$color' : '$colorSubtle'}
       fontSize={size}
       fontWeight="bold"
     >

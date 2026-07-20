@@ -38,7 +38,7 @@ export const LocationOfTZ = ({
         flexDirection="column"
         paddingLeft={10}
       >
-        <Text flexShrink={1} fontSize={headerSize} color="#6564CC">
+        <Text flexShrink={1} fontSize={headerSize} color="$accent">
           {formatCityName(timeDifference)}
         </Text>
         <Text fontSize={22}>{formatCityName(city)}</Text>
