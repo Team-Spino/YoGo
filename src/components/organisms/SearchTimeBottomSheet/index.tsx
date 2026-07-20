@@ -1,9 +1,9 @@
 import React from 'react';
-import { Modal, TouchableWithoutFeedback } from 'react-native';
+import { Animated, Modal, TouchableWithoutFeedback } from 'react-native';
+import { View } from '@tamagui/core';
 import { SearchTarget } from 'components';
 import { IconBottomSheetBar } from 'assets';
 import { useBottomSheet, useCitySearch } from 'hooks';
-import * as S from './style';
 
 interface ISearchBSProps {
   modalVisible: boolean;
@@ -38,20 +38,32 @@ export const SearchTimeBottomSheet = ({
       transparent
       statusBarTranslucent
     >
-      <S.Overlay>
+      <View
+        flex={1}
+        justifyContent="flex-end"
+        backgroundColor="rgba(0, 0, 0, 0.4)"
+      >
         <TouchableWithoutFeedback onPress={closeBottomSheet}>
-          <S.Background />
+          <View flex={1} />
         </TouchableWithoutFeedback>
 
-        <S.Container
-          height={screenHeight}
-          style={{ transform: [{ translateY: translateY }] }}
+        <Animated.View
+          style={{
+            height: screenHeight * 0.95,
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            backgroundColor: '#fff',
+            borderTopLeftRadius: 10,
+            borderTopRightRadius: 10,
+            paddingTop: 10,
+            transform: [{ translateY: translateY }],
+          }}
           {...panResponders.panHandlers}
         >
           <IconBottomSheetBar />
           <SearchTarget targetList={targetList} city={city} onChangeCity={onChangeCity} onSubmitCity={onSubmitCity} />
-        </S.Container>
-      </S.Overlay>
+        </Animated.View>
+      </View>
     </Modal>
   );
 };

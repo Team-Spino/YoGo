@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import BootSplash from 'react-native-bootsplash';
-import { ThemeProvider } from 'styled-components/native';
+import { TamaguiProvider } from '@tamagui/core';
 import { PortalProvider } from '@gorhom/portal';
-import { theme } from 'styles/theme';
+import { config } from 'styles/tamagui.config';
 import { FirstLaunchProvider, SelectedDayProvider } from 'context';
 import RootStack from './RootState';
 
@@ -15,15 +15,15 @@ function App() {
   }, []);
 
   return (
-    <FirstLaunchProvider>
-      <SelectedDayProvider>
-        <PortalProvider>
-          <ThemeProvider theme={theme}>
+    <TamaguiProvider config={config} defaultTheme="light">
+      <FirstLaunchProvider>
+        <SelectedDayProvider>
+          <PortalProvider>
             <RootStack />
-          </ThemeProvider>
-        </PortalProvider>
-      </SelectedDayProvider>
-    </FirstLaunchProvider>
+          </PortalProvider>
+        </SelectedDayProvider>
+      </FirstLaunchProvider>
+    </TamaguiProvider>
   );
 }
 

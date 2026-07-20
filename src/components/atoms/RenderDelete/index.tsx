@@ -1,7 +1,9 @@
 import React from 'react';
-import { ICityProps, IScheduleProps} from 'types';
+import { TouchableOpacity } from 'react-native';
+import { Text } from '@tamagui/core';
+import { ICityProps, IScheduleProps } from 'types';
 import { IconDelete } from 'assets';
-import * as S from './style';
+import { WINDOW_WIDTH } from 'styles';
 
 interface IRenderDeleteProps {
   item: ICityProps | IScheduleProps;
@@ -10,9 +12,22 @@ interface IRenderDeleteProps {
 
 export const RenderDelete = ({ item, onPress }: IRenderDeleteProps) => {
   return (
-    <S.RenderRightButton onPress={() => onPress(item.key)}
+    <TouchableOpacity
+      onPress={() => onPress(item.key)}
+      style={{
+        width: WINDOW_WIDTH * 0.15,
+        alignItems: 'center',
+        backgroundColor: '#EB5545',
+        justifyContent: 'center',
+        position: 'absolute',
+        bottom: 0,
+        top: 0,
+        right: 0,
+      }}
     >
-        <S.RenderRightButtonText><IconDelete /></S.RenderRightButtonText>
-        </S.RenderRightButton>
+      <Text color="#fff">
+        <IconDelete />
+      </Text>
+    </TouchableOpacity>
   );
 };

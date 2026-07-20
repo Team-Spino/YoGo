@@ -8,7 +8,7 @@
       "screens/*": ["screens/*"],
       "assets/*": ["assets/*"]
     },
-    "types": ["jest", "styled-components-react-native"],
+    "types": ["jest"],
     "strict": true,
     "skipLibCheck": true,
     "useUnknownInCatchVariables": false

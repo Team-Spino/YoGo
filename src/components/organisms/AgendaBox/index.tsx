@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { Dimensions } from 'react-native';
+import { View } from '@tamagui/core';
 import { CalendarProvider, ExpandableCalendar } from 'react-native-calendars';
 import { RenderEmptyData, SwipeContent, TagFilterContainer } from 'components';
 import { IScheduleProps, ITagFilter } from 'types';
 import { TAG_FILTER_COLOR } from 'utils';
-import * as S from './style';
 import dayjs from 'dayjs';
+
+const windowHeight = Dimensions.get('window').height;
 
 interface IAgendaProps {
   schedules: Array<IScheduleProps>;
@@ -79,7 +82,7 @@ export function AgendaBox({
           firstDay={1}
           markedDates={{...markedDates}}
         />
-        <S.Content>
+        <View top={-(windowHeight * 0.06)} width="100%" height={windowHeight * 0.68}>
         <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
         {schedules.length === 0 && (
           <RenderEmptyData text={'No Schedule'} />
@@ -91,7 +94,7 @@ export function AgendaBox({
                 onEditTarget={onEditTarget}
               />
         )}
-        </S.Content>
+        </View>
       </CalendarProvider>
   );
 }

@@ -1,10 +1,10 @@
 import React from 'react';
 import { SwipeListView } from 'react-native-swipe-list-view';
+import { View } from '@tamagui/core';
 import { HiddenEditAndDelete, ScheduleCard } from 'components';
 import { useSwipeList } from 'hooks';
 import { IScheduleProps } from 'types';
 import { WINDOW_WIDTH } from 'styles';
-import * as S from './style';
 
 interface ISwipeContentProps {
   data: IScheduleProps[];
@@ -23,9 +23,9 @@ export const SwipeContent = ({
   });
 
   const renderItem = ({ item, index }: any) => (
-    <S.Container key={index}>
+    <View key={index} width="100%" height={110}>
       <ScheduleCard schedule={item} />
-    </S.Container>
+    </View>
   );
 
   return (

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Modal, TouchableWithoutFeedback } from 'react-native';
+import { Modal, TouchableWithoutFeedback, Animated } from 'react-native';
+import { View } from '@tamagui/core';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import dayjs from 'dayjs';
 import { ResultSheet, SearchSheet } from 'components';
 import { IconBottomSheetBar } from 'assets';
 import { useBottomSheet } from 'hooks';
 import { IMakeProps, RootStackParamList } from 'types';
-import * as S from './style';
 
 interface ISearchBSProps {
   modalVisible: boolean;
@@ -62,15 +62,26 @@ export const BottomSheet = ({
       transparent
       statusBarTranslucent
     >
-      <S.Overlay>
+      <View
+        flex={1}
+        justifyContent="flex-end"
+        backgroundColor="rgba(0, 0, 0, 0.4)"
+      >
         <TouchableWithoutFeedback onPress={closeBottomSheet}>
-          <S.Background />
+          <View flex={1} />
         </TouchableWithoutFeedback>
 
-        <S.Container
-          height={screenHeight}
-          isResult={result}
-          style={{ transform: [{ translateY: translateY }] }}
+        <Animated.View
+          style={{
+            height: screenHeight * 0.95,
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            backgroundColor: result ? '#6564CC' : '#FCFCFC',
+            borderTopLeftRadius: 10,
+            borderTopRightRadius: 10,
+            paddingTop: 10,
+            transform: [{ translateY: translateY }],
+          }}
           {...panResponders.panHandlers}
         >
           <IconBottomSheetBar />
@@ -81,8 +92,8 @@ export const BottomSheet = ({
               submitObject={submitObject}
             />
           )}
-        </S.Container>
-      </S.Overlay>
+        </Animated.View>
+      </View>
     </Modal>
   );
 };

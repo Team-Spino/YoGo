@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Platform } from 'react-native';
+import { Platform, Pressable } from 'react-native';
+import { View } from '@tamagui/core';
 import { Portal } from '@gorhom/portal';
 import {
   ScheduleCardHeader,
@@ -10,7 +11,6 @@ import {
 import { setScheduleActive } from 'db';
 import { useNotification } from 'hooks';
 import { IScheduleProps } from 'types';
-import * as S from './style';
 
 interface IScheduleCardProps {
   schedule: IScheduleProps;
@@ -63,8 +63,24 @@ export const ScheduleCard = React.memo(function ScheduleCard({
 
   return (
     <>
-      <S.Container onPress={onShowDetailPress}>
-        <S.Wrapper>
+      <Pressable
+        onPress={onShowDetailPress}
+        style={{
+          flexShrink: 1,
+          backgroundColor: '#ffffff',
+          borderBottomColor: '#eee',
+          borderBottomWidth: 1,
+          paddingVertical: 5,
+          paddingHorizontal: 8.2,
+        }}
+      >
+        <View
+          width="100%"
+          height="100%"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="flex-start"
+        >
           <ScheduleCardHeader
             isEnable={isEnable}
             title={TITLE}
@@ -80,8 +96,8 @@ export const ScheduleCard = React.memo(function ScheduleCard({
             isEnable={isEnable}
             selectedDay={JSON.parse(DAY_OF_WEEK)}
           />
-        </S.Wrapper>
-      </S.Container>
+        </View>
+      </Pressable>
       <Portal>
         <DetailModal
           isVisible={isVisible}

@@ -1,5 +1,5 @@
 import React from 'react';
-import * as S from './style';
+import { View, Text } from '@tamagui/core';
 
 interface IDayOfWeekProps {
   isEnable: boolean;
@@ -18,12 +18,12 @@ export function DayOfWeek({ isEnable, selectedDay }: IDayOfWeekProps) {
   };
 
   return (
-    <S.Container>
+    <View flexDirection="row" marginLeft={21}>
       {DAY_OF_WEEK.map(day => (
-        <S.Text key={day} color={handleDateColor({ day })}>
+        <Text key={day} color={handleDateColor({ day })} marginRight={5}>
           {day.substring(0, 1)}
-        </S.Text>
+        </Text>
       ))}
-    </S.Container>
+    </View>
   );
 }

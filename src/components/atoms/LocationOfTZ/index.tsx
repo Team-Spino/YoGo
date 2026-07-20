@@ -1,7 +1,7 @@
 import React from 'react';
+import { View, Text } from '@tamagui/core';
 import { formatCityName } from 'utils';
 import { IconMoon, IconSun } from 'assets';
-import * as S from './style';
 
 interface ILocationOfTZProps {
   timeDifference: string;
@@ -29,15 +29,20 @@ export const LocationOfTZ = ({
   const headerSize = isResult ? 18 : 9;
 
   return (
-    <S.leftDiv>
+    <View flexDirection="row" justifyContent="center" alignItems="center">
       {checkSun() && <IconSun />}
       {!checkSun() && <IconMoon />}
-      <S.leftDivContainer>
-        <S.leftDivHeader size={headerSize}>
+      <View
+        alignContent="space-between"
+        justifyContent="flex-start"
+        flexDirection="column"
+        paddingLeft={10}
+      >
+        <Text flexShrink={1} fontSize={headerSize} color="#6564CC">
           {formatCityName(timeDifference)}
-        </S.leftDivHeader>
-        <S.leftDivContent size={22}>{formatCityName(city)}</S.leftDivContent>
-      </S.leftDivContainer>
-    </S.leftDiv>
+        </Text>
+        <Text fontSize={22}>{formatCityName(city)}</Text>
+      </View>
+    </View>
   );
 };

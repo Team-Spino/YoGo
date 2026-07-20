@@ -1,8 +1,8 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import DateTimePicker, {
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
-import * as S from './style';
 
 interface IDatePickerProps {
   date: Date;
@@ -11,18 +11,18 @@ interface IDatePickerProps {
 
 export function DatePicker({ date, onChangeDate }: IDatePickerProps) {
   return (
-    <S.Container>
+    <TouchableOpacity style={{ width: '100%' }}>
       <DateTimePicker
         testID="dateTimePicker"
         value={date}
         minimumDate={new Date()}
         mode={'datetime'}
-        onChange={onChangeDate} 
+        onChange={onChangeDate}
         display="inline"
         accentColor="#6564CC"
         locale="EN"
         themeVariant="light"
       />
-    </S.Container>
+    </TouchableOpacity>
   );
 }

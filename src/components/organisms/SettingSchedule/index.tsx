@@ -1,4 +1,6 @@
 import React from 'react';
+import { ScrollView } from 'react-native';
+import { View } from '@tamagui/core';
 import {
   TextInput,
   SearchTarget,
@@ -9,7 +11,6 @@ import {
 } from 'components';
 import { IHandelScheduleProps } from 'types';
 import { useScheduleForm } from 'hooks';
-import * as S from './style';
 
 export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
   const { title, item } = route.params;
@@ -45,8 +46,14 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
 
   return (
     <>
-      <S.Container>
-        <S.Wrapper>
+      <ScrollView style={{ width: '100%', flex: 1 }}>
+        <View
+          width="100%"
+          flex={1}
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+        >
           {!isCityPickerOpen && (
             <>
               <TextInput
@@ -79,8 +86,8 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
             </>
           )}
           <Button text="Submit" onPress={onPressSubmit} />
-        </S.Wrapper>
-      </S.Container>
+        </View>
+      </ScrollView>
       {isCityPickerOpen && (
         <SearchTarget
           targetList={targetList}

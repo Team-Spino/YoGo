@@ -36,6 +36,10 @@ module.exports = {
     // 서드파티 콜백처럼 any가 불가피한 자리가 남아 있습니다. 갚아야 할
     // 빚으로 보이도록 경고로 둡니다(업그레이드 이전 동작과 동일).
     '@typescript-eslint/no-explicit-any': 'warn',
+    // Tamagui는 인라인 props/스타일이 기본 모델입니다. RN 전용 컴포넌트
+    // (TextInput/Touchable 등)에 style 객체를 인라인으로 붙이는 것도 이 방식과
+    // 일관되므로, 이 규칙은 끕니다.
+    'react-native/no-inline-styles': 'off',
   },
   overrides: [
     {

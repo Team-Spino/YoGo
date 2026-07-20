@@ -1,7 +1,7 @@
 import React from 'react';
+import { View } from '@tamagui/core';
 import { RenderDelete, RenderEdit } from 'components';
 import { IScheduleProps } from 'types';
-import * as S from './style';
 
 interface IProps {
   item: IScheduleProps;
@@ -15,9 +15,9 @@ export const HiddenEditAndDelete = ({
   onPressEdit,
 }: IProps) => {
   return (
-    <S.Container>
+    <View alignItems="center" backgroundColor="#EEEEEE" flex={1}>
       <RenderDelete item={item} onPress={onPressDelete} />
       <RenderEdit item={item} onPress={onPressEdit} />
-    </S.Container>
+    </View>
   );
 };

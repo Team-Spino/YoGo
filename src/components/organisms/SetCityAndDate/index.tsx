@@ -1,7 +1,7 @@
 import React from 'react';
+import { View } from '@tamagui/core';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { SelectTargetCityBtn, SelectTargetDate } from 'components';
-import * as S from './style';
 
 interface ISetCityAndDateProps {
   city: string;
@@ -21,7 +21,13 @@ export function SetCityAndDate({
   onPressSearchTargetCity,
 }: ISetCityAndDateProps) {
   return (
-    <S.Container>
+    <View
+      width="100%"
+      flex={1}
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+    >
       <SelectTargetCityBtn
         onPress={() => onPressSearchTargetCity()}
         city={city}
@@ -30,6 +36,6 @@ export function SetCityAndDate({
         isCityInputValid={isCityInputValid}
       />
       <SelectTargetDate onChangeDate={onChangeDate} date={date} />
-    </S.Container>
+    </View>
   );
 }

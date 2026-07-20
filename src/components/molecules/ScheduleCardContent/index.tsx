@@ -1,8 +1,8 @@
 import React from 'react';
+import { View } from '@tamagui/core';
 import { Title, ToggleBtn, SubTitle } from 'components';
 import { ITargetProps, ICurProps } from 'types';
 import { parseCity, formatCityName, toFormat12Hour } from 'utils';
-import * as S from './style';
 
 interface IScheduleCardContentProps {
   isEnable: boolean;
@@ -21,7 +21,16 @@ export function ScheduleCardContent({
   const { CUR_DAY, CUR_TIME } = cur;
 
   return (
-    <S.Container>
+    <View
+      width="93%"
+      justifyContent="space-between"
+      alignItems="center"
+      flexDirection="row"
+      marginTop={5}
+      marginRight={0}
+      marginBottom={5}
+      marginLeft={21}
+    >
       <SubTitle
         isEnable={isEnable}
         text={`${formatCityName(
@@ -33,7 +42,7 @@ export function ScheduleCardContent({
           time: TARGET_TIME,
         })}`}
       />
-      <S.Wrapper>
+      <View justifyContent="center" alignItems="center" flexDirection="row">
         <Title
           isEnable={isEnable}
           text={toFormat12Hour({
@@ -43,7 +52,7 @@ export function ScheduleCardContent({
           size={20}
         />
         <ToggleBtn isEnable={isEnable} onTogglePress={onTogglePress} />
-      </S.Wrapper>
-    </S.Container>
+      </View>
+    </View>
   );
 }

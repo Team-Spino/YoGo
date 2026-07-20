@@ -1,6 +1,6 @@
 import React from 'react';
+import { View, Text } from '@tamagui/core';
 import { TimeOfTZ, LocationOfTZ } from 'components';
-import * as S from './style';
 
 interface IResultCardProps {
   cardHeader: string;
@@ -18,10 +18,33 @@ export const ResultCard = ({
   meridiem,
 }: IResultCardProps) => {
   return (
-    <S.Container>
-      <S.CardHeaderBox>
-        <S.CardHeaderText>{cardHeader}</S.CardHeaderText>
-      </S.CardHeaderBox>
+    <View
+      width="80%"
+      height="15%"
+      borderWidth={1}
+      borderColor="#6564CC"
+      flexDirection="row"
+      justifyContent="space-between"
+      paddingVertical={0}
+      paddingHorizontal={20}
+      alignItems="center"
+      backgroundColor="#FCFCFC"
+      marginTop={18}
+      borderRadius={5}
+    >
+      <View
+        position="absolute"
+        backgroundColor="#6564CC"
+        borderRadius={5}
+        paddingVertical={2}
+        paddingHorizontal={10}
+        borderWidth={1}
+        borderColor="#FCFCFC"
+        top="-15%"
+        left="2%"
+      >
+        <Text color="#FCFCFC">{cardHeader}</Text>
+      </View>
       <LocationOfTZ
         timeDifference={city}
         city={date}
@@ -30,6 +53,6 @@ export const ResultCard = ({
         isResult={true}
       />
       <TimeOfTZ time={time} meridiem={meridiem} isResult={false} />
-    </S.Container>
+    </View>
   );
 };

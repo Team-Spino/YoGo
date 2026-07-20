@@ -1,6 +1,6 @@
 import React from 'react';
+import { View } from '@tamagui/core';
 import { Tag, Title } from 'components';
-import * as S from './style';
 
 export function ModalHeader({
   tagColor,
@@ -10,9 +10,18 @@ export function ModalHeader({
   title: string;
 }) {
   return (
-    <S.Container>
+    <View
+      width="100%"
+      flexDirection="row"
+      justifyContent="flex-start"
+      alignItems="center"
+      paddingVertical={15}
+      paddingHorizontal={10}
+      borderBottomColor="#e6e6e6"
+      borderBottomWidth={2}
+    >
       <Tag color={tagColor} />
       <Title isEnable={true} text={title} size={25} />
-    </S.Container>
+    </View>
   );
 }

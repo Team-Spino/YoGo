@@ -1,11 +1,11 @@
 import React from 'react';
 import { Animated } from 'react-native';
+import { View } from '@tamagui/core';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { TimeZoneCard, HiddenDelete, RenderEmptyData } from 'components';
 import { useSwipeList } from 'hooks';
 import { WINDOW_WIDTH } from 'styles';
 import { ICityProps } from 'types';
-import * as S from './style';
 
 interface IItemProps {
   key: number;
@@ -45,7 +45,7 @@ export function TimeZoneList({
     );
   };
   return (
-     <S.Container>
+     <View width="100%" flex={1} backgroundColor="#fff">
         {cardState.length > 0 && (
             <SwipeListView
             disableRightSwipe
@@ -59,6 +59,6 @@ export function TimeZoneList({
         )    
         }
         {cardState.length === 0 && <RenderEmptyData text={'No Time List!'}/>}
-    </S.Container>
+    </View>
   );
 }

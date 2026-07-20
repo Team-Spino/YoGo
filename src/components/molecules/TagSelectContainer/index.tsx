@@ -1,7 +1,7 @@
 import React from 'react';
+import { View } from '@tamagui/core';
 import { TagSelect, Title } from 'components';
 import { ITagListProps } from 'types';
-import * as S from './style';
 
 interface ITagSelectContainerProps {
   tagList: Array<ITagListProps>;
@@ -13,13 +13,24 @@ export function TagSelectContainer({
   onSelectTag,
 }: ITagSelectContainerProps) {
   return (
-    <S.Container>
+    <View
+      width="100%"
+      paddingVertical={15}
+      paddingHorizontal={20}
+      borderBottomColor="rgba(0, 0, 0, 0.1)"
+      borderBottomWidth={1}
+    >
       <Title isEnable={true} text={'Select Color Tag'} size={15} />
-      <S.Wrapper>
+      <View
+        width="100%"
+        flexDirection="row"
+        justifyContent="space-evenly"
+        marginTop={15}
+      >
         {tagList.map(tag => (
           <TagSelect key={tag.key} tag={tag} onSelectTag={onSelectTag} />
         ))}
-      </S.Wrapper>
-    </S.Container>
+      </View>
+    </View>
   );
 }

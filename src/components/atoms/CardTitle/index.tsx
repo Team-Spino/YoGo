@@ -1,5 +1,6 @@
 import React from 'react';
-import * as S from './style';
+import { Text } from '@tamagui/core';
+
 interface ITitleProps {
   isEnable: boolean;
   text: string;
@@ -8,13 +9,14 @@ interface ITitleProps {
 
 export function CardTitle({ isEnable, text, size }: ITitleProps) {
   return (
-    <S.Text
-      isEnable={isEnable}
-      size={size}
+    <Text
+      color={isEnable ? '#000000' : '#999999'}
+      fontSize={size}
+      fontWeight="bold"
       numberOfLines={1}
       ellipsizeMode="tail"
     >
       {text}
-    </S.Text>
+    </Text>
   );
 }

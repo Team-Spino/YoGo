@@ -1,6 +1,9 @@
 import React from 'react';
-import { NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
-import * as S from './style';
+import {
+  TextInput as RNTextInput,
+  NativeSyntheticEvent,
+  TextInputChangeEventData,
+} from 'react-native';
 
 interface ITextInputProps {
   placeholder: string;
@@ -18,14 +21,28 @@ export function TextInput({
   isTitleInputValid,
 }: ITextInputProps) {
   return (
-    <S.TextInput
+    <RNTextInput
       value={value}
       multiline={true}
       numberOfLines={10}
       onChange={e => setValue(e)}
-      size={size}
-      isTitleInputValid={isTitleInputValid}
       placeholder={isTitleInputValid ? placeholder : 'Please Input Title'}
+      style={{
+        width: '100%',
+        fontSize: Number(size),
+        fontWeight: '500',
+        paddingVertical: 13,
+        paddingHorizontal: 15,
+        borderBottomColor: 'rgba(0, 0, 0, 0.1)',
+        borderBottomWidth: 1,
+        ...(!isTitleInputValid
+          ? {
+              borderBottomColor: '#FF4949',
+              borderWidth: 1,
+              borderColor: '#FF4949',
+            }
+          : {}),
+      }}
     />
   );
 }

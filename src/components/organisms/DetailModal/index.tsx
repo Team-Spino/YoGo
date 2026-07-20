@@ -1,10 +1,11 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
+import { View, Text } from '@tamagui/core';
 import { useTimeZone } from 'hooks';
 import { ModalHeader, ModalTime, ModalMemo } from 'components';
 import { useSelectedDay } from 'context';
 import { IScheduleProps } from 'types';
-import * as S from './style';
 
 interface IDetailModalProps {
   isVisible: boolean;
@@ -61,16 +62,42 @@ export function DetailModal({
       onSwipeComplete={onCloseDetailPress}
       coverScreen={true}
     >
-      <S.Container>
-        <S.Content>
+      <View
+        backgroundColor="rgba(255, 255, 255, 1)"
+        flex={0.5}
+        borderRadius={10}
+        flexDirection="column"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <View
+          flex={1}
+          width="100%"
+          borderTopLeftRadius={10}
+          borderTopRightRadius={10}
+        >
           <ModalHeader tagColor={TAG_COLOR} title={TITLE} />
           <ModalTime timeData={timeData} leftTime={leftTime} />
           <ModalMemo description={DESCRIPTION} />
-        </S.Content>
-        <S.Wrapper onPress={onCloseDetailPress}>
-          <S.Text>Close</S.Text>
-        </S.Wrapper>
-      </S.Container>
+        </View>
+        <TouchableOpacity
+          onPress={onCloseDetailPress}
+          style={{
+            width: '100%',
+            height: '15%',
+            borderWidth: 2,
+            borderColor: '#e6e6e6',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderBottomRightRadius: 10,
+            borderBottomLeftRadius: 10,
+          }}
+        >
+          <Text fontSize={20} color="#e5565e">
+            Close
+          </Text>
+        </TouchableOpacity>
+      </View>
     </Modal>
   );
 }

@@ -1,16 +1,28 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { View } from '@tamagui/core';
 import { TagFilter } from 'components';
 import { ITagFilter, ITagFilterProps } from 'types';
-import * as S from './style';
 
 export function TagFilterContainer({ tags, onTagPress }: ITagFilterProps) {
   return (
-    <S.Container style={styles.containerStyle}>
+    <View
+      width="95%"
+      height={30}
+      backgroundColor="#fcfcfc"
+      marginVertical={20}
+      marginHorizontal={10}
+      justifyContent="space-evenly"
+      alignItems="center"
+      flexDirection="row"
+      borderRadius={8}
+      padding={5}
+      style={styles.containerStyle}
+    >
       {tags!.map((tag: ITagFilter) => {
         return <TagFilter key={tag.key} tag={tag} onTagPress={onTagPress} />;
       })}
-    </S.Container>
+    </View>
   );
 }
 

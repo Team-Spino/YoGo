@@ -1,10 +1,19 @@
 import React from 'react';
-import * as S from './style';
+import { ScrollView } from 'react-native';
+import { Text } from '@tamagui/core';
 
 export function ModalMemo({ description }: { description: string }) {
   return (
-    <S.Container>
-      <S.Text>{description}</S.Text>
-    </S.Container>
+    <ScrollView
+      style={{
+        width: '100%',
+        flex: 1,
+        marginTop: 20,
+        paddingVertical: 0,
+        paddingHorizontal: 10,
+      }}
+    >
+      <Text lineHeight={25}>{description}</Text>
+    </ScrollView>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
+import { View } from '@tamagui/core';
 import { Title, DayOfWeekBtn } from 'components';
 import { IDayOfWeekProps } from 'types';
-import * as S from './style';
 
 interface ITagSelectContainerProps {
   dayOfWeek: Array<IDayOfWeekProps>;
@@ -13,13 +13,19 @@ export function DayOfWeekContainer({
   onDaySelect,
 }: ITagSelectContainerProps) {
   return (
-    <S.Container>
+    <View width="100%" flex={1} paddingVertical={15} paddingHorizontal={20}>
       <Title isEnable={true} text={'Select a Day of the week to repeat'} size={15} />
-      <S.Wrapper>
+      <View
+        width="100%"
+        flexDirection="row"
+        justifyContent="space-evenly"
+        marginTop={15}
+        marginBottom={15}
+      >
         {dayOfWeek.map((day: IDayOfWeekProps) => (
           <DayOfWeekBtn key={day.key} day={day} onDaySelect={onDaySelect} />
         ))}
-      </S.Wrapper>
-    </S.Container>
+      </View>
+    </View>
   );
 }

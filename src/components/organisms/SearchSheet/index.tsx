@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Alert } from 'react-native';
+import { Alert, Dimensions, ScrollView } from 'react-native';
+import { View } from '@tamagui/core';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import {
   SearchTarget,
@@ -10,7 +11,8 @@ import {
 } from 'components';
 import { useCitySearch } from 'hooks';
 import { IMakeProps } from 'types';
-import * as S from './style';
+
+const screenHeight = Dimensions.get('screen').height;
 
 interface ISearchBSProps {
   onPress: (submitOnject: IMakeProps) => void;
@@ -46,10 +48,24 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
   };
 
   return (
-    <S.SearchBox>
+    <View
+      height="100%"
+      width="100%"
+      justifyContent="flex-start"
+      alignItems="center"
+    >
       {!isCityPickerOpen && (
-        <S.ScrollView showsVerticalScrollIndicator={false}>
-          <S.Inner>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{ width: '100%', height: '100%' }}
+        >
+          <View
+            width="100%"
+            height={screenHeight * 0.9}
+            flexDirection="column"
+            justifyContent="space-evenly"
+            alignItems="center"
+          >
             <HeaderCenter text={`Search Time Zone`} size={18} />
             <SelectTargetCityBtn
               onPress={openCityPicker}
@@ -58,20 +74,26 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
             />
             <SelectTargetDate onChangeDate={onChangeDate} date={date} />
             <BottomSheetBtn text={'FIND'} onPress={onSubmit} />
-          </S.Inner>
-        </S.ScrollView>
+          </View>
+        </ScrollView>
       )}
 
       {isCityPickerOpen && (
-        <S.Inner>
+        <View
+          width="100%"
+          height={screenHeight * 0.9}
+          flexDirection="column"
+          justifyContent="space-evenly"
+          alignItems="center"
+        >
           <SearchTarget
             targetList={targetList}
             city={city}
             onChangeCity={onChangeCity}
             onSubmitCity={selectCity}
           />
-        </S.Inner>
+        </View>
       )}
-    </S.SearchBox>
+    </View>
   );
 };

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { TouchableOpacity } from 'react-native';
+import { View, Text } from '@tamagui/core';
 import { Title, TextBtn } from 'components';
 import { IconDownArrow } from 'assets';
 import { useTimeZone } from 'hooks';
 import { formatCityName, toFormat12Hour } from 'utils';
-import * as S from './style';
 interface IBTargetCityBtnProps {
   onPress: () => void;
   city: string;
@@ -51,22 +52,48 @@ export function SelectTargetCityBtn({
     return city.trim() ? formatCityName(city) : 'Country, City';
   };
 
+  const showError = !isCityInputValid;
+
   return (
-    <S.Container isCityInputValid={isCityInputValid}>
+    <View
+      width="100%"
+      paddingVertical={15}
+      paddingHorizontal={20}
+      borderWidth={showError ? 1 : undefined}
+      borderColor={showError ? '#FF4949' : undefined}
+      borderBottomWidth={1}
+      borderBottomColor={showError ? '#FF4949' : 'rgba(0, 0, 0, 0.1)'}
+    >
       <Title
         isEnable={true}
         text={'Time Zone for The Destination Country'}
         size={15}
       />
-      <S.PressContainer onPress={onPress}>
+      <TouchableOpacity
+        onPress={onPress}
+        style={{
+          flexDirection: 'row',
+          marginTop: 15,
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
         <TextBtn>{placeholder()}</TextBtn>
         <IconDownArrow />
-      </S.PressContainer>
+      </TouchableOpacity>
       {notiAlartTime !== '' && (
-        <S.Wrapper>
-          <S.Text>{notiAlartTime}</S.Text>
-        </S.Wrapper>
+        <View
+          width="100%"
+          paddingVertical={15}
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Text fontSize={13} fontWeight="bold" color="#e5565e">
+            {notiAlartTime}
+          </Text>
+        </View>
       )}
-    </S.Container>
+    </View>
   );
 }

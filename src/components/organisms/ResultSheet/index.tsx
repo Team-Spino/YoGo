@@ -1,4 +1,6 @@
 import React from 'react';
+import { Dimensions } from 'react-native';
+import { View } from '@tamagui/core';
 import dayjs from 'dayjs';
 import {
   ResultCard,
@@ -10,7 +12,8 @@ import { IconResultArrow, IconWorld } from 'assets';
 import { IMakeProps } from 'types';
 import { useTimeZone } from 'hooks';
 import { getCityFromZone } from 'utils';
-import * as S from './style';
+
+const screenHeight = Dimensions.get('screen').height;
 
 interface IResultBSProps {
   onPress: (submitObject: IMakeProps) => void;
@@ -37,13 +40,25 @@ export function ResultSheet({ onPress, submitObject }: IResultBSProps) {
   });
 
   return (
-    <S.ResultBox>
+    <View
+      height={screenHeight * 0.9}
+      width="100%"
+      alignItems="center"
+      paddingTop={20}
+    >
       <BottomSheetHeader
         text={'Caculated Time Zone'}
         size={18}
         isWhite={true}
       />
-      <S.Inner>
+      <View
+        width="100%"
+        marginTop={screenHeight * 0.05}
+        height="80%"
+        flexDirection="column"
+        justifyContent="space-evenly"
+        alignItems="center"
+      >
         <IconAbsolute>
           <IconWorld />
         </IconAbsolute>
@@ -62,12 +77,12 @@ export function ResultSheet({ onPress, submitObject }: IResultBSProps) {
           time={curTime}
           meridiem={curMeridiem}
         />
-      </S.Inner>
+      </View>
       <BottomSheetBtn
         text={'Make Schedule'}
         onPress={() => onPress(submitObject)}
         isRevers={true}
       />
-    </S.ResultBox>
+    </View>
   );
 }

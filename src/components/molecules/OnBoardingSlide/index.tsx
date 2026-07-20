@@ -1,5 +1,5 @@
 import React from 'react';
-import * as S from './style';
+import { View, Text } from '@tamagui/core';
 import { BottomSheetBtn, OnBoardingtBtn } from 'components';
 import { IOnBoadingSlide } from 'types';
 
@@ -13,12 +13,36 @@ export const OnBoardingSlide = ({
   onNextPress,
 }: IOnBoadingSlide) => {
   return (
-    <S.Container>
-      <S.MainImg>{mainImg}</S.MainImg>
-      <S.Content>
+    <View
+      flex={1}
+      position="relative"
+      justifyContent="center"
+      alignItems="center"
+      backgroundColor="#6564CC"
+    >
+      <View
+        width="100%"
+        height="100%"
+        position="absolute"
+        top="-10%"
+        bottom={0}
+        justifyContent="center"
+        alignItems="center"
+        zIndex={-1}
+      >
+        {mainImg}
+      </View>
+      <View
+        flex={1}
+        marginTop="100%"
+        justifyContent="center"
+        alignItems="center"
+      >
         {typography}
-        <S.Text>{text}</S.Text>
-      </S.Content>
+        <Text color="#FCFCFC" marginTop={30} fontSize={18} textAlign="center">
+          {text}
+        </Text>
+      </View>
       {isEdge && (
         <BottomSheetBtn
           text={btnText as string}
@@ -40,6 +64,6 @@ export const OnBoardingSlide = ({
           />
         </>
       )}
-    </S.Container>
+    </View>
   );
 };

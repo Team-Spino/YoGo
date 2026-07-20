@@ -1,5 +1,6 @@
 import React from 'react';
-import * as S from './style';
+import { TouchableOpacity } from 'react-native';
+import { Text } from '@tamagui/core';
 
 interface IBottomSheetBtnProps {
   text: string;
@@ -13,8 +14,27 @@ export function BottomSheetBtn({
   isRevers = false,
 }: IBottomSheetBtnProps) {
   return (
-    <S.Container isRevers={isRevers} onPress={onPress}>
-      <S.Text isRevers={isRevers}>{text}</S.Text>
-    </S.Container>
+    <TouchableOpacity
+      onPress={onPress}
+      style={{
+        height: '5%',
+        width: '90%',
+        position: 'absolute',
+        bottom: '4.5%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5,
+        backgroundColor: isRevers ? '#FCFCFC' : '#6564CC',
+        zIndex: 9999,
+      }}
+    >
+      <Text
+        fontSize={20}
+        fontWeight="bold"
+        color={isRevers ? '#6564CC' : '#FCFCFC'}
+      >
+        {text}
+      </Text>
+    </TouchableOpacity>
   );
 }

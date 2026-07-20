@@ -1,6 +1,7 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
+import { View, Text } from '@tamagui/core';
 import { formatCityName } from 'utils';
-import * as S from './style';
 
 interface IBTTargetItemProps {
   id: number;
@@ -19,12 +20,21 @@ export function TargetCity({ item, onPress, selectedId }: IBTTargetCityProps) {
   const color = item.id === selectedId ? 'white' : 'black';
 
   return (
-    <S.TouchOpacity onPress={() => onPress(item)}>
-      <S.ListBox>
-        <S.List size={18} style={{ backgroundColor, color }}>
+    <TouchableOpacity
+      onPress={() => onPress(item)}
+      style={{ backgroundColor: 'transparent' }}
+    >
+      <View justifyContent="center" borderBottomWidth={0.7} borderBottomColor="#6564CC">
+        <Text
+          fontSize={18}
+          fontWeight="200"
+          alignItems="flex-start"
+          padding={20}
+          style={{ backgroundColor, color }}
+        >
           {formatCityName(item.city)}
-        </S.List>
-      </S.ListBox>
-    </S.TouchOpacity>
+        </Text>
+      </View>
+    </TouchableOpacity>
   );
 }

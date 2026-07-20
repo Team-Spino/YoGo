@@ -1,6 +1,16 @@
 import React from 'react';
-import * as S from './style';
+import { View } from '@tamagui/core';
 
 export function IconAbsolute({ children }: { children: React.ReactNode }) {
-  return <S.Container>{children}</S.Container>;
+  return (
+    <View
+      width="100%"
+      position="absolute"
+      top="15%"
+      left="-16%"
+      opacity={0.4}
+    >
+      {children}
+    </View>
+  );
 }

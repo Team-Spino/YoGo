@@ -10,7 +10,7 @@ import {
 import { IconSearch } from 'assets';
 import { RootStackParamList } from 'types';
 import { useTimezones } from 'hooks';
-import * as S from './style';
+import { View } from '@tamagui/core';
 
 type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
 
@@ -30,7 +30,7 @@ export function TimeZone({ navigation }: { navigation: Prop }) {
 
   return (
     <>
-      <S.Container>
+      <View backgroundColor="#fff" flex={1}>
         <TimeZoneList
           cardState={timezones}
           onDeleteTarget={removeTimezone}
@@ -45,7 +45,7 @@ export function TimeZone({ navigation }: { navigation: Prop }) {
           setModalVisible={setTimeSearchVisible}
           selectTarget={addTimezone}
         />
-      </S.Container>
+      </View>
       <FloatingButton onPress={() => setModalVisible(true)}>
         <IconSearch color="white" />
       </FloatingButton>
