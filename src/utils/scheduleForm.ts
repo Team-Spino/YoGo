@@ -45,16 +45,25 @@ const markSelectedDays = (dayOfWeek?: string) => {
 };
 
 const getInitialDate = ({ title, item }: IGetInitialScheduleFormProps) => {
+  // new Date(parseToSlash(...))는 Hermes에서 슬래시 포맷을 파싱하지 못해 Invalid
+  // Date가 됩니다. 그게 DateTimePicker(display="inline")로 흘러가면 네이티브
+  // UICalendarView가 예외를 던져 앱이 죽습니다. dayjs는 문자열을 구성요소로
+  // 읽어 안전하므로 dayjs로 파싱합니다. 파싱 실패 시 오늘로 안전하게 대체합니다.
+  const safe = (value: string) => {
+    const parsed = dayjs(value);
+    return parsed.isValid() ? parsed.toDate() : new Date();
+  };
+
   // 검색 시트는 고른 날짜를 통째로 넘겨줍니다.
   if (item?.isFromBottomSheet) {
-    return new Date(parseToSlash(item.TARGET_DAY as string));
+    return safe(item.TARGET_DAY as string);
   }
 
   // 저장된 일정은 시각만 들고 있어서, 오늘 날짜에 얹습니다.
   if (title === 'Edit') {
     const today = dayjs().format('YYYY-MM-DD');
 
-    return new Date(parseToSlash(`${today} ${item.TARGET_TIME}`));
+    return safe(`${today} ${item.TARGET_TIME}`);
   }
 
   return new Date();

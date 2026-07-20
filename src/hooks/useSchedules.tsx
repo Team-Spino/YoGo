@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Platform } from 'react-native';
+import dayjs from 'dayjs';
 import {
   findScheduleDays,
   findSchedulesByDay,
@@ -8,17 +9,14 @@ import {
 } from 'db';
 import { useNotification } from 'hooks/useNotification';
 import { scheduleStore } from 'stores';
-import {
-  getDatesForWeekdays,
-  parseToSlash,
-  splitScheduleDays,
-} from 'utils';
+import { getDatesForWeekdays, splitScheduleDays } from 'utils';
 import { IScheduleProps } from 'types';
 
 type MarkedDates = Record<string, { marked: true }>;
 
-const weekdayOf = (day: string) =>
-  new Date(parseToSlash(day)).toLocaleDateString('en', { weekday: 'short' });
+// dayjs로 요일을 읽습니다. new Date(parseToSlash(...))는 Hermes에서 슬래시
+// 포맷을 파싱하지 못해 잘못된 요일이 나옵니다.
+const weekdayOf = (day: string) => dayjs(day).format('ddd');
 
 const toMarkedDates = (days: Array<string>): MarkedDates =>
   days.reduce<MarkedDates>((marked, day) => {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
+import dayjs from 'dayjs';
 import { View, Text } from '@tamagui/core';
 import { Title, TextBtn } from 'components';
 import { IconDownArrow } from 'assets';
@@ -25,9 +26,15 @@ export function SelectTargetCityBtn({
   const { getAlarmTime } = useTimeZone();
 
   useEffect(() => {
-    if (setAlartDate && city && date) {
+    // date는 Date 객체입니다. date.toString()은 "Mon Jul 20 2026 ... GMT+0900"
+    // 같은 장황한 문자열이라 Hermes/dayjs가 파싱하지 못해 뒤쪽 계산이 죽습니다.
+    // dayjs는 Date를 문자열 파싱 없이 구성요소로 읽으므로, 앱 전역에서 쓰는
+    // Hermes-safe 포맷(YYYY-MM-DD HH:mm)으로 정규화해 넘깁니다.
+    const parsed = dayjs(date);
+
+    if (setAlartDate && city && date && parsed.isValid()) {
       const { time, locateCity } = getAlarmTime({
-        date: date.toString(),
+        date: parsed.format('YYYY-MM-DD HH:mm'),
         city: city,
       });
 
