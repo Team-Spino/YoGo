@@ -1,9 +1,8 @@
 import React from 'react';
 import { Title, SubTitle } from 'components';
 import { IconRight } from 'assets';
-import { parseCity, formatCityName, toFormat12Hour } from 'utils';
+import { getModalTimeInfo } from 'utils';
 import { ITargetProps, ICurProps } from 'types';
-import { useTimeZone } from 'hooks';
 import { useSelectedDay } from 'context';
 import * as S from './style';
 
@@ -21,58 +20,25 @@ interface IModalTimerProps {
 }
 
 function ModalTimer({ city, date, time }: IModalTimerProps) {
-  const [t] = time.split(' ');
   return (
     <S.Wrapper>
       <Title isEnable={true} text={city} size={20} />
       <SubTitle isEnable={true} text={date} />
-      <Title
-        isEnable={true}
-        text={toFormat12Hour({ day: date, time: t })}
-        size={17}
-      />
+      <Title isEnable={true} text={time} size={17} />
     </S.Wrapper>
   );
 }
 
 export function ModalTimeInfo({ timeData }: IModalTimeProps) {
-  const { target, cur } = timeData;
-
   const { selectedDay } = useSelectedDay();
 
-  const { getTargetTime, formatTo12Hour } = useTimeZone();
-
-  const { TARGET_CITY } = target;
-  const { CUR_TIME, CUR_CITY } = cur;
-
-  const [date, time] = getTargetTime({
-    currentTime: `${selectedDay} ${CUR_TIME}`,
-    targetTimeZone: TARGET_CITY,
-  }).split(' ');
-
-  const [targetDay, targetTime] = formatTo12Hour({
-    date,
-    time,
-  });
-
-  const [curDay, curTime] = formatTo12Hour({
-    date: selectedDay,
-    time: CUR_TIME,
-  });
+  const { target, cur } = getModalTimeInfo({ ...timeData, selectedDay });
 
   return (
     <S.Container>
-      <ModalTimer
-        city={formatCityName(parseCity({ city: TARGET_CITY }))}
-        date={targetDay}
-        time={targetTime}
-      />
+      <ModalTimer city={target.city} date={target.date} time={target.time} />
       <IconRight />
-      <ModalTimer
-        city={formatCityName(parseCity({ city: CUR_CITY }))}
-        date={curDay}
-        time={curTime}
-      />
+      <ModalTimer city={cur.city} date={cur.date} time={cur.time} />
     </S.Container>
   );
 }
