@@ -26,7 +26,8 @@ export const LocationOfTZ = ({
     return checkTime >= 6 && checkTime < 12 ? false : true;
   };
 
-  const headerSize = isResult ? 18 : 9;
+  const headerSize = isResult ? 18 : 12;
+  const citySize = isResult ? 22 : 18;
 
   return (
     <View flexDirection="row" justifyContent="center" alignItems="center">
@@ -36,12 +37,19 @@ export const LocationOfTZ = ({
         alignContent="space-between"
         justifyContent="flex-start"
         flexDirection="column"
-        paddingLeft={10}
+        paddingLeft={12}
       >
-        <Text flexShrink={1} fontSize={headerSize} color="$accent">
+        <Text
+          flexShrink={1}
+          fontSize={citySize}
+          fontWeight="500"
+          color="$color"
+        >
+          {formatCityName(city)}
+        </Text>
+        <Text flexShrink={1} fontSize={headerSize} color="$colorSubtle" marginTop={2}>
           {formatCityName(timeDifference)}
         </Text>
-        <Text fontSize={22}>{formatCityName(city)}</Text>
       </View>
     </View>
   );

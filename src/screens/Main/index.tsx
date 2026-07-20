@@ -43,6 +43,7 @@ export function Main() {
         name="TimeZone"
         component={TimeZone}
         options={{
+          headerShown: false,
           title: 'TimeZone',
           tabBarIcon: ({ color }) => <IconTimeZone color={color} />,
           tabBarActiveTintColor: theme.accent.val,

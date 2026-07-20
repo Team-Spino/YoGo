@@ -71,6 +71,8 @@ export const ScheduleCard = React.memo(function ScheduleCard({
       <Pressable
         onPress={onShowDetailPress}
         style={{
+          height: '100%',
+          justifyContent: 'center',
           paddingHorizontal: 16,
           paddingVertical: 6,
           backgroundColor: theme.background.val,

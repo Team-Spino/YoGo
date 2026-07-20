@@ -35,7 +35,7 @@ export function TimeZoneList({
           {
             height: rowTranslateAnimatedValues[item.key].interpolate({
               inputRange: [0, 1],
-              outputRange: [0, 70],
+              outputRange: [0, 92],
             }),
           },
         ]}
@@ -58,7 +58,12 @@ export function TimeZoneList({
         />
         )    
         }
-        {cardState.length === 0 && <RenderEmptyData text={'No Time List!'}/>}
+        {cardState.length === 0 && (
+          <RenderEmptyData
+            text={'No time zones yet'}
+            hint={'Tap + to add a city'}
+          />
+        )}
     </View>
   );
 }
