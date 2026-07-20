@@ -7,7 +7,6 @@ import {
 } from 'types';
 import { DAY_OF_WEEK } from 'utils/DAY_OF_WEEK';
 import { TAG_COLOR } from 'utils/TAG_COLOR';
-import { parseToSlash } from 'utils/parseToSlash';
 import { getDeviceZone } from 'utils/timeZone';
 
 const NO_TAG_COLOR = '#B5B5B9';
@@ -140,7 +139,7 @@ export const buildScheduleInput = ({
  * 목록에 없으면 정작 알람이 처음 울리는 날에 알림이 오지 않습니다.
  */
 export const addWeekdayOf = (dayOfWeek: string, date: string) => {
-  const weekday = dayjs(parseToSlash(date)).format('ddd');
+  const weekday = dayjs(date).format('ddd');
   const weekdays: Array<string> = JSON.parse(dayOfWeek);
 
   if (weekdays.includes(weekday)) return dayOfWeek;
