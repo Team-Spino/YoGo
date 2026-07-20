@@ -14,12 +14,10 @@ import * as S from './style';
 
 interface IScheduleCardProps {
   schedule: IScheduleProps;
-  selectedDay: string;
 }
 
 export const ScheduleCard = React.memo(function ScheduleCard({
   schedule,
-  selectedDay,
 }: IScheduleCardProps) {
   const {
     key,
@@ -88,7 +86,6 @@ export const ScheduleCard = React.memo(function ScheduleCard({
         <DetailModal
           isVisible={isVisible}
           onCloseDetailPress={onCloseDetailPress}
-          selectedDay={selectedDay}
           schedule={schedule}
         />
       </Portal>

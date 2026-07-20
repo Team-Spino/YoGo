@@ -2,22 +2,23 @@ import React from 'react';
 import Modal from 'react-native-modal';
 import { useTimeZone } from 'hooks';
 import { ModalHeader, ModalTime, ModalMemo } from 'components';
+import { useSelectedDay } from 'context';
 import { IScheduleProps } from 'types';
 import * as S from './style';
 
 interface IDetailModalProps {
   isVisible: boolean;
   onCloseDetailPress: () => void;
-  selectedDay: string;
   schedule: IScheduleProps;
 }
 
 export function DetailModal({
   isVisible,
   onCloseDetailPress,
-  selectedDay,
   schedule,
 }: IDetailModalProps) {
+  const { selectedDay } = useSelectedDay();
+
   const {
     TITLE,
     DESCRIPTION,
@@ -63,11 +64,7 @@ export function DetailModal({
       <S.Container>
         <S.Content>
           <ModalHeader tagColor={TAG_COLOR} title={TITLE} />
-          <ModalTime
-            timeData={timeData}
-            leftTime={leftTime}
-            selectedDay={selectedDay}
-          />
+          <ModalTime timeData={timeData} leftTime={leftTime} />
           <ModalMemo description={DESCRIPTION} />
         </S.Content>
         <S.Wrapper onPress={onCloseDetailPress}>

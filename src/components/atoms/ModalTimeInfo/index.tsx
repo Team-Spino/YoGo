@@ -4,6 +4,7 @@ import { IconRight } from 'assets';
 import { parseCity, formatCityName, toFormat12Hour } from 'utils';
 import { ITargetProps, ICurProps } from 'types';
 import { useTimeZone } from 'hooks';
+import { useSelectedDay } from 'context';
 import * as S from './style';
 
 interface IModalTimeProps {
@@ -11,7 +12,6 @@ interface IModalTimeProps {
     target: ITargetProps;
     cur: ICurProps;
   };
-  selectedDay: string;
 }
 
 interface IModalTimerProps {
@@ -35,8 +35,10 @@ function ModalTimer({ city, date, time }: IModalTimerProps) {
   );
 }
 
-export function ModalTimeInfo({ timeData, selectedDay }: IModalTimeProps) {
+export function ModalTimeInfo({ timeData }: IModalTimeProps) {
   const { target, cur } = timeData;
+
+  const { selectedDay } = useSelectedDay();
 
   const { getTargetTime, formatTo12Hour } = useTimeZone();
 

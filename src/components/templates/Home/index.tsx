@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import dayjs from 'dayjs';
 import { FloatingButton, AgendaBox } from 'components';
 import { IconPlus } from 'assets';
 import { RootStackParamList, IScheduleProps } from 'types';
 import { useSchedules } from 'hooks';
+import { useSelectedDay } from 'context';
 import * as S from './style';
 
 type Prop = NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
 
 export function Home({ navigation }: { navigation: Prop }) {
-  const [selectedDay, setSelectedDay] = useState(dayjs().format('YYYY-MM-DD'));
+  const { selectedDay, setSelectedDay } = useSelectedDay();
 
   const { schedules, markedDates, removeSchedule } = useSchedules(selectedDay);
 
