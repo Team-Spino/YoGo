@@ -29,6 +29,7 @@ export function Main() {
         name="Home"
         component={Home}
         options={{
+          headerShown: false,
           title: 'Home',
           tabBarIcon: ({ color }) => <IconHome color={color} />,
           tabBarActiveTintColor: theme.accent.val,

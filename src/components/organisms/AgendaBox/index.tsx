@@ -67,7 +67,7 @@ export function AgendaBox({
         <ExpandableCalendar
           hideArrows
           style={{
-            top: isExpand ? '0%' : `-6.2%`,
+            top: '0%',
           }}
           onCalendarToggled={(isOpen) => {
             setIsExpand(isOpen);

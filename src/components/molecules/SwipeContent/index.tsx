@@ -23,7 +23,7 @@ export const SwipeContent = ({
   });
 
   const renderItem = ({ item, index }: any) => (
-    <View key={index} width="100%" height={110}>
+    <View key={index} width="100%" height={106}>
       <ScheduleCard schedule={item} />
     </View>
   );
