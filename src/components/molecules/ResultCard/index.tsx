@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text } from '@tamagui/core';
-import { LocationOfTZ } from 'components';
-import { Eyebrow } from 'styles/ui';
+import { Eyebrow, Meta } from 'styles/ui';
 
 interface IResultCardProps {
   cardHeader: string;
@@ -19,32 +18,32 @@ export const ResultCard = ({
   meridiem,
 }: IResultCardProps) => {
   return (
-    <View width="100%" paddingVertical={8}>
-      <Eyebrow fontWeight="500" marginBottom={14}>
+    <View width="100%">
+      <Eyebrow textTransform="uppercase" letterSpacing={0.6}>
         {cardHeader}
       </Eyebrow>
       <View
         flexDirection="row"
         justifyContent="space-between"
-        alignItems="center"
+        alignItems="flex-end"
+        marginTop={12}
       >
-        <LocationOfTZ
-          timeDifference={city}
-          city={date}
-          time={time}
-          meridiem={meridiem}
-          isResult={true}
-        />
+        <View flex={1}>
+          <Text fontSize={22} fontWeight="500" color="$color">
+            {city}
+          </Text>
+          <Meta marginTop={4}>{date}</Meta>
+        </View>
         <View flexDirection="row" alignItems="baseline">
           <Text
             color="$color"
-            fontSize={48}
+            fontSize={46}
             fontWeight="600"
-            letterSpacing={-2}
+            letterSpacing={-1.8}
           >
             {time}
           </Text>
-          <Text color="$colorSubtle" fontSize={16} marginLeft={6}>
+          <Text color="$colorSubtle" fontSize={15} marginLeft={5}>
             {meridiem}
           </Text>
         </View>

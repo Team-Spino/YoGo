@@ -2,7 +2,8 @@ import React from 'react';
 import { Dimensions } from 'react-native';
 import { View, Text } from '@tamagui/core';
 import dayjs from 'dayjs';
-import { ResultCard, BottomSheetBtn, BottomSheetHeader } from 'components';
+import { ResultCard, BottomSheetBtn } from 'components';
+import { Display } from 'styles/ui';
 import { IMakeProps } from 'types';
 import { useTimeZone } from 'hooks';
 import { getCityFromZone } from 'utils';
@@ -24,8 +25,10 @@ export function ResultSheet({ onPress, submitObject }: IResultBSProps) {
     city: tarCity,
   });
 
-  const tarDateFormat = dayjs(tarDate).format('YYYY-MM-DD');
-  const [curDate, _] = time.split(' ');
+  const tarDateFormat = dayjs(tarDate).format('ddd, MMM D');
+  const [curDate] = time.split(' ');
+  const yourDateFormat = dayjs(curDate).format('ddd, MMM D');
+
   const { time: curTime, meridiem: curMeridiem } = formatTime({
     targetTime: time,
   });
@@ -37,43 +40,49 @@ export function ResultSheet({ onPress, submitObject }: IResultBSProps) {
     <View
       height={screenHeight * 0.9}
       width="100%"
-      alignItems="center"
-      paddingTop={20}
+      paddingHorizontal={24}
+      paddingTop={28}
     >
-      <BottomSheetHeader text={'Caculated Time Zone'} size={18} />
-      <View
-        width="100%"
-        flex={1}
-        paddingHorizontal={24}
-        paddingBottom={100}
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-        gap={28}
-      >
+      <Display>Alarm</Display>
+
+      <View flex={1} justifyContent="center">
         <ResultCard
-          cardHeader={'Target Time Zone'}
+          cardHeader="Event"
           city={getCityFromZone(tarCity)}
           date={tarDateFormat}
           time={tarTime}
           meridiem={tarMeridiem}
         />
-        <Text color="$colorMuted" fontSize={22}>
-          ↓
-        </Text>
+
+        <View
+          flexDirection="row"
+          alignItems="center"
+          gap={12}
+          paddingVertical={28}
+        >
+          <View flex={1} height={1} backgroundColor="$borderColor" />
+          <Text fontSize={12} color="$colorSubtle">
+            rings at your time
+          </Text>
+          <View flex={1} height={1} backgroundColor="$borderColor" />
+        </View>
+
         <ResultCard
-          cardHeader="Your Time Zone"
+          cardHeader="Your alarm"
           city={locateCity}
-          date={curDate}
+          date={yourDateFormat}
           time={curTime}
           meridiem={curMeridiem}
         />
       </View>
-      <BottomSheetBtn
-        text={'Make Schedule'}
-        onPress={() => onPress(submitObject)}
-        isRevers={true}
-      />
+
+      <View paddingBottom={16}>
+        <BottomSheetBtn
+          text={'Make schedule'}
+          onPress={() => onPress(submitObject)}
+          isRevers={false}
+        />
+      </View>
     </View>
   );
 }

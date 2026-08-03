@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { View } from '@tamagui/core';
 
 interface IFloatingButtonProps {
@@ -8,13 +9,16 @@ interface IFloatingButtonProps {
 }
 
 export const FloatingButton = ({ children, onPress }: IFloatingButtonProps) => {
+  // 탭바 바로 위에 확실히 뜨도록, 탭바 높이만큼 띄웁니다(겹침 방지).
+  const tabBarHeight = useBottomTabBarHeight();
+
   return (
     <TouchableOpacity
       onPress={onPress}
       style={{
         position: 'absolute',
-        bottom: 15,
-        right: 16,
+        bottom: tabBarHeight + 16,
+        right: 20,
         width: 56,
         height: 56,
         borderRadius: 28,
