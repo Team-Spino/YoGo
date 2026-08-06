@@ -89,7 +89,7 @@ export function CalendarStrip({
         ref={scrollRef}
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 14 }}
+        contentContainerStyle={{ paddingHorizontal: 15 }}
       >
         {days.map(d => {
           const key = d.format('YYYY-MM-DD');

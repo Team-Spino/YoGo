@@ -1,41 +1,25 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import { View } from '@tamagui/core';
 import { TagFilter } from 'components';
 import { ITagFilter, ITagFilterProps } from 'types';
 
+/**
+ * 태그(색) 필터 줄. 에디토리얼 톤에 맞춰 그림자·박스 없이, 본문과 같은
+ * 좌측 20px 기준으로 색 점을 나열합니다.
+ */
 export function TagFilterContainer({ tags, onTagPress }: ITagFilterProps) {
   return (
     <View
-      width="95%"
-      height={30}
-      backgroundColor="$background"
-      marginVertical={20}
-      marginHorizontal={10}
-      justifyContent="space-evenly"
-      alignItems="center"
       flexDirection="row"
-      borderRadius={8}
-      padding={5}
-      style={styles.containerStyle}
+      alignItems="center"
+      gap={16}
+      paddingHorizontal={20}
+      paddingTop={12}
+      paddingBottom={18}
     >
-      {tags!.map((tag: ITagFilter) => {
-        return <TagFilter key={tag.key} tag={tag} onTagPress={onTagPress} />;
-      })}
+      {tags!.map((tag: ITagFilter) => (
+        <TagFilter key={tag.key} tag={tag} onTagPress={onTagPress} />
+      ))}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  containerStyle: {
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-
-    elevation: 4,
-  },
-});

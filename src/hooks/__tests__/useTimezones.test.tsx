@@ -60,9 +60,12 @@ describe('useTimezones', () => {
   it('adds a city and shows it right away', async () => {
     const latest = await renderUseTimezones();
 
+    // 넣기 전 중복 확인 조회는 비어 있고, 넣은 뒤 조회에서 실제 목록이 옵니다.
     // 넣은 뒤 DB에서 다시 읽어 진짜 key로 목록을 채웁니다.
     // 삭제가 key로 동작하므로 낙관적 추정 key가 아니라 저장된 rowid를 씁니다.
-    mockFindTimezones.mockResolvedValue([{ key: 7, CITY: 'Asia/Tokyo' }]);
+    mockFindTimezones
+      .mockResolvedValueOnce([])
+      .mockResolvedValue([{ key: 7, CITY: 'Asia/Tokyo' }]);
 
     await act(async () => {
       await latest().addTimezone('Asia/Tokyo');
@@ -70,6 +73,19 @@ describe('useTimezones', () => {
 
     expect(mockAddTimezone).toHaveBeenCalledWith('Asia/Tokyo');
     expect(latest().timezones).toEqual([{ key: 7, CITY: 'Asia/Tokyo' }]);
+  });
+
+  it('ignores a city that is already in the list', async () => {
+    mockFindTimezones.mockResolvedValue([{ key: 1, CITY: 'Asia/Seoul' }]);
+    const latest = await renderUseTimezones();
+
+    await act(async () => {
+      await latest().addTimezone('Asia/Seoul');
+    });
+
+    // 이미 있는 도시는 다시 넣지 않습니다(중복 카드 방지).
+    expect(mockAddTimezone).not.toHaveBeenCalled();
+    expect(latest().timezones).toEqual([{ key: 1, CITY: 'Asia/Seoul' }]);
   });
 
   it('removes a city by key', async () => {

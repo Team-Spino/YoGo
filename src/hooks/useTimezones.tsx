@@ -31,6 +31,13 @@ export function useTimezones() {
   }, [load]);
 
   const addTimezone = useCallback(async (city: string) => {
+    // 같은 도시를 두 번 넣으면 목록에 중복 카드가 생깁니다. 이미 있으면 무시합니다.
+    const current = await findTimezones();
+    if (current.some(item => item.CITY === city)) {
+      setTimezones(current);
+      return;
+    }
+
     // 새 행의 진짜 key(rowid)가 필요하므로, 넣고 나서 DB에서 다시 읽습니다.
     // 삭제가 key로 동작하기 때문에 낙관적 추정 key를 쓰면 안 됩니다.
     await addTimezoneToDb(city);

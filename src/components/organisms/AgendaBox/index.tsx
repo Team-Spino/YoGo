@@ -61,15 +61,17 @@ export function AgendaBox({
         markedDates={markedDates}
         onDayPress={onDayPress}
       />
-      <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
       {schedules.length === 0 ? (
         <RenderEmptyData text={'No schedules'} />
       ) : (
-        <SwipeContent
-          data={filteredSchedule}
-          onDeleteTarget={onDeleteTarget}
-          onEditTarget={onEditTarget}
-        />
+        <>
+          <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
+          <SwipeContent
+            data={filteredSchedule}
+            onDeleteTarget={onDeleteTarget}
+            onEditTarget={onEditTarget}
+          />
+        </>
       )}
     </View>
   );

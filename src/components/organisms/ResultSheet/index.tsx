@@ -1,5 +1,4 @@
 import React from 'react';
-import { Dimensions } from 'react-native';
 import { View, Text } from '@tamagui/core';
 import dayjs from 'dayjs';
 import { ResultCard, BottomSheetBtn } from 'components';
@@ -7,8 +6,6 @@ import { Display } from 'styles/ui';
 import { IMakeProps } from 'types';
 import { useTimeZone } from 'hooks';
 import { getCityFromZone } from 'utils';
-
-const screenHeight = Dimensions.get('screen').height;
 
 interface IResultBSProps {
   onPress: (submitObject: IMakeProps) => void;
@@ -38,14 +35,14 @@ export function ResultSheet({ onPress, submitObject }: IResultBSProps) {
 
   return (
     <View
-      height={screenHeight * 0.9}
+      flex={1}
       width="100%"
       paddingHorizontal={24}
       paddingTop={28}
     >
       <Display>Alarm</Display>
 
-      <View flex={1} justifyContent="center">
+      <View marginTop={40}>
         <ResultCard
           cardHeader="Event"
           city={getCityFromZone(tarCity)}
@@ -75,6 +72,8 @@ export function ResultSheet({ onPress, submitObject }: IResultBSProps) {
           meridiem={curMeridiem}
         />
       </View>
+
+      <View flex={1} />
 
       <View paddingBottom={16}>
         <BottomSheetBtn

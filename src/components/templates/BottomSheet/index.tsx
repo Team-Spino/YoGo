@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, TouchableWithoutFeedback, Animated } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { View, useTheme } from '@tamagui/core';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import dayjs from 'dayjs';
@@ -19,6 +20,7 @@ export const BottomSheet = ({
   navigation,
 }: ISearchBSProps) => {
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
   const [result, setResult] = useState<boolean>(false);
   const [submitObject, setSubmitObject] = useState<IMakeProps>({
     TARGET_CITY: '',
@@ -73,7 +75,9 @@ export const BottomSheet = ({
 
         <Animated.View
           style={{
-            height: screenHeight * 0.95,
+            // 시트 상단이 다이나믹 아일랜드/상태바에 가리지 않도록 safe-area 위쪽을
+            // 비워 둡니다(그래버가 항상 보이게).
+            height: screenHeight - insets.top - 12,
             justifyContent: 'flex-start',
             alignItems: 'center',
             backgroundColor: theme.background.val,
