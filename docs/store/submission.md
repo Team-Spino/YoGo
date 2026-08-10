@@ -8,13 +8,15 @@
 
 | 항목 | 값 |
 | --- | --- |
-| 앱 이름 | YOGO |
+| 앱 이름 | YOGO (App Store: **YOGO - Time Zone Planner**) |
 | 한 줄 소개 | 다른 도시 시간에 맞춰 알람을 잡는 타임존 스케줄러 |
-| iOS Bundle ID | `⚠️ TODO` — 현재 `org.reactjs.native.example.YOGO`(RN 템플릿 기본값). 제출 전 실제 ID(예: `com.teamspino.yogo`)로 변경 |
-| Android applicationId | `com.yogo` |
-| 버전 (Marketing) | 1.0.0 (`⚠️ TODO` package.json은 0.0.1 — 스토어 버전과 정렬 필요) |
-| 빌드 번호 | iOS `CURRENT_PROJECT_VERSION` / Android `versionCode 1` |
-| 최소 지원 | iOS `⚠️ TODO 확인` / Android `⚠️ TODO minSdk 확인` |
+| App Store | 기존 앱: **id `1626444795`** — https://apps.apple.com/kr/app/yogo-time-zone-planner/id1626444795 |
+| iOS Bundle ID | ✅ **`com.yogo`** (릴리즈) / `com.yogo.debug` (디버그) — 셸 교체로 템플릿값이 됐던 것을 원복 완료. **이 값이어야 기존 앱 업데이트 가능** |
+| iOS DEVELOPMENT_TEAM | ✅ `2F856BC6C4` (원복 완료) — 서명 시 이 팀이 유효한지 Xcode에서 확인 |
+| Android applicationId | `com.yogo` (`.debug` 서픽스) — 스토어 등록 준비 커밋과 일치. 단, 이력상 `com.yogo.app`였던 시기도 있어 **Play 게시했다면 콘솔에서 실제 패키지명 확인** |
+| 버전 (Marketing) | `⚠️` 코드상 1.0 (git 이력 내내 1.0). 라이브 버전은 **App Store Connect에서 확인해 그보다 높게** 올릴 것 |
+| 빌드 번호 | iOS `CURRENT_PROJECT_VERSION 1` / Android `versionCode 1` — 새 빌드마다 증가 필요 |
+| 최소 지원 | iOS 15.1 (`IPHONEOS_DEPLOYMENT_TARGET`) / Android `⚠️ minSdk 확인` |
 | 카테고리 | Productivity(생산성) / 보조: Utilities |
 | 연령 등급 | 4+ (수집·유해 콘텐츠 없음) |
 
@@ -104,8 +106,8 @@
 
 ## 6. 제출 전 체크리스트
 
-- [ ] `⚠️` iOS Bundle ID를 실제 ID로 변경(현재 RN 템플릿 기본값)
-- [ ] `⚠️` 버전 정렬: package.json 0.0.1 → 스토어 1.0.0, 빌드 번호 세팅
+- [x] ✅ iOS Bundle ID 원복 완료 — `com.yogo`(릴리즈)/`com.yogo.debug`(디버그), DEVELOPMENT_TEAM `2F856BC6C4` (git 이력에서 확인)
+- [ ] `⚠️` **버전 bump**: App Store Connect의 현재 라이브 버전을 확인해 `MARKETING_VERSION`을 그보다 높게, `CURRENT_PROJECT_VERSION`(빌드번호) 증가
 - [x] ✅ `NSLocationWhenInUseUsageDescription` 제거 완료 — 위치 기능/라이브러리 없음(iOS/Android 모두 위치 권한 없음)
 - [ ] `⚠️` 미사용 의존성 정리 확인(`react-native-calendars` 등 커스텀 캘린더로 대체됨)
 - [x] ✅ 6.9" iPhone 스크린샷 세트 생성 완료(`screenshots-6.9/`, 1320×2868)
