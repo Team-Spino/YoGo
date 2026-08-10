@@ -274,7 +274,7 @@
 					"-lc++",
 				);
 				DEVELOPMENT_TEAM = 2F856BC6C4;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yogo.debug;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teamspino.yogo.debug;
 				PRODUCT_NAME = YOGO;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -304,7 +304,7 @@
 					"-lc++",
 				);
 				DEVELOPMENT_TEAM = 2F856BC6C4;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yogo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teamspino.yogo;
 				PRODUCT_NAME = YOGO;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_VERSION = 5.0;

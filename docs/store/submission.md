@@ -10,14 +10,14 @@
 | --- | --- |
 | 앱 이름 | YOGO (App Store: **YOGO - Time Zone Planner**) |
 | 한 줄 소개 | 다른 도시 시간에 맞춰 알람을 잡는 타임존 스케줄러 |
-| App Store | 기존 앱: **id `1626444795`** — https://apps.apple.com/kr/app/yogo-time-zone-planner/id1626444795 |
-| iOS Bundle ID | ✅ **`com.yogo`** (릴리즈) / `com.yogo.debug` (디버그) — 셸 교체로 템플릿값이 됐던 것을 원복 완료. **이 값이어야 기존 앱 업데이트 가능** |
-| iOS DEVELOPMENT_TEAM | ✅ `2F856BC6C4` (원복 완료) — 서명 시 이 팀이 유효한지 Xcode에서 확인 |
-| Android applicationId | `com.yogo` (`.debug` 서픽스) — 스토어 등록 준비 커밋과 일치. 단, 이력상 `com.yogo.app`였던 시기도 있어 **Play 게시했다면 콘솔에서 실제 패키지명 확인** |
-| 버전 (Marketing) | `⚠️` 코드상 1.0 (git 이력 내내 1.0). 라이브 버전은 **App Store Connect에서 확인해 그보다 높게** 올릴 것 |
-| 빌드 번호 | iOS `CURRENT_PROJECT_VERSION 1` / Android `versionCode 1` — 새 빌드마다 증가 필요 |
-| 최소 지원 | iOS 15.1 (`IPHONEOS_DEPLOYMENT_TARGET`) / Android `⚠️ minSdk 확인` |
-| 카테고리 | Productivity(생산성) / 보조: Utilities |
+| App Store | 기존 앱: **id `1626444795`** — https://apps.apple.com/kr/app/yogo-time-zone-planner/id1626444795 (판매자: sangwoo yang) |
+| iOS Bundle ID | ✅ **`com.teamspino.yogo`** (릴리즈) / `com.teamspino.yogo.debug` (디버그) — iTunes lookup API로 확인한 **라이브 실제 값**. (git 이력의 `com.yogo`는 개발용이었고 실제 제출은 이 값) |
+| iOS DEVELOPMENT_TEAM | `2F856BC6C4` (git 이력값, 원복) — `⚠️` 라이브 앱 서명 팀과 일치하는지 Xcode에서 최종 확인 |
+| Android applicationId | 현재 repo `com.yogo`. `⚠️` iOS가 `com.teamspino.yogo`이므로 Play 게시했다면 **콘솔에서 실제 패키지명 확인**(다를 수 있음) |
+| 버전 (Marketing) | 라이브 **1.0.1** (2022-06-19). 다음 제출은 **1.0.2 이상**, `CURRENT_PROJECT_VERSION`(빌드번호)도 증가 |
+| 최소 지원 | 스토어 등록값 iOS **12.0** / 현재 repo `IPHONEOS_DEPLOYMENT_TARGET 15.1` (`⚠️` 올릴지 유지할지 결정) / Android `⚠️ minSdk 확인` |
+| 카테고리 | 라이브 등록 **Lifestyle** (원하면 Productivity로 변경 가능) |
+| 지원/마케팅 URL | **https://yogo.or.kr/** (스토어 판매자 URL) — Privacy Policy URL도 이 도메인에서 확인/게시 |
 | 연령 등급 | 4+ (수집·유해 콘텐츠 없음) |
 
 ## 2. 스크린샷 / 미리보기
@@ -81,7 +81,7 @@
   ```
 - **Keywords**: time zone,world clock,alarm,timezone,jetlag,meeting,schedule,travel,remote,global
 
-`⚠️ TODO` Support URL / Marketing URL / Privacy Policy URL — 실제 주소 필요.
+Support/Marketing URL: **https://yogo.or.kr/** (라이브 등록값). Privacy Policy URL은 이 도메인에 게시돼 있는지 `⚠️` 확인.
 
 ## 4. 개인정보 (App Privacy / 데이터 안전)
 
@@ -106,13 +106,13 @@
 
 ## 6. 제출 전 체크리스트
 
-- [x] ✅ iOS Bundle ID 원복 완료 — `com.yogo`(릴리즈)/`com.yogo.debug`(디버그), DEVELOPMENT_TEAM `2F856BC6C4` (git 이력에서 확인)
-- [ ] `⚠️` **버전 bump**: App Store Connect의 현재 라이브 버전을 확인해 `MARKETING_VERSION`을 그보다 높게, `CURRENT_PROJECT_VERSION`(빌드번호) 증가
+- [x] ✅ iOS Bundle ID 설정 완료 — **`com.teamspino.yogo`**(릴리즈)/`com.teamspino.yogo.debug`(디버그) = 라이브 앱 실제 값(iTunes API 확인). DEVELOPMENT_TEAM `2F856BC6C4` (팀 유효성만 Xcode에서 확인)
+- [ ] `⚠️` **버전 bump**: 라이브 1.0.1 → `MARKETING_VERSION` 1.0.2 이상, `CURRENT_PROJECT_VERSION`(빌드번호) 증가
 - [x] ✅ `NSLocationWhenInUseUsageDescription` 제거 완료 — 위치 기능/라이브러리 없음(iOS/Android 모두 위치 권한 없음)
 - [ ] `⚠️` 미사용 의존성 정리 확인(`react-native-calendars` 등 커스텀 캘린더로 대체됨)
 - [x] ✅ 6.9" iPhone 스크린샷 세트 생성 완료(`screenshots-6.9/`, 1320×2868)
 - [ ] 앱 아이콘 전 사이즈 / Android 피처 그래픽 준비
-- [ ] Support URL / Privacy Policy URL 게시
+- [ ] Support/마케팅 URL: **https://yogo.or.kr/** (등록됨) — Privacy Policy URL이 이 도메인에 게시돼 있는지 확인
 - [ ] 알림 권한 요청 문구(용도) 확인
 - [ ] Release 빌드에서 개발용 오버레이(디버거 경고 토스트) 미노출 확인
 - [ ] 라이트/다크 양쪽 회귀 확인 (완료 — 스크린샷 참고)
