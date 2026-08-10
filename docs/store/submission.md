@@ -17,7 +17,8 @@
 | 버전 (Marketing) | 라이브 **1.0.1** (2022-06-19). 다음 제출은 **1.0.2 이상**, `CURRENT_PROJECT_VERSION`(빌드번호)도 증가 |
 | 최소 지원 | 스토어 등록값 iOS **12.0** / 현재 repo `IPHONEOS_DEPLOYMENT_TARGET 15.1` (`⚠️` 올릴지 유지할지 결정) / Android `⚠️ minSdk 확인` |
 | 카테고리 | 라이브 등록 **Lifestyle** (원하면 Productivity로 변경 가능) |
-| 지원/마케팅 URL | 스토어 등록값 `https://yogo.or.kr/` — **현재 미운영(죽은 도메인)**. `⚠️` 작동하는 URL로 교체 필요(활성 도메인 `swyang.dev` 등에 지원/개인정보 페이지 게시 권장) |
+| 지원 URL | **https://github.com/Team-Spino/YoGo/blob/develop/docs/SUPPORT.md** (스토어 `yogo.or.kr`은 미운영이라 교체) |
+| 개인정보처리방침 URL | **https://github.com/Team-Spino/YoGo/blob/develop/docs/PRIVACY.md** |
 | 연령 등급 | 4+ (수집·유해 콘텐츠 없음) |
 
 ## 2. 스크린샷 / 미리보기
@@ -81,7 +82,9 @@
   ```
 - **Keywords**: time zone,world clock,alarm,timezone,jetlag,meeting,schedule,travel,remote,global
 
-`⚠️` Support/Marketing URL: 스토어 등록값 `https://yogo.or.kr/`는 **현재 미운영**. 작동하는 URL로 교체하고 Privacy Policy 페이지 게시 필요(활성 도메인 `swyang.dev` 등).
+- **지원 URL**: https://github.com/Team-Spino/YoGo/blob/develop/docs/SUPPORT.md
+- **개인정보처리방침 URL**: https://github.com/Team-Spino/YoGo/blob/develop/docs/PRIVACY.md
+- (스토어 판매자 URL `yogo.or.kr`은 미운영 → 위 GitHub 페이지로 교체. `develop`에 머지되면 URL이 활성화됩니다.)
 
 ## 4. 개인정보 (App Privacy / 데이터 안전)
 
@@ -112,7 +115,7 @@
 - [ ] `⚠️` 미사용 의존성 정리 확인(`react-native-calendars` 등 커스텀 캘린더로 대체됨)
 - [x] ✅ 6.9" iPhone 스크린샷 세트 생성 완료(`screenshots-6.9/`, 1320×2868)
 - [ ] 앱 아이콘 전 사이즈 / Android 피처 그래픽 준비
-- [ ] `⚠️` Support/Privacy URL 교체 — 등록된 `yogo.or.kr`은 미운영. 작동 URL로 바꾸고 Privacy Policy 게시(`swyang.dev` 등)
+- [x] ✅ Support/Privacy 페이지 작성 완료 — `docs/SUPPORT.md`·`docs/PRIVACY.md`. App Store Connect에 GitHub blob URL 등록(`develop` 머지 후 활성)
 - [ ] 알림 권한 요청 문구(용도) 확인
 - [ ] Release 빌드에서 개발용 오버레이(디버거 경고 토스트) 미노출 확인
 - [ ] 라이트/다크 양쪽 회귀 확인 (완료 — 스크린샷 참고)
