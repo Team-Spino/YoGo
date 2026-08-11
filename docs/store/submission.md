@@ -126,15 +126,19 @@
 bare RN(Expo 아님)이지만 EAS Build/Submit은 bare RN도 지원합니다. 설정은
 루트 `eas.json`에 있습니다(submit: `appleTeamId 2F856BC6C4`, `ascAppId 1626444795`).
 
-```bash
-# 최초 1회: Expo 계정 로그인 (다른 프로젝트와 동일 계정)
-npx eas-cli@latest login
+진행 상태: ✅ 로그인(`ighost-p`), ✅ `eas init` 완료 — EAS 프로젝트 **`@ighost-p/yogo`**
+(projectId `bb391da0-aa56-4a52-99bf-0592823fb93e`, app.json에 반영). 남은 건
+**iOS 배포 인증서 설정(대화형 Apple 로그인 필요)** 부터.
 
-# iOS 프로덕션 클라우드 빌드 (서명은 EAS가 Apple 계정으로 관리)
+```bash
+# 1) iOS 빌드 — 최초 1회는 대화형으로 실행해야 인증서/프로비저닝이 만들어짐
+#    (Apple 계정 로그인 + 2FA 프롬프트가 뜸. com.teamspino.yogo 용 인증서 자동 생성)
 npx eas-cli@latest build --platform ios --profile production
 
-# App Store Connect 업로드 (기존 앱 id 1626444795로 올라감)
+# 2) App Store Connect 업로드 (기존 앱 id 1626444795 → 2.0.0 업데이트)
 npx eas-cli@latest submit --platform ios --profile production
+
+# (이후 빌드는 인증서가 잡혀 있으므로 --non-interactive 가능)
 ```
 
 - `appVersionSource: "local"` — 네이티브에 설정한 **2.0.0**을 사용, `autoIncrement`가
