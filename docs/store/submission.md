@@ -23,6 +23,11 @@
 
 ## 2. 스크린샷 / 미리보기
 
+**App Store에 올릴 것 = 소개 미리보기**(마케팅 헤드라인 포함, 1320×2868 = 6.9"):
+`docs/store/preview-ko/` (한국어), `docs/store/preview-en/` (영어) — 각 4장.
+프레임 없는 순수 스크린샷은 `docs/store/screenshots-6.9/`·`screenshots/`.
+2022년 원본 마케팅 이미지는 `docs/store/original-2022/`에 보존.
+
 `docs/store/screenshots/` (iPhone 16 Pro, 1206×2622 = 6.3" 디스플레이)
 
 | 파일 | 화면 | 설명 |
