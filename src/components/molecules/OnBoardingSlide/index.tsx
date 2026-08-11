@@ -21,14 +21,13 @@ export const OnBoardingSlide = ({
       backgroundColor="$background"
     >
       <View
-        width="100%"
-        height="100%"
         position="absolute"
-        top="-10%"
-        bottom={0}
+        top="10%"
+        left={0}
+        right={0}
+        height="45%"
         justifyContent="center"
         alignItems="center"
-        zIndex={-1}
       >
         {mainImg}
       </View>
