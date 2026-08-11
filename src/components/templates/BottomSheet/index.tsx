@@ -46,14 +46,17 @@ export const BottomSheet = ({
     TARGET_CITY,
     TARGET_DAY,
   }: IMakeProps) => {
-    closeBottomSheet();
-    navigation.push('HandleSchedule', {
-      title: 'Add',
-      item: {
-        TARGET_CITY,
-        TARGET_DAY: dayjs(TARGET_DAY).format('YYYY-MM-DD HH:mm:ss'),
-        isFromBottomSheet: true,
-      } as IMakeProps,
+    // 시트를 완전히 닫은 뒤에 화면 전환. 닫기 전에 push하면 투명 모달이 남아
+    // Add 화면 터치를 막아 멈춘 것처럼 보입니다.
+    closeBottomSheet(() => {
+      navigation.push('HandleSchedule', {
+        title: 'Add',
+        item: {
+          TARGET_CITY,
+          TARGET_DAY: dayjs(TARGET_DAY).format('YYYY-MM-DD HH:mm:ss'),
+          isFromBottomSheet: true,
+        } as IMakeProps,
+      });
     });
   };
 
@@ -69,7 +72,7 @@ export const BottomSheet = ({
         justifyContent="flex-end"
         backgroundColor="rgba(0, 0, 0, 0.4)"
       >
-        <TouchableWithoutFeedback onPress={closeBottomSheet}>
+        <TouchableWithoutFeedback onPress={() => closeBottomSheet()}>
           <View flex={1} />
         </TouchableWithoutFeedback>
 

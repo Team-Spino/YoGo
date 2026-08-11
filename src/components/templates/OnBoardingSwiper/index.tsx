@@ -47,7 +47,7 @@ export function OnBoardingSwiper() {
   const slide: Array<IOnBoadingSlide> = [
     {
       mainImg: <ImgOnBoarding1 />,
-      typography: <ImgOnBoarding1Text />,
+      typography: <ImgOnBoarding1Text color={theme.color.val} />,
       text: `YOGO helps users to set up \n meetings easily across different timezones`,
       btnText: "Let's look into",
       isEdge: true,
@@ -63,7 +63,7 @@ export function OnBoardingSwiper() {
           resizeMode="contain"
         />
       ),
-      typography: <ImgOnBoarding2Text />,
+      typography: <ImgOnBoarding2Text color={theme.color.val} />,
       text: "Press '+'(plus) button to add schedule",
       btnText: ['Next', 'Skip'],
       isEdge: false,
@@ -80,7 +80,7 @@ export function OnBoardingSwiper() {
           resizeMode="contain"
         />
       ),
-      typography: <ImgOnBoarding2Text />,
+      typography: <ImgOnBoarding2Text color={theme.color.val} />,
       text: "If you select \n the time zone for the destination country, \n the schedule is automatically made",
       btnText: ['Next', 'Skip'],
       isEdge: false,
@@ -97,7 +97,7 @@ export function OnBoardingSwiper() {
           resizeMode="contain"
         />
       ),
-      typography: <ImgOnBoarding4Text />,
+      typography: <ImgOnBoarding4Text color={theme.color.val} />,
       text: 'Check the time \n difference of many countries at the same time',
       btnText: ['Next', 'Skip'],
       isEdge: false,
@@ -108,7 +108,7 @@ export function OnBoardingSwiper() {
     },
     {
       mainImg: <ImgOnBoarding5 />,
-      typography: <ImgOnBoarding5Text />,
+      typography: <ImgOnBoarding5Text color={theme.color.val} />,
       text: '',
       btnText: ['Next', 'Skip'],
       isEdge: false,
