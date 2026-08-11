@@ -7,18 +7,20 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
+      "node": "22.14.0",
       "ios": {
         "simulator": true
       }
     },
     "preview": {
       "distribution": "internal",
+      "node": "22.14.0",
       "ios": {
         "simulator": false
       }
     },
     "production": {
-      "autoIncrement": true,
+      "node": "22.14.0",
       "ios": {
         "buildConfiguration": "Release"
       }

@@ -1,9 +1,14 @@
 {
   "name": "YOGO",
   "displayName": "YOGO",
-  "extra": {
-    "eas": {
-      "projectId": "bb391da0-aa56-4a52-99bf-0592823fb93e"
+  "expo": {
+    "name": "YOGO",
+    "slug": "yogo",
+    "owner": "ighost-p",
+    "extra": {
+      "eas": {
+        "projectId": "bb391da0-aa56-4a52-99bf-0592823fb93e"
+      }
     }
   }
 }
