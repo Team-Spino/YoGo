@@ -47,7 +47,7 @@ export const SearchTimeBottomSheet = ({
         justifyContent="flex-end"
         backgroundColor="rgba(0, 0, 0, 0.4)"
       >
-        <TouchableWithoutFeedback onPress={closeBottomSheet}>
+        <TouchableWithoutFeedback onPress={() => closeBottomSheet()}>
           <View flex={1} />
         </TouchableWithoutFeedback>
 
