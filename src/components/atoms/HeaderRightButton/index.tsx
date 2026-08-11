@@ -1,30 +1,25 @@
 import React from 'react';
 import { Pressable } from 'react-native';
+import { View, useTheme } from '@tamagui/core';
 import { IconPlus } from 'assets';
-import * as S from './style';
 
-export function HeaderRightButton({
-  name,
-  color,
-  onPress,
-}: {
-  name: string;
-  color: string;
-  onPress: any;
-}) {
+export function HeaderRightButton({ onPress }: { onPress: () => void }) {
+  const theme = useTheme();
   return (
-    <S.Wrapper>
+    <View overflow="hidden">
       <Pressable onPress={onPress}>
         {({ pressed }) => (
-          <S.Button pressed={pressed}>
-            <IconPlus color="#231F20" />
-          </S.Button>
+          <View
+            height={48}
+            width={48}
+            alignItems="center"
+            justifyContent="center"
+            opacity={pressed ? 0.3 : 1}
+          >
+            <IconPlus color={theme.color.val} />
+          </View>
         )}
       </Pressable>
-    </S.Wrapper>
+    </View>
   );
 }
-
-HeaderRightButton.defaultProps = {
-  color: '#6200ee',
-};

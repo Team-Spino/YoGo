@@ -1,5 +1,6 @@
 import React from 'react';
-import * as S from './style';
+import { Text } from '@tamagui/core';
+
 interface ITitleProps {
   isEnable: boolean;
   text: string;
@@ -8,8 +9,12 @@ interface ITitleProps {
 
 export function Title({ isEnable, text, size }: ITitleProps) {
   return (
-    <S.Text isEnable={isEnable} size={size}>
+    <Text
+      color={isEnable ? '$color' : '$colorSubtle'}
+      fontSize={size}
+      fontWeight="bold"
+    >
       {text}
-    </S.Text>
+    </Text>
   );
 }

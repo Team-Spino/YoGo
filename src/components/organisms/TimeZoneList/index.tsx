@@ -1,12 +1,11 @@
-import React, { Dispatch, SetStateAction } from 'react';
-import { Animated, View, StyleSheet } from 'react-native';
+import React from 'react';
+import { Animated } from 'react-native';
+import { View } from '@tamagui/core';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { TimeZoneCard, HiddenDelete, RenderEmptyData } from 'components';
 import { useSwipeList } from 'hooks';
 import { WINDOW_WIDTH } from 'styles';
 import { ICityProps } from 'types';
-import { Dimensions } from 'react-native';
-import * as S from './style';
 
 interface IItemProps {
   key: number;
@@ -15,7 +14,6 @@ interface IItemProps {
 
 interface ITimeZoneListProps {
   cardState: Array<ICityProps>;
-  setCardState: Dispatch<SetStateAction<Array<ICityProps>>>;
   onDeleteTarget: (id: number) => Promise<void>;
 }
 
@@ -37,7 +35,7 @@ export function TimeZoneList({
           {
             height: rowTranslateAnimatedValues[item.key].interpolate({
               inputRange: [0, 1],
-              outputRange: [0, 70],
+              outputRange: [0, 92],
             }),
           },
         ]}
@@ -47,7 +45,7 @@ export function TimeZoneList({
     );
   };
   return (
-     <S.Container>
+     <View width="100%" flex={1} backgroundColor="$background">
         {cardState.length > 0 && (
             <SwipeListView
             disableRightSwipe
@@ -60,14 +58,12 @@ export function TimeZoneList({
         />
         )    
         }
-        {cardState.length === 0 && <RenderEmptyData text={'No Time List!'}/>}
-    </S.Container>
+        {cardState.length === 0 && (
+          <RenderEmptyData
+            text={'No time zones yet'}
+            hint={'Tap + to add a city'}
+          />
+        )}
+    </View>
   );
 }
-
-const style = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: Dimensions.get('window').height * 0.8,
-  },
-});

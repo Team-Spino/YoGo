@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { Modal, TouchableWithoutFeedback } from 'react-native';
+import React from 'react';
+import { Animated, Modal, TouchableWithoutFeedback } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { View, useTheme } from '@tamagui/core';
 import { SearchTarget } from 'components';
-import { IconBottomSheetBar } from 'assets';
-import { useBottomSheet } from 'hooks';
-import { TZ_DATA_BASES  } from 'utils';
-import * as S from './style';
+import { useBottomSheet, useCitySearch } from 'hooks';
 
 interface ISearchBSProps {
   modalVisible: boolean;
@@ -23,20 +22,16 @@ export const SearchTimeBottomSheet = ({
     setModalVisible,
   });
 
-  const [city, setCity] = useState('');
+  const { city, setCity, targetList, onChangeCity } = useCitySearch();
 
-  const targetList = TZ_DATA_BASES .filter(item =>
-    item.city.toUpperCase().includes(city.toUpperCase()),
-  );
+  // RN Animated.View의 style 객체는 토큰 문자열을 못 받으므로 실제 값을 읽습니다.
+  const theme = useTheme();
+  const insets = useSafeAreaInsets();
 
-
-  const onChangeCity = (city: string) => {
-    setCity(city);
-  };
-
-  const onSubmitCity = (city: string) => {
-    selectTarget(city)
-    closeBottomSheet()
+  // 여기서는 고른 도시를 화면에 남기지 않고, 카드로 넘긴 뒤 검색어를 비웁니다.
+  const onSubmitCity = (selected: string) => {
+    selectTarget(selected);
+    closeBottomSheet();
     setCity('');
   };
 
@@ -47,20 +42,39 @@ export const SearchTimeBottomSheet = ({
       transparent
       statusBarTranslucent
     >
-      <S.Overlay>
+      <View
+        flex={1}
+        justifyContent="flex-end"
+        backgroundColor="rgba(0, 0, 0, 0.4)"
+      >
         <TouchableWithoutFeedback onPress={closeBottomSheet}>
-          <S.Background />
+          <View flex={1} />
         </TouchableWithoutFeedback>
 
-        <S.Container
-          height={screenHeight}
-          style={{ transform: [{ translateY: translateY }] }}
+        <Animated.View
+          style={{
+            // 시트 상단이 다이나믹 아일랜드에 가리지 않게 safe-area 위쪽을 비워 둡니다.
+            height: screenHeight - insets.top - 12,
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            backgroundColor: theme.background.val,
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+            paddingTop: 12,
+            transform: [{ translateY: translateY }],
+          }}
           {...panResponders.panHandlers}
         >
-          <IconBottomSheetBar />
+          <View
+            width={40}
+            height={5}
+            borderRadius={3}
+            marginBottom={6}
+            backgroundColor="$borderColorStrong"
+          />
           <SearchTarget targetList={targetList} city={city} onChangeCity={onChangeCity} onSubmitCity={onSubmitCity} />
-        </S.Container>
-      </S.Overlay>
+        </Animated.View>
+      </View>
     </Modal>
   );
 };

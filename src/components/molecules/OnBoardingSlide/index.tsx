@@ -1,6 +1,6 @@
 import React from 'react';
-import * as S from './style';
-import { BottomSheetBtn, OnBoardingtBtn } from 'components';
+import { View, Text } from '@tamagui/core';
+import { OnBoardingtBtn } from 'components';
 import { IOnBoadingSlide } from 'types';
 
 export const OnBoardingSlide = ({
@@ -13,16 +13,48 @@ export const OnBoardingSlide = ({
   onNextPress,
 }: IOnBoadingSlide) => {
   return (
-    <S.Container>
-      <S.MainImg>{mainImg}</S.MainImg>
-      <S.Content>
+    <View
+      flex={1}
+      position="relative"
+      justifyContent="center"
+      alignItems="center"
+      backgroundColor="$background"
+    >
+      <View
+        width="100%"
+        height="100%"
+        position="absolute"
+        top="-10%"
+        bottom={0}
+        justifyContent="center"
+        alignItems="center"
+        zIndex={-1}
+      >
+        {mainImg}
+      </View>
+      <View
+        flex={1}
+        marginTop="100%"
+        justifyContent="center"
+        alignItems="center"
+      >
         {typography}
-        <S.Text>{text}</S.Text>
-      </S.Content>
+        <Text
+          color="$colorSubtle"
+          marginTop={24}
+          fontSize={16}
+          lineHeight={24}
+          letterSpacing={-0.2}
+          paddingHorizontal={32}
+          textAlign="center"
+        >
+          {text}
+        </Text>
+      </View>
       {isEdge && (
-        <BottomSheetBtn
+        <OnBoardingtBtn
           text={btnText as string}
-          isRevers={true}
+          isCTA={true}
           onPress={onNextPress as () => void | ((index: number) => void)}
         />
       )}
@@ -40,6 +72,6 @@ export const OnBoardingSlide = ({
           />
         </>
       )}
-    </S.Container>
+    </View>
   );
 };

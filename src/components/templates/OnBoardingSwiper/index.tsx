@@ -1,7 +1,6 @@
 import React, { useRef, useState, useContext } from 'react';
 import { Image, StyleSheet } from 'react-native';
 import Swiper from 'react-native-swiper';
-import { storage } from 'utils/mmkv';
 import { OnBoardingSlide } from 'components';
 import {
   ImgOnBoarding1,
@@ -17,19 +16,30 @@ import {
 } from 'assets';
 import { FirstLaunchContext } from 'context';
 import { IOnBoadingSlide } from 'types';
+import { useTheme } from '@tamagui/core';
 
 export function OnBoardingSwiper() {
+  const theme = useTheme();
   const { checkFirstLaunch } = useContext(FirstLaunchContext);
   const [isStartOrEnd, setIsStartOrEnd] = useState(true);
-  const swiperRef =
-    useRef<React.MutableRefObject<React.MutableRefObject<Swiper>>>();
+  const swiperRef = useRef<Swiper>(null);
 
   const styles = StyleSheet.create({
     dot: {
-      bottom: '7%',
+      width: 6,
+      height: 6,
+      borderRadius: 3,
+      marginHorizontal: 4,
+      bottom: '9%',
+    },
+    activeDot: {
+      width: 20,
+      height: 6,
+      borderRadius: 3,
+      marginHorizontal: 4,
+      bottom: '9%',
     },
     disableDot: {
-      bottom: '7%',
       display: 'none',
     },
   });
@@ -42,7 +52,7 @@ export function OnBoardingSwiper() {
       btnText: "Let's look into",
       isEdge: true,
       onNextPress: (index: number) => {
-        swiperRef.current!.scrollTo(index, true);
+        swiperRef.current?.scrollTo(index, true);
       },
     },
     {
@@ -57,9 +67,9 @@ export function OnBoardingSwiper() {
       text: "Press '+'(plus) button to add schedule",
       btnText: ['Next', 'Skip'],
       isEdge: false,
-      onSkipPress: () => swiperRef.current!.scrollTo(slide.length - 1, true),
+      onSkipPress: () => swiperRef.current?.scrollTo(slide.length - 1, true),
       onNextPress: (index: number) => {
-        swiperRef.current!.scrollTo(index, true);
+        swiperRef.current?.scrollTo(index, true);
       },
     },
     {
@@ -74,9 +84,9 @@ export function OnBoardingSwiper() {
       text: "If you select \n the time zone for the destination country, \n the schedule is automatically made",
       btnText: ['Next', 'Skip'],
       isEdge: false,
-      onSkipPress: () => swiperRef.current!.scrollTo(slide.length - 1, true),
+      onSkipPress: () => swiperRef.current?.scrollTo(slide.length - 1, true),
       onNextPress: (index: number) => {
-        swiperRef.current!.scrollTo(index, true);
+        swiperRef.current?.scrollTo(index, true);
       },
     },
     {
@@ -91,9 +101,9 @@ export function OnBoardingSwiper() {
       text: 'Check the time \n difference of many countries at the same time',
       btnText: ['Next', 'Skip'],
       isEdge: false,
-      onSkipPress: () => swiperRef.current!.scrollTo(slide.length - 1, true),
+      onSkipPress: () => swiperRef.current?.scrollTo(slide.length - 1, true),
       onNextPress: (index: number) => {
-        swiperRef.current!.scrollTo(index, true);
+        swiperRef.current?.scrollTo(index, true);
       },
     },
     {
@@ -102,9 +112,9 @@ export function OnBoardingSwiper() {
       text: '',
       btnText: ['Next', 'Skip'],
       isEdge: false,
-      onSkipPress: () => swiperRef.current!.scrollTo(slide.length - 1, true),
+      onSkipPress: () => swiperRef.current?.scrollTo(slide.length - 1, true),
       onNextPress: (index: number) => {
-        swiperRef.current!.scrollTo(index, true);
+        swiperRef.current?.scrollTo(index, true);
       },
     },
     {
@@ -129,8 +139,9 @@ export function OnBoardingSwiper() {
     <Swiper
       showsButtons={false}
       dotStyle={isStartOrEnd ? styles.disableDot : styles.dot}
-      activeDotStyle={isStartOrEnd ? styles.disableDot : styles.dot}
-      activeDotColor={'#ffffff'}
+      activeDotStyle={isStartOrEnd ? styles.disableDot : styles.activeDot}
+      dotColor={theme.borderColor.val}
+      activeDotColor={theme.ink.val}
       loop={false}
       onIndexChanged={checkStartOrEnd}
       ref={swiperRef}

@@ -1,6 +1,5 @@
 import React from 'react';
-import uuid from 'react-native-uuid';
-import * as S from './style';
+import { View, Text } from '@tamagui/core';
 
 interface IDayOfWeekProps {
   isEnable: boolean;
@@ -12,19 +11,19 @@ export function DayOfWeek({ isEnable, selectedDay }: IDayOfWeekProps) {
 
   const handleDateColor = ({ day }: { day: string }): string => {
     if (!isEnable) {
-      return 'rgba(0, 0, 0, 0.1)';
+      return '$borderColor';
     }
 
-    return selectedDay.includes(day) ? ' #6564CC' : 'rgba(0, 0, 0, 0.1)';
+    return selectedDay.includes(day) ? '$accent' : '$borderColor';
   };
 
   return (
-    <S.Container>
+    <View flexDirection="row" marginLeft={21}>
       {DAY_OF_WEEK.map(day => (
-        <S.Text key={uuid.v4()} color={handleDateColor({ day })}>
+        <Text key={day} color={handleDateColor({ day })} marginRight={5}>
           {day.substring(0, 1)}
-        </S.Text>
+        </Text>
       ))}
-    </S.Container>
+    </View>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { FlatList } from 'react-native';
+import { View } from '@tamagui/core';
 import { TargetCity, SelectTargetInput } from 'components';
-import * as S from './style';
 
 interface IBTargetListProps {
   targetList: any;
@@ -27,12 +28,20 @@ export function SearchTarget({
   };
 
   return (
-    <S.Container>
+    <View
+      width="100%"
+      height="100%"
+      justifyContent="flex-start"
+      alignItems="center"
+      paddingHorizontal={20}
+      paddingTop={12}
+    >
       <SelectTargetInput
         city={city}
         onChangeCity={onChangeCity}
       ></SelectTargetInput>
-      <S.FlatListContainer
+      <FlatList
+        style={{ width: '100%' }}
         data={targetList}
         renderItem={({ item }) => (
           <TargetCity item={item} onPress={onPress} selectedId={selectedId} />
@@ -40,6 +49,6 @@ export function SearchTarget({
         keyExtractor={item => item.id}
         onEndReachedThreshold={0.8}
       />
-    </S.Container>
+    </View>
   );
 }

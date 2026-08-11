@@ -1,17 +1,15 @@
 import React from 'react';
-import { Title, SubTitle } from 'components';
-import { IconRight } from 'assets';
-import { parseCity, formatCityName, toFormat12Hour } from 'utils';
+import { View, Text } from '@tamagui/core';
+import { Eyebrow, Meta } from 'styles/ui';
+import { getModalTimeInfo } from 'utils';
 import { ITargetProps, ICurProps } from 'types';
-import { useTimeZone } from 'hooks';
-import * as S from './style';
+import { useSelectedDay } from 'context';
 
 interface IModalTimeProps {
   timeData: {
     target: ITargetProps;
     cur: ICurProps;
   };
-  selectedDay: string;
 }
 
 interface IModalTimerProps {
@@ -21,56 +19,47 @@ interface IModalTimerProps {
 }
 
 function ModalTimer({ city, date, time }: IModalTimerProps) {
-  const [t] = time.split(' ');
   return (
-    <S.Wrapper>
-      <Title isEnable={true} text={city} size={20} />
-      <SubTitle isEnable={true} text={date} />
-      <Title
-        isEnable={true}
-        text={toFormat12Hour({ day: date, time: t })}
-        size={17}
-      />
-    </S.Wrapper>
+    <View
+      flex={1}
+      justifyContent="center"
+      alignItems="center"
+      flexDirection="column"
+      gap={8}
+    >
+      <Eyebrow numberOfLines={1}>{city}</Eyebrow>
+      <Text
+        color="$color"
+        fontSize={34}
+        fontWeight="600"
+        letterSpacing={-1.4}
+        numberOfLines={1}
+      >
+        {time}
+      </Text>
+      <Meta numberOfLines={1}>{date}</Meta>
+    </View>
   );
 }
 
-export function ModalTimeInfo({ timeData, selectedDay }: IModalTimeProps) {
-  const { target, cur } = timeData;
+export function ModalTimeInfo({ timeData }: IModalTimeProps) {
+  const { selectedDay } = useSelectedDay();
 
-  const { getTargetTime, formatTo12Hour } = useTimeZone();
-
-  const { TARGET_CITY } = target;
-  const { CUR_TIME, CUR_CITY } = cur;
-
-  const [date, time] = getTargetTime({
-    currentTime: `${selectedDay} ${CUR_TIME}`,
-    targetTimeZone: TARGET_CITY,
-  }).split(' ');
-
-  const [targetDay, targetTime] = formatTo12Hour({
-    date,
-    time,
-  });
-
-  const [curDay, curTime] = formatTo12Hour({
-    date: selectedDay,
-    time: CUR_TIME,
-  });
+  const { target, cur } = getModalTimeInfo({ ...timeData, selectedDay });
 
   return (
-    <S.Container>
-      <ModalTimer
-        city={formatCityName(parseCity({ city: TARGET_CITY }))}
-        date={targetDay}
-        time={targetTime}
-      />
-      <IconRight />
-      <ModalTimer
-        city={formatCityName(parseCity({ city: CUR_CITY }))}
-        date={curDay}
-        time={curTime}
-      />
-    </S.Container>
+    <View
+      width="100%"
+      justifyContent="space-evenly"
+      alignItems="center"
+      flexDirection="row"
+      gap={12}
+    >
+      <ModalTimer city={target.city} date={target.date} time={target.time} />
+      <Text color="$colorSubtle" fontSize={22} fontWeight="400">
+        →
+      </Text>
+      <ModalTimer city={cur.city} date={cur.date} time={cur.time} />
+    </View>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
+import { Text, useTheme } from '@tamagui/core';
 import { IDayOfWeekProps } from 'types';
-import * as S from './style';
 
 interface IDayOfWeekBtnProps {
   day: IDayOfWeekProps;
@@ -9,20 +10,22 @@ interface IDayOfWeekBtnProps {
 
 export function DayOfWeekBtn({ day, onDaySelect }: IDayOfWeekBtnProps) {
   const { key, name, isSelected } = day;
+  const theme = useTheme();
   return (
-    <>
-      {isSelected ? (
-        <S.Container backgroundColor="#6564CC" onPress={() => onDaySelect(key)}>
-          <S.Text fontColor="#ffffffff">{name}</S.Text>
-        </S.Container>
-      ) : (
-        <S.Container
-          backgroundColor="transparent"
-          onPress={() => onDaySelect(key)}
-        >
-          <S.Text fontColor="#000000">{name}</S.Text>
-        </S.Container>
-      )}
-    </>
+    <TouchableOpacity
+      onPress={() => onDaySelect(key)}
+      style={{
+        width: 40,
+        height: 40,
+        borderRadius: 40,
+        backgroundColor: isSelected ? theme.accent.val : 'transparent',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <Text fontSize={12} fontWeight="bold" color={isSelected ? '$onAccent' : '$color'}>
+        {name}
+      </Text>
+    </TouchableOpacity>
   );
 }

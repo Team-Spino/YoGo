@@ -41,6 +41,7 @@ export { DayOfWeekContainer } from 'components/molecules/DayofWeekContainer';
 export { TimeZoneCard } from 'components/molecules/TimeZoneCard';
 export { ResultCard } from 'components/molecules/ResultCard';
 export { TagFilterContainer } from 'components/molecules/TagFilterContainer';
+export { CalendarStrip } from 'components/molecules/CalendarStrip';
 export { HiddenEditAndDelete } from 'components/molecules/HiddenEditAndDelete';
 export { HiddenDelete } from 'components/molecules/HiddenDelete';
 export { SwipeContent } from 'components/molecules/SwipeContent';

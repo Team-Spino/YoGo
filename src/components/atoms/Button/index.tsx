@@ -1,5 +1,6 @@
 import React from 'react';
-import * as S from './style';
+import { TouchableOpacity } from 'react-native';
+import { InkButton, InkButtonText } from 'styles/ui';
 
 interface IButtonProps {
   text: string;
@@ -8,8 +9,10 @@ interface IButtonProps {
 
 export function Button({ text, onPress }: IButtonProps) {
   return (
-    <S.Container onPress={onPress}>
-      <S.Text>{text}</S.Text>
-    </S.Container>
+    <TouchableOpacity onPress={onPress} activeOpacity={0.85}>
+      <InkButton>
+        <InkButtonText>{text}</InkButtonText>
+      </InkButton>
+    </TouchableOpacity>
   );
 }

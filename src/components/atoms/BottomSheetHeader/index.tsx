@@ -1,5 +1,6 @@
 import React from 'react';
-import * as S from './style';
+import { Text } from '@tamagui/core';
+
 interface IBHearderProps {
   text: string;
   size: number;
@@ -12,8 +13,15 @@ export function BottomSheetHeader({
   isWhite = false,
 }: IBHearderProps) {
   return (
-    <S.Header size={size} isWhite={isWhite}>
+    <Text
+      fontSize={size}
+      fontWeight="bold"
+      marginBottom={5}
+      alignItems="center"
+      justifyContent="center"
+      color={isWhite ? '$onAccent' : '$color'}
+    >
       {text}
-    </S.Header>
+    </Text>
   );
 }

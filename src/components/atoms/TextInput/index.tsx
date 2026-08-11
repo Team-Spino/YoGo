@@ -1,6 +1,10 @@
 import React from 'react';
-import { NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
-import * as S from './style';
+import {
+  TextInput as RNTextInput,
+  NativeSyntheticEvent,
+  TextInputChangeEventData,
+} from 'react-native';
+import { useTheme } from '@tamagui/core';
 
 interface ITextInputProps {
   placeholder: string;
@@ -12,20 +16,30 @@ interface ITextInputProps {
 
 export function TextInput({
   placeholder,
-  size,
   value,
   setValue,
   isTitleInputValid,
 }: ITextInputProps) {
+  const theme = useTheme();
+  const showError = isTitleInputValid === false;
+
   return (
-    <S.TextInput
+    <RNTextInput
       value={value}
-      multiline={true}
-      numberOfLines={10}
       onChange={e => setValue(e)}
-      size={size}
-      isTitleInputValid={isTitleInputValid}
-      placeholder={isTitleInputValid ? placeholder : 'Please Input Title'}
+      placeholder={showError ? 'Please enter a title' : placeholder}
+      placeholderTextColor={theme.colorMuted.val}
+      style={{
+        width: '100%',
+        fontSize: 17,
+        fontWeight: '500',
+        paddingVertical: 14,
+        paddingHorizontal: 2,
+        borderBottomWidth: 1,
+        borderBottomColor: showError ? '#FF4949' : theme.borderColor.val,
+        backgroundColor: 'transparent',
+        color: theme.color.val,
+      }}
     />
   );
 }

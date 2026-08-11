@@ -1,5 +1,6 @@
 import React from 'react';
-import * as S from './style';
+import { View, Text } from '@tamagui/core';
+
 interface IHeaderCenterProps {
   text: string;
   size: number;
@@ -7,8 +8,16 @@ interface IHeaderCenterProps {
 
 export function HeaderCenter({ text, size }: IHeaderCenterProps) {
   return (
-    <S.Container>
-      <S.Text size={size}>{text}</S.Text>
-    </S.Container>
+    <View width="100%">
+      <Text
+        color="$color"
+        fontSize={size}
+        fontWeight="bold"
+        marginTop={30}
+        alignSelf="center"
+      >
+        {text}
+      </Text>
+    </View>
   );
 }

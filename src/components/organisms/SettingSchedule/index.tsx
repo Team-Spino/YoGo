@@ -1,15 +1,6 @@
-import React, { useState, useContext } from 'react';
-import {
-  NativeSyntheticEvent,
-  TextInputChangeEventData,
-  Alert,
-  Platform,
-} from 'react-native';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
-import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
-import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import React from 'react';
+import { ScrollView } from 'react-native';
+import { View } from '@tamagui/core';
 import {
   TextInput,
   SearchTarget,
@@ -18,329 +9,55 @@ import {
   SetCityAndDate,
   Button,
 } from 'components';
-import { DAY_OF_WEEK, TZ_DATA_BASES, TAG_COLOR, parseToSlash } from 'utils';
-import {
-  ITagListProps,
-  IDayOfWeekProps,
-  IHandelScheduleProps,
-  IItemProps,
-  keyType,
-} from 'types';
-import { useNotification } from 'hooks';
-import { connectDB, insertScheduleItem, updateAllSchedule } from 'db';
-import { PopContext } from 'context';
-import * as S from './style';
-
-dayjs.extend(utc);
-dayjs.extend(timezone);
-dayjs.extend(isSameOrBefore);
-
-interface IGetInitialProps {
-  title: string;
-  key: keyType;
-  item: IItemProps;
-}
-
-const getInitialProps = ({ title, key, item }: IGetInitialProps) => {
-  // Title, Description Edit or Add
-  if (
-    title === 'Edit' &&
-    (key === 'TITLE' || key === 'DESCRIPTION' || key === 'TARGET_CITY')
-  )
-    return item[key];
-  else if (title === 'Add' && key === 'TARGET_CITY' && item[key])
-    return item[key];
-  else if (
-    title === 'Add' &&
-    (key === 'TITLE' || key === 'DESCRIPTION' || key === 'TARGET_CITY')
-  )
-    return '';
-
-  // TagColor Edit
-  if (title === 'Edit' && key === 'TAG_COLOR' && item[key] === '#B5B5B9')
-    return TAG_COLOR;
-  else if (title === 'Edit' && key === 'TAG_COLOR' && item[key] !== '#B5B5B9')
-    return TAG_COLOR.map(tag => {
-      return tag.color === item[key] ? { ...tag, isSelected: true } : tag;
-    });
-  else if (title === 'Add' && key === 'TAG_COLOR') return TAG_COLOR;
-
-  // Target Time
-  if (title === 'Edit' && key === 'TARGET_TIME') {
-    const date = dayjs().format('YYYY-MM-DD');
-    return new Date(parseToSlash(`${date} ${item[key]}`));
-  } else if (title === 'Add' && key === 'TARGET_TIME') return new Date();
-  else if (title === 'Add' && key === 'TARGET_DAY') {
-    console.log(`item: ${item[key]}`);
-    return new Date(parseToSlash(item[key] as string));
-  }
-
-  // Day of week
-  if (title === 'Edit' && key === 'DAY_OF_WEEK') {
-    const selDayOfWeek = JSON.parse(item[key] as string);
-
-    return DAY_OF_WEEK.map(day =>
-      selDayOfWeek.includes(day.name) ? { ...day, isSelected: true } : day,
-    );
-  } else if (title === 'Add' && key == 'DAY_OF_WEEK') return DAY_OF_WEEK;
-};
+import { IHandelScheduleProps } from 'types';
+import { useScheduleForm } from 'hooks';
 
 export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
   const { title, item } = route.params;
 
-  const initialState = {
-    title: getInitialProps({ title, key: 'TITLE', item }) as string,
-    description: getInitialProps({ title, key: 'DESCRIPTION', item }) as string,
-    tagColor: getInitialProps({
-      title,
-      key: 'TAG_COLOR',
-      item,
-    }) as Array<ITagListProps>,
-    city: getInitialProps({ title, key: 'TARGET_CITY', item }) as string,
-    date: item?.isFromBottomSheet
-      ? (getInitialProps({ title, key: 'TARGET_DAY', item }) as Date)
-      : (getInitialProps({ title, key: 'TARGET_TIME', item }) as Date),
-    dayOfWeek: getInitialProps({
-      title,
-      key: 'DAY_OF_WEEK',
-      item,
-    }) as Array<IDayOfWeekProps>,
-  };
+  const {
+    inputs,
+    tagList,
+    date,
+    dayOfWeek,
+    city,
+    targetList,
+    isCityPickerOpen,
+    isCityInputValid,
+    isTitleInputValid,
+    setAlartDate,
+    handleChange,
+    onSelectTag,
+    onDaySelect,
+    onChangeDate,
+    onChangeCity,
+    openCityPicker,
+    selectCity,
+    onSubmit,
+  } = useScheduleForm({ title, item });
 
-  const [inputs, setInputs] = useState({
-    title: initialState.title,
-    description: initialState.description,
-  });
+  const onPressSubmit = async () => {
+    const isSaved = await onSubmit();
 
-  const [tagList, setTagList] = useState<Array<ITagListProps>>(
-    initialState.tagColor,
-  );
+    if (!isSaved) return;
 
-  const [isCitySelected, setIsCitySelected] = useState<boolean>(false);
-
-  const [city, setCity] = useState<string>(initialState.city as string);
-
-  const [date, setDate] = useState<Date>(initialState.date);
-
-  const [alartDate, setAlartDate] = useState<string | null>(null);
-  const [dayOfWeek, setDayOfWeek] = useState<Array<IDayOfWeekProps>>(
-    initialState.dayOfWeek,
-  );
-
-  const [isTitleInputValid, setIsTitleInputValid] = useState(true);
-
-  const [isCityInputValid, setIsCityInputValid] = useState(true);
-
-  const { setPop } = useContext(PopContext);
-
-  const { makeNotification, deleteAllNotification } = useNotification();
-
-  const handleChange =
-    (name: string) => (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-      const { text } = e.nativeEvent;
-      setInputs({ ...inputs, [name]: text });
-
-      if (name === 'title' && text) setIsTitleInputValid(true);
-      else if (name === 'title' && !text) setIsTitleInputValid(false);
-    };
-
-  const onSelectTag = (key: string) => {
-    setTagList(
-      tagList.map(tag =>
-        tag.key === key
-          ? { ...tag, isSelected: !tag.isSelected }
-          : { ...tag, isSelected: false },
-      ),
-    );
-  };
-
-  const onPressSearchTargetCity = () => {
-    setIsCitySelected(true);
-    setCity('');
-  };
-
-  const onChangeCity = (city: string) => setCity(city);
-
-  const onSubmitCity = (city: string) => {
-    setIsCitySelected(false);
-    setIsCityInputValid(true);
-    setCity(city);
-  };
-
-  const onChangeDate = (event: DateTimePickerEvent, selectedDate: Date) => {
-    const currentDate = selectedDate;
-    setDate(currentDate);
-  };
-
-  const onDaySelect = (key: string) => {
-    setDayOfWeek(
-      dayOfWeek.map(day =>
-        day.key === key ? { ...day, isSelected: !day.isSelected } : day,
-      ),
-    );
-  };
-
-  const targetList = TZ_DATA_BASES.filter(item =>
-    item.city.toUpperCase().includes(city.toUpperCase()),
-  );
-
-  const asyncAlert = async () =>
-    new Promise(resolve => {
-      Alert.alert('Yogo', 'Please choose the type of schedule', [
-        {
-          text: 'One Day!',
-          onPress: () => {
-            resolve(false);
-          },
-          style: 'cancel',
-        },
-        {
-          text: 'Every Week!',
-          onPress: () => {
-            resolve(true);
-          },
-        },
-      ]);
-    });
-
-  const checkValidate = () => {
-    if (!city || !inputs.title) {
-      let message = '';
-      if (!city && !inputs.title) message = 'Please Input Title and City';
-      else if (!city) message = 'Please Input City';
-      else if (!inputs.title) message = 'Please Input Title';
-
-      if (!city) setIsCityInputValid(false);
-      if (!inputs.title) setIsTitleInputValid(false);
-
-      Alert.alert('Yogo', message);
-
-      return false;
-    }
-    return true;
-  };
-
-  const insertSchedule = async ({ formState }: { formState: any }) => {
-    try {
-      const db = await connectDB();
-      return (await insertScheduleItem(db, formState)) as number;
-    } catch (e) {
-      console.error(e.message);
-    }
-  };
-
-  const editSchedule = async ({ formState }: { formState: any }) => {
-    try {
-      const db = await connectDB();
-      await updateAllSchedule(db, { ...formState, key: item.key, isActive: 1 });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  const onSubmit = async () => {
-    if (checkValidate()) {
-      let formState = {
-        title: inputs.title,
-        description: inputs.description,
-        tagColor: tagList.filter(tag => tag.isSelected)[0]?.color ?? '#B5B5B9',
-        targetTime: dayjs(date).format('HH:mm'),
-        targetDay: dayjs(date).format('YYYY-MM-DD'),
-        targetCity: city,
-        curTime: dayjs(alartDate ?? date).format('HH:mm'),
-        curDay: dayjs(alartDate ?? date).format('YYYY-MM-DD'),
-        curCity: dayjs.tz.guess(),
-        dayOfWeek: JSON.stringify(
-          dayOfWeek.filter(day => day.isSelected).map(day => day.name),
-        ),
-      };
-
-      if (formState.dayOfWeek === '[]') {
-        const result = await asyncAlert();
-        const now = dayjs().format('YYYY-MM-DD HH:mm');
-        const alartTime = `${formState.curDay} ${formState.curTime}`;
-        const isSameOrBefore = dayjs(alartTime).isSameOrBefore(now);
-
-        if (!result && isSameOrBefore) {
-          Alert.alert(
-            'YOGO',
-            'The date has already passed \n Please set up the time again',
-          );
-          return;
-        }
-
-        if (result) {
-          const curDateOfWeek = new Date(
-            parseToSlash(alartTime),
-          ).toLocaleDateString('en-US', {
-            weekday: 'short',
-          });
-
-          const { name } = dayOfWeek.filter(
-            day => day.name === curDateOfWeek,
-          )[0];
-
-          formState = { ...formState, dayOfWeek: JSON.stringify([name]) };
-        }
-      } else if (formState.dayOfWeek !== '[]') {
-        const selDayOfWeek = new Date(
-          parseToSlash(alartDate as string),
-        ).toLocaleDateString('en', {
-          weekday: 'short',
-        });
-
-        const dayOfWeekList = JSON.parse(formState.dayOfWeek);
-
-        if (!dayOfWeekList.includes(selDayOfWeek)) {
-          formState.dayOfWeek = JSON.stringify([
-            ...dayOfWeekList,
-            selDayOfWeek,
-          ]);
-        }
-      }
-
-      if (title === 'Add' ) {
-        const key = await insertSchedule({ formState });
-
-        if (key && Platform.OS === 'ios') {
-          makeNotification({
-            key,
-            title: inputs.title,
-            description: inputs.description,
-            date: alartDate as string,
-            dayOfWeek: JSON.parse(formState.dayOfWeek),
-          });
-        }
-      }
-
-      if (title === 'Edit') {
-        editSchedule({ formState });
-
-        if (Platform.OS === 'ios') {
-          await deleteAllNotification({ number: item.key as number });
-          await makeNotification({
-            key: item.key as number,
-            title: inputs.title,
-            description: inputs.description,
-            date: alartDate as string,
-            dayOfWeek: dayOfWeek
-              .filter(day => day.isSelected)
-              .map(day => day.name),
-          });
-        }
-
-      }
-
-      setPop(true);
-      navigation.pop();
-    }
+    navigation.pop();
   };
 
   return (
     <>
-      <S.Container>
-        <S.Wrapper>
-          {!isCitySelected && (
+      <ScrollView
+        style={{ width: '100%', flex: 1, backgroundColor: 'transparent' }}
+        contentContainerStyle={{
+          paddingHorizontal: 20,
+          paddingTop: 8,
+          paddingBottom: 40,
+        }}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+      >
+        <View width="100%" flexDirection="column" gap={4}>
+          {!isCityPickerOpen && (
             <>
               <TextInput
                 placeholder="Title"
@@ -361,10 +78,9 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
                 city={city}
                 date={date}
                 setAlartDate={setAlartDate}
-                isBottomSheet={false}
                 onChangeDate={onChangeDate}
                 isCityInputValid={isCityInputValid}
-                onPressSearchTargetCity={onPressSearchTargetCity}
+                onPressSearchTargetCity={openCityPicker}
               />
               <DayOfWeekContainer
                 dayOfWeek={dayOfWeek}
@@ -372,15 +88,17 @@ export function SettingSchedule({ navigation, route }: IHandelScheduleProps) {
               />
             </>
           )}
-          <Button text="Submit" onPress={onSubmit} />
-        </S.Wrapper>
-      </S.Container>
-      {isCitySelected && (
+          <View marginTop={24}>
+            <Button text="Save schedule" onPress={onPressSubmit} />
+          </View>
+        </View>
+      </ScrollView>
+      {isCityPickerOpen && (
         <SearchTarget
           targetList={targetList}
           city={city}
           onChangeCity={onChangeCity}
-          onSubmitCity={onSubmitCity}
+          onSubmitCity={selectCity}
         />
       )}
     </>

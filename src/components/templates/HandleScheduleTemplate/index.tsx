@@ -1,13 +1,19 @@
 import React from 'react';
+import { View } from '@tamagui/core';
 import { SettingSchedule } from 'components';
 import { IHandelScheduleProps} from 'types';
-import * as S from './style';
 
 export function HandleScheduleTemplate({ navigation, route }: IHandelScheduleProps) {
-  console.log('route', route);
   return (
-    <S.Container>
+    <View
+      width="100%"
+      height="100%"
+      backgroundColor="$background"
+      display="flex"
+      flexDirection="column"
+      justifyContent="space-between"
+    >
       <SettingSchedule navigation={navigation} route={route} />
-    </S.Container>
+    </View>
   );
 }

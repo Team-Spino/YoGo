@@ -1,37 +1,34 @@
 import React from 'react';
+import { View } from '@tamagui/core';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
-import {
-  BottomSheetBtn,
-  HeaderCenter,
-  SelectTargetCityBtn,
-  SelectTargetDate,
-} from 'components';
-import * as S from './style';
+import { SelectTargetCityBtn, SelectTargetDate } from 'components';
 
 interface ISetCityAndDateProps {
   city: string;
   date: Date;
   setAlartDate: (date: string) => void;
-  isBottomSheet: boolean;
   isCityInputValid?: boolean;
   onChangeDate: (event: DateTimePickerEvent, date: Date | undefined) => void;
   onPressSearchTargetCity: () => void;
-  onPressFind?: () => void;
 }
 
 export function SetCityAndDate({
   city,
   date,
   setAlartDate,
-  isBottomSheet,
   isCityInputValid,
   onChangeDate,
   onPressSearchTargetCity,
-  onPressFind,
 }: ISetCityAndDateProps) {
   return (
-    <S.Container>
-      {isBottomSheet && <HeaderCenter text={`Search Time Zone`} size={18} />}
+    <View
+      width="100%"
+      flex={1}
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      gap={12}
+    >
       <SelectTargetCityBtn
         onPress={() => onPressSearchTargetCity()}
         city={city}
@@ -40,15 +37,6 @@ export function SetCityAndDate({
         isCityInputValid={isCityInputValid}
       />
       <SelectTargetDate onChangeDate={onChangeDate} date={date} />
-
-      {isBottomSheet && (
-        <BottomSheetBtn
-          text={'FIND'}
-          onPress={function (): void {
-            throw new Error('Function not implemented.');
-          }}
-        />
-      )}
-    </S.Container>
+    </View>
   );
 }

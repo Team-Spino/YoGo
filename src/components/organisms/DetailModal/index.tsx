@@ -1,23 +1,28 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
+import { Text, useTheme } from '@tamagui/core';
 import { useTimeZone } from 'hooks';
 import { ModalHeader, ModalTime, ModalMemo } from 'components';
+import { Card } from 'styles/ui';
+import { useSelectedDay } from 'context';
 import { IScheduleProps } from 'types';
-import * as S from './style';
 
 interface IDetailModalProps {
   isVisible: boolean;
   onCloseDetailPress: () => void;
-  selectedDay: string;
   schedule: IScheduleProps;
 }
 
 export function DetailModal({
   isVisible,
   onCloseDetailPress,
-  selectedDay,
   schedule,
 }: IDetailModalProps) {
+  const { selectedDay } = useSelectedDay();
+  // RN TouchableOpacity의 style 객체는 토큰 문자열을 못 받으므로 실제 값을 읽습니다.
+  const theme = useTheme();
+
   const {
     TITLE,
     DESCRIPTION,
@@ -60,20 +65,39 @@ export function DetailModal({
       onSwipeComplete={onCloseDetailPress}
       coverScreen={true}
     >
-      <S.Container>
-        <S.Content>
-          <ModalHeader tagColor={TAG_COLOR} title={TITLE} />
-          <ModalTime
-            timeData={timeData}
-            leftTime={leftTime}
-            selectedDay={selectedDay}
-          />
-          <ModalMemo description={DESCRIPTION} />
-        </S.Content>
-        <S.Wrapper onPress={onCloseDetailPress}>
-          <S.Text>Close</S.Text>
-        </S.Wrapper>
-      </S.Container>
+      <Card
+        width="100%"
+        flex={0.5}
+        flexDirection="column"
+        overflow="hidden"
+        borderRadius={20}
+      >
+        <ModalHeader tagColor={TAG_COLOR} title={TITLE} />
+        <ModalTime timeData={timeData} leftTime={leftTime} />
+        <ModalMemo description={DESCRIPTION} />
+
+        <TouchableOpacity
+          onPress={onCloseDetailPress}
+          activeOpacity={0.8}
+          style={{
+            position: 'absolute',
+            top: 18,
+            right: 18,
+            width: 34,
+            height: 34,
+            borderRadius: 17,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: theme.backgroundStrong.val,
+            borderWidth: 0.5,
+            borderColor: theme.borderColor.val,
+          }}
+        >
+          <Text fontSize={15} fontWeight="500" color="$colorSubtle">
+            ✕
+          </Text>
+        </TouchableOpacity>
+      </Card>
     </Modal>
   );
 }

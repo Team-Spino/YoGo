@@ -1,14 +1,13 @@
 import React from 'react';
 import { SwipeListView } from 'react-native-swipe-list-view';
+import { View } from '@tamagui/core';
 import { HiddenEditAndDelete, ScheduleCard } from 'components';
 import { useSwipeList } from 'hooks';
 import { IScheduleProps } from 'types';
 import { WINDOW_WIDTH } from 'styles';
-import * as S from './style';
 
 interface ISwipeContentProps {
   data: IScheduleProps[];
-  selectedDay: string;
   onDeleteTarget: (id: number) => Promise<void>;
   onEditTarget: (item: IScheduleProps) => void;
 }
@@ -16,7 +15,6 @@ export const SwipeContent = ({
   data,
   onDeleteTarget,
   onEditTarget,
-  selectedDay,
 }: ISwipeContentProps) => {
   const { deleteRow } = useSwipeList({
     listData: data,
@@ -25,9 +23,9 @@ export const SwipeContent = ({
   });
 
   const renderItem = ({ item, index }: any) => (
-    <S.Container key={index}>
-      <ScheduleCard schedule={item} selectedDay={selectedDay} />
-    </S.Container>
+    <View key={index} width="100%" height={82}>
+      <ScheduleCard schedule={item} />
+    </View>
   );
 
   return (

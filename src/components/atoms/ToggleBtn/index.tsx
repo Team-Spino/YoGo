@@ -1,16 +1,21 @@
 import React from 'react';
-import * as S from './style';
+import { Switch } from 'react-native';
+import { useTheme } from '@tamagui/core';
+
 interface IToggleBtnProps {
   isEnable: boolean;
   onTogglePress: () => void;
 }
 
 export function ToggleBtn({ isEnable, onTogglePress }: IToggleBtnProps) {
+  const theme = useTheme();
+
   return (
-    <S.Button
-      trackColor={{ false: '#767577', true: '#6564CC' }}
+    <Switch
+      trackColor={{ false: '#767577', true: theme.accent.val }}
       onValueChange={onTogglePress}
       value={isEnable}
+      style={{ marginLeft: 10, marginBottom: 5 }}
     />
   );
 }

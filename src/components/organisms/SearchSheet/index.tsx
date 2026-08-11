@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Alert } from 'react-native';
+import { Dimensions, ScrollView } from 'react-native';
+import { View } from '@tamagui/core';
+import { useDialog } from 'context/dialog';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import {
   SearchTarget,
@@ -8,43 +10,33 @@ import {
   HeaderCenter,
   BottomSheetBtn,
 } from 'components';
-import { TZ_DATA_BASES  } from 'utils';
+import { useCitySearch } from 'hooks';
 import { IMakeProps } from 'types';
-import * as S from './style';
+
+const screenHeight = Dimensions.get('screen').height;
 
 interface ISearchBSProps {
   onPress: (submitOnject: IMakeProps) => void;
 }
 export const SearchSheet = ({ onPress }: ISearchBSProps) => {
+  const { alert } = useDialog();
   const [date, setDate] = useState(new Date());
-  const [city, setCity] = useState('');
-  const [isCityInputValid, setIsCityInputValid] = useState(true);
 
-  const [selectedSearchTargetCity, setSelectedSearchTargetCity] =
-    useState<boolean>(false);
+  const {
+    city,
+    targetList,
+    isCityPickerOpen,
+    isCityInputValid,
+    onChangeCity,
+    openCityPicker,
+    selectCity,
+    markCityInvalid,
+  } = useCitySearch();
 
-  const targetList = TZ_DATA_BASES .filter(item =>
-    item.city.toUpperCase().includes(city.toUpperCase()),
-  );
+  const onChangeDate = (event: DateTimePickerEvent, selectedDate?: Date) => {
+    if (!selectedDate) return;
 
-  const onPressSearchTargetCity = () => {
-    setSelectedSearchTargetCity(true);
-    setCity('');
-  };
-
-  const onChangeCity = (text: string) => {
-    setCity(text);
-  };
-
-  const onSubmitCity = (city: string) => {
-    setSelectedSearchTargetCity(false);
-    setIsCityInputValid(true);
-    setCity(city);
-  };
-
-  const onChangeDate = (event: DateTimePickerEvent, selectedDate: Date) => {
-    const currentDate = selectedDate;
-    setDate(currentDate);
+    setDate(selectedDate);
   };
 
   const onSubmit = () => {
@@ -52,38 +44,59 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
       onPress({ TARGET_CITY: city, TARGET_DAY: date });
       return;
     }
-    setIsCityInputValid(false);
+    markCityInvalid();
 
-    Alert.alert('Yogo', 'Please select city');
+    alert('Please select a city first.');
   };
 
   return (
-    <S.SearchBox>
-      {!selectedSearchTargetCity && (
-        <S.ScrollView showsVerticalScrollIndicator={false}>
-          <S.Inner>
+    <View
+      height="100%"
+      width="100%"
+      justifyContent="flex-start"
+      alignItems="center"
+    >
+      {!isCityPickerOpen && (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{ width: '100%', height: '100%' }}
+        >
+          <View
+            width="100%"
+            height={screenHeight * 0.86}
+            flexDirection="column"
+            justifyContent="flex-start"
+            alignItems="center"
+            paddingHorizontal={20}
+          >
             <HeaderCenter text={`Search Time Zone`} size={18} />
             <SelectTargetCityBtn
-              onPress={() => onPressSearchTargetCity()}
+              onPress={openCityPicker}
               city={city}
               isCityInputValid={isCityInputValid}
             />
             <SelectTargetDate onChangeDate={onChangeDate} date={date} />
             <BottomSheetBtn text={'FIND'} onPress={onSubmit} />
-          </S.Inner>
-        </S.ScrollView>
+          </View>
+        </ScrollView>
       )}
 
-      {selectedSearchTargetCity && (
-        <S.Inner>
+      {isCityPickerOpen && (
+        <View
+          width="100%"
+          height={screenHeight * 0.9}
+          flexDirection="column"
+          justifyContent="space-evenly"
+          alignItems="center"
+        >
           <SearchTarget
             targetList={targetList}
             city={city}
             onChangeCity={onChangeCity}
-            onSubmitCity={onSubmitCity}
+            onSubmitCity={selectCity}
           />
-        </S.Inner>
+        </View>
       )}
-    </S.SearchBox>
+    </View>
   );
 };

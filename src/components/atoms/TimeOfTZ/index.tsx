@@ -1,6 +1,5 @@
-import dayjs from 'dayjs';
 import React from 'react';
-import * as S from './style';
+import { View, Text } from '@tamagui/core';
 
 interface ITimeOfTZProps {
   time: string;
@@ -19,9 +18,13 @@ export const TimeOfTZ = ({ time, meridiem, isResult }: ITimeOfTZProps) => {
         meridiem: 16,
       };
   return (
-    <S.Container>
-      <S.Time size={size.time}>{time}</S.Time>
-      <S.Meridiem size={size.meridiem}>{meridiem}</S.Meridiem>
-    </S.Container>
+    <View justifyContent="flex-end" flexDirection="row" alignItems="baseline">
+      <Text color="$color" fontSize={size.time}>
+        {time}
+      </Text>
+      <Text color="$color" marginLeft={5} fontSize={size.meridiem}>
+        {meridiem}
+      </Text>
+    </View>
   );
 };

@@ -1,17 +1,9 @@
 import { useRef, useState } from 'react';
 import { Animated, Dimensions } from 'react-native';
-import { ISwipeDataProps } from '~/types';
+import { ISwipeDataProps } from 'types';
 
 interface IrowTranslateAnimatedValuesType {
   [key: string]: Animated.Value;
-}
-interface IkeyType {
-  key: string | number;
-}
-
-interface IlistDataType {
-  key: string | number[];
-  text: string;
 }
 
 interface IuseSwipeListProps {
@@ -33,11 +25,17 @@ export function useSwipeList({
   onDeleteTarget,
 }: IuseSwipeListProps) {
   /**
-   * list만큼 배열을 만들고 해당하는 key 값에 맞는 animated.vlaue를 만듭니다.
+   * key 값마다 animated value를 하나씩 두고 리렌더 사이에 유지합니다.
+   *
+   * 매 렌더 새로 만들면 진행 중이던 스와이프 애니메이션이 처음으로 되돌아갑니다.
    */
-  const rowTranslateAnimatedValues: IrowTranslateAnimatedValuesType = {};
+  const rowTranslateAnimatedValues =
+    useRef<IrowTranslateAnimatedValuesType>({}).current;
+
   listData?.forEach(({ key }: { key: string }) => {
-    rowTranslateAnimatedValues[`${key}`] = new Animated.Value(1);
+    if (!rowTranslateAnimatedValues[`${key}`]) {
+      rowTranslateAnimatedValues[`${key}`] = new Animated.Value(1);
+    }
   });
 
   /**
@@ -121,78 +119,9 @@ export function useSwipeList({
    * @param rowKey
    */
 
-  const deleteRow = (rowKey: string) => {
-    setNewData(rowKey);
+  const deleteRow = (rowKey: string | number) => {
+    setNewData(String(rowKey));
   };
-
-  /**
-     * renderItem 분리 외부에서 사용해야합니다 예시는 남겨둡니다.
-     * 
-     * @param data 
-     * @returns 
-
-    
-     const renderItem = (data) => (
-        <Animated.View
-            style={[
-                {
-                    height : rowTranslateAnimatedValues[
-                        data.item.key
-                    ].interpolate({
-                        inputRange: [0, 1],
-                        outputRange: [0, 50],
-                    }),
-                },
-            ]}
-        >
-        <TouchableHighlight
-            onPress={() => console.log('You touched me')}
-            style={styles.rowFront}
-            underlayColor={'#AAA'}
-        >
-            <View>
-                <Text>I am {data.item.text} in a SwipeListView</Text>
-            </View>
-        </TouchableHighlight>
-        </Animated.View>
-        );
-     */
-
-  /**
-     *  renderHiddenItem 분리 외부에서 사용해야합니다 예시는 남겨둡니다.
-     * 
-     * @param data 
-     * @param rowMap 
-     * @returns 
-     
-     const renderHiddenItem = (data: { item: { key: string} }, rowMap: any) => (
-     <View style={styles.rowBack}>
-        <TouchableOpacity
-            style={[styles.backRightBtn, styles.backRightBtnRight]}
-            onPress={() => deleteRow(data.item.key)}
-        >
-            <Text style={styles.backTextWhite}>Delete</Text>
-        </TouchableOpacity>
-     </View>
-     );
-    */
-
-  /**
-      * return 분리, 외부에서 사용해야합니다 예시는 남겨둡니다
-     return (
-         <View style={styles.container}>
-             <SwipeListView
-                 disableRightSwipe
-                 data={listData}
-                 renderItem={renderItem}
-                 renderHiddenItem={renderHiddenItem}
-                 rightOpenValue={isOpen}
-                 onSwipeValueChange={onSwipeValueChange}
-                 useNativeDriver={false}
-             />
-         </View>
-     );
-     */
 
   return { rowTranslateAnimatedValues, isOpen, onSwipeValueChange, deleteRow };
 }

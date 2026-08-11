@@ -3,7 +3,7 @@ import Svg, { Path, Rect } from 'react-native-svg';
 
 export function ImgOnBoarding1() {
   return (
-    <Svg width="170" height="170" viewBox="0 0 170 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <Svg width="170" height="170" viewBox="0 0 170 170" fill="none">
     <Rect width="170" height="170" rx="34" fill="white"/>
     <Path d="M25 35V35C32.3366 35 38.2841 40.9475 38.2841 48.2841V101.42V101.42C30.9475 101.42 25 95.4729 25 88.1363V35Z" fill="#6564CC"/>
     <Path d="M25 88.1362H91.4203V101.42H38.2841C30.9475 101.42 25 95.4728 25 88.1362V88.1362Z" fill="#6564CC"/>

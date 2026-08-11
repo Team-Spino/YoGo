@@ -1,9 +1,7 @@
-import { enablePromise, SQLiteDatabase } from 'react-native-sqlite-storage';
+import { LegacyDb } from 'db/connectDB';
 import { ALARM_PERMISSION } from 'utils';
 
-enablePromise(true);
-
-export const createAlarmPermissionTable = async (db: SQLiteDatabase) => {
+export const createAlarmPermissionTable = async (db: LegacyDb) => {
   const query = `
     CREATE TABLE IF NOT EXISTS ${ALARM_PERMISSION}
     (
@@ -15,19 +13,19 @@ export const createAlarmPermissionTable = async (db: SQLiteDatabase) => {
   await db.executeSql(query);
 };
 
-export const inesertAlarmPermission = async (
-  db: SQLiteDatabase,
+export const insertAlarmPermission = async (
+  db: LegacyDb,
   isAgree: number,
 ) => {
   const query = `
     INSERT INTO ${ALARM_PERMISSION} (IS_AGREE)
-    VALUES (${isAgree})
+    VALUES (?)
     `;
 
-  await db.executeSql(query);
+  await db.executeSql(query, [isAgree]);
 };
 
-export const getAlarmPermission = async (db: SQLiteDatabase) => {
+export const getAlarmPermission = async (db: LegacyDb) => {
   try {
     const query = `
         SELECT * FROM ${ALARM_PERMISSION} WHERE key = 1
@@ -42,24 +40,16 @@ export const getAlarmPermission = async (db: SQLiteDatabase) => {
   }
 };
 
-export const deleteAlarmPermission = async (db: SQLiteDatabase) => {
-  const query = `
-        DELETE FROM ${ALARM_PERMISSION} WHERE key = 1
-        `;
-
-  await db.executeSql(query);
-};
-
 export const updateAlarmPermission = async (
-  db: SQLiteDatabase,
+  db: LegacyDb,
   isAgree: number,
 ) => {
   try {
     const query = `
-            UPDATE ${ALARM_PERMISSION} SET IS_AGREE = ${isAgree} WHERE key = 1
+            UPDATE ${ALARM_PERMISSION} SET IS_AGREE = ? WHERE key = 1
             `;
 
-    await db.executeSql(query);
+    await db.executeSql(query, [isAgree]);
   } catch (e) {
     console.error(e);
     throw Error('Error in updateAlarmPermission');

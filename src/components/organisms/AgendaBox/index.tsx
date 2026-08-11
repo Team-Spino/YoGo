@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { CalendarProvider, ExpandableCalendar } from 'react-native-calendars';
-import { RenderEmptyData, SwipeContent, TagFilterContainer } from 'components';
+import { View } from '@tamagui/core';
+import {
+  CalendarStrip,
+  RenderEmptyData,
+  SwipeContent,
+  TagFilterContainer,
+} from 'components';
 import { IScheduleProps, ITagFilter } from 'types';
 import { TAG_FILTER_COLOR } from 'utils';
-import * as S from './style';
-import dayjs from 'dayjs';
-import { Dimensions } from 'react-native';
 
 interface IAgendaProps {
   schedules: Array<IScheduleProps>;
   selectedDay: string;
-  markedDates: object;
+  markedDates: Record<string, unknown>;
   onDayPress: (day: string) => void;
   onDeleteTarget: (id: number) => Promise<void>;
   onEditTarget: (item: IScheduleProps) => void;
@@ -26,7 +28,6 @@ export function AgendaBox({
 }: IAgendaProps) {
   const [selectedTag, setSelectedTag] =
     useState<Array<ITagFilter>>(TAG_FILTER_COLOR);
-  const [isExpand, setIsExpand] = useState<boolean>(false);
 
   const [filteredSchedule, setFilteredSchedule] = useState<
     Array<IScheduleProps>
@@ -51,50 +52,27 @@ export function AgendaBox({
         ? schedules.filter(schedule => schedule.TAG_COLOR === selTag.color)
         : schedules,
     );
-  }, [selectedTag,schedules]);
+  }, [selectedTag, schedules]);
 
   return (
-    <CalendarProvider
-        date={selectedDay}
-        onMonthChange={date => onDayPress(date.dateString)}
-        disabledOpacity={0.6}
-      >
-        <ExpandableCalendar
-          hideArrows
-          style={{
-            top: isExpand ? '0%' : `-6.2%`,
-          }}
-          onCalendarToggled={(isOpen) => {
-            setIsExpand(isOpen);
-          }}
-          minDate={dayjs().format('YYYY-MM-DD')}
-          pastScrollRange={1}
-          futureScrollRange={12}
-          showClosingKnob={true}
-          theme={{
-            dotColor: '#6564CC',
-            selectedDotColor: '#ffffff',
-            selectedDayBackgroundColor: '#6564CC',
-            todayTextColor: '#6564CC',
-          }}
-          onDayPress={day =>  onDayPress(day.dateString)}
-          firstDay={1}
-          markedDates={{...markedDates}}
-        />
-        <S.Content>
-        <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
-        {schedules.length === 0 && (
-          <RenderEmptyData text={'No Schedule'} />
-        )}
-        {schedules.length > 0 && (
-              <SwipeContent
-                data={filteredSchedule}
-                onDeleteTarget={onDeleteTarget}
-                onEditTarget={onEditTarget}
-                selectedDay={selectedDay}
-              />
-        )}
-        </S.Content>
-      </CalendarProvider>
+    <View flex={1}>
+      <CalendarStrip
+        selectedDay={selectedDay}
+        markedDates={markedDates}
+        onDayPress={onDayPress}
+      />
+      {schedules.length === 0 ? (
+        <RenderEmptyData text={'No schedules'} />
+      ) : (
+        <>
+          <TagFilterContainer tags={selectedTag} onTagPress={onTagPress} />
+          <SwipeContent
+            data={filteredSchedule}
+            onDeleteTarget={onDeleteTarget}
+            onEditTarget={onEditTarget}
+          />
+        </>
+      )}
+    </View>
   );
 }

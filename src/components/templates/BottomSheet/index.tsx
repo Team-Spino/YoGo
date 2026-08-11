@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Modal, TouchableWithoutFeedback } from 'react-native';
+import { Modal, TouchableWithoutFeedback, Animated } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { View, useTheme } from '@tamagui/core';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import dayjs from 'dayjs';
 import { ResultSheet, SearchSheet } from 'components';
-import { IconBottomSheetBar } from 'assets';
 import { useBottomSheet } from 'hooks';
 import { IMakeProps, RootStackParamList } from 'types';
-import * as S from './style';
 
 interface ISearchBSProps {
   modalVisible: boolean;
@@ -19,6 +19,8 @@ export const BottomSheet = ({
   setModalVisible,
   navigation,
 }: ISearchBSProps) => {
+  const theme = useTheme();
+  const insets = useSafeAreaInsets();
   const [result, setResult] = useState<boolean>(false);
   const [submitObject, setSubmitObject] = useState<IMakeProps>({
     TARGET_CITY: '',
@@ -62,18 +64,43 @@ export const BottomSheet = ({
       transparent
       statusBarTranslucent
     >
-      <S.Overlay>
+      <View
+        flex={1}
+        justifyContent="flex-end"
+        backgroundColor="rgba(0, 0, 0, 0.4)"
+      >
         <TouchableWithoutFeedback onPress={closeBottomSheet}>
-          <S.Background />
+          <View flex={1} />
         </TouchableWithoutFeedback>
 
-        <S.Container
-          height={screenHeight}
-          isResult={result}
-          style={{ transform: [{ translateY: translateY }] }}
+        <Animated.View
+          style={{
+            // 시트 상단이 다이나믹 아일랜드/상태바에 가리지 않도록 safe-area 위쪽을
+            // 비워 둡니다(그래버가 항상 보이게).
+            height: screenHeight - insets.top - 12,
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            backgroundColor: theme.background.val,
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+            paddingTop: 10,
+            shadowColor: '#000000',
+            shadowOffset: { width: 0, height: -4 },
+            shadowOpacity: 0.1,
+            shadowRadius: 20,
+            elevation: 16,
+            transform: [{ translateY: translateY }],
+          }}
           {...panResponders.panHandlers}
         >
-          <IconBottomSheetBar />
+          <View
+            width={40}
+            height={5}
+            borderRadius={3}
+            marginTop={2}
+            marginBottom={6}
+            backgroundColor="$borderColorStrong"
+          />
           {!result && <SearchSheet onPress={onPressBottomSheetFindBtn} />}
           {result && (
             <ResultSheet
@@ -81,8 +108,8 @@ export const BottomSheet = ({
               submitObject={submitObject}
             />
           )}
-        </S.Container>
-      </S.Overlay>
+        </Animated.View>
+      </View>
     </Modal>
   );
 };

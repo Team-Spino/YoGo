@@ -1,6 +1,7 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
+import { View, Text, useTheme } from '@tamagui/core';
 import { formatCityName } from 'utils';
-import * as S from './style';
 
 interface IBTTargetItemProps {
   id: number;
@@ -14,17 +15,38 @@ interface IBTTargetCityProps {
 }
 
 export function TargetCity({ item, onPress, selectedId }: IBTTargetCityProps) {
-  const backgroundColor = item.id === selectedId ? '#6564CC' : 'transparent';
+  const theme = useTheme();
 
-  const color = item.id === selectedId ? 'white' : 'black';
+  const isSelected = item.id === selectedId;
+
+  const backgroundColor = isSelected
+    ? theme.backgroundStrong.val
+    : 'transparent';
+
+  const color = isSelected ? theme.accent.val : theme.color.val;
 
   return (
-    <S.TouchOpacity onPress={() => onPress(item)}>
-      <S.ListBox>
-        <S.List size={18} style={{ backgroundColor, color }}>
+    <TouchableOpacity
+      onPress={() => onPress(item)}
+      activeOpacity={0.7}
+      style={{ backgroundColor: 'transparent' }}
+    >
+      <View
+        minHeight={56}
+        justifyContent="center"
+        borderBottomWidth={1}
+        borderBottomColor="$borderColor"
+        paddingHorizontal={8}
+        style={{ backgroundColor }}
+      >
+        <Text
+          fontSize={17}
+          fontWeight={isSelected ? '500' : '400'}
+          style={{ color }}
+        >
           {formatCityName(item.city)}
-        </S.List>
-      </S.ListBox>
-    </S.TouchOpacity>
+        </Text>
+      </View>
+    </TouchableOpacity>
   );
 }

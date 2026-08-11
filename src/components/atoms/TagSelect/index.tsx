@@ -1,7 +1,7 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import { IconTick } from 'assets';
 import { ITagListProps } from 'types';
-import * as S from './style';
 
 interface ITagSelectProps {
   tag: ITagListProps;
@@ -14,12 +14,17 @@ export function TagSelect({ tag, onSelectTag }: ITagSelectProps) {
   return (
     <>
       {!isSelected && (
-        <S.Container color={color} onPress={() => onSelectTag(key)} />
+        <TouchableOpacity
+          onPress={() => onSelectTag(key)}
+          style={{ width: 23, height: 23, borderRadius: 23, backgroundColor: color }}
+        />
       )}
       {isSelected && (
-        <S.Container color={color}>
+        <TouchableOpacity
+          style={{ width: 23, height: 23, borderRadius: 23, backgroundColor: color }}
+        >
           <IconTick />
-        </S.Container>
+        </TouchableOpacity>
       )}
     </>
   );
