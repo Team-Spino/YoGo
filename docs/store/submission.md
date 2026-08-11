@@ -120,5 +120,30 @@
 - [ ] Release 빌드에서 개발용 오버레이(디버거 경고 토스트) 미노출 확인
 - [ ] 라이트/다크 양쪽 회귀 확인 (완료 — 스크린샷 참고)
 
+## 7. 빌드·업로드 (EAS)
+
+다른 프로젝트(maeil·dailyreceipt)와 동일하게 **EAS**로 빌드/제출합니다. YOGO는
+bare RN(Expo 아님)이지만 EAS Build/Submit은 bare RN도 지원합니다. 설정은
+루트 `eas.json`에 있습니다(submit: `appleTeamId 2F856BC6C4`, `ascAppId 1626444795`).
+
+```bash
+# 최초 1회: Expo 계정 로그인 (다른 프로젝트와 동일 계정)
+npx eas-cli@latest login
+
+# iOS 프로덕션 클라우드 빌드 (서명은 EAS가 Apple 계정으로 관리)
+npx eas-cli@latest build --platform ios --profile production
+
+# App Store Connect 업로드 (기존 앱 id 1626444795로 올라감)
+npx eas-cli@latest submit --platform ios --profile production
+```
+
+- `appVersionSource: "local"` — 네이티브에 설정한 **2.0.0**을 사용, `autoIncrement`가
+  빌드번호를 올립니다.
+- 첫 빌드 시 `eas`가 iOS 자격증명(인증서/프로비저닝)을 Apple 계정에서 자동
+  생성/관리할지 물어봅니다(대부분 자동으로 두면 됩니다).
+- `⚠️` 클라우드 빌드는 EAS 로그인·Apple 로그인이 필요해 로컬에서 자동 실행 불가 —
+  위 명령을 직접 실행하세요. (로컬 아카이브를 원하면 `eas build --local` 또는 Xcode
+  Archive 후 `eas submit --path <ipa>`도 가능.)
+
 ---
-_생성: 리뉴얼 후 배포 준비 단계. 스크린샷은 iPhone 16 Pro 시뮬레이터(iOS 18.2) 캡처._
+_생성: 리뉴얼 후 배포 준비 단계. 스크린샷은 iPhone 16 Pro / Pro Max 시뮬레이터(iOS 18.2) 캡처._
