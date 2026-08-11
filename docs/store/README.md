@@ -3,7 +3,9 @@
 리뉴얼 후 앱스토어/플레이스토어 제출용 자료입니다.
 
 - 📄 **[submission.md](submission.md)** — 메타데이터·개인정보·심사 노트·제출 체크리스트
-- 🎞️ **[preview-ko/](preview-ko/)** · **[preview-en/](preview-en/)** — 스토어 소개 미리보기(마케팅 헤드라인 포함, 1320×2868)
+- 🎞️ 스토어 소개 미리보기(마케팅 헤드라인 포함) — 슬롯 크기별로 준비:
+  - **6.9"** (1320×2868): **[preview-ko/](preview-ko/)** · **[preview-en/](preview-en/)**
+  - **6.5"** (1242×2688): **[preview-ko-6.5/](preview-ko-6.5/)** · **[preview-en-6.5/](preview-en-6.5/)** — App Store Connect의 6.5" 디스플레이 슬롯용
 - 🖼️ **[screenshots-6.9/](screenshots-6.9/)** — 순수 스크린샷 6.9" (App Store 필수)
 - 🖼️ **[screenshots/](screenshots/)** — 순수 스크린샷 6.3"
 - 🗄️ **[original-2022/](original-2022/)** — 2022년 최초 출시 때 만든 원본 마케팅 이미지(외부 링크로만 남아 있던 것 보존)
