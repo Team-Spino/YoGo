@@ -20,10 +20,8 @@ export function DatePicker({ date, onChangeDate }: IDatePickerProps) {
   const isValid = date instanceof Date && !Number.isNaN(date.getTime());
   const safeDate = !isValid || date < minimumDate ? minimumDate : date;
 
-  // UICalendarView(inline)는 자체 좌우 여백(~10pt)이 있어 폼 필드보다 안쪽으로
-  // 들어갑니다. 음수 마진으로 그 여백을 상쇄해 달력을 필드(좌측 20px)에 맞춥니다.
   return (
-    <TouchableOpacity style={{ width: '100%', marginLeft: -10, marginRight: -10 }}>
+    <TouchableOpacity style={{ width: '100%' }}>
       <DateTimePicker
         testID="dateTimePicker"
         value={safeDate}
