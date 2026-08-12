@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import { Pressable } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { View, useTheme } from '@tamagui/core';
 import {
   FloatingButton,
@@ -21,8 +22,8 @@ export function TimeZone({ navigation }: { navigation: Prop }) {
   const insets = useSafeAreaInsets();
   const { timezones, addTimezone, removeTimezone } = useTimezones();
 
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [timeSearchVisible, setTimeSearchVisible] = useState<boolean>(false);
+  const scheduleSheetRef = useRef<BottomSheetModal>(null);
+  const citySheetRef = useRef<BottomSheetModal>(null);
 
   return (
     <>
@@ -46,7 +47,7 @@ export function TimeZone({ navigation }: { navigation: Prop }) {
             </Eyebrow>
           </View>
           <Pressable
-            onPress={() => setTimeSearchVisible(true)}
+            onPress={() => citySheetRef.current?.present()}
             hitSlop={10}
             style={({ pressed }) => ({ opacity: pressed ? 0.4 : 1 })}
           >
@@ -65,18 +66,10 @@ export function TimeZone({ navigation }: { navigation: Prop }) {
 
         <TimeZoneList cardState={timezones} onDeleteTarget={removeTimezone} />
 
-        <BottomSheet
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-          navigation={navigation}
-        />
-        <SearchTimeBottomSheet
-          modalVisible={timeSearchVisible}
-          setModalVisible={setTimeSearchVisible}
-          selectTarget={addTimezone}
-        />
+        <BottomSheet ref={scheduleSheetRef} navigation={navigation} />
+        <SearchTimeBottomSheet ref={citySheetRef} selectTarget={addTimezone} />
       </Screen>
-      <FloatingButton onPress={() => setModalVisible(true)}>
+      <FloatingButton onPress={() => scheduleSheetRef.current?.present()}>
         <IconSearch color={theme.onInk.val} />
       </FloatingButton>
     </>

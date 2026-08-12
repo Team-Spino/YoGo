@@ -1,54 +1,43 @@
-import React, { useState } from 'react';
-import { Modal, TouchableWithoutFeedback, Animated } from 'react-native';
+import React, { forwardRef, useCallback, useMemo, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { View, useTheme } from '@tamagui/core';
+import { useTheme } from '@tamagui/core';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import dayjs from 'dayjs';
+import {
+  BottomSheetModal,
+  BottomSheetBackdrop,
+  BottomSheetView,
+  useBottomSheetModal,
+} from '@gorhom/bottom-sheet';
 import { ResultSheet, SearchSheet } from 'components';
-import { useBottomSheet } from 'hooks';
 import { IMakeProps, RootStackParamList } from 'types';
 
 interface ISearchBSProps {
-  modalVisible: boolean;
-  setModalVisible: (visible: boolean) => void;
   navigation: NativeStackNavigationProp<RootStackParamList, 'HandleSchedule'>;
 }
 
-export const BottomSheet = ({
-  modalVisible,
-  setModalVisible,
-  navigation,
-}: ISearchBSProps) => {
-  const theme = useTheme();
-  const insets = useSafeAreaInsets();
-  const [result, setResult] = useState<boolean>(false);
-  const [submitObject, setSubmitObject] = useState<IMakeProps>({
-    TARGET_CITY: '',
-    TARGET_DAY: '',
-  });
-
-  const { translateY, screenHeight, panResponders, closeBottomSheet } =
-    useBottomSheet({
-      modalVisible,
-      setModalVisible,
-      setResult,
+export const BottomSheet = forwardRef<BottomSheetModal, ISearchBSProps>(
+  ({ navigation }, ref) => {
+    const theme = useTheme();
+    const insets = useSafeAreaInsets();
+    const { dismiss } = useBottomSheetModal();
+    const [result, setResult] = useState<boolean>(false);
+    const [submitObject, setSubmitObject] = useState<IMakeProps>({
+      TARGET_CITY: '',
+      TARGET_DAY: '',
     });
 
-  const onPressBottomSheetFindBtn = ({
-    TARGET_CITY,
-    TARGET_DAY,
-  }: IMakeProps) => {
-    setSubmitObject({ TARGET_CITY, TARGET_DAY });
-    setResult(true);
-  };
+    const onPressBottomSheetFindBtn = ({ TARGET_CITY, TARGET_DAY }: IMakeProps) => {
+      setSubmitObject({ TARGET_CITY, TARGET_DAY });
+      setResult(true);
+    };
 
-  const onPressBottomSheetMakeBtn = ({
-    TARGET_CITY,
-    TARGET_DAY,
-  }: IMakeProps) => {
-    // 시트를 완전히 닫은 뒤에 화면 전환. 닫기 전에 push하면 투명 모달이 남아
-    // Add 화면 터치를 막아 멈춘 것처럼 보입니다.
-    closeBottomSheet(() => {
+    const onPressBottomSheetMakeBtn = ({
+      TARGET_CITY,
+      TARGET_DAY,
+    }: IMakeProps) => {
+      // 시트를 닫은 뒤 화면 전환(투명 오버레이가 터치를 막는 것 방지).
+      dismiss();
       navigation.push('HandleSchedule', {
         title: 'Add',
         item: {
@@ -57,62 +46,46 @@ export const BottomSheet = ({
           isFromBottomSheet: true,
         } as IMakeProps,
       });
-    });
-  };
+    };
 
-  return (
-    <Modal
-      visible={modalVisible}
-      animationType={'fade'}
-      transparent
-      statusBarTranslucent
-    >
-      <View
-        flex={1}
-        justifyContent="flex-end"
-        backgroundColor="rgba(0, 0, 0, 0.4)"
+    const snapPoints = useMemo(() => ['92%'], []);
+
+    const renderBackdrop = useCallback(
+      (props: any) => (
+        <BottomSheetBackdrop
+          {...props}
+          appearsOnIndex={0}
+          disappearsOnIndex={-1}
+          pressBehavior="close"
+        />
+      ),
+      [],
+    );
+
+    return (
+      <BottomSheetModal
+        ref={ref}
+        snapPoints={snapPoints}
+        topInset={insets.top}
+        enablePanDownToClose
+        backdropComponent={renderBackdrop}
+        backgroundStyle={{ backgroundColor: theme.background.val }}
+        handleIndicatorStyle={{ backgroundColor: theme.borderColorStrong.val }}
+        onDismiss={() => setResult(false)}
       >
-        <TouchableWithoutFeedback onPress={() => closeBottomSheet()}>
-          <View flex={1} />
-        </TouchableWithoutFeedback>
-
-        <Animated.View
-          style={{
-            // 시트 상단이 다이나믹 아일랜드/상태바에 가리지 않도록 safe-area 위쪽을
-            // 비워 둡니다(그래버가 항상 보이게).
-            height: screenHeight - insets.top - 12,
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            backgroundColor: theme.background.val,
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
-            paddingTop: 10,
-            shadowColor: '#000000',
-            shadowOffset: { width: 0, height: -4 },
-            shadowOpacity: 0.1,
-            shadowRadius: 20,
-            elevation: 16,
-            transform: [{ translateY: translateY }],
-          }}
-          {...panResponders.panHandlers}
-        >
-          <View
-            width={40}
-            height={5}
-            borderRadius={3}
-            marginTop={2}
-            marginBottom={6}
-            backgroundColor="$borderColorStrong"
-          />
-          {!result && <SearchSheet onPress={onPressBottomSheetFindBtn} />}
-          {result && (
+        {!result ? (
+          <SearchSheet onPress={onPressBottomSheetFindBtn} />
+        ) : (
+          <BottomSheetView style={{ flex: 1 }}>
             <ResultSheet
               onPress={onPressBottomSheetMakeBtn}
               submitObject={submitObject}
             />
-          )}
-        </Animated.View>
-      </View>
-    </Modal>
-  );
-};
+          </BottomSheetView>
+        )}
+      </BottomSheetModal>
+    );
+  },
+);
+
+BottomSheet.displayName = 'BottomSheet';
