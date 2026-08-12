@@ -1,6 +1,5 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import Modal from 'react-native-modal';
+import { Modal, Pressable, TouchableOpacity } from 'react-native';
 import { Text, useTheme } from '@tamagui/core';
 import { useTimeZone } from 'hooks';
 import { ModalHeader, ModalTime, ModalMemo } from 'components';
@@ -60,18 +59,31 @@ export function DetailModal({
 
   return (
     <Modal
-      isVisible={isVisible}
-      onBackdropPress={onCloseDetailPress}
-      onSwipeComplete={onCloseDetailPress}
-      coverScreen={true}
+      visible={isVisible}
+      transparent
+      animationType="fade"
+      statusBarTranslucent
+      onRequestClose={onCloseDetailPress}
     >
-      <Card
-        width="100%"
-        flex={0.5}
-        flexDirection="column"
-        overflow="hidden"
-        borderRadius={20}
+      {/* 배경 탭으로 닫기. RN 내장 Modal을 써서 react-native-modal(0.73+에서
+          제거된 BackHandler API를 호출해 크래시)을 대체합니다. */}
+      <Pressable
+        onPress={onCloseDetailPress}
+        style={{
+          flex: 1,
+          backgroundColor: 'rgba(0, 0, 0, 0.4)',
+          justifyContent: 'center',
+          paddingHorizontal: 20,
+        }}
       >
+        {/* 카드 탭이 배경으로 전파돼 닫히지 않도록 안쪽 Pressable로 흡수합니다. */}
+        <Pressable onPress={() => {}}>
+          <Card
+            width="100%"
+            flexDirection="column"
+            overflow="hidden"
+            borderRadius={20}
+          >
         <ModalHeader tagColor={TAG_COLOR} title={TITLE} />
         <ModalTime timeData={timeData} leftTime={leftTime} />
         <ModalMemo description={DESCRIPTION} />
@@ -97,7 +109,9 @@ export function DetailModal({
             ✕
           </Text>
         </TouchableOpacity>
-      </Card>
+          </Card>
+        </Pressable>
+      </Pressable>
     </Modal>
   );
 }
