@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Dimensions, ScrollView } from 'react-native';
-import { View } from '@tamagui/core';
+import { TouchableOpacity } from 'react-native';
+import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useDialog } from 'context/dialog';
 import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import {
@@ -8,18 +9,18 @@ import {
   SelectTargetCityBtn,
   SelectTargetDate,
   HeaderCenter,
-  BottomSheetBtn,
 } from 'components';
+import { InkButton, InkButtonText } from 'styles/ui';
 import { useCitySearch } from 'hooks';
 import { IMakeProps } from 'types';
-
-const screenHeight = Dimensions.get('screen').height;
 
 interface ISearchBSProps {
   onPress: (submitOnject: IMakeProps) => void;
 }
+
 export const SearchSheet = ({ onPress }: ISearchBSProps) => {
   const { alert } = useDialog();
+  const insets = useSafeAreaInsets();
   const [date, setDate] = useState(new Date());
 
   const {
@@ -33,9 +34,8 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
     markCityInvalid,
   } = useCitySearch();
 
-  const onChangeDate = (event: DateTimePickerEvent, selectedDate?: Date) => {
+  const onChangeDate = (_e: DateTimePickerEvent, selectedDate?: Date) => {
     if (!selectedDate) return;
-
     setDate(selectedDate);
   };
 
@@ -45,58 +45,47 @@ export const SearchSheet = ({ onPress }: ISearchBSProps) => {
       return;
     }
     markCityInvalid();
-
     alert('Please select a city first.');
   };
 
-  return (
-    <View
-      height="100%"
-      width="100%"
-      justifyContent="flex-start"
-      alignItems="center"
-    >
-      {!isCityPickerOpen && (
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          style={{ width: '100%', height: '100%' }}
-        >
-          <View
-            width="100%"
-            height={screenHeight * 0.86}
-            flexDirection="column"
-            justifyContent="flex-start"
-            alignItems="center"
-            paddingHorizontal={20}
-          >
-            <HeaderCenter text={`Search Time Zone`} size={18} />
-            <SelectTargetCityBtn
-              onPress={openCityPicker}
-              city={city}
-              isCityInputValid={isCityInputValid}
-            />
-            <SelectTargetDate onChangeDate={onChangeDate} date={date} />
-            <BottomSheetBtn text={'FIND'} onPress={onSubmit} />
-          </View>
-        </ScrollView>
-      )}
+  // 도시 선택 화면(리스트)과 폼 화면은 상호배타 — 각각 자체 스크롤을 가집니다.
+  if (isCityPickerOpen) {
+    return (
+      <SearchTarget
+        targetList={targetList}
+        city={city}
+        onChangeCity={onChangeCity}
+        onSubmitCity={selectCity}
+      />
+    );
+  }
 
-      {isCityPickerOpen && (
-        <View
-          width="100%"
-          height={screenHeight * 0.9}
-          flexDirection="column"
-          justifyContent="space-evenly"
-          alignItems="center"
-        >
-          <SearchTarget
-            targetList={targetList}
-            city={city}
-            onChangeCity={onChangeCity}
-            onSubmitCity={selectCity}
-          />
-        </View>
-      )}
-    </View>
+  return (
+    <BottomSheetScrollView
+      contentContainerStyle={{
+        paddingHorizontal: 20,
+        paddingTop: 8,
+        paddingBottom: insets.bottom + 24,
+      }}
+      keyboardShouldPersistTaps="handled"
+      showsVerticalScrollIndicator={false}
+    >
+      <HeaderCenter text={`Search Time Zone`} size={18} />
+      <SelectTargetCityBtn
+        onPress={openCityPicker}
+        city={city}
+        isCityInputValid={isCityInputValid}
+      />
+      <SelectTargetDate onChangeDate={onChangeDate} date={date} />
+      <TouchableOpacity
+        onPress={onSubmit}
+        activeOpacity={0.85}
+        style={{ marginTop: 20 }}
+      >
+        <InkButton>
+          <InkButtonText>FIND</InkButtonText>
+        </InkButton>
+      </TouchableOpacity>
+    </BottomSheetScrollView>
   );
 };

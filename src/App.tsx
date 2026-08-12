@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import BootSplash from 'react-native-bootsplash';
 import { TamaguiProvider } from '@tamagui/core';
 import { PortalProvider } from '@gorhom/portal';
@@ -21,17 +24,23 @@ function App() {
   }, []);
 
   return (
-    <TamaguiProvider config={config} defaultTheme={scheme ?? 'light'}>
-      <FirstLaunchProvider>
-        <SelectedDayProvider>
-          <PortalProvider>
-            <DialogProvider>
-              <RootStack />
-            </DialogProvider>
-          </PortalProvider>
-        </SelectedDayProvider>
-      </FirstLaunchProvider>
-    </TamaguiProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <TamaguiProvider config={config} defaultTheme={scheme ?? 'light'}>
+          <FirstLaunchProvider>
+            <SelectedDayProvider>
+              <PortalProvider>
+                <BottomSheetModalProvider>
+                  <DialogProvider>
+                    <RootStack />
+                  </DialogProvider>
+                </BottomSheetModalProvider>
+              </PortalProvider>
+            </SelectedDayProvider>
+          </FirstLaunchProvider>
+        </TamaguiProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
 
